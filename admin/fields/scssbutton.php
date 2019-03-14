@@ -51,13 +51,10 @@ class JFormFieldSCSSButton extends JFormField
         $doc->addScript('/templates/npeu6/admin/js/scss_compile.js');
         #$input = parent::getInput();
         
-        $button[] = '</div>';
-        $button[] = '<div class="tpl_fallback__toolbar">';
-        $button[] = '   <button id="compile_scss" class="btn btn-success">';
-        $button[] = '      Compile SCSS';
-        $button[] = '   </button>';
-        $button[] = '</div>';
-        $button[] = '<div>';
+        $button[] = '<button id="compile_scss" class="btn btn-success">';
+        $button[] = '    ' . JText::_('TPL_NPEU6_SCSS_COMPILE_BUTTON_BUTTON_TEXT');
+        $button[] = '</button>';
+
         
         $return = implode("\n", $button);
         

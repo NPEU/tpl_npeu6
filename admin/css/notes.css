@@ -4,13 +4,19 @@
 
 
 
-.tpl-notes-body {
+.notes-body {
     clear: both;
     float: left;
+    margin-left: -180px;
     margin-top: 1em;
     
 }
 
+@media (max-width: 480px) {
+    .notes-body {
+        margin-left: 0;
+    }
+}
 
 /*
 .tab-content {

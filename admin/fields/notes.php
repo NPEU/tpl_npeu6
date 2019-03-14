@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die;
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use \Michelf\Markdown;
+
 #JFormHelper::loadFieldClass('list');
 
 /*
@@ -49,11 +53,11 @@ class JFormFieldNotes extends JFormField
         $doc = JFactory::getDocument();
         $doc->addStylesheet('/templates/npeu6/admin/css/notes.css');
         
+        #$help[] = '</div>';
+        $help[] = '<div class="notes-body">';
+        $help[] = Markdown::defaultTransform(JText::_($this->description));
         $help[] = '</div>';
-        $help[] = '<div class="tpl-notes-body">';
-        $help[] = JText::_($this->description);
-        $help[] = '</div>';
-        $help[] = '<div>';
+        #$help[] = '<div>';
         
         $return = implode("\n", $help);
         
