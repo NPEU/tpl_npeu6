@@ -1,0 +1,43 @@
+/*
+    CSS for a toolbar / button group
+*/
+/*
+.tpl_fallback__toolbar {
+    line-height: 2.3;
+}
+
+@media (min-width: 480px) {
+    .tpl_fallback__toolbar {
+        margin-left: -180px;
+    }
+}
+
+@media (min-width: 768px) {
+    .tpl_fallback__toolbar {
+        width: 50%;
+    }
+}
+*/
+
+#jform_params_svg_icons {
+    resize: vertical;
+    width: 100%;
+}
+
+@media (min-width: 480px) {
+
+    #jform_params_svg_icons {
+        margin-top: 2.2em;
+        margin-left: -180px; 
+        width: calc(100% + 160px);
+    }
+}
+
+
+@media (min-width: 768px) {
+    #jform_params_svg_icons {
+        margin-left: -180px; 
+        width: calc(64%);
+        max-width: 520px;
+    }
+}

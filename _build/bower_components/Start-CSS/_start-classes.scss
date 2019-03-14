@@ -1,0 +1,241 @@
+/*! Start CSS Classes. See SCSS file for documentation. */
+/*
+    Resources:
+    *
+*/
+
+.button {
+    @include button;
+}
+
+    // 'Fake' buttons. Over qualified for clarity.
+    .button[data-text][aria-hidden="true"]::before {
+        content: attr(data-text);
+    }
+
+.bordered {
+    @include bordered($fallback--base-line-height, $base-border-width);
+}
+
+
+// Note: the 'collapsible bottom spacing' trick doesn't seem to work if there's no border.
+// Adding a transparent border seems to fix it, as does setting it to an inline-block.
+// Not sure which is the best / most reliable approach at the moment, so leaving both in for ref.
+.padded {
+    //@include bordered($fallback--base-line-height, 1px);
+    //border: 1px solid transparent;
+    
+    @include bordered($fallback--base-line-height, 0);
+    display: inline-block;
+    width: 100%;
+}
+
+
+
+b.subtitle {
+    font-size: 0.8em;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1; // AK: prevent element increasing height of parent.
+}
+
+
+p.subtitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: -1.5rem; // AK: negate heading margin.
+}
+
+.tagline {
+    font-size: 1.14285714286em;
+    margin-top: -1.5rem; // AK: negate heading margin.
+}
+
+.composite {
+    /*
+        For IE9 - make sure there are no spaces between elements in the markup as the
+        as the whitespace won't collapse.
+    */
+    display: inline-block;
+    /* Collapse whitespace */
+    display: inline-flex;
+
+    /*
+        Added for IE9 custom file input (button hiding technique) but safe/useful anyway.
+    */
+    overflow: hidden;
+
+    vertical-align: middle;
+}
+
+    .composite > * {
+        /*
+            This is for IE9 but does no harm elsewhere.
+        */
+        vertical-align: top;
+    }
+
+
+    .composite > *:not(:first-child) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0;
+    }
+
+    .composite > *:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+
+/* CUSTOM INPUTS: RADIOS AND CHECKBOXES */
+
+/* Hide the real inputs: */
+.custom-input[type="checkbox"],
+.custom-input[type="radio"] {
+    display: none;
+}
+
+/* Prepare for positioning the pseudo-elements: */
+.custom-input-label {
+    position: relative;
+    //vertical-align: middle;
+    vertical-align: top;
+
+    /*display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-align-items: center;
+         -ms-flex-align: center;
+           align-items: center;*/
+
+   padding-left: 1.5em;
+}
+
+/* Common psuedo-element styles: */
+.custom-input[type="checkbox"] + .custom-input-label::before,
+.custom-input[type="radio"] + .custom-input-label::before {
+    display: inline-block;
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    background: #ccc;
+    border-radius: 2px;
+    /*margin-right: 0.5rem;*/
+    position: absolute;
+    left: 0;
+    top: 0;
+    
+}
+
+/* Make the radio elements circular: */
+.custom-input[type="radio"] + .custom-input-label::before {
+    border-radius: 50%;
+}
+
+/* Define the checkbox :checked state: */
+.custom-input[type="checkbox"]:checked + .custom-input-label::before {
+    background: $ui-color--base;
+}
+
+/* Define the checkbox 'tick': */
+.custom-input[type="checkbox"]:checked + .custom-input-label::after {
+    content: "";
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.3rem;
+    border: solid #fff;
+    border-width: 0 0 2px 2px;
+
+    position: absolute;
+    left: 0.22em;
+
+    /*top: 0.4em;
+    transform: rotate(-50deg);*/
+
+    top: 50%;
+    -webkit-transform: translate(0px, -80%) rotate(-50deg);
+    -ms-transform: translate(0px, -80%) rotate(-50deg);
+    transform: translate(0px, -80%) rotate(-50deg);
+}
+
+/* Define the radio 'dot': */
+.custom-input[type="radio"]:checked + .custom-input-label::before {
+    background: #fff;
+    border-color: $ui-color--base;
+    border-width: 5px;
+    border-style: solid;
+}
+
+/* Adjustments for end (right) alignment: */
+.custom-input--align-end[type="checkbox"] + .custom-input-label,
+.custom-input--align-end[type="radio"] + .custom-input-label {
+    /*-webkit-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;*/
+    padding-left: 0;
+    padding-right: 1.5em;
+}
+
+.custom-input--align-end[type="checkbox"] + .custom-input-label::before,
+.custom-input--align-end[type="radio"] + .custom-input-label::before {
+    /*margin-right: 0;
+    margin-left: 0.5rem;*/
+    left: auto;
+    right: 0;
+}
+
+.custom-input--align-end[type="checkbox"]:checked + .custom-input-label::after {
+    left: auto;
+    right: 0.22em;
+}
+
+
+
+
+
+
+/* CUSTOM INPUTS: FILE */
+.custom-input-[type="file"] {
+}
+
+    /* -webkit hide the button: */
+    .custom-input[type="file"]::-webkit-file-upload-button {
+        border: 0;
+        padding: 0;
+        margin: 0 ;
+        width: 0;
+        background: transparent;
+    }
+
+    /* Firefox hide the button: */
+    @supports (-moz-appearance:meterbar) {
+        .custom-input[type=file] {
+            text-indent: -5.6em;
+            padding-right: 0.375rem;
+        }
+    }
+
+    /* IE10+ hide the button: */
+    .custom-input[type=file]::-ms-browse {
+        padding: 0;
+        margin: -1px;
+        width: 0;
+        border: 0;
+        background: transparent;
+    }
+
+    /* IE9 hide the button: (https://jeffclayton.wordpress.com/2014/07/22/internet-explorer-css-hacks-collection/) */
+    @media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+        .custom-input[type=file] {
+            margin-right: -6.4em;
+        }
+    }
+
+
+.poem {
+    font-family: cursive;
+    background: #fff;
+    overflow: auto;
+    margin-bottom: $fallback--base-rem-space-unit;
+}

@@ -1,0 +1,43 @@
+/*
+    The `height: 100%;` in the `.card` class below allows the card to fill it's contrain (if inside,
+    say, a list-grid). However, it doesn't work in Safari OSX/iOS.
+    Applying a `card-wrap` class to a list item to make those items flex-containers seems to work
+    ok, but perhaps this wojld be better abstracted as a `fill-height` class or something?
+*/
+
+.card-wrap {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    
+}
+
+    .card-wrap .card {
+        -webkit-flex: 1 0 auto;
+            -ms-flex: 1 0 auto;
+                flex: 1 0 auto;
+        width: 100%;
+    }
+
+    .card {
+        background: #eee;
+        padding: 1.5rem;
+        /*height: 100%;*/
+        
+        outline: 1px solid #ddd;
+        
+        /*max-width: 20em;*/
+        margin: 0 auto;
+    }
+
+        .card__image{
+            text-align: center;
+        }
+
+        .card__body * {
+            margin: 0;
+        }

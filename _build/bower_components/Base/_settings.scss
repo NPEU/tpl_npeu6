@@ -1,0 +1,24 @@
+$fallback--base-include-cleanse-css: false !default;
+
+$fallback--base-font-size: 14px !default;
+$fallback--base-line-height: 24px !default; // 1.25
+
+$fallback--base-em-ratio: $fallback--base-line-height / $fallback--base-font-size; // 1.71428571429
+
+//@debug $fallback--base-line-height;
+//@debug ($fallback--base-line-height / 16px);
+//@debug ($fallback--base-line-height / 16px) * 1rem;
+
+$fallback--base-rem-space-unit: ($fallback--base-line-height / 16px) * 1rem;
+$fallback--base-rem-1px: 1px / 16px * 1rem;
+//$fallback--base-rem-1px: 0.0625rem;
+
+$fallback--base-font-family: sans-serif !default;
+
+$fallback--base-ui-color: #2F4F4F !default; // teal, #008080, rgb(0,128,128)
+
+
+$fallback--base-background-color: #fff !default;
+$fallback--base-text-color: #333 !default; 
+
+$fallback--breakpoint--enhanced: 50em !default;

@@ -1,0 +1,104 @@
+.list-grid {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+    -webkit-box-pack: center;
+       -ms-flex-pack: center;
+     justify-content: center;
+
+    margin-bottom: 1.5rem;
+}
+
+    .list-grid__item {
+             -webkit-flex: 1;
+        -ms-flex-positive: 1;
+                flex-grow: 1;
+
+        -webkit-flex-shrink: 0;
+          -ms-flex-negative: 0;
+                flex-shrink: 0;
+
+             -webkit-flex-basis: auto;
+        -ms-flex-preferred-size: auto;
+                     flex-basis: auto;
+
+    }
+
+.list-grid--basis-20 .list-grid__item {
+         -webkit-flex-basis: 20em;
+    -ms-flex-preferred-size: 20em;
+                 flex-basis: 20em;
+    max-width: 30em;
+ /* 1.5x width */
+}
+/* @TODO make breakpoint a variable *//*
+@media only screen and (min-width: 480px) {
+
+
+
+
+    .list-grid--2-cols .list-grid__item {
+        width: 50%;
+    }
+
+}*/
+/*
+.list-grid--right {
+      -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.list-grid--center {
+      -ms-flex-pack: center;
+    justify-content: center;
+}
+*/
+
+.list-grid--gutter-small {
+    margin-left: -0.375rem;
+    margin-right: -0.375rem;
+}
+
+.list-grid--gutter-small .list-grid__item {
+    padding: 0 0.375rem 0.75rem 0.375rem;
+}
+
+.list-grid--gutter-large {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+.list-grid--gutter-large .list-grid__item {
+    padding: 0 0.75rem 1.5rem 0.75rem;
+}
+
+
+
+
+/*
+    Turn off buggy flexbox for IE 10-11, reverting to inline-block:
+    (Actually flexbox in IE10-11 seems to work ok)
+*//*
+_:-ms-input-placeholder, :root .list-grid {
+    display: block;
+    letter-spacing: -1em;
+}
+
+_:-ms-input-placeholder, :root .list-grid__item {
+    display: inline-block;
+    letter-spacing: normal;
+    vertical-align: top;
+}
+
+_:-ms-input-placeholder, :root .list-grid--right {
+    text-align: right;
+}
+
+_:-ms-input-placeholder, :root .list-grid--center {
+    text-align: center;
+}*/

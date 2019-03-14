@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="template" version="3.2.0" client="site">
+
+    <name>TPL_NPEU6</name>
+    <author>Andy Kirk</author>
+    <authorEmail>andy.kirk@npeu.ox.ac.uk</authorEmail>
+    <authorUrl>https://www.npeu.ox.ac.uk</authorUrl>
+    <creationDate>March 2019</creationDate>
+    <copyright>(C) NPEU 2019</copyright>
+    <license>MIT License; see LICENSE.md</license>
+
+    <!--  The version string is recorded in the components table -->
+    <version>1.0.0</version>
+    <!-- The description is optional and defaults to the name -->
+    <description>TPL_NPEU6_DESCRIPTION</description>
+
+    <group>npeutemplate</group>
+    <identifiedName>tpl_npeu6</identifiedName>
+
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="NPEU: tpl_npeu6 Update Site">https://raw.githubusercontent.com/NPEU/tpl_npeu6/master/update-manifest.xml</server>
+    </updateservers>
+
+
+    <files>
+        <folder>_build</folder>
+        <folder>admin</folder>
+        <folder>ajax</folder>
+        <folder>css</folder>
+        <folder>html</folder>
+        <folder>language</folder>
+        <filename>index.html</filename>
+        <filename>index.php</filename>
+        <filename>templateDetails.xml</filename>
+    </files>
+
+
+    <positions>
+        <position>top-bar</position>
+        <position>banner</position>
+        <position>nav-bar</position>
+        <position>breadcrumbs</position>
+        <position>announcements</position>
+        <position>cookie-control</position>
+        <position>footer</position>
+    </positions>
+
+    <config>
+        <fields
+            name="params"
+            addfieldpath="/templates/tpl_npeu6/admin/fields"
+            >
+            <fieldset
+                name="main"
+                label="TPL_NPEU6_MAIN_LEGEND"
+            >
+                <field
+                    name="sitetitle"
+                    type="text"
+                    default=""
+                    label="TPL_NPEU6_MAIN_SITETITLE_LABEL"
+                    description="TPL_NPEU6_MAIN_SITETITLE_DESC"
+                    filter="string"
+                />
+                <field
+                    name="sitedescription"
+                    type="text"
+                    default=""
+                    label="TPL_NPEU6_MAIN_SITEDESC_LABEL"
+                    description="TPL_NPEU6_MAIN_SITEDESC_DESC"
+                    filter="string"
+                />
+            </fieldset>
+            <fieldset
+                name="scss"
+                label="TPL_NPEU6_SCSS_LEGEND"
+            >
+                <field
+                    name="compile_scss"
+                    type="scssbutton"
+                    class=""
+                    label=""
+                    description=""
+                />
+                <field
+                    name="base-ui-color"
+                    class=""
+                    type="color"
+                    default="#08C"
+                    label="TPL_NPEU6_SCSS_VAR_BASE_UI_COLOUR_LABEL"
+                    description="TPL_NPEU6_SCSS_VAR_BASE_UI_COLOUR_DESC"
+                />
+                <field
+                    type="helptext"
+                    description="TPL_NPEU6_SCSS_HELP_TEXT"
+                />
+            </fieldset>
+            <fieldset
+                name="icons"
+                label="TPL_NPEU6_ICONS_LEGEND"
+            >
+                <field
+                    name="svg-icons"
+                    class=""
+                    type="textarea"
+                    label="TPL_NPEU6_ICONS_LABEL"
+                    description="TPL_NPEU6_ICONS_DESC"
+                    rows="20"
+                    cols="25"
+                    default="&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; display=&quot;none&quot;&gt;&#10;
+    &lt;symbol id=&quot;icon-triangle-down&quot; viewBox=&quot;0 0 12 16&quot;&gt;&#10;
+        &lt;path d=&quot;M1,6h10l-5,5L1,6z&quot;&gt;&lt;/path&gt;&#10;
+    &lt;/symbol&gt;&#10;
+    &lt;symbol id=&quot;icon-cross&quot; viewBox=&quot;0 0 16 16&quot;&gt;&#10;
+        &lt;path d=&quot;M15.5,2L14,0.5l-6,6l-6-6L0.5,2l6,6l-6,6L2,15.5l6-6l6,6l1.5-1.5l-6-6L15.5,2z&quot;&gt;&lt;/path&gt;&#10;
+    &lt;/symbol&gt;&#10;
+    &lt;symbol id=&quot;icon-menu&quot; viewBox=&quot;0 0 16 16&quot;&gt;&#10;
+        &lt;rect x=&quot;0&quot; width=&quot;16&quot; height=&quot;3&quot;/&gt;&#10;
+        &lt;rect x=&quot;0&quot; y=&quot;6&quot; width=&quot;16&quot; height=&quot;3&quot;/&gt;&#10;
+        &lt;rect y=&quot;12&quot; width=&quot;16&quot; height=&quot;3&quot;/&gt;&#10;
+    &lt;/symbol&gt;&#10;
+    &lt;!-- Other &lt;symbol&gt;s? --&gt;&#10;
+&lt;/svg&gt;"
+                />
+                <field
+                    type="helptext"
+                    description="TPL_NPEU6_ICONS_HELP_TEXT"
+                />
+            </fieldset>
+        </fields>
+    </config>
+
+</extension>

@@ -1,0 +1,12 @@
+@function minus1px($value) {
+    $unit: unit($value);
+    @if ($unit == px) {
+      @return $value - 1;
+    } @elseif ($unit == em or $unit == rem) {
+      @return $value - (1 / 16);
+    }
+    @else {
+      @error 'Unit `#{$unit}` not supported.';
+  }
+}
+
