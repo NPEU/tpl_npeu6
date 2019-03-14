@@ -13,4 +13,6 @@ To manually execute Bower update you need to have PHP installed and run:
 
 `php vendor/beelab/bowerphp/bin/bowerphp install` from this directtory.
 
-Note that the intention is that this is not run locally, but by the templates build process, but it's useful to know how things work manually.
+Note that the intention is that this is run locally - we want to develop the template, including usage of dependancies, in a safe environment with a Styleguide-first approach.
+
+Once the SCSS etc is committed to the template via update, it's fine for the server to build the final CSS (indeed it has to), but it wouldn't be good introduce changes to the SCSS or dependancies in this way.
