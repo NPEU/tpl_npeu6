@@ -1,5 +1,5 @@
+// Fall-Back SVG Pattern v1.0.0
 /*------------------------------------------------------------------------------------------------*\
-    Fall-Back SVG Pattern v1.0
 
     Clarification for self:
     Since this pattern is intented for use on logos, and since logos are an integral part of
@@ -7,7 +7,7 @@
     The markup is really important to provide an image of the logo even if CSS fails or is cut.
 
     However, since these patterns are intended for use with the CSS Mustard Cut (original) then
-    styles for older browsers can be omitted her since they won't load.
+    styles for older browsers are omitted here since they won't load.
 \*------------------------------------------------------------------------------------------------*/
 
 $fallback-svg--fixed-height:      100px !default;
@@ -48,6 +48,21 @@ $fallback-svg--link-bg-color-alt: transparent !default;
 	padding: 0;
 }
 
+/*
+    Set the default link styles based on the settings.
+    The mixin allows variants to be easily generated.
+*/
+@mixin svg__link(
+    $bg-color          : $fallback-svg--link-bg-color,
+    $bg-color-alt      : $fallback-svg--link-bg-color-alt,
+    $border-width      : $fallback-svg--border-width,
+    $border-width--alt : $fallback-svg--border-width--alt,
+    $border-style      : $fallback-svg--border-style,
+    $border-style--alt : $fallback-svg--border-style--alt,
+    $border-color      : $fallback-svg--border-color,
+    $border-color--alt : $fallback-svg--border-color--alt
+) {
+
     /*
         1. Make the link fit the content.
         2. Provide positioning context for the pseudo element.
@@ -78,6 +93,8 @@ $fallback-svg--link-bg-color-alt: transparent !default;
         border-style: $fallback-svg--border-style--alt;
         border-color: $fallback-svg--border-color--alt;
     }
+}
+@include svg__link();
 
     /*
         Objects inside links prevent the link from functioning, this hack fixes
@@ -146,7 +163,12 @@ $fallback-svg--link-bg-color-alt: transparent !default;
     */
 
 
-@mixin svg--fixed-height($height, $name:"svg--fixed-height", $padding:$fallback-svg--padding, $border:$fallback-svg--border-width) {
+@mixin svg--fixed-height(
+    $height  : $fallback-svg--fixed-height,
+    $name    : "svg--fixed-height",
+    $padding : $fallback-svg--padding,
+    $border  : $fallback-svg--border-width
+) {
     @if $padding > 0 {
 
         .#{$name} {
@@ -163,7 +185,6 @@ $fallback-svg--link-bg-color-alt: transparent !default;
         }
 
         .#{$name} .svg__link {
-            padding: $padding;
             -webkit-box-sizing: content-box;
             -moz-box-sizing: content-box;
             box-sizing: content-box;
@@ -177,7 +198,6 @@ $fallback-svg--link-bg-color-alt: transparent !default;
             height: $height;
             max-height: $height;
         }
-
     }
 
     /*
@@ -198,14 +218,27 @@ $fallback-svg--link-bg-color-alt: transparent !default;
         height: auto;
         //_height: $height; /* [1] */
     }
+    
+    .#{$name} .svg__link {
+        padding: $padding;
+        border-width: $border;
+    }
+    
+    .#{$name} .svg__link:hover,
+    .#{$name} .svg__link:active,
+    .#{$name} .svg__link:focus {
+        border-width: $border;
+    }
 }
 
-@include svg--fixed-height($fallback-svg--fixed-height);
+@include svg--fixed-height();
 
 
 /*------ Fluid ------*/
 //@mixin svg-fluid($height, $name:"svg--fixed-height", $padding:$fallback-svg--padding, $border:$fallback-svg--border-width) {
-@mixin svg--fluid($name:"svg--fluid") {
+@mixin svg--fluid(
+    $name : "svg--fluid"
+) {
     /*
        1. Force the svg wrapper and link to fill their containers.
     */

@@ -26,7 +26,7 @@ final class Versions
   'symfony/polyfill-mbstring' => 'v1.10.0@c79c051f5b3a46be09205c73b80b346e4153e494',
   'symfony/process' => 'v3.4.23@009f8dda80930e89e8344a4e310b08f9ff07dd2e',
   'vierbergenlars/php-semver' => '3.0.2@be22b86be4c1133acc42fd1685276792024af5f9',
-  'npeu/npeu6_build' => '9999999-dev@898b230c11e7285ac23c628a77ef40986decd48f',
+  'npeu/npeu6_build' => '9999999-dev@995abacb69d5a9f51c7ddb2e9530a683d9a6da73',
 );
 
     private function __construct()

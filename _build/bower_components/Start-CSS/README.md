@@ -46,3 +46,6 @@ To Do
 * Lots of tidying up especially in the comments (I tried to source/keep track of basically every line so I'd know why it was there)
 * Documenation (as always)
 * Adding some conditionals where necessary to allow features to be turned off. 
+
+* https://github.com/necolas/normalize.css/commit/55ed05a79c0fd7a9a2c330c6925b982a7d5b307c#diff-bb3dde41d97f19be8ab7b4780a915d5e
+* https://github.com/necolas/normalize.css/commit/5d728b83a5ee6ee3e9e3158a28d6369718014e0c#diff-bb3dde41d97f19be8ab7b4780a915d5e

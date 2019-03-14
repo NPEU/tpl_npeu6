@@ -1,0 +1,250 @@
+/*
+    Colour contrast from https://gist.github.com/FStop/8959422
+    
+    Usage:
+    @if color_contrast($colour, #fff) < 2 {
+        color: #333;
+    }
+    @else{
+        color: #fff;
+    }
+*/
+/* Awesome contrast ratio function
+* via https://gist.github.com/voxpelli/6304812
+**/
+/*------------------------------------------------------------------------------------------------*    Fall-Back Icons v1.0.0
+    
+    Designed for use with the basic [CSS Mustard Cut](https://github.com/Fall-Back/CSS-Mustard-Cut)
+    IE 9+, FF 8+, Opera 12, [Chrome 29+, Android ~4.4+]
+    Chrome 29+, Opera 16+, Safari 6.1+, iOS 7+, Android ~4.4+
+    
+\*------------------------------------------------------------------------------------------------*/
+/*
+
+
+    <!-- At the top of each page: -->
+    <svg xmlns="http://www.w3.org/2000/svg" display="none">
+        <symbol id="icon-triangle-down" viewBox="0 0 12 16">
+            <path d="M1,6h10l-5,5L1,6z"></path>
+        </symbol>
+        <symbol id="icon-cross" viewBox="0 0 16 16">
+            <path d="M15.5,2L14,0.5l-6,6l-6-6L0.5,2l6,6l-6,6L2,15.5l6-6l6,6l1.5-1.5l-6-6L15.5,2z"></path>
+        </symbol>
+        <symbol id="icon-menu" viewBox="0 0 16 16">
+            <rect x="0" width="16" height="3"/>
+            <rect x="0" y="6" width="16" height="3"/>
+            <rect y="12" width="16" height="3"/>
+        </symbol>
+        <!-- Other <symbol>s... -->
+    </svg>
+    
+    
+    <!-- Where it's needed: -->
+    <svg width="0" height="0" class="icon  icon--narrow" aria-label="About Us Submenu"><use xlink:href="#icon-triangle-down"></use></svg>
+    <!-- Note the aria-label can be removed if equivelent text is already present or the icon is visual only -->
+
+*/
+/*
+    1. Override display attribute.
+*/
+.icon {
+  display: inline;
+  /* [1] */
+  fill: currentColor;
+  width: 1.14285714286em;
+  height: 1.14285714286em;
+  /*width: 1.71428571429em;
+    height: 1.71428571429em;*/
+  /* No idea why, exactly, but this seems to be the best position, we long as we ... */
+  /* ... prevent the icon affecting line-height: */
+  /*
+    -webkit-transform: scale(0.666);
+    -moz-transform: scale(0.666);
+    -ms-transform: scale(0.666);
+    transform: scale(0.666);*/ }
+
+.icon--narrow {
+  /*margin: -0.5em -0.25em;*/
+  width: 0.85714285714em; }
+
+_:-o-prefocus, :root .icon {
+  vertical-align: middle; }
+
+/*
+.icon symbol {
+    width: 1.14285714286em;
+    height: 1.14285714286em;
+}*/
+/*
+    No transform support for Opera Mini, so hack it back to 16px with ems.
+    Note, since Opera Mini doesn't support line-height, it will be vertically centered anyway.
+    1. Hack also affects Opera 12 which is supported by the Original Mustard Cut, so turning off
+       transform for this. Slight difference in position acceptable (lower).
+*/
+/*
+_:-o-prefocus, :root .icon {
+    width: 1.14285714286em;
+    height: 1.14285714286em;
+    transform: none; /* [1] *
+}*/
+.icon-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+/*-------------------------------------------------------------------------------------------------|
+    Fall-Back Start-CSS Settings v1.0.0
+
+    Fall-Back is designed for use with the basic
+    [CSS Mustard Cut](https://github.com/Fall-Back/CSS-Mustard-Cut)
+    
+    This determines a browser support base of:
+    
+    IE 9+, FF 8+, Opera 12, [Chrome 29+, Android ~4.4+]
+    Chrome 29+, Opera 16+, Safari 6.1+, iOS 7+, Android ~4.4+
+    
+    
+    Any double-classing (e.g. `.class.class`) is deliberate and intended to increase specificity.
+    This allows any applicable Start-CSS declarations to be overridden.
+    E.g. `.{pattern} .{pattern}__child` would `a[href]`, but just `.{pattern}` wouldn't, so we use
+    `.{pattern}.{pattern}`
+    
+|-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------|
+    Fall-Back Search Form Pattern v2.0.0
+|-------------------------------------------------------------------------------------------------*/
+/* -- Basic/fallback layout --------------------------------------------------------------------- */
+/* -- .search-form ---------------------------------------------------------------------------*/
+/*
+        1. Prevent extra bottom space when form is inside a container.
+    */
+.search-form.search-form {
+  background: #663399;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  width: 100%;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  vertical-align: top; }
+
+@media screen and (min--moz-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+  .search-form.search-form {
+    display: block; } }
+
+@supports (-moz-appearance: none) and (list-style-type: japanese-formal) {
+  .search-form.search-form {
+    display: flex; } }
+
+.search-form.search-form::before,
+.search-form.search-form::after {
+  content: " ";
+  display: table; }
+
+.search-form.search-form::after {
+  clear: both; }
+
+.search-form---restrict-width {
+  max-width: 25em; }
+
+/* -------------------------------------------------------------------------------------------*/
+/* -- .search-form__field --------------------------------------------------------------------*/
+/*
+        1. Override default size attr value - mainly for Opera mini which wierdley needs both
+           width AND min-width.
+    */
+.search-form .search-form__field {
+  position: relative;
+  z-index: 1;
+  border-radius: 0;
+  border: 0;
+  background-color: #fff;
+  color: #333;
+  height: 1.5em;
+  line-height: 1.5em;
+  margin: 0.1875em 0 0.1875em 0.1875em;
+  padding: 0.1875em;
+  float: left;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 1%;
+  /* [1] */
+  min-width: 1%;
+  /* [1] */ }
+
+@media screen and (min--moz-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+  .search-form .search-form__field {
+    width: auto; } }
+
+@supports (-moz-appearance: none) and (list-style-type: japanese-formal) {
+  .search-form .search-form__field {
+    width: 1%; } }
+
+.search-form .search-form__field:focus {
+  background-color: #ffffdc; }
+
+/* -------------------------------------------------------------------------------------------*/
+/* -- .search-form__submit -------------------------------------------------------------------*/
+/*
+    */
+.search-form .search-form__submit {
+  position: relative;
+  z-index: 1;
+  border-radius: 0;
+  border: 0;
+  background: #e6d9f2;
+  color: #333;
+  height: 1.875em;
+  line-height: 0;
+  margin: 0.1875em 0.1875em 0.1875em 0;
+  padding: 0 0.375em;
+  float: left;
+  -moz-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto; }
+
+.search-form .search-form__submit:hover,
+.search-form .search-form__submit:focus {
+  background-color: #e6d9f2; }
+
+/*.search-form .search-form__submit svg {
+            height: $fallback--search-form--field-height;
+            width: $fallback--search-form--field-height;
+        }*/
+/* -------------------------------------------------------------------------------------------*/
+/* -----------------------------------------------------------------------------------------------*/
+/* ********************************************************************************************** */
+/* -- Enhanced layout --------------------------------------------------------------------------- */
+@media only screen and (max-width: 49.9375em) {
+  .search-form .search-form__collapse {
+    width: 100%; } }
+
+@media only screen and (min-width: 50em) {
+  /*
+            1. Reinstate all flexbox for enhanced view as no wrapping needs to occure
+            (FF8-27 issue describbed above)
+        */
+  .search-form.search-form {
+    display: -moz-box;
+    /* [1] */
+    display: flex;
+    /* [1] */
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap; }
+  .search-form .search-form__field {
+    width: auto; } }
+
+/* ---------------------------------------------------------------------------------------------- */

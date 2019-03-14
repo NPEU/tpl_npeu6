@@ -1,14 +1,18 @@
 {
     "name": "NPEU6",
     "description": "This file lists all the front-end packages required for the project.",
+    "homepage": "https://github.com/NPEU/tpl_npeu6",
     "dependencies": {
-        "Base": "https:\/\/github.com\/Fall-Back\/Base.git#latest",
-        "Start-CSS": "https:\/\/github.com\/Fall-Back\/Start-CSS.git#latest",
-        "Over-Panel": "https:\/\/github.com\/Fall-Back\/Over-Panel.git#latest",
-        "Nav-Bar": "https:\/\/github.com\/Fall-Back\/Nav-Bar.git#latest",
-        "Search-Form": "https:\/\/github.com\/Fall-Back\/Search-Form.git#latest",
-        "Sticky-Footer": "https:\/\/github.com\/Fall-Back\/Sticky-Footer.git#latest",
-        "SVG": "https:\/\/github.com\/Fall-Back\/SVG.git#latest",
-        "Cookie-Notice": "https:\/\/github.com\/Fall-Back\/Cookie-Notice.git#latest"
+        "Fall-Back-Base":          "https://github.com/Fall-Back/Base.git#latest",
+        "Fall-Back-Start-CSS":     "https://github.com/Fall-Back/Start-CSS.git#latest",
+        "Fall-Back-Search-Form":   "https://github.com/Fall-Back/Search-Form.git#latest",
+        "Fall-Back-Over-Panel":    "https://github.com/Fall-Back/Over-Panel.git#latest",
+        "Fall-Back-Nav-Bar":       "https://github.com/Fall-Back/Nav-Bar.git#latest",
+        "Fall-Back-Dropdown":      "https://github.com/Fall-Back/Dropdown.git#latest",
+        "Fall-Back-Sticky-Footer": "https://github.com/Fall-Back/Sticky-Footer.git#latest",
+        "Fall-Back-Cookie-Notice": "https://github.com/Fall-Back/Cookie-Notice.git#latest",
+        "Fall-Back-SVG":           "https://github.com/Fall-Back/SVG.git#latest",
+        "NPEU-display-patterns":   "https://github.com/NPEU/display-patterns.git#latest",
+        "NPEU-layout-patterns":    "https://github.com/NPEU/layout-patterns.git#latest"
     }
 }

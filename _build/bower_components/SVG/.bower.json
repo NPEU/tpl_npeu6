@@ -1,3 +1,17 @@
 {
-    "version": "master"
+    "name": "Fall-Back-SVG",
+    "version": "master",
+    "homepage": "https://github.com/Fall-Back/SVG",
+    "authors": [
+        "Andy Kirk <andy.kirk@gridlight-design.co.uk>"
+    ],
+    "description": "A pattern to include SVG's in the best possible way without penalising any particular user group.",
+    "main": "_svg.scss",
+    "ignore": [],
+    "keywords": [
+        "fallback",
+        "css",
+        "svg"
+    ],
+    "license": "Apache"
 }

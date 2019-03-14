@@ -1,0 +1,39 @@
+/*
+
+*/
+
+$utility-links__item--spacing: 0.25rem !default;
+
+.utility-links {
+    &#{&} {
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        
+        -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+        
+        list-style-type: none;
+    }
+        
+        .utility-links__item {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .utility-links__item:not(:first-child) {
+                margin-left: 1em;
+            }
+
+
+        .utility-links__item:not(:first-child)::before {
+            content: "\00a0|"; 
+            margin-left: $utility-links__item--spacing;
+            margin-right: $utility-links__item--spacing;
+        }
+        
+            .utility-links__link {
+                
+            }
+}

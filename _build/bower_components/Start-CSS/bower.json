@@ -1,19 +1,17 @@
 {
     "name": "Start-CSS",
-    "version": "0.0.1",
+    "version": "3.0.0",
     "homepage": "https://github.com/Fall-Back/Start-CSS",
     "authors": [
-        "Andy Kirk <andy.kirk@gridlight-design.co.uk>"
+        "Andy Kirk <andy@andykirk.net>"
     ],
     "description": "A CSS starting point",
-    "main": "_start.scss",
+    "main": "dist/_start.scss",
     "ignore":[],
     "keywords": [
         "fallback",
         "css"
     ],
     "license": "Apache",
-    "dependencies": {
-        "Fall-Back-Base": "https://github.com/Fall-Back/Base.git"
-    }
+    "dependencies": {}
 }

@@ -1,3 +1,17 @@
 {
-    "version": "master"
+    "name": "Start-CSS",
+    "version": "master",
+    "homepage": "https://github.com/Fall-Back/Start-CSS",
+    "authors": [
+        "Andy Kirk <andy@andykirk.net>"
+    ],
+    "description": "A CSS starting point",
+    "main": "dist/_start.scss",
+    "ignore": [],
+    "keywords": [
+        "fallback",
+        "css"
+    ],
+    "license": "Apache",
+    "dependencies": []
 }
