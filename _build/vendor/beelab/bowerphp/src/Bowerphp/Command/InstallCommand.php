@@ -36,7 +36,7 @@ class InstallCommand extends Command
             ->setDescription('Installs the project dependencies from the bower.json file or a single specified package')
             ->addOption('save', 'S', InputOption::VALUE_NONE, 'Add installed package to bower.json file.')
             ->addArgument('package', InputArgument::OPTIONAL, 'Choose a package.')
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 The <info>%command.name%</info> command reads the bower.json file from
 the current directory, processes it, and downloads and installs all the
 libraries and dependencies outlined in that file.
@@ -73,7 +73,7 @@ EOT
             if (is_null($packageName)) {
                 $bowerphp->installDependencies($installer);
             } else {
-                if (substr($packageName, -10) === 'bower.json') {
+                if ('bower.json' === substr($packageName, -10)) {
                     if (!is_readable($packageName)) {
                         $output->writeln(sprintf('<error>Cannot read file %s</error>', $packageName));
 
@@ -97,7 +97,7 @@ EOT
             }
         } catch (\RuntimeException $e) {
             $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
-            if ($e->getCode() == GithubRepository::VERSION_NOT_FOUND && !empty($package)) {
+            if (GithubRepository::VERSION_NOT_FOUND == $e->getCode() && !empty($package)) {
                 $output->writeln(sprintf('Available versions: %s', implode(', ', $bowerphp->getPackageInfo($package, 'versions'))));
             }
 
@@ -105,5 +105,7 @@ EOT
         }
 
         $output->writeln('');
+
+        return 0;
     }
 }

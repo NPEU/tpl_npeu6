@@ -2,8 +2,6 @@
 
 namespace Bowerphp\Repository;
 
-use Bowerphp\Util\ArrayColumn;
-use Bowerphp\Util\Json;
 use Github\Client;
 use Github\ResultPager;
 use RuntimeException;
@@ -24,7 +22,7 @@ class GithubRepository implements RepositoryInterface
     /**
      * @var array
      */
-    protected $tag = array('name' => null);
+    protected $tag = ['name' => null];
 
     /**
      * @var Client
@@ -45,7 +43,7 @@ class GithubRepository implements RepositoryInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getUrl()
     {
@@ -60,7 +58,7 @@ class GithubRepository implements RepositoryInterface
     {
         $this->githubClient = $githubClient;
         // see https://developer.github.com/changes/2015-04-17-preview-repository-redirects/
-        $this->githubClient->getHttpClient()->setHeaders(array('Accept' => 'application/vnd.github.quicksilver-preview+json'));
+        $this->githubClient->getHttpClient()->setHeaders(['Accept' => 'application/vnd.github.quicksilver-preview+json']);
 
         return $this;
     }
@@ -70,24 +68,24 @@ class GithubRepository implements RepositoryInterface
      */
     public function getBower($version = 'master', $includeHomepage = false, $url = '')
     {
-        if ($version == '*') {
+        if ('*' == $version) {
             $version = 'master';
         }
         if (!empty($url)) {
             // we need to save current $this->url
             $oldUrl = $this->url;
             // then, we call setUrl(), to get the http url
-            $this->setUrl($url, true);
+            $this->setUrl($url);
         }
         $json = $this->getDepBowerJson($version);
         if ($includeHomepage) {
             $array = json_decode($json, true);
             if (!empty($url)) {
                 // here, we set again original $this->url, to pass it in bower.json
-                $this->setUrl($oldUrl, true);
+                $this->setUrl($oldUrl);
             }
             $array['homepage'] = $this->url;
-            $json = Json::encode($array);
+            $json = json_encode($array, JSON_PRETTY_PRINT);
         }
 
         return $json;
@@ -100,25 +98,27 @@ class GithubRepository implements RepositoryInterface
     {
         list($repoUser, $repoName) = explode('/', $this->clearGitURL($this->url));
         $paginator = new ResultPager($this->githubClient);
-        $tags = $paginator->fetchAll($this->githubClient->api('repo'), 'tags', array($repoUser, $repoName));
+        $tags = $paginator->fetchAll($this->githubClient->api('repo'), 'tags', [$repoUser, $repoName]);
 
         // edge case: package has no tags
-        if (count($tags) === 0) {
-            return 'master';
+        if (0 === count($tags)) {
+            $this->tag['name'] = 'master';
+
+            return $this->tag['name'];
         }
 
         // edge case: user asked for latest package
-        if ($rawCriteria == 'latest' || $rawCriteria == '*' || empty($rawCriteria)) {
+        if ('latest' == $rawCriteria || '*' == $rawCriteria || empty($rawCriteria)) {
             $sortedTags = $this->sortTags($tags);
             $this->tag = end($sortedTags);
 
             return $this->tag['name'];
         }
 
-        // edge case for versions vith slash (like ckeditor). See also issue #120
+        // edge case for versions with slash (like ckeditor). See also issue #120
         if (strpos($rawCriteria, '/') > 0) {
-            $tagNames = ArrayColumn::array_column($tags, 'name');
-            if (false !== $tag = array_search($rawCriteria, $tagNames)) {
+            $tagNames = array_column($tags, 'name');
+            if (false !== $tag = array_search($rawCriteria, $tagNames, true)) {
                 $this->tag = $tag;
 
                 return $rawCriteria;
@@ -170,10 +170,10 @@ class GithubRepository implements RepositoryInterface
     {
         list($repoUser, $repoName) = explode('/', $this->clearGitURL($this->url));
         $paginator = new ResultPager($this->githubClient);
-        $tags = $paginator->fetchAll($this->githubClient->api('repo'), 'tags', array($repoUser, $repoName));
+        $tags = $paginator->fetchAll($this->githubClient->api('repo'), 'tags', [$repoUser, $repoName]);
         // edge case: no tags
-        if (count($tags) === 0) {
-            return array();
+        if (0 === count($tags)) {
+            return [];
         }
 
         $sortedTags = $this->sortTags($tags);  // Filters out bad tag specs
@@ -197,14 +197,14 @@ class GithubRepository implements RepositoryInterface
             $isPackageJson = true;
             if ($contents->exists($repoUser, $repoName, 'package.json', $version)) {
                 $json = $contents->download($repoUser, $repoName, 'package.json', $version);
-            } elseif ($version != 'master') {
+            } elseif ('master' != $version) {
                 return $this->getDepBowerJson('master');
             }
             // try anyway. E.g. exists() return false for Modernizr, but then it downloads :-|
             $json = $contents->download($repoUser, $repoName, 'package.json', $version);
         }
 
-        if (substr($json, 0, 3) == "\xef\xbb\xbf") {
+        if ("\xef\xbb\xbf" == substr($json, 0, 3)) {
             $json = substr($json, 3);
         }
 
@@ -214,30 +214,31 @@ class GithubRepository implements RepositoryInterface
             if (isset($array['dependencies'])) {
                 unset($array['dependencies']);
             }
-            $json = Json::encode($array);
+            $json = json_encode($array, JSON_PRETTY_PRINT);
         }
 
         return $json;
     }
 
     /**
-     * @param  string
+     * @param string $url
+     *
      * @return string
      */
     private function clearGitURL($url)
     {
-        $partsToClean = array(
+        $partsToClean = [
             'git://',
             'git@github.com:',
             'https://',
             'github.com/',
             'raw.githubusercontent.com/',
-        );
+        ];
         foreach ($partsToClean as $part) {
             $url = str_replace($part, '', $url);
         }
 
-        if (substr($url, -4) == '.git') {
+        if ('.git' == substr($url, -4)) {
             $url = substr($url, 0, -4);
         }
 
@@ -249,7 +250,8 @@ class GithubRepository implements RepositoryInterface
      * The only flaw I've seen in the semver lib we're using,
      * and the regex's in there are too complicated to mess with.
      *
-     * @param  string $rawValue
+     * @param string $rawValue
+     *
      * @return string
      */
     private function fixupRawTag($rawValue)
@@ -259,13 +261,13 @@ class GithubRepository implements RepositoryInterface
         }
         // WHY NOT SCRUB OUT PLUS SIGNS, RIGHT?
         $foundIt = strpos($rawValue, '+');
-        if ($foundIt !== false) {
+        if (false !== $foundIt) {
             $rawValue = substr($rawValue, 0, $foundIt);
         }
-        $rawValue = strtr($rawValue, array('.alpha' => '-alpha', '.beta' => '-beta', '.dev' => '-dev'));
+        $rawValue = strtr($rawValue, ['.alpha' => '-alpha', '.beta' => '-beta', '.dev' => '-dev']);
         $pieces = explode('.', $rawValue);
         $count = count($pieces);
-        if ($count == 0) {
+        if (0 == $count) {
             $pieces[] = '0';
             $count = 1;
         }
@@ -285,7 +287,7 @@ class GithubRepository implements RepositoryInterface
      */
     private function sortTags(array $tags, $excludeUnstables = true)
     {
-        $return = array();
+        $return = [];
 
         // Don't include invalid tags
         foreach ($tags as $tag) {

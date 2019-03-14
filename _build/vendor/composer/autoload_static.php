@@ -4,9 +4,10 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita4eff05bbb0e844a35faf031763b8f82
+class ComposerStaticInite9f68ff7a839e9bfb668837aa49c2322
 {
     public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
 
@@ -14,11 +15,18 @@ class ComposerStaticInita4eff05bbb0e844a35faf031763b8f82
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\Console\\' => 26,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'PackageVersions\\' => 16,
         ),
         'L' => 
         array (
@@ -39,6 +47,10 @@ class ComposerStaticInita4eff05bbb0e844a35faf031763b8f82
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
         'Symfony\\Component\\Process\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
@@ -55,9 +67,21 @@ class ComposerStaticInita4eff05bbb0e844a35faf031763b8f82
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
         'Symfony\\Component\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'PackageVersions\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/samsonasik/package-versions/src/PackageVersions',
         ),
         'Leafo\\ScssPhp\\' => 
         array (
@@ -96,13 +120,6 @@ class ComposerStaticInita4eff05bbb0e844a35faf031763b8f82
                 0 => __DIR__ . '/..' . '/guzzle/guzzle/src',
             ),
         ),
-        'C' => 
-        array (
-            'Camspiers' => 
-            array (
-                0 => __DIR__ . '/..' . '/camspiers/json-pretty/src',
-            ),
-        ),
     );
 
     public static $classMap = array (
@@ -116,10 +133,10 @@ class ComposerStaticInita4eff05bbb0e844a35faf031763b8f82
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita4eff05bbb0e844a35faf031763b8f82::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita4eff05bbb0e844a35faf031763b8f82::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita4eff05bbb0e844a35faf031763b8f82::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita4eff05bbb0e844a35faf031763b8f82::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite9f68ff7a839e9bfb668837aa49c2322::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite9f68ff7a839e9bfb668837aa49c2322::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInite9f68ff7a839e9bfb668837aa49c2322::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite9f68ff7a839e9bfb668837aa49c2322::$classMap;
 
         }, null, ClassLoader::class);
     }

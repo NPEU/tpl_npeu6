@@ -26,11 +26,6 @@ interface ConfigInterface
     /**
      * @return string
      */
-    public function getAllPackagesUrl();
-
-    /**
-     * @return string
-     */
     public function getCacheDir();
 
     /**
@@ -53,7 +48,8 @@ interface ConfigInterface
     /**
      * Init project's bower.json file
      *
-     * @param  array $params
+     * @param array $params
+     *
      * @return int
      */
     public function initBowerJsonFile(array $params);
@@ -61,7 +57,8 @@ interface ConfigInterface
     /**
      * Update project's bower.json with a new added package
      *
-     * @param  Package $package
+     * @param PackageInterface $package
+     *
      * @return int
      */
     public function updateBowerJsonFile(PackageInterface $package);
@@ -69,8 +66,9 @@ interface ConfigInterface
     /**
      * Update project's bower.json from a previous existing one
      *
-     * @param  array $old values of previous bower.json
-     * @param  array $new new values
+     * @param array $old values of previous bower.json
+     * @param array $new new values
+     *
      * @return int
      */
     public function updateBowerJsonFile2(array $old, array $new);
@@ -79,7 +77,8 @@ interface ConfigInterface
      * Get content from project's bower.json file
      *
      * @return array
-     * @throws Exception if bower.json does not exist
+     *
+     * @throws \Exception if bower.json does not exist
      */
     public function getBowerFileContent();
 
@@ -88,23 +87,27 @@ interface ConfigInterface
      * Each element's key is a package name, and contains an array of other package names
      * and versions that should replace the dependencies found in that package's canonical bower.json
      *
-     * @return array The overrides section from the bower.json file, or an empty array if no overrides section is defined.
+     * @return array The overrides section from the bower.json file, or an empty array if no overrides section is defined
      */
     public function getOverridesSection();
 
     /**
      * Get the array of overrides defined for the specified package
      *
-     * @param  string $packageName The name of the package for which dependencies are being overridden.
-     * @return array  A list of dependency name => override versions to be used instead of the target package's normal dependencies.  An empty array if none are defined.
+     * @param string $packageName The name of the package for which dependencies are being overridden
+     *
+     * @return array A list of dependency name => override versions to be used instead of the target package's normal dependencies.  An empty array if none are defined
      */
     public function getOverrideFor($packageName);
 
     /**
      * Get content from a packages' bower.json file
      *
+     * @param PackageInterface $package
+     *
      * @return array
-     * @throws Exception if bower.json or package.json does not exist in a dir of installed package
+     *
+     * @throws \Exception if bower.json or package.json does not exist in a dir of installed package
      */
     public function getPackageBowerFileContent(PackageInterface $package);
 

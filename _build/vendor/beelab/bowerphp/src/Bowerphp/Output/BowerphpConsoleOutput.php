@@ -13,7 +13,6 @@ namespace Bowerphp\Output;
 
 use Bowerphp\Bowerphp;
 use Bowerphp\Package\PackageInterface;
-use Bowerphp\Util\Json;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class BowerphpConsoleOutput
@@ -32,11 +31,15 @@ class BowerphpConsoleOutput
      * writelnInfoPackage
      *
      * @param PackageInterface $package
+     * @param string           $action
+     * @param string           $message
      */
-    public function writelnInfoPackage(PackageInterface $package)
+    public function writelnInfoPackage(PackageInterface $package, $action = '', $message = '')
     {
-        $this->output->writeln(sprintf('bower <info>%s</info>',
-            str_pad($package->getName() . '#' . $package->getRequiredVersion(), 21, ' ', STR_PAD_RIGHT)
+        $this->output->writeln(sprintf('bower <info>%s</info> <fg=cyan>%s</fg=cyan> %s',
+            str_pad($package->getName() . '#' . $package->getRequiredVersion(), 21, ' ', STR_PAD_RIGHT),
+            str_pad($action, 10, ' ', STR_PAD_LEFT),
+            $message
         ));
     }
 
@@ -58,10 +61,11 @@ class BowerphpConsoleOutput
      */
     public function writelnNoBowerJsonFile()
     {
-        $this->output->writeln(sprintf('bower <info>%s</info> <fg=yellow>%s</fg=yellow> %s',
+        $this->output->writeln(sprintf(
+            'bower <info>%s</info> <fg=yellow>%s</fg=yellow> %s',
             str_pad('', 21, ' ', STR_PAD_RIGHT),
             str_pad('no-json', 10, ' ', STR_PAD_LEFT),
-            'No bower.json file to save to, use bower init to create one', 10, ' ', STR_PAD_LEFT
+            'No bower.json file to save to, use bower init to create one'
         ));
     }
 
@@ -85,7 +89,7 @@ class BowerphpConsoleOutput
      */
     public function writelnJsonText($jsonPart)
     {
-        $this->output->writeln(sprintf('<fg=cyan>%s</fg=cyan>', Json::encode($jsonPart)));
+        $this->output->writeln(sprintf('<fg=cyan>%s</fg=cyan>', json_encode($jsonPart, JSON_PRETTY_PRINT)));
     }
 
     /**
@@ -93,6 +97,7 @@ class BowerphpConsoleOutput
      *
      * @param string $name
      * @param string $homepage
+     * @param int    $pad
      */
     public function writelnSearchOrLookup($name, $homepage, $pad = 0)
     {
@@ -103,6 +108,7 @@ class BowerphpConsoleOutput
      * writelnListPackage
      *
      * @param PackageInterface $package
+     * @param Bowerphp         $bowerphp
      */
     public function writelnListPackage(PackageInterface $package, Bowerphp $bowerphp)
     {

@@ -12,7 +12,9 @@
 namespace Bowerphp\Console;
 
 use Bowerphp\Command;
+use Bowerphp\Command\Helper\QuestionHelper;
 use Bowerphp\Util\ErrorHandler;
+use PackageVersions\Versions;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,7 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Application extends BaseApplication
 {
     /**
-     * @var Bowerphp
+     * @var \Bowerphp\Bowerphp
      */
     protected $bowerphp;
 
@@ -44,7 +46,8 @@ class Application extends BaseApplication
     public function __construct()
     {
         ErrorHandler::register();
-        parent::__construct('Bowerphp', '0.3 Powered by BeeLab (bee-lab.net)');
+        $version = Versions::getVersion('beelab/bowerphp');
+        parent::__construct('Bowerphp', $version . ' Powered by BeeLab (github.com/bee-lab)');
     }
 
     /**
@@ -52,10 +55,6 @@ class Application extends BaseApplication
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        if (version_compare(PHP_VERSION, '5.3.2', '<')) {
-            $output->writeln('<warning>Bowerphp only officially supports PHP 5.3.2 and above, you will most likely encounter problems with your PHP ' . PHP_VERSION . ', upgrading is strongly recommended.</warning>');
-        }
-
         if ($input->hasParameterOption('--profile')) {
             $startTime = microtime(true);
         }
@@ -91,7 +90,7 @@ class Application extends BaseApplication
      */
     protected function getDefaultCommands()
     {
-        return array(
+        return [
             new Command\HelpCommand(),
             new Command\CommandListCommand(),
             new Command\HomeCommand(),
@@ -103,7 +102,7 @@ class Application extends BaseApplication
             new Command\SearchCommand(),
             new Command\UpdateCommand(),
             new Command\UninstallCommand(),
-        );
+        ];
     }
 
     /**
@@ -124,22 +123,19 @@ class Application extends BaseApplication
     protected function getDefaultHelperSet()
     {
         $helperSet = parent::getDefaultHelperSet();
-        if (class_exists('Symfony\Component\Console\Helper\DialogHelper')) {
-            $helperSet->set(new \Bowerphp\Command\Helper\DialogHelper());
-        } else {
-            $helperSet->set(new \Bowerphp\Command\Helper\QuestionHelper());
-        }
+        $helperSet->set(new QuestionHelper());
 
         return $helperSet;
     }
 
     /**
      * @param  InputInterface    $input
+     * @return string
      * @throws \RuntimeException
      */
     private function getNewWorkingDir(InputInterface $input)
     {
-        $workingDir = $input->getParameterOption(array('--working-dir', '-d'));
+        $workingDir = $input->getParameterOption(['--working-dir', '-d']);
         if (false !== $workingDir && !is_dir($workingDir)) {
             throw new \RuntimeException('Invalid working directory specified.');
         }
@@ -159,7 +155,7 @@ class Application extends BaseApplication
      */
     private function symfonyDoRun(InputInterface $input, OutputInterface $output, $default = 'list-commands')
     {
-        if (true === $input->hasParameterOption(array('--version', '-V'))) {
+        if (true === $input->hasParameterOption(['--version', '-V'])) {
             $output->writeln($this->getLongVersion());
 
             return 0;
@@ -167,18 +163,19 @@ class Application extends BaseApplication
 
         $name = $this->getCommandName($input);
 
-        if (true === $input->hasParameterOption(array('--help', '-h'))) {
+        if (true === $input->hasParameterOption(['--help', '-h'])) {
             if (!$name) {
                 $name = 'help';
-                $input = new ArrayInput(array('command' => 'help'));
+                $input = new ArrayInput(['command' => 'help']);
             } else {
+                // TODO $wantHelps is private in parent class
                 $this->wantHelps = true;
             }
         }
 
         if (!$name) {
             $name = $default;
-            $input = new ArrayInput(array('command' => $default));
+            $input = new ArrayInput(['command' => $default]);
         }
 
         // the command name MUST be the first element of the input

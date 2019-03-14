@@ -32,7 +32,7 @@ class InfoCommand extends Command
             ->setDescription('Displays overall information of a package or of a particular version')
             ->addArgument('package', InputArgument::REQUIRED, 'Choose a package.')
             ->addArgument('property', InputArgument::OPTIONAL, 'A property present in bower.json.')
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 The <info>%command.name%</info> command displays overall information of a package or of a particular version.
 If you pass a property present in bower.json, you can get the correspondent value.
 
@@ -58,7 +58,7 @@ EOT
         $bowerphp = $this->getBowerphp($output);
 
         $bowerJsonFile = $bowerphp->getPackageBowerFile($package);
-        if ($packageNameVersion->version == '*') {
+        if ('*' == $packageNameVersion->version) {
             $versions = $bowerphp->getPackageInfo($package, 'versions');
         }
         if (!is_null($property)) {
@@ -69,7 +69,7 @@ EOT
             return;
         }
         $this->consoleOutput->writelnJson($bowerJsonFile);
-        if ($packageNameVersion->version != '*') {
+        if ('*' != $packageNameVersion->version) {
             return;
         }
         $output->writeln('');

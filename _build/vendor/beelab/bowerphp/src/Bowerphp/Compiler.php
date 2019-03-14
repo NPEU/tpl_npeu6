@@ -71,12 +71,15 @@ class Compiler
             ->exclude('Tests')
             ->in(__DIR__ . '/../../vendor/symfony/')
             ->in(__DIR__ . '/../../vendor/guzzle/guzzle/src/')
-            ->in(__DIR__ . '/../../vendor/camspiers/json-pretty/src/')
             ->in(__DIR__ . '/../../vendor/knplabs/github-api/lib/')
+            ->in(__DIR__ . '/../../vendor/samsonasik/package-versions/src/PackageVersions/')
             ->in(__DIR__ . '/../../vendor/vierbergenlars/php-semver/src/vierbergenlars/LibJs/')
             ->in(__DIR__ . '/../../vendor/vierbergenlars/php-semver/src/vierbergenlars/SemVer/')
-            ->in(__DIR__ . '/../../vendor/hamcrest/hamcrest-php/hamcrest/')
         ;
+        // required only for php<7
+        if (is_dir(__DIR__ . '/../../vendor/ircmaxell/password-compat/lib/')) {
+            $finder->in(__DIR__ . '/../../vendor/ircmaxell/password-compat/lib/');
+        }
 
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
@@ -88,6 +91,7 @@ class Compiler
         $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_namespaces.php'));
         $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_classmap.php'));
         $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_real.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_static.php'));
         if (file_exists(__DIR__ . '/../../vendor/composer/include_paths.php')) {
             $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/include_paths.php'));
         }
@@ -110,9 +114,9 @@ class Compiler
     }
 
     /**
-     * @param Phar        $phar
-     * @param SplFileInfo $file
-     * @param bool        $strip
+     * @param \Phar        $phar
+     * @param \SplFileInfo $file
+     * @param bool         $strip
      */
     private function addFile(\Phar $phar, \SplFileInfo $file, $strip = true)
     {
@@ -129,7 +133,7 @@ class Compiler
     }
 
     /**
-     * @param Phar $phar
+     * @param \Phar $phar
      */
     private function addBin(\Phar $phar)
     {
@@ -154,7 +158,7 @@ class Compiler
         foreach (token_get_all($source) as $token) {
             if (is_string($token)) {
                 $output .= $token;
-            } elseif (in_array($token[0], array(T_COMMENT, T_DOC_COMMENT))) {
+            } elseif (in_array($token[0], [T_COMMENT, T_DOC_COMMENT], true)) {
                 $output .= str_repeat("\n", substr_count($token[1], "\n"));
             } elseif (T_WHITESPACE === $token[0]) {
                 // reduce wide spaces

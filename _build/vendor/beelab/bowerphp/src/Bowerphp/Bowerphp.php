@@ -23,6 +23,8 @@ use Guzzle\Http\Exception\RequestException;
 use InvalidArgumentException;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
+use vierbergenlars\SemVer\expression;
+use vierbergenlars\SemVer\version;
 
 /**
  * Main class
@@ -42,8 +44,13 @@ class Bowerphp
      * @param RepositoryInterface   $repository
      * @param BowerphpConsoleOutput $output
      */
-    public function __construct(ConfigInterface $config, Filesystem $filesystem, Client $githubClient, RepositoryInterface $repository, BowerphpConsoleOutput $output)
-    {
+    public function __construct(
+        ConfigInterface $config,
+        Filesystem $filesystem,
+        Client $githubClient,
+        RepositoryInterface $repository,
+        BowerphpConsoleOutput $output
+    ) {
         $this->config = $config;
         $this->filesystem = $filesystem;
         $this->githubClient = $githubClient;
@@ -60,7 +67,7 @@ class Bowerphp
     {
         if ($this->config->bowerFileExists()) {
             $bowerJson = $this->config->getBowerFileContent();
-            $this->config->setSaveToBowerJsonFile(true);
+            $this->config->setSaveToBowerJsonFile();
             $this->config->updateBowerJsonFile2($bowerJson, $params);
         } else {
             $this->config->initBowerJsonFile($params);
@@ -76,7 +83,7 @@ class Bowerphp
      */
     public function installPackage(PackageInterface $package, InstallerInterface $installer, $isDependency = false)
     {
-        if (strpos($package->getName(), 'github') !== false) {
+        if (false !== strpos($package->getName(), 'github')) {
             // install from a github endpoint
             $name = basename($package->getName(), '.git');
             $repoUrl = $package->getName();
@@ -98,6 +105,7 @@ class Bowerphp
 
         // if package is already installed, match current version with latest available version
         if ($this->isPackageInstalled($package)) {
+            $this->output->writelnInfoPackage($package, 'validate', sprintf('%s against %s#%s', $packageTag, $package->getName(), $package->getRequiredVersion()));
             $packageBower = $this->config->getPackageBowerFileContent($package);
             if ($packageTag == $packageBower['version']) {
                 // if version is fully matching, there's no need to install
@@ -105,12 +113,9 @@ class Bowerphp
             }
         }
 
-        $this->output->writelnInfoPackage($package);
-
-        $this->output->writelnInstalledPackage($package);
-
         $this->cachePackage($package);
 
+        $this->output->writelnInstalledPackage($package);
         $installer->install($package);
 
         $overrides = $this->config->getOverrideFor($package->getName());
@@ -124,7 +129,7 @@ class Bowerphp
                 $depPackage = new Package($name, $version);
                 if (!$this->isPackageInstalled($depPackage)) {
                     $this->installPackage($depPackage, $installer, true);
-                } else {
+                } elseif ($this->isNeedUpdate($depPackage)) {
                     $this->updatePackage($depPackage, $installer);
                 }
             }
@@ -141,7 +146,7 @@ class Bowerphp
         $decode = $this->config->getBowerFileContent();
         if (!empty($decode['dependencies'])) {
             foreach ($decode['dependencies'] as $name => $requiredVersion) {
-                if (strpos($requiredVersion, 'github') !== false) {
+                if (false !== strpos($requiredVersion, 'github')) {
                     list($name, $requiredVersion) = explode('#', $requiredVersion);
                 }
                 $package = new Package($name, $requiredVersion);
@@ -175,6 +180,8 @@ class Bowerphp
         $package->setRequires(isset($bower['dependencies']) ? $bower['dependencies'] : null);
 
         $packageTag = $this->getPackageTag($package);
+        $this->output->writelnInfoPackage($package, 'validate', sprintf('%s against %s#%s', $packageTag, $package->getName(), $package->getRequiredVersion()));
+
         $package->setRepository($this->repository);
         if ($packageTag == $package->getVersion()) {
             // if version is fully matching, there's no need to update
@@ -182,10 +189,9 @@ class Bowerphp
         }
         $package->setVersion($packageTag);
 
-        $this->output->writelnUpdatingPackage($package);
-
         $this->cachePackage($package);
 
+        $this->output->writelnUpdatingPackage($package);
         $installer->update($package);
 
         $overrides = $this->config->getOverrideFor($package->getName());
@@ -199,7 +205,7 @@ class Bowerphp
                 $depPackage = new Package($name, $requiredVersion);
                 if (!$this->isPackageInstalled($depPackage)) {
                     $this->installPackage($depPackage, $installer, true);
-                } else {
+                } elseif ($this->isNeedUpdate($depPackage)) {
                     $this->updatePackage($depPackage, $installer);
                 }
             }
@@ -232,13 +238,13 @@ class Bowerphp
 
         $this->repository->setHttpClient($this->githubClient);
 
-        if ($info == 'url') {
+        if ('url' == $info) {
             $this->repository->setUrl($decode['url'], false);
 
             return $this->repository->getUrl();
         }
 
-        if ($info == 'versions') {
+        if ('versions' == $info) {
             $tags = $this->repository->getTags();
             usort($tags, function ($a, $b) {
                 return version_compare($b, $a);
@@ -329,7 +335,10 @@ class Bowerphp
     }
 
     /**
-     * {@inheritdoc}
+     * @param PackageInterface $package
+     * @param bool             $checkInstall
+     *
+     * @return bool
      */
     public function isPackageExtraneous(PackageInterface $package, $checkInstall = false)
     {
@@ -339,7 +348,6 @@ class Bowerphp
         try {
             $bower = $this->config->getBowerFileContent();
         } catch (RuntimeException $e) { // no bower.json file, package is extraneous
-
             return true;
         }
         if (!isset($bower['dependencies'])) {
@@ -377,16 +385,16 @@ class Bowerphp
      */
     protected function createAClearBowerFile(array $params)
     {
-        $authors = array('Beelab <info@bee-lab.net>');
+        $authors = ['Beelab <info@bee-lab.net>'];
         if (!empty($params['author'])) {
             $authors[] = $params['author'];
         }
-        $structure = array(
+        $structure = [
             'name'         => $params['name'],
             'authors'      => $authors,
             'private'      => true,
             'dependencies' => new \StdClass(),
-        );
+        ];
 
         return $structure;
     }
@@ -442,6 +450,8 @@ class Bowerphp
      */
     private function cachePackage(PackageInterface $package)
     {
+        $this->output->writelnInfoPackage($package, 'download');
+
         // get release archive from repository
         $file = $this->repository->getRelease();
 
@@ -462,5 +472,19 @@ class Bowerphp
                 $this->output->writelnNoBowerJsonFile();
             }
         }
+    }
+
+    /**
+     * Update only if needed is greater version
+     *
+     * @param  PackageInterface $package
+     * @return bool
+     */
+    public function isNeedUpdate($package)
+    {
+        $packageBower = $this->config->getPackageBowerFileContent($package);
+        $semver = new version($packageBower['version']);
+
+        return !$semver->satisfies(new expression($package->getRequiredVersion()));
     }
 }

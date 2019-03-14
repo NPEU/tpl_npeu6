@@ -27,7 +27,7 @@ class InitCommand extends Command
         $this
             ->setName('init')
             ->setDescription('Initializes a bower.json file')
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 The <info>%command.name%</info> command initializes a bower.json file in
 the current directory.
 
@@ -44,35 +44,21 @@ EOT
     {
         $this->setGithubToken($output);
 
-        $author = sprintf('%s <%s>', $this->getGitInfo('user.name'), $this->getGitInfo('user.email'));
+        $author = sprintf('%s <%s>', $this->getGitInfo(), $this->getGitInfo('user.email'));
 
-        $params = array('name' => get_current_user(), 'author' => $author);
+        $params = ['name' => get_current_user(), 'author' => $author];
 
         // @codeCoverageIgnoreStart
         if ($input->isInteractive()) {
-            if (class_exists('Symfony\Component\Console\Helper\DialogHelper')) {
-                $dialog = $this->getHelperSet()->get('dialog');
-                $params['name'] = $dialog->ask(
-                    $output,
-                    $dialog->getQuestion('Please specify a name for project', $params['name']),
-                    $params['name']
-                );
-                $params['author'] = $dialog->ask(
-                    $output,
-                    $dialog->getQuestion('Please specify an author', $params['author']),
-                    $params['author']
-                );
-            } else {
-                $dialog = $this->getHelperSet()->get('question');
+            $dialog = $this->getHelperSet()->get('question');
 
-                $params['name'] = $dialog->ask(
-                    $input, $output, $dialog->getQuestion('Please specify a name for project', $params['name'])
-                );
+            $params['name'] = $dialog->ask(
+                $input, $output, $dialog->getQuestion('Please specify a name for project', $params['name'])
+            );
 
-                $params['author'] = $dialog->ask(
-                    $input, $output, $dialog->getQuestion('Please specify an author', $params['author'])
-                );
-            }
+            $params['author'] = $dialog->ask(
+                $input, $output, $dialog->getQuestion('Please specify an author', $params['author'])
+            );
         }
         // @codeCoverageIgnoreEnd
         $bowerphp = $this->getBowerphp($output);
@@ -84,16 +70,16 @@ EOT
     /**
      * Get some info from local git
      *
-     * @param  string $info info type
-     * @return string
+     * @param  string      $info info type
+     * @return string|null
      */
     private function getGitInfo($info = 'user.name')
     {
-        $output = array();
+        $output = [];
         $return = 0;
         $info = exec("git config --get $info", $output, $return);
 
-        if ($return === 0) {
+        if (0 === $return) {
             return $info;
         }
     }

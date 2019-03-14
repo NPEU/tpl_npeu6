@@ -26,7 +26,7 @@ interface PackageInterface
     /**
      * Set the version of this package
      *
-     * @param string version
+     * @param string $version
      */
     public function setVersion($version);
 
@@ -40,7 +40,7 @@ interface PackageInterface
     /**
      * Set the required version of this package
      *
-     * @param string version
+     * @param string $version
      */
     public function setRequiredVersion($version);
 
@@ -48,9 +48,16 @@ interface PackageInterface
      * Returns a set of links to packages which need to be installed before
      * this package can be installed
      *
-     * @return array An array of package links defining required packages
+     * @return array|null An array of package links defining required packages
      */
     public function getRequires();
+
+    /**
+     * Set the required packages
+     *
+     * @param array|null $requires A set of package links
+     */
+    public function setRequires(array $requires = null);
 
     /**
      * Returns all package info (e.g. info from package's bower.json)
@@ -58,6 +65,13 @@ interface PackageInterface
      * @return array
      */
     public function getInfo();
+
+    /**
+     * Set package info
+     *
+     * @param array $info
+     */
+    public function setInfo(array $info);
 
     /**
      * Stores a reference to the repository that owns the package

@@ -22,7 +22,8 @@ class Filesystem extends BaseFilesystem
     /**
      * Read a file
      *
-     * @param  string $filename
+     * @param string $filename
+     *
      * @return string
      */
     public function read($filename)
@@ -37,13 +38,14 @@ class Filesystem extends BaseFilesystem
     /**
      * Write a file
      *
-     * @param  string      $filename The file to be written to.
-     * @param  string      $content  The data to write into the file.
-     * @param  int         $mode     The file mode (octal).
-     * @throws IOException If the file cannot be written to.
+     * @param string $filename The file to be written to
+     * @param string $content  The data to write into the file
+     * @param int    $mode     The file mode (octal)
+     *
+     * @throws \Symfony\Component\Filesystem\Exception\IOException If the file cannot be written to
      */
     public function write($filename, $content, $mode = 0644)
     {
-        $this->dumpFile($filename, $content, $mode);
+        $this->dumpFile($filename, $content);
     }
 }

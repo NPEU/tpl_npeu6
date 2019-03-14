@@ -13,7 +13,6 @@ namespace Bowerphp\Config;
 
 use Bowerphp\Package\PackageInterface;
 use Bowerphp\Util\Filesystem;
-use Bowerphp\Util\Json;
 use RuntimeException;
 
 /**
@@ -24,10 +23,9 @@ class Config implements ConfigInterface
     protected $cacheDir;
     protected $installDir;
     protected $filesystem;
-    protected $basePackagesUrl = 'http://bower.herokuapp.com/packages/';
-    protected $allPackagesUrl = 'https://bower-component-list.herokuapp.com/';
+    protected $basePackagesUrl = 'http://registry.bower.io/packages/';
     protected $saveToBowerJsonFile = false;
-    protected $bowerFileNames = array('bower.json', 'package.json');
+    protected $bowerFileNames = ['bower.json', 'package.json'];
     protected $stdBowerFileName = 'bower.json';
 
     /**
@@ -60,14 +58,6 @@ class Config implements ConfigInterface
     public function getBasePackagesUrl()
     {
         return $this->basePackagesUrl;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAllPackagesUrl()
-    {
-        return $this->allPackagesUrl;
     }
 
     /**
@@ -108,7 +98,7 @@ class Config implements ConfigInterface
     public function initBowerJsonFile(array $params)
     {
         $file = getcwd() . '/' . $this->stdBowerFileName;
-        $json = Json::encode($this->createAClearBowerFile($params));
+        $json = json_encode($this->createAClearBowerFile($params), JSON_PRETTY_PRINT);
 
         return $this->filesystem->write($file, $json);
     }
@@ -125,7 +115,7 @@ class Config implements ConfigInterface
         $decode = $this->getBowerFileContent();
         $decode['dependencies'][$package->getName()] = $package->getRequiredVersion();
         $file = getcwd() . '/' . $this->stdBowerFileName;
-        $json = Json::encode($decode);
+        $json = json_encode($decode, JSON_PRETTY_PRINT);
 
         return $this->filesystem->write($file, $json);
     }
@@ -135,7 +125,7 @@ class Config implements ConfigInterface
      */
     public function updateBowerJsonFile2(array $old, array $new)
     {
-        $json = Json::encode(array_merge($old, $new));
+        $json = json_encode(array_merge($old, $new), JSON_PRETTY_PRINT);
         $file = getcwd() . '/' . $this->stdBowerFileName;
 
         return $this->filesystem->write($file, $json);
@@ -169,7 +159,7 @@ class Config implements ConfigInterface
             }
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -182,7 +172,7 @@ class Config implements ConfigInterface
             return $overrides[$packageName];
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -217,15 +207,15 @@ class Config implements ConfigInterface
      */
     protected function createAClearBowerFile(array $params)
     {
-        $structure = array(
+        $structure = [
             'name'    => $params['name'],
-            'authors' => array(
+            'authors' => [
                 0 => 'Beelab <info@bee-lab.net>',
                 1 => $params['author'],
-            ),
+            ],
             'private'      => true,
             'dependencies' => new \StdClass(),
-        );
+        ];
 
         return $structure;
     }

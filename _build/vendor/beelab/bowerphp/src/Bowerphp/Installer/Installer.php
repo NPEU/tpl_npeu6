@@ -6,7 +6,6 @@ use Bowerphp\Config\ConfigInterface;
 use Bowerphp\Package\Package;
 use Bowerphp\Package\PackageInterface;
 use Bowerphp\Util\Filesystem;
-use Bowerphp\Util\Json;
 use Bowerphp\Util\ZipArchive;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
@@ -16,8 +15,19 @@ use Symfony\Component\Finder\Finder;
  */
 class Installer implements InstallerInterface
 {
+    /**
+     * @var Filesystem
+     */
     protected $filesystem;
+
+    /**
+     * @var ZipArchive
+     */
     protected $zipArchive;
+
+    /**
+     * @var ConfigInterface
+     */
     protected $config;
 
     /**
@@ -40,16 +50,16 @@ class Installer implements InstallerInterface
     public function install(PackageInterface $package)
     {
         $tmpFileName = $this->config->getCacheDir() . '/tmp/' . $package->getName();
-        if ($this->zipArchive->open($tmpFileName) !== true) {
+        if (true !== $this->zipArchive->open($tmpFileName)) {
             throw new RuntimeException(sprintf('Unable to open zip file %s.', $tmpFileName));
         }
         $dirName = trim($this->zipArchive->getNameIndex(0), '/');
         $info = $package->getInfo();
-        $files = $this->filterZipFiles($this->zipArchive, isset($info['ignore']) ? $info['ignore'] : array(), isset($info['main']) ? (array) $info['main'] : array());
+        $files = $this->filterZipFiles($this->zipArchive, isset($info['ignore']) ? $info['ignore'] : [], isset($info['main']) ? (array) $info['main'] : []);
         foreach ($files as $i => $file) {
             $stat = $this->zipArchive->statIndex($i);
             $fileName = $this->config->getInstallDir() . '/' . str_replace($dirName, $package->getName(), $file);
-            if (substr($fileName, -1) != '/') {
+            if ('/' != substr($fileName, -1)) {
                 $fileContent = $this->zipArchive->getStream($file);
                 $this->filesystem->write($fileName, $fileContent);
                 $this->filesystem->touch($fileName, $stat['mtime']);
@@ -59,16 +69,24 @@ class Installer implements InstallerInterface
         foreach ($files as $i => $file) {
             $stat = $this->zipArchive->statIndex($i);
             $fileName = $this->config->getInstallDir() . '/' . str_replace($dirName, $package->getName(), $file);
-            if (is_dir($fileName) && substr($fileName, -1) == '/') {
+            if (is_dir($fileName) && '/' == substr($fileName, -1)) {
                 $this->filesystem->touch($fileName, $stat['mtime']);
             }
         }
         $this->zipArchive->close();
 
+        // merge package info with bower.json contents
+        $bowerJsonPath = $this->config->getInstallDir() . '/' . $package->getName() . '/bower.json';
+        if ($this->filesystem->exists($bowerJsonPath)) {
+            $bowerJson = $this->filesystem->read($bowerJsonPath);
+            $bower = json_decode($bowerJson, true);
+            $package->setInfo(array_merge($bower, $package->getInfo()));
+        }
+
         // create .bower.json metadata file
-         // XXX we still need to add some other info
-        $dotBowerContent = array_merge($package->getInfo(), array('version' => $package->getVersion()));
-        $dotBowerJson = str_replace('\/', '/', Json::encode($dotBowerContent));
+        // XXX we still need to add some other info
+        $dotBowerContent = array_merge($package->getInfo(), ['version' => $package->getVersion()]);
+        $dotBowerJson = str_replace('\/', '/', json_encode($dotBowerContent, JSON_PRETTY_PRINT));
         $this->filesystem->write($this->config->getInstallDir() . '/' . $package->getName() . '/.bower.json', $dotBowerJson);
     }
 
@@ -93,7 +111,7 @@ class Installer implements InstallerInterface
      */
     public function getInstalled(Finder $finder)
     {
-        $packages = array();
+        $packages = [];
         if (!$this->filesystem->exists($this->config->getInstallDir())) {
             return $packages;
         }
@@ -107,7 +125,7 @@ class Installer implements InstallerInterface
                 if (is_null($bower)) {
                     throw new RuntimeException(sprintf('Invalid content in .bower.json for package %s.', $packageDirectory));
                 }
-                $packages[] = new Package($bower['name'], null, $bower['version'], isset($bower['dependencies']) ? $bower['dependencies'] : null);
+                $packages[] = new Package($bower['name'], null, $bower['version'], isset($bower['dependencies']) ? $bower['dependencies'] : null, $bower);
             }
         }
 
@@ -119,7 +137,7 @@ class Installer implements InstallerInterface
      */
     public function findDependentPackages(PackageInterface $package, Finder $finder)
     {
-        $return = array();
+        $return = [];
         $packages = $this->getInstalled($finder);
         foreach ($packages as $installedPackage) {
             $requires = $installedPackage->getRequires();
@@ -139,10 +157,10 @@ class Installer implements InstallerInterface
      * @param  array      $force
      * @return array
      */
-    protected function filterZipFiles(ZipArchive $archive, array $ignore = array(), array $force = array())
+    protected function filterZipFiles(ZipArchive $archive, array $ignore = [], array $force = [])
     {
         $dirName = $archive->getNameIndex(0);
-        $return = array();
+        $return = [];
         $numFiles = $archive->getNumFiles();
         for ($i = 0; $i < $numFiles; ++$i) {
             $stat = $archive->statIndex($i);
@@ -176,56 +194,56 @@ class Installer implements InstallerInterface
     public function isIgnored($name, array $ignore, array $force, $dirName)
     {
         $vName = substr($name, strlen($dirName));
-        if (in_array($vName, $force)) {
+        if (in_array($vName, $force, true)) {
             return false;
         }
         // first check if there is line that overrides other lines
         foreach ($ignore as $pattern) {
-            if (strpos($pattern, '!') !== 0) {
+            if (0 !== strpos($pattern, '!')) {
                 continue;
             }
             $pattern = ltrim($pattern, '!');
             // the ! negates the line, otherwise the syntax is the same
-            if ($this->isIgnored($name, array($pattern), $force, $dirName)) {
+            if ($this->isIgnored($name, [$pattern], $force, $dirName)) {
                 return false;
             }
         }
         foreach ($ignore as $pattern) {
-            if (strpos($pattern, '**') !== false) {
+            if (false !== strpos($pattern, '**')) {
                 $pattern = str_replace('**', '*', $pattern);
-                #$pattern = str_replace('*/*', '*', $pattern);
-                if (substr($pattern, 0, 1) == '/') {
+                //$pattern = str_replace('*/*', '*', $pattern);
+                if ('/' == substr($pattern, 0, 1)) {
                     $vName = '/' . $vName;
                 }
-                if (substr($vName, 0, 1) == '.') {
+                if ('.' == substr($vName, 0, 1)) {
                     $vName = '/' . $vName;
                 }
                 if (fnmatch($pattern, $vName, FNM_PATHNAME)) {
                     return true;
-                } elseif ($pattern === '*/*' && fnmatch('*', $vName, FNM_PATHNAME)) {
+                } elseif ('*/*' === $pattern && fnmatch('*', $vName, FNM_PATHNAME)) {
                     // this a special case, where a double asterisk must match also files in the root dir
                     return true;
                 }
-            } elseif (substr($pattern, -1) == '/') { // trailing slash
-                if (substr($pattern, 0, 1) == '/') {
+            } elseif ('/' == substr($pattern, -1)) { // trailing slash
+                if ('/' == substr($pattern, 0, 1)) {
                     $pattern = substr($pattern, 1); // remove possible starting slash
                 }
-                $escPattern = str_replace(array('.', '*'), array('\.', '.*'), $pattern);
+                $escPattern = str_replace(['.', '*'], ['\.', '.*'], $pattern);
                 if (preg_match('#^' . $escPattern . '#', $vName) > 0) {
                     return true;
                 }
-            } elseif (strpos($pattern, '/') === false) { // no slash
-                $escPattern = str_replace(array('.', '*'), array('\.', '.*'), $pattern);
+            } elseif (false === strpos($pattern, '/')) { // no slash
+                $escPattern = str_replace(['.', '*'], ['\.', '.*'], $pattern);
                 if (preg_match('#^' . $escPattern . '#', $vName) > 0) {
                     return true;
                 }
-            } elseif (substr($pattern, 0, 1) == '/') {    // starting slash
-                $escPattern = str_replace(array('.', '*'), array('\.', '.*'), $pattern);
+            } elseif ('/' == substr($pattern, 0, 1)) {    // starting slash
+                $escPattern = str_replace(['.', '*'], ['\.', '.*'], $pattern);
                 if (preg_match('#^' . $escPattern . '#', '/' . $vName) > 0) {
                     return true;
                 }
             } else {
-                $escPattern = str_replace(array('.', '*'), array('\.', '.*'), $pattern);
+                $escPattern = str_replace(['.', '*'], ['\.', '.*'], $pattern);
                 if (preg_match('#^' . $escPattern . '#', $vName) > 0) {
                     return true;
                 }

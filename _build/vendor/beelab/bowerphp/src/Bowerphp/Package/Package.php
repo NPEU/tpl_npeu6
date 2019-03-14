@@ -13,8 +13,8 @@ class Package implements PackageInterface
     protected $repository;
     protected $requiredVersion;
     protected $version;
-    protected $requires = array();
-    protected $info = array();
+    protected $requires = [];
+    protected $info = [];
 
     /**
      * All descendants' constructors should call this parent constructor
@@ -25,10 +25,10 @@ class Package implements PackageInterface
      * @param array  $requires        The package's dependencies
      * @param array  $info            Package info (e.g. info from bower.json)
      */
-    public function __construct($name, $requiredVersion = null, $version = null, $requires = array(), $info = array())
+    public function __construct($name, $requiredVersion = null, $version = null, $requires = [], $info = [])
     {
         $this->name = $name;
-        $this->requiredVersion = $requiredVersion === 'master' ? '*' : $requiredVersion;
+        $this->requiredVersion = 'master' === $requiredVersion ? '*' : $requiredVersion;
         $this->version = $version;
         if (!empty($requires)) {
             $this->requires = $requires;
@@ -100,9 +100,7 @@ class Package implements PackageInterface
     }
 
     /**
-     * Set the required packages
-     *
-     * @param array $requires A set of package links
+     * {@inheritdoc}
      */
     public function setRequires(array $requires = null)
     {
@@ -123,9 +121,7 @@ class Package implements PackageInterface
     }
 
     /**
-     * Set the info
-     *
-     * @param array $info
+     * {@inheritdoc}
      */
     public function setInfo(array $info)
     {

@@ -1,28 +1,16 @@
 {
-    "name": "andykirk/phpsass}",
-    "type": "project",
-    "version": "0.0.1",
+    "name": "npeu/npeu6_build",
     "description": "This file lists all the PHP packages required for the project.",
+    "type": "project",
     "require": {
-        "php": ">=5.4.0",
-        "leafo/scssphp": "0.6.5",
-        "beelab/bowerphp": "^0.4.0"
+        "leafo/scssphp": "^0.7.7",
+        "beelab/bowerphp": "^0.5.3"
     },
-    "autoload": {
-    },
-    "require_extras": {
-        "michelf/php-markdown": "1.6.*",
-        "slim/slim":            "2.4.*",
-        "knplabs/github-api":   "~1.4",
-        "twig/twig":            "~1.0"
-    },
-    "autoload_extras": {
-        "psr-0": {
-            "Textpress": "src/shameerc"
-        },
-        "psr-4": {
-            "HTMLHelpers\\PageHelper\\": "vendor/HTMLHelpers/PageHelper",
-            "HTMLHelpers\\FormHelper\\": "vendor/HTMLHelpers/FormHelper"
-	    }
-    }
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy Kirk",
+            "email": "andy.kirk@npeu.ox.ac.uk"
+        }
+    ]
 }

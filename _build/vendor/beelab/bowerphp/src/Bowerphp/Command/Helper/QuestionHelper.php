@@ -11,13 +11,13 @@
 
 namespace Bowerphp\Command\Helper;
 
-use Symfony\Component\Console\Helper\QuestionHelper as BaseDialogHelper;
+use Symfony\Component\Console\Helper\QuestionHelper as BaseQuestionHelper;
 use Symfony\Component\Console\Question\Question;
 
 /**
  * Copied by Composer https://github.com/composer/composer
  */
-class QuestionHelper extends BaseDialogHelper
+class QuestionHelper extends BaseQuestionHelper
 {
     /**
      * Build text for asking a question. For example:
@@ -32,7 +32,7 @@ class QuestionHelper extends BaseDialogHelper
      */
     public function getQuestion($question, $default = null, $sep = ':')
     {
-        return $default !== null ?
+        return null !== $default ?
                 new Question(sprintf('<info>%s</info> [<comment>%s</comment>]%s ', $question, $default, $sep)) :
                 new Question(sprintf('<info>%s</info>%s ', $question, $sep));
     }

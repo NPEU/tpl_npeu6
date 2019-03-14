@@ -1,5 +1,5 @@
 {
-    "name": "FallBack1",
+    "name": "NPEU6",
     "description": "This file lists all the front-end packages required for the project.",
     "dependencies": {
         "Base": "https:\/\/github.com\/Fall-Back\/Base.git#latest",
