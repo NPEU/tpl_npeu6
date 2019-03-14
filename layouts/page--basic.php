@@ -1,1 +1,1 @@
-<?php echo $page_content; ?>
+<jdoc:include type="component" format="raw" />

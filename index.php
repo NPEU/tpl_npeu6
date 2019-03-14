@@ -6,7 +6,9 @@
  * @copyright   Copyright (C) NPEU 2019.
  * @license     MIT License; see LICENSE.md
  */
+ini_set('display_errors', 'On');
 
+ 
 defined('_JEXEC') or die;
 
 require_once('_helpers.php');
@@ -59,7 +61,12 @@ $inner_structure = 'structure--basic';
 $page_layout     = 'page--basic';
 
 
+// Project
+$page_project    = get_project();
+
+
 // Page Content:
-$page_content = '<p>Replace this.</p>';
+// $page_content = '<p>Replace this.</p>';
+// Using <jdoc:include type="component" format="raw" />
 
 require_once(__DIR__ . '/layouts/structure.php');
