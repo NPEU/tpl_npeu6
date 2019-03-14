@@ -1,0 +1,15 @@
+{
+    "name": "npeu/npeu6_template",
+    "description": "This file lists all the PHP packages required for the project.",
+    "type": "project",
+    "require": {
+        "michelf/php-markdown": "^1.8"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy Kirk",
+            "email": "andy.kirk@npeu.ox.ac.uk"
+        }
+    ]
+}
