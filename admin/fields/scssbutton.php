@@ -47,8 +47,8 @@ class JFormFieldSCSSButton extends JFormField
     protected function getInput()
     {
         $doc = JFactory::getDocument();
-        $doc->addStylesheet('/templates/tpl_npeu6/admin/css/toolbar.css');
-        $doc->addScript('/templates/tpl_npeu6/admin/js/scss_compile.js');
+        //$doc->addStylesheet('/templates/npeu6/admin/css/toolbar.css');
+        $doc->addScript('/templates/npeu6/admin/js/scss_compile.js');
         #$input = parent::getInput();
         
         $button[] = '</div>';

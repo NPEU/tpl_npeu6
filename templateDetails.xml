@@ -49,7 +49,7 @@
     <config>
         <fields
             name="params"
-            addfieldpath="/templates/tpl_npeu6/admin/fields"
+            addfieldpath="/templates/npeu6/admin/fields"
             >
             <fieldset
                 name="main"
@@ -87,13 +87,13 @@
                     name="base-ui-color"
                     class=""
                     type="color"
-                    default="#08C"
+                    default="#604776"
                     label="TPL_NPEU6_SCSS_VAR_BASE_UI_COLOUR_LABEL"
                     description="TPL_NPEU6_SCSS_VAR_BASE_UI_COLOUR_DESC"
                 />
                 <field
-                    type="helptext"
-                    description="TPL_NPEU6_SCSS_HELP_TEXT"
+                    type="notes"
+                    description="TPL_NPEU6_SCSS_NOTES"
                 />
             </fieldset>
             <fieldset
@@ -108,27 +108,78 @@
                     description="TPL_NPEU6_ICONS_DESC"
                     rows="20"
                     cols="25"
-                    default="&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; display=&quot;none&quot;&gt;&#10;
-    &lt;symbol id=&quot;icon-triangle-down&quot; viewBox=&quot;0 0 12 16&quot;&gt;&#10;
-        &lt;path d=&quot;M1,6h10l-5,5L1,6z&quot;&gt;&lt;/path&gt;&#10;
-    &lt;/symbol&gt;&#10;
-    &lt;symbol id=&quot;icon-cross&quot; viewBox=&quot;0 0 16 16&quot;&gt;&#10;
-        &lt;path d=&quot;M15.5,2L14,0.5l-6,6l-6-6L0.5,2l6,6l-6,6L2,15.5l6-6l6,6l1.5-1.5l-6-6L15.5,2z&quot;&gt;&lt;/path&gt;&#10;
-    &lt;/symbol&gt;&#10;
-    &lt;symbol id=&quot;icon-menu&quot; viewBox=&quot;0 0 16 16&quot;&gt;&#10;
-        &lt;rect x=&quot;0&quot; width=&quot;16&quot; height=&quot;3&quot;/&gt;&#10;
-        &lt;rect x=&quot;0&quot; y=&quot;6&quot; width=&quot;16&quot; height=&quot;3&quot;/&gt;&#10;
-        &lt;rect y=&quot;12&quot; width=&quot;16&quot; height=&quot;3&quot;/&gt;&#10;
-    &lt;/symbol&gt;&#10;
-    &lt;!-- Other &lt;symbol&gt;s? --&gt;&#10;
+                    default="&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; display=&quot;none&quot;&gt;&#013;
+    &lt;symbol id=&quot;icon-building&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z&quot;&gt;&lt;/path&gt;&#013;
+        &lt;polyline points=&quot;9 22 9 12 15 12 15 22&quot;&gt;&lt;/polyline&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-calendar&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot; ry=&quot;2&quot;&gt;&lt;/rect&gt;&#013;
+        &lt;line x1=&quot;16&quot; y1=&quot;2&quot; x2=&quot;16&quot; y2=&quot;6&quot;&gt;&lt;/line&gt;&#013;
+        &lt;line x1=&quot;8&quot; y1=&quot;2&quot; x2=&quot;8&quot; y2=&quot;6&quot;&gt;&lt;/line&gt;&#013;
+        &lt;line x1=&quot;3&quot; y1=&quot;10&quot; x2=&quot;21&quot; y2=&quot;10&quot;&gt;&lt;/line&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-chevron-down&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;polyline points=&quot;6 9 12 15 18 9&quot;&gt;&lt;/polyline&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-chevron-up&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;polyline points=&quot;18 15 12 9 6 15&quot;&gt;&lt;/polyline&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-chevron-left&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;polyline points=&quot;15 18 9 12 15 6&quot;&gt;&lt;/polyline&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-chevron-right&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;polyline points=&quot;9 18 15 12 9 6&quot;&gt;&lt;/polyline&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-cross&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;line x1=&quot;18&quot; y1=&quot;6&quot; x2=&quot;6&quot; y2=&quot;18&quot;&gt;&lt;/line&gt;&#013;
+        &lt;line x1=&quot;6&quot; y1=&quot;6&quot; x2=&quot;18&quot; y2=&quot;18&quot;&gt;&lt;/line&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-email&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z&quot;&gt;&lt;/path&gt;&#013;
+        &lt;polyline points=&quot;22,6 12,13 2,6&quot;&gt;&lt;/polyline&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-facebook&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z&quot;&gt;&lt;/path&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-fax&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path class=&quot;st0&quot; d=&quot;M6,18H4c-1.1,0-2-0.7-2-1.6v-4c0-0.9,0.9-1.6,2-1.6h16c1.1,0,2,0.7,2,1.6v4c0,0.9-0.9,1.6-2,1.6h-2&quot;/&gt;&#013;
+        &lt;rect x=&quot;6&quot; y=&quot;14&quot; class=&quot;st0&quot; width=&quot;12&quot; height=&quot;8&quot;/&gt;&#013;
+        &lt;path class=&quot;st0&quot; d=&quot;M6,7.4L4.8,6.2C4.4,5.7,4.4,5,4.8,4.6c0,0,0.1,0,0.1-0.1c1.4-1.1,3-1.9,4.7-2.2c1.6-0.4,3.2-0.4,4.8,0 c1.7,0.4,3.3,1.1,4.7,2.2c0.5,0.4,0.5,1.1,0.1,1.6c0,0,0,0.1-0.1,0.1L18,7.4c-0.4,0.4-1,0.5-1.5,0.1c-0.4-0.3-0.9-0.6-1.4-0.8 c-0.4-0.2-0.7-0.6-0.7-1v-1c-1.6-0.4-3.2-0.4-4.8,0v1c0,0.4-0.3,0.8-0.7,1C8.4,6.9,8,7.2,7.5,7.5C7.1,7.8,6.4,7.8,6,7.4z&quot;/&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-file&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z&quot;&gt;&lt;/path&gt;&#013;
+        &lt;polyline points=&quot;13 2 13 9 20 9&quot;&gt;&lt;/polyline&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-linkedin&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z&quot;&gt;&lt;/path&gt;&#013;
+        &lt;rect x=&quot;2&quot; y=&quot;9&quot; width=&quot;4&quot; height=&quot;12&quot;&gt;&#013;
+        &lt;/rect&gt;&lt;circle cx=&quot;4&quot; cy=&quot;4&quot; r=&quot;2&quot;&gt;&lt;/circle&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-menu&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;line x1=&quot;3&quot; y1=&quot;12&quot; x2=&quot;21&quot; y2=&quot;12&quot;&gt;&lt;/line&gt;&#013;
+        &lt;line x1=&quot;3&quot; y1=&quot;6&quot; x2=&quot;21&quot; y2=&quot;6&quot;&gt;&lt;/line&gt;&#013;
+        &lt;line x1=&quot;3&quot; y1=&quot;18&quot; x2=&quot;21&quot; y2=&quot;18&quot;&gt;&lt;/line&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-person&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;&gt;&lt;/path&gt;&#013;
+        &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;&gt;&lt;/circle&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-phone&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z&quot;&gt;&lt;/path&gt;&#013;
+    &lt;/symbol&gt;&#013;
+    &lt;symbol id=&quot;icon-twitter&quot; viewBox=&quot;0 0 24 24&quot;&gt;&#013;
+        &lt;path d=&quot;M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z&quot;&gt;&lt;/path&gt;&#013;
+    &lt;/symbol&gt;&#013;
 &lt;/svg&gt;"
                 />
                 <field
-                    type="helptext"
-                    description="TPL_NPEU6_ICONS_HELP_TEXT"
+                    type="notes"
+                    description="TPL_NPEU6_ICONS_NOTES"
                 />
             </fieldset>
         </fields>
     </config>
 
+    
 </extension>
