@@ -28,12 +28,12 @@ if (!isset($menu_item)) {
 
 
 
-// Page Title
-$page_title = !$is_error
-	        ? $doc->title
-            : $menu_item->title;
+// Page Heading / Title
+$page_heading = !$is_error
+	          ? $doc->title
+              : $menu_item->title;
 
-$page_title .= ' | NPEU';
+$page_title   = $page_heading . ' | NPEU';
 
 
 // Page Description
@@ -52,4 +52,14 @@ if (isset($doc->_metaTags['standard'])) {
     $page_keywords = $doc->_metaTags['standard']['keywords'];
 }
 
-include(__DIR__ . '/layouts/structure.php');
+
+
+// Nested Layouts:
+$inner_structure = 'structure--basic';
+$page_layout     = 'page--basic';
+
+
+// Page Content:
+$page_content = '<p>Replace this.</p>';
+
+require_once(__DIR__ . '/layouts/structure.php');

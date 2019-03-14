@@ -133,7 +133,7 @@
         <hr />
     </div>
 
-    {{ content }}
+    <?php require_once(__DIR__ . '/' . $inner_structure . '.php'); ?>
 
 </body>
 </html>
