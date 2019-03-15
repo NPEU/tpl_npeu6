@@ -107,7 +107,7 @@
                     type="textarea"
                     label="TPL_NPEU6_ICONS_LABEL"
                     description="TPL_NPEU6_ICONS_DESC"
-                    style="width: calc(100% - 1em);"
+                    filter="raw"
                     rows="20"
                     cols="25"
                     default="&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; display=&quot;none&quot;&gt;&#013;

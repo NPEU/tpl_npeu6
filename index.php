@@ -8,23 +8,26 @@
  */
 ini_set('display_errors', 'On');
 
- 
+
 defined('_JEXEC') or die;
 
-require_once('_helpers.php');
+
+// Include the brochure functions only once
+JLoader::register('TplNPEU6Helper', __DIR__ . '/helper.php');
+
 
 $app    = JFactory::getApplication();
 $doc    = JFactory::getDocument();
 
 // Set variables otherwise declared in error.php:
 if (!isset($is_error)) {
-	$is_error = false;
+    $is_error = false;
 }
 if (!isset($error_menu_id)) {
-	$error_menu_id = false;
+    $error_menu_id = false;
 }
 if (!isset($menu_item)) {
-	$menu_item = get_menu_item($app);
+    $menu_item = TplNPEU6Helper::get_menu_item();
 }
 
 
@@ -32,7 +35,7 @@ if (!isset($menu_item)) {
 
 // Page Heading / Title
 $page_heading = !$is_error
-	          ? $doc->title
+              ? $doc->title
               : $menu_item->title;
 
 $page_title   = $page_heading . ' | NPEU';
@@ -42,9 +45,9 @@ $page_title   = $page_heading . ' | NPEU';
 $page_description = $doc->description;
 
 if (isset($menu_item)) {
-	if ($menu_description = $menu_item->params->get('menu-meta_description', false)) {
-		$page_description = $menu_description ;
-	}
+    if ($menu_description = $menu_item->params->get('menu-meta_description', false)) {
+        $page_description = $menu_description ;
+    }
 }
 
 
@@ -62,7 +65,11 @@ $page_layout     = 'page--basic';
 
 
 // Project
-$page_project    = get_project();
+$page_project    = TplNPEU6Helper::get_project();
+
+
+// Template
+$page_template   = TplNPEU6Helper::get_template();
 
 
 // Page Content:
