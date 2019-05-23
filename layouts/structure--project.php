@@ -1,7 +1,3 @@
----
-layout: structure
----
-    {% assign project_data = site.data.projects[page.project] %}
     <div class="sticky-footer-wrap  limit-page-width">
 
         <header class="c-page-header  t-{{ page.project }}  d-bands--bottom">

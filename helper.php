@@ -16,28 +16,28 @@ defined('_JEXEC') or die;
  */
 class TplNPEU6Helper
 {
-        
+
     /**
 	 * Global menu_item object
 	 *
 	 * @var    Menu Item
 	 */
 	public static $menu_item = null;
-    
+
     /**
-	 * Global project object
+	 * Global brand object
 	 *
-	 * @var    Project
+	 * @var    Brand
 	 */
-	public static $project = null;
-    
+	public static $brand = null;
+
     /**
 	 * Global template object
 	 *
 	 * @var    Template
 	 */
 	public static $template = null;
-    
+
     /**
      * Gets the current menu item.
      *
@@ -51,29 +51,32 @@ class TplNPEU6Helper
 
 		return self::$menu_item;
     }
-    
+
     /**
-     * Gets the current menu item's project.
+     * Gets the current menu item's brand.
      *
      * @return object
      */
-    public static function get_project()
+    public static function get_brand()
     {
-        if (!self::$project) {
-            $menu_item = self::get_menu_item();
-            $top_item_id = $menu_item->tree[0];
+        if (!self::$brand) {
+            //$menu_item = self::get_menu_item();
+            //$top_item_id = $menu_item->tree[0];
             
+            $template = self::get_template();
+            $brand_id = $template->params->get('brand_id');
+
             $db = JFactory::getDBO();
-            
+
             $query = $db->getQuery(true);
             $query->select('*');
-            $query->from('#__brandprojects');
-            $query->where('landing_menu_item_id = ' . $top_item_id);
+            $query->from('#__brands');
+            $query->where('id = ' . $brand_id);
             $db->setQuery($query);
-            self::$project = $db->loadObject();
+            self::$brand = $db->loadObject();
         }
 
-		return self::$project;
+		return self::$brand;
     }
 
     /**
@@ -86,8 +89,7 @@ class TplNPEU6Helper
         if (!self::$template) {
             $app = JFactory::getApplication();
             $template = $app->getTemplate(true);
-            
-            echo '<pre>'; var_dump($template); echo '</pre>'; exit;
+
             self::$template = $template;
         }
 
