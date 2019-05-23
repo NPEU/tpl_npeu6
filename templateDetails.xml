@@ -31,6 +31,7 @@
         <folder>html</folder>
         <folder>language</folder>
         <folder>layouts</folder>
+        <folder>vendor</folder>
         <filename>index.html</filename>
         <filename>index.php</filename>
         <filename>templateDetails.xml</filename>
