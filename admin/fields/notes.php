@@ -17,15 +17,9 @@ use \Michelf\Markdown;
 
 /*
 Definition:
-
 <field
-    name="???"
-    type="datepicker"
-    filter="string"
-    label="COM_???_???_LABEL"
-    desctiption="COM_???_???_DESC"
-    class="form-control"
-    required="true"
+    type="notes"
+    description="Markdown notes"
 />
 */
 
@@ -39,7 +33,6 @@ class JFormFieldNotes extends JFormField
      * The form field type.
      *
      * @var    string
-     * @since  11.1
      */
     protected $type = 'Notes';
 
@@ -52,12 +45,10 @@ class JFormFieldNotes extends JFormField
     {
         $doc = JFactory::getDocument();
         $doc->addStylesheet('/templates/npeu6/admin/css/notes.css');
-        
-        #$help[] = '</div>';
+
         $help[] = '<div class="notes-body">';
         $help[] = Markdown::defaultTransform(JText::_($this->description));
         $help[] = '</div>';
-        #$help[] = '<div>';
         
         $return = implode("\n", $help);
         
@@ -72,26 +63,5 @@ class JFormFieldNotes extends JFormField
     protected function getLabel()
     {
         return '<b>Notes:</b>';
-        /*
-        return parent::getLabel();
-
-        // This field type now uses jasny bootstrap to present a better looking field
-        // As such the way an existing file is presented is handled by the input
-        // so we don't need a special label any more, but keep for reference
-        // in case other inputs do.
-
-        $label = parent::getLabel();
-
-        // Initialize some field attributes.
-        $current_class = $this->element['currentclass'] ? ' class="' . (string) $this->element['currentclass'] . '"' : '';
-
-        $current_file  = empty($this->value)
-                       ? JText::_($this->element['nofile'])
-                       : htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8');
-
-        return str_replace(
-            '</label>',
-            '<br /><span' . $current_class . '>(' . $current_file . ')</span></label>',
-            $label);*/
     }
 }

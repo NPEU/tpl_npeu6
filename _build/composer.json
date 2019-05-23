@@ -3,7 +3,7 @@
     "description": "This file lists all the PHP packages required for the project.",
     "type": "project",
     "require": {
-        "leafo/scssphp": "^0.7.7",
+        "leafo/scssphp": "0.8.2",
         "beelab/bowerphp": "^0.5.3"
     },
     "license": "MIT",
