@@ -42,13 +42,17 @@
 
 
     <positions>
-        <position>top-bar</position>
-        <position>banner</position>
-        <position>nav-bar</position>
-        <position>breadcrumbs</position>
-        <position>announcements</position>
-        <position>cookie-control</position>
-        <position>footer</position>
+        <position>1-top-cookie-control</position>
+        <position>1-top</position>
+        <position>2-header-nav-bar</position>
+        <position>3-main-breadcrumbs</position>
+        <position>3-main-lower</position>
+        <position>3-main-upper</position>
+        <position>3-main-toc</position>
+        <position>4-sidebar-top</position>
+        <position>4-sidebar-section-menu</position>
+        <position>4-sidebar-bottom</position>
+        <position>5-bottom</position>
     </positions>
 
     <config>
@@ -79,21 +83,34 @@
                 <field
                     name="layout_name"
                     type="list"
-                    default="structure--project"
+                    default="structure--branded"
                     label="TPL_NPEU6_MAIN_LAYOUT_LABEL"
 					description="TPL_NPEU6_MAIN_LAYOUT_DESC"
                 >
                     <option value="structure--basic">Basic</option>
-                    <option value="structure--project">Project</option>
+                    <option value="structure--branded">Branded</option>
                 </field>
                 <field
                     name="brand_id"
                     type="sql"
-                    default="1"
+                    default="2"
                     label="TPL_NPEU6_MAIN_BRAND_LABEL"
                     description="TPL_NPEU6_MAIN_BRAND_DESC"
-                    query="SELECT id AS value, name AS title FROM #__brands"
+                    query="SELECT id, name FROM #__brands WHERE catid = 152 ORDER BY name"
+                    key_field="id"
+                    value_field="name"
                 />
+                <field
+                    name="unit"
+                    type="list"
+                    default="npeu"
+                    label="TPL_NPEU6_UNIT_LABEL"
+					description="TPL_NPEU6_UNIT_DESC"
+                >
+                    <option value="npeu">NPEU</option>
+                    <option value="npeu_ctu">NPEU CTU</option>
+                    <option value="sheer">SHEER</option>
+                </field>
             </fieldset>
             <fieldset
                 name="page_header"
@@ -104,8 +121,9 @@
                     type="text"
                     default=""
                     label="TPL_NPEU6_HEADER_LOGO_LABEL"
-                    description="TPL_NPEU6_HEADER_LOGO_DESC"
-                    filter="string"
+                    description=""
+                    hint="TPL_NPEU6_HEADER_LOGO_DESC"
+                    readonly="true"
                 />
                 <field
                     name="cta_text"
@@ -124,13 +142,16 @@
                     filter="string"
                 />
                 <field
-                    name="navbar"
-                    type="text"
-                    default=""
+                    name="show_navbar"
+                    type="radio"
+                    default="1"
                     label="TPL_NPEU6_HEADER_NAVBAR_LABEL"
                     description="TPL_NPEU6_HEADER_NAVBAR_DESC"
-                    filter="string"
-                />
+                    class="btn-group btn-group-yesno"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
             <fieldset
                 name="page_footer"
@@ -146,8 +167,8 @@
                 />
                 <field
                     name="footer_text"
-                    type="text"
-                    default=""
+                    type="textarea"
+                    default="© NPEU {{ YEAR }}"
                     label="TPL_NPEU6_FOOTER_TEXT_LABEL"
                     description="TPL_NPEU6_FOOTER_TEXT_DESC"
                     filter="string"
@@ -259,5 +280,5 @@
         </fields>
     </config>
 
-    
+
 </extension>

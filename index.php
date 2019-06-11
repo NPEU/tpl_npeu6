@@ -11,13 +11,19 @@ ini_set('display_errors', 'On');
 
 defined('_JEXEC') or die;
 
+require_once __DIR__ . '/vendor/autoload.php';
 
-// Include the brochure functions only once
+use \Michelf\Markdown;
+
+
+// Include the template helper:
 JLoader::register('TplNPEU6Helper', __DIR__ . '/helper.php');
 
 
 $app    = JFactory::getApplication();
 $doc    = JFactory::getDocument();
+
+#echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
 
 // Set variables otherwise declared in error.php:
 if (!isset($is_error)) {
@@ -29,30 +35,51 @@ if (!isset($error_menu_id)) {
 if (!isset($menu_item)) {
     $menu_item = TplNPEU6Helper::get_menu_item();
 }
+$menu_root = explode('/', $menu_item->route)[0];
+#echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($menu_item->params->get('hero_image')); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($menu_root); echo '</pre>'; exit;
 
+// Brand
+$page_brand      = TplNPEU6Helper::get_brand();
+#echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
+
+// Level 1 menu items that are not mainmenu or are landing pages:
+// (Note this isn't robust as if new non-brand menus are created or names change, this will fail)
+//$page_is_landing = $menu_item->menutype != 'mainnenu' && $menu_item->menutype != 'user' && $menu_item->level == 1;
+// May be better to check the brand that's applied as that's less likely to change
+// (can't easily check template style unfortunately)
+$page_is_landing = $page_brand->alias == 'npeu' && $menu_item->level == 0; //? Needs checking
+$page_is_landing = $page_brand->alias != 'npeu' && $menu_item->level == 1;
 
 // Head data:
 $page_head_data = $doc->getHeadData();
-
-// Brand
-#$page_brand      = TplNPEU6Helper::get_brand();
-
+#echo '<pre>'; var_dump($page_head_data); echo '</pre>'; exit;
 
 // Template
 $page_template        = TplNPEU6Helper::get_template();
-$page_template_params = $page_template->params;
+$page_template_params = $page_template->params->toObject();
 
 #echo '<pre>'; var_dump($page_template); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($page_template_params); echo '</pre>'; exit;
 
 
 // Page Heading / Title
-$page_heading = !$is_error
-              ? $doc->title
+$page_heading = isset($doc->article)
+              ? $doc->article->title
               : $menu_item->title;
 
-$page_title   = $page_heading . ' | ' . $page_template_params->get('site_title');
+$page_title   = $page_heading . ' | ' . $page_template_params->site_title;
 
+$page_has_article              = !empty($doc->article);
+$page_has_priority_content     = !empty($doc->article->fulltext);
+$page_has_sidebar_top          = $doc->countModules('4-sidebar-top');
+$page_has_sidebar_section_menu = $doc->countModules('4-sidebar-section-menu');
+$page_has_sidebar_bottom       = $doc->countModules('4-sidebar-bottom');
+
+$page_has_pull_outs = $page_has_priority_content || $page_has_sidebar_top || $page_has_sidebar_section_menu || $page_has_sidebar_bottom;
+
+$page_has_main_lower = $doc->countModules('3-main-lower');
 
 // Page Description
 $page_description = $doc->description != ''
@@ -74,10 +101,10 @@ if (isset($doc->_metaTags['standard'])) {
 
 
 // Page SVG Icons
-$page_svg_icons = str_replace("> ", ">\n ", $page_template_params->get('svg_icons'));
+$page_svg_icons   = str_replace("> ", ">\n ", $page_template_params->svg_icons);
 
 
-
+// Assets:
 $page_stylesheets = $page_head_data['styleSheets'];
 $page_style       = $page_head_data['style'];
 $page_scripts     = $page_head_data['scripts'];
@@ -88,13 +115,41 @@ $page_script      = !empty($page_head_data['script']) ? $page_head_data['script'
 #echo '<pre>'; var_dump($page_scripts); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_script); echo '</pre>'; exit;
 
+
+// Main Call to action:
+$page_cta_text     = $page_template_params->cta_text;
+$page_cta_url      = $page_template_params->cta_url;
+$page_display_cta  = $page_cta_text && $page_cta_url;
+
+
+// Navbar:
+$page_has_navbar   = $page_template_params->show_navbar && $doc->countModules('2-header-nav-bar') > 0;
+
+
+// Hero image / Carousel:
+$page_hero         = (array) $menu_item->params->get('hero_image');
+
+$page_has_hero     = !empty($page_hero);
+$page_has_carousel = $page_has_hero && count($page_hero) > 1;
+
+$page_hero         = ($page_has_hero && !$page_has_carousel) ? $page_hero['hero_image0'] : false;
+$page_carousel     = ($page_has_hero && $page_has_carousel)  ? $page_hero : false;
+
+#echo '<pre>'; var_dump($page_hero); echo '</pre>'; exit;
+
+
+// Meta (?):
+$page_unit        = $page_template_params->unit;
+
+
+// Footer:
+// In order: convert HTML entities, replace year placeholder with year, transform markdown, then remove enclosing p tag.
+$page_footer_text = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform(str_replace('{{ YEAR }}', date('Y'), htmlentities($page_template_params->footer_text))));
+
 // Nested Layouts:
-$inner_structure = $page_template_params->get('layout_name');
-$page_layout     = 'page--basic';
-
-
-
-
+$inner_structure = $page_template_params->layout_name;
+// Leaving this out for now:
+#$page_layout     = 'page--basic';
 
 
 
