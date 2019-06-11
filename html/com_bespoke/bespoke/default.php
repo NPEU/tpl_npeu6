@@ -9,5 +9,51 @@
 
 defined('_JEXEC') or die;
 
+// Need to sort out containers and their classes.
+// See Trello note.
+
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+$page_brand = TplNPEU6Helper::get_brand();
+$theme = 't-' . $page_brand->alias;
+
 ?>
-<?php echo JHtml::_('content.prepare', '{loadposition bespoke}'); ?>
+<?php foreach ($this->blocks as $name => $block): ?>
+<?php if (!empty($block['leftpane'])): ?>
+<div class="l-blockrow">
+    <div class="d-bands--bottom  <?php echo $theme; ?>">
+        <?php if (!empty($block['rightpane'])): ?>
+        <?php
+            if ($block['panebalance'] == '33--66') {
+                $l_balance = '33-333';
+                $r_balance = '66-666';    
+            } elseif ($block['panebalance'] == '66--33') {
+                $l_balance = '66-666';
+                $r_balance = '33-333';
+            } else {
+                $l_balance = '50';
+                $r_balance = '50';
+            }
+            
+            $l_ff_class = 'ff-width-100--' . $block['breakpoint'] . '--' . $l_balance;
+            $r_ff_class = 'ff-width-100--' . $block['breakpoint'] . '--' . $r_balance;
+        ?>
+        <div class="l-col-to-row-wrap">
+            <div class="l-col-to-row">
+                <div class="l-col-to-row__item  <?php echo $l_ff_class; ?>">
+                    <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['leftpane'] . '}'); ?>
+                </div>
+                
+                <div class="l-col-to-row__item  <?php echo $r_ff_class; ?>">
+                    <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['rightpane'] . '}'); ?>
+                </div>
+                
+            </div>
+        </div>
+        <?php else: ?>
+            <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['leftpane'] . '}'); ?>
+        <?php endif; ?>
+        
+    </div>
+</div>
+<?php endif; ?>
+<?php endforeach; ?>
