@@ -47,14 +47,19 @@ if ($show_description)
 }
 
 $route = $this->result->route;
-
+#echo '<pre>'; var_dump($this->result); echo '</pre>'; #exit;
 // Get the route with highlighting information.
 if (!empty($this->query->highlight)
 	&& empty($this->result->mime)
 	&& $this->params->get('highlight_terms', 1)
 	&& JPluginHelper::isEnabled('system', 'highlight'))
 {
-	$route .= '&highlight=' . base64_encode(json_encode($this->query->highlight));
+    if (strpos($route, '?') === false) {
+        $route .= '?';
+    } else {
+        $route .= '&';
+    }
+	$route .= 'highlight=' . base64_encode(json_encode($this->query->highlight));
 }
 
 ?>
