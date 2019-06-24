@@ -12,7 +12,9 @@
     <!--  The version string is recorded in the components table -->
     <version>0.0.6</version>
     <!-- The description is optional and defaults to the name -->
-    <description>TPL_NPEU6_DESCRIPTION</description>
+    <!--<description>TPL_NPEU6_DESCRIPTION</description>-->
+    <!-- The above should work but doesn't and results in the untranslated string being shown. -->
+    <description>NPEU 6 template for Joomla!</description>
 
     <updateservers>
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
