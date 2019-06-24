@@ -22,9 +22,32 @@ $info    = $params->get('info_block_position', 0);
 // Check if associations are implemented. If they are, define the parameter.
 $assocParam = (JLanguageAssociations::isEnabled() && $params->get('show_associations'));
 #JHtml::_('behavior.caption');
+
+// Get the custom fields for the article:
+$fields = $this->item->jcfields;
+$headline_image = array();
+foreach ($fields as $field) {
+    switch ($field->name) {
+        case 'headline-image':
+            $headline_image['headline-image'] = $field->rawvalue;
+            break;
+        case 'headline-image-alt-text':
+            $headline_image['headline-image-alt-text'] = $field->rawvalue;
+            break;
+        case 'headline-image-caption':
+            $headline_image['headline-image-caption'] = $field->rawvalue;
+            break;
+        case 'headline-image-credit-line':
+            $headline_image['headline-image-credit-line'] = $field->rawvalue;
+            break;
+    }
+}
+$this->item->headline_image = $headline_image;
+
 $doc    = JFactory::getDocument();
 $doc->article = $this->item;
 #echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($doc->article); echo '</pre>'; exit;
 return;
 ?>
 

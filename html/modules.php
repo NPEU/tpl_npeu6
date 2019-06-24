@@ -133,14 +133,37 @@ if ($module->showtitle) {
     $outer_el = 'section';
 }
 
-$has_cta = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
+$has_cta            = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
+$has_headline_image = !empty($params->get('headline_image'));
 
 if (!empty($module->content)): ?>
+<?php if ($has_headline_image): ?>
+<div class="l-proportional-container  l-proportional-container--2-1  l-proportional-container--4-1--wide  u-space--above">
+    <div class="l-proportional-container__content">
+        <div class="u-image-cover  js-image-cover">
+            <div class="u-image-cover__inner">
+                <img class="u-image-cover__image" src="<?php echo $params->get('headline_image'); ?>" alt="" width="600">
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 <?php if ($module_wrapper == 'panel'): ?>
-<div class="c-panel<?php echo $wrapper_theme_class; ?>  t-neutral  u-space--below  u-space--above">
+<div class="c-panel<?php echo $wrapper_theme_class; ?>  t-neutral  u-space--below<?php if (!$has_headline_image): ?>  u-space--above<?php endif; ?>">
     <<?php echo $outer_el; ?> class="c-panel--module">
         <div<?php echo $wrapper_class; ?>>
 <?php endif; ?>
+            <?php /*if ($has_headline_image): ?>
+            <div class="l-proportional-container  l-proportional-container--2-1  u-space--below">
+                <div class="l-proportional-container__content">
+                    <div class="u-image-cover  js-image-cover">
+                        <div class="u-image-cover__inner">
+                            <img class="u-image-cover__image" src="<?php echo $params->get('headline_image'); ?>" alt="" width="600">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif;*/ ?>
             <?php if ($module->showtitle && $has_cta): ?>
             <header class="u-text-group  u-text-group--push-apart  u-space--below">
                 <h2<?php echo $header_class; ?>><?php echo $module->title; ?></h2>

@@ -40,18 +40,15 @@
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
 
-    <?php /*
+    <?php if($page_brand->alias != 'npeu'): ?>
 
-    {% if project_data.theme %}
-        <link rel="stylesheet" href="/css/theme-{{ page.project }}.min.{{ site.data.cache_bust_css.date }}.css" media="
-            only print, screen and (min-width: 1vm),
-            only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
-            only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
-            only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
-        ">
-    {% endif %}
-
-    */ ?>
+    <link rel="stylesheet" href="/templates/npeu6/css/theme-<?php echo $page_brand->alias; ?>.min.css" media="
+        only print, screen and (min-width: 1vm),
+        only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
+        only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
+        only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
+    ">
+    <?php endif; ?>
 
     <?php foreach($page_stylesheets as $stylesheet => $options): ?>
     <link rel="stylesheet" href="<?php echo $stylesheet; ?>" media="
@@ -96,11 +93,11 @@
 
     */ ?>
 
-    <?php foreach($page_scripts as $scripts): ?>
+    <?php foreach($page_scripts as $script => $options): ?>
     <script src="<?php echo $script; ?>"></script>
     <?php endforeach; ?>
 
-    <?php if (!empty($page_styles)): ?>
+    <?php if (!empty($page_style)): ?>
     <style>
     <?php foreach($page_style as $style): ?>
     <?php echo $style . "\n\n"; ?>
@@ -110,9 +107,7 @@
 
     <?php if (!empty($page_script)): ?>
     <script>
-    <?php foreach($page_script as $script): ?>
-    <?php echo $script . "\n\n"; ?>
-    <?php endforeach; ?>
+    <?php echo $page_script; ?>
     </script>
     <?php endif; ?>
 

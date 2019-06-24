@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-// Need to sort out containers and their classes.
+// May need to sort out containers.
 // See Trello note.
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
@@ -20,7 +20,7 @@ $theme = 't-' . $page_brand->alias;
 <?php foreach ($this->blocks as $name => $block): ?>
 <?php if (!empty($block['leftpane'])): ?>
 <div class="l-blockrow">
-    <div class="d-bands--bottom  <?php echo $theme; ?>">
+    <div<?php if (!empty($block['block_classes'])) { echo ' class="' . $block['block_classes'] . '  ' . $theme . '"'; } ?>>
         <?php if (!empty($block['rightpane'])): ?>
         <?php
             if ($block['panebalance'] == '33--66') {

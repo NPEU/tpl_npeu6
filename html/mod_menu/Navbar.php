@@ -130,11 +130,14 @@ foreach ($new_list as $i => &$item) {
     $output = ob_get_contents();
     ob_end_clean();
     
+    // Reset title to prevent spans appearing on <title> tag:
+    $item->title = $title;
+    
     if ($current) {
         $output = preg_replace('#href="[^"]+"#', 'href="#main"', $output);
     }
     
-
+    
 /*
 <div class="dropdown dropdown--only-wide js-dropdown">
 

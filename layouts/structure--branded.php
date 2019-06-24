@@ -11,7 +11,7 @@
                             </a>
                         </div>
 
-                        <?php if ($page_display_cta): ?>
+                        <?php if ($page_display_cta) : ?>
                         <div class="l-col-to-row__item  ff-width-100--40--50  l-center  u-padding--top--s  u-padding--sides--s">
 
                             <span>
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <?php if($page_has_navbar): ?>
+            <?php if($page_has_navbar) : ?>
             <div class="nav-bar  u-padding--sides--s  t-<?php echo $page_brand->alias; ?>">
 
                 <div class="nav-bar__start">
@@ -40,7 +40,7 @@
                     <div class="over-panel over-panel--fade js-over-panel" id="menu-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden="" aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
-                            <jdoc:include type="modules" name="2-header-nav-bar" style="basic" />
+                            <?php echo $modules__header_nav_bar; /*<jdoc:include type="modules" name="2-header-nav-bar" style="basic" />*/?>
                         </div>
                     </div>
 
@@ -50,8 +50,11 @@
                     <div class="over-panel over-panel--fade js-over-panel" id="search-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden="" aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
-                            <form action="#search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET">
-                                <input type="search" class="search-form__field" id="search" placeholder="Search" name="s" value="" aria-label="Search">
+                            <form action="<?php echo $page_brand->alias; ?>/search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET">
+                                <?php if ($page_search_area != ''): ?>
+                                <input type="hidden" value="<?php echo $page_search_area; ?>" name="Search">
+                                <?php endif; ?>
+                                <input type="search" class="search-form__field" id="search" placeholder="Search" name="q" value="" aria-label="Search">
                                 <button class="search-form__submit" type="submit">
                                     <span>
                                         <svg width="20" height="20" viewBox="0 0 20 20">
@@ -69,8 +72,8 @@
             <?php endif; ?>
         </header>
 
-        <?php if($page_has_hero): ?>
-            <?php if($page_has_carousel): ?>
+        <?php if($page_has_hero) : ?>
+            <?php if($page_has_carousel) : ?>
         <!-- @TOTO -->
             <?php else: /* @TODO - need to think about credit lines. */?>
         <div id="hero" class="c-hero  c-hero--reversed  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
@@ -87,7 +90,7 @@
             </div>
 
             <div class="c-hero__message">
-                <?php if ($page_is_landing): ?>
+                <?php if ($page_is_landing) : ?>
                 <h1><?php echo $page_hero->text; ?></h1>
                 <?php else: ?>
                 <p><?php echo $page_hero->text; ?></p>
@@ -100,22 +103,22 @@
 
         <div class="sticky-footer-expand">
             <main role="main">
-                <?php if ($page_is_landing): ?>
+                <?php if ($page_is_landing) : ?>
                 <jdoc:include type="component" format="raw" />
                 <?php else: ?>
                 <div class="l-blockrow">
                     <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
 
-                        <div class="l-primary-content<?php if ($page_has_pull_outs): ?>  l-primary-content--has-pull-outs<?php endif; ?>">
+                        <div class="l-primary-content<?php if ($page_has_pull_outs) : ?>  l-primary-content--has-pull-outs<?php endif; ?>">
 
                             <div class="l-primary-content__header">
 
-                                <jdoc:include type="modules" name="3-main-breadcrumbs" style="basic" />
-                                <jdoc:include type="modules" name="3-main-upper" style="basic" />
+                                <?php echo $modules__main_breadcumbs; /*<jdoc:include type="modules" name="3-main-breadcrumbs" style="basic" />*/?>
+                                <?php echo $modules__main_upper; /*<jdoc:include type="modules" name="3-main-upper" style="basic" />*/?>
 
                                 <div class="c-panel">
                                     <h1><?php echo $page_heading; ?></h1>
-                                    <?php if ($page_has_article ): ?>
+                                    <?php if ($page_has_article) : ?>
                                     <?php // Content is generated by content plugin event "onContentAfterTitle"
                                     // Not sure this is the best place for this?
                                     ?>
@@ -124,16 +127,17 @@
                                 </div>
                             </div>
 
-                            <?php if ($page_has_article ): ?>
+                            <?php if ($page_has_article) : ?>
                             <?php // Content is generated by content plugin event "onContentBeforeDisplay"
                             // Not sure this is the best place for this? ?>
                             <?php echo $doc->article->event->beforeDisplayContent; ?>
                             <?php endif; ?>
 
-                            <?php if ($page_has_sidebar_top || $page_has_priority_content): ?>
+                            <?php if ($page_has_sidebar_top || $page_has_priority_content || $page_toc) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--top">
-                                <jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />
-                                <?php if ($page_has_priority_content): ?>
+                                <?php echo $page_toc; ?>
+                                <?php echo $modules__sidebar_top; /*<jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />*/?>
+                                <?php if ($page_has_priority_content) : ?>
                                 <?php echo $doc->article->introtext; ?>
                                 <?php endif; ?>
                             </div>
@@ -142,9 +146,20 @@
                             <div class="l-primary-content__main">
 
                                 <div class="c-panel">
-                                    <?php if ($page_has_article ): ?>
+                                    <?php if ($page_has_article) : ?>
                                     <div class="c-longform-content">
-                                        <?php if ($page_has_priority_content): ?>
+                                        <?php if (!empty($doc->article->headline_image['headline-image'])) : ?>
+                                        <div class="l-proportional-container  l-proportional-container--2-1  u-space--below">
+                                            <div class="l-proportional-container__content">
+                                                <div class="u-image-cover  js-image-cover">
+                                                    <div class="u-image-cover__inner">
+                                                        <img class="u-image-cover__image" src="<?php echo $doc->article->headline_image['headline-image']; ?>" alt="<?php echo $doc->article->headline_image['headline-image-alt-text']; ?>" width="600">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
+                                        <?php if ($page_has_priority_content) : ?>
                                         <?php echo $doc->article->fulltext; ?>
                                         <?php else: ?>
                                         <?php echo $doc->article->introtext; ?>
@@ -154,22 +169,25 @@
                                     <jdoc:include type="component" format="raw" />
                                     <?php endif; ?>
                                 </div>
+                                <?php if (!empty($doc->article->pagination)) : ?>
+                                <?php echo $doc->article->pagination; ?>
+                                <?php endif; ?>
                             </div>
 
-                            <?php if ($page_has_article ): ?>
+                            <?php if ($page_has_article) : ?>
                             <?php // Content is generated by content plugin event "onContentAfterDisplay"
                             // Not sure this is the best place for this? ?>
                             <?php echo $doc->article->event->afterDisplayContent; ?>
                             <?php endif; ?>
 
-                            <?php if ($page_has_sidebar_bottom): ?>
+                            <?php if ($page_has_pull_outs && $page_has_sidebar_bottom) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--bottom">
-                                <jdoc:include type="modules" name="4-sidebar-bottom" style="sidebar" />
+                                <?php echo $modules__sidebar_bottom; /*<jdoc:include type="modules" name="4-sidebar-bottom" style="sidebar" />*/ ?>
                             </div>
                             <?php endif; ?>
-                            <?php if ($page_has_main_lower): ?>
+                            <?php if ($page_has_main_lower) : ?>
                             <div class="l-primary-content__footer">
-                                <jdoc:include type="modules" name="3-main-lower" style="basic" />
+                                <?php echo $modules__main_lower; /*<jdoc:include type="modules" name="3-main-lower" style="basic" />*/?>
                             </div>
                             <?php endif; ?>
 
@@ -178,24 +196,28 @@
                     </div>
                 </div>
                 <?php endif; ?>
-                <jdoc:include type="modules" name="5-bottom" style="block" />
+                <?php echo $modules__bottom; /*<jdoc:include type="modules" name="5-bottom" style="block" />*/?>
+                
             </main>
         </div>
 
         <footer class="sticky-footer  t-<?php echo $page_brand->alias; ?>  d-bands--top" role="contentinfo">
+            
+            <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />*/?>
+            
             <div class="l-distribute-wrap">
                 <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">
 
                     <div class="u-padding--s  l-center">
-                        <?php if ($page_unit == 'npeu'): ?>
+                        <?php if ($page_unit == 'npeu') : ?>
                         <a href="https://www.npeu.ox.ac.uk" class="c-badge">
                             <img src="/img/unit-logos/npeu-logo.svg" onerror="this.src='/img/unit-logos/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                         </a>
-                        <?php elseif ($page_unit == 'npeu_ctu'): ?>
+                        <?php elseif ($page_unit == 'npeu_ctu') : ?>
                         <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge">
                             <img src="/img/unit-logos/npeu-ctu-logo.svg" onerror="this.src='/img/unit-logos/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
                         </a>
-                        <?php elseif ($page_unit == 'sheer'): ?>
+                        <?php elseif ($page_unit == 'sheer') : ?>
                         <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge">
                             <img src="/img/unit-logos/sheer-logo.svg" onerror="this.src='/img/unit-logos/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
                         </a>

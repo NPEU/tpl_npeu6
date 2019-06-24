@@ -47,9 +47,7 @@ defined('_JEXEC') or die;
         <?php elseif ($show_last):
         // Render last item if reqd. ?>
         <dd class="n-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a class="n-breadcrumbs__link" itemprop="name">
-                <?php echo $item->name; ?>
-            </a>
+            <a class="n-breadcrumbs__link" itemprop="name"><span><?php echo $item->name; ?></span></a>
             <meta itemprop="position" content="<?php echo $key + 1; ?>">
         </dd>
         <?php endif; ?>
