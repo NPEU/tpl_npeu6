@@ -97,7 +97,7 @@
                     default="2"
                     label="TPL_NPEU6_MAIN_BRAND_LABEL"
                     description="TPL_NPEU6_MAIN_BRAND_DESC"
-                    query="SELECT id, name FROM #__brands WHERE catid = 152 ORDER BY name"
+                    query="SELECT id, name FROM #__brands WHERE catid = 151 ORDER BY name"
                     key_field="id"
                     value_field="name"
                 />
