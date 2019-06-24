@@ -3,7 +3,7 @@
     <update>
         <name>NPEU: tpl_npeu6</name>
         <description>Joomla! tpl_npeu6 template</description>
-        <element>tpl_npeu6</element>
+        <element>npeu6</element>
         <type>template</type>
         <version>0.0.1</version>
         <client>site</client>
@@ -19,7 +19,7 @@
     <update>
         <name>NPEU: tpl_npeu6</name>
         <description>Joomla! tpl_npeu6 template</description>
-        <element>tpl_npeu6</element>
+        <element>npeu6</element>
         <type>template</type>
         <version>0.0.3</version>
         <client>site</client>
@@ -35,7 +35,7 @@
     <update>
         <name>NPEU: tpl_npeu6</name>
         <description>Joomla! tpl_npeu6 template</description>
-        <element>tpl_npeu6</element>
+        <element>npeu6</element>
         <type>template</type>
         <version>0.0.4</version>
         <client>site</client>
