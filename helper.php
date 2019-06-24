@@ -95,4 +95,76 @@ class TplNPEU6Helper
 
 		return self::$template;
     }
+    
+    /**
+     * Gets the current template.
+     *
+     * @return object
+     */
+    public static function stripPunctuation($text)
+    {
+        if (!is_string($text)) {
+            trigger_error('Function \'strip_punctuation\' expects argument 1 to be an string', E_USER_ERROR);
+            return false;
+        }
+        $text = html_entity_decode($text, ENT_QUOTES);
+
+        $urlbrackets = '\[\]\(\)';
+        $urlspacebefore = ':;\'_\*%@&?!' . $urlbrackets;
+        $urlspaceafter = '\.,:;\'\-_\*@&\/\\\\\?!#' . $urlbrackets;
+        $urlall = '\.,:;\'\-_\*%@&\/\\\\\?!#' . $urlbrackets;
+
+        $specialquotes = '\'"\*<>';
+
+        $fullstop = '\x{002E}\x{FE52}\x{FF0E}';
+        $comma = '\x{002C}\x{FE50}\x{FF0C}';
+        $arabsep = '\x{066B}\x{066C}';
+        $numseparators = $fullstop . $comma . $arabsep;
+
+        $numbersign = '\x{0023}\x{FE5F}\x{FF03}';
+        $percent = '\x{066A}\x{0025}\x{066A}\x{FE6A}\x{FF05}\x{2030}\x{2031}';
+        $prime = '\x{2032}\x{2033}\x{2034}\x{2057}';
+        $nummodifiers = $numbersign . $percent . $prime;
+        $return = preg_replace(
+        array(
+            // Remove separator, control, formatting, surrogate,
+            // open/close quotes.
+            '/[\p{Z}\p{Cc}\p{Cf}\p{Cs}\p{Pi}\p{Pf}]/u',
+            // Remove other punctuation except special cases
+            '/\p{Po}(?<![' . $specialquotes .
+            $numseparators . $urlall . $nummodifiers . '])/u',
+            // Remove non-URL open/close brackets, except URL brackets.
+            '/[\p{Ps}\p{Pe}](?<![' . $urlbrackets . '])/u',
+            // Remove special quotes, dashes, connectors, number
+            // separators, and URL characters followed by a space
+            '/[' . $specialquotes . $numseparators . $urlspaceafter .
+            '\p{Pd}\p{Pc}]+((?= )|$)/u',
+            // Remove special quotes, connectors, and URL characters
+            // preceded by a space
+            '/((?<= )|^)[' . $specialquotes . $urlspacebefore . '\p{Pc}]+/u',
+            // Remove dashes preceded by a space, but not followed by a number
+            '/((?<= )|^)\p{Pd}+(?![\p{N}\p{Sc}])/u',
+            // Remove consecutive spaces
+            '/ +/',
+            ), ' ', $text);
+        $return = str_replace('/', '_', $return);
+        return str_replace("'", '', $return);
+    }
+    
+    /**
+     * Creates an HTML-friendly string for use in id's
+     *
+     * @param string $text
+     * @return string
+     * @access public
+     */
+    public static function htmlID($text)
+    {
+        if (!is_string($text)) {
+            trigger_error('Function \'html_id\' expects argument 1 to be an string', E_USER_ERROR);
+            return false;
+        }
+        $return = strtolower(trim(preg_replace('/\s+/', '-', self::stripPunctuation($text))));
+        return $return;
+    }
 }
