@@ -5,12 +5,12 @@
     <author>Andy Kirk</author>
     <authorEmail>andy.kirk@npeu.ox.ac.uk</authorEmail>
     <authorUrl>https://www.npeu.ox.ac.uk</authorUrl>
-    <creationDate>March 2019</creationDate>
+    <creationDate>June 2019</creationDate>
     <copyright>(C) NPEU 2019</copyright>
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>0.0.4</version>
+    <version>0.1.0</version>
     <!-- The description is optional and defaults to the name -->
     <description>TPL_NPEU6_DESCRIPTION</description>
 
