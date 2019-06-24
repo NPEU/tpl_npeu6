@@ -16,7 +16,7 @@
 
     <updateservers>
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
-        <server type="extension" name="NPEU: tpl_npeu6 Update Site">https://raw.githubusercontent.com/NPEU/tpl_npeu6/master/update-manifest.xml</server>
+        <server client="site" type="extension" name="NPEU: tpl_npeu6 Update Site">https://raw.githubusercontent.com/NPEU/tpl_npeu6/master/update-manifest.xml</server>
     </updateservers>
 
 
