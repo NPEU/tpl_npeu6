@@ -21,11 +21,11 @@
         <description>Joomla! tpl_npeu6 template</description>
         <element>tpl_npeu6</element>
         <type>template</type>
-        <version>0.0.2</version>
+        <version>0.0.3</version>
         <client>administrator</client>
-        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v0.0.2</infourl>
+        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v0.0.3</infourl>
         <downloads>
-            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v0.0.2.zip</downloadurl>
+            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v0.0.3.zip</downloadurl>
         </downloads>
         <targetplatform name="joomla" />
         <tags>
