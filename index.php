@@ -29,7 +29,7 @@ $user  = JFactory::getUser();
 #echo '<pre>'; var_dump($app); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($input); echo '</pre>'; exit;
-echo '<pre>'; var_dump($user); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($user); echo '</pre>'; exit;
 
 
 // Set variables otherwise declared in error.php:
@@ -43,7 +43,7 @@ if (!isset($menu_item)) {
     $menu_item = TplNPEU6Helper::get_menu_item();
 }
 $menu_root = explode('/', $menu_item->route)[0];
-echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->params->get('hero_image')); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_root); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->access); echo '</pre>'; exit;
