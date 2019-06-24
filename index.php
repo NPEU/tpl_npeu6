@@ -32,6 +32,7 @@ $user  = JFactory::getUser();
 #echo '<pre>'; var_dump($user); echo '</pre>'; exit;
 
 
+
 // Set variables otherwise declared in error.php:
 if (!isset($is_error)) {
     $is_error = false;
@@ -43,13 +44,19 @@ if (!isset($menu_item)) {
     $menu_item = TplNPEU6Helper::get_menu_item();
 }
 $menu_root = explode('/', $menu_item->route)[0];
+if (!isset($menu_id)) {
+    $menu_id = TplNPEU6Helper::get_menu_id();
+}
 #echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->params->get('hero_image')); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_root); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->access); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($menu_id); echo '</pre>'; exit;
+#####echo '<pre>'; var_dump($user->authorise("core.edit", "com_menus.menu." . $menu_id)); echo '</pre>'; exit;
+
 
 // Brand
-$page_brand      = TplNPEU6Helper::get_brand();
+$page_brand = TplNPEU6Helper::get_brand();
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
 
 

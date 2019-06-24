@@ -16,6 +16,12 @@ defined('_JEXEC') or die;
  */
 class TplNPEU6Helper
 {
+    /**
+	 * Global brand object
+	 *
+	 * @var    Brand
+	 */
+	public static $brand = null;
 
     /**
 	 * Global menu_item object
@@ -25,11 +31,11 @@ class TplNPEU6Helper
 	public static $menu_item = null;
 
     /**
-	 * Global brand object
+	 * Global menu_id object
 	 *
-	 * @var    Brand
+	 * @var    Menu Item
 	 */
-	public static $brand = null;
+	public static $menu_id = null;
 
     /**
 	 * Global template object
@@ -37,20 +43,6 @@ class TplNPEU6Helper
 	 * @var    Template
 	 */
 	public static $template = null;
-
-    /**
-     * Gets the current menu item.
-     *
-     * @return object
-     */
-    public static function get_menu_item()
-    {
-        if (!self::$menu_item) {
-            self::$menu_item = JFactory::getApplication()->getMenu()->getActive();
-        }
-
-		return self::$menu_item;
-    }
 
     /**
      * Gets the current menu item's brand.
@@ -78,6 +70,49 @@ class TplNPEU6Helper
 
 		return self::$brand;
     }
+
+    /**
+     * Gets the current menu id since only the type (name) is available in menu_item.
+     *
+     * @return object
+     */
+    public static function get_menu_id()
+    {
+        if (self::$menu_id) {
+            return self::$menu_id;
+        }
+        
+        if (!self::$menu_item) {
+            self::get_menu_item();
+        } 
+        
+        $db = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $query->select('id');
+        $query->from('#__menu_types');
+        $query->where('menutype = ' . $db->quote(self::$menu_item->menutype));
+        $db->setQuery($query);
+        
+        self::$menu_id = $db->loadResult();
+
+		return self::$menu_id;
+    }
+
+    /**
+     * Gets the current menu item.
+     *
+     * @return object
+     */
+    public static function get_menu_item()
+    {
+        if (!self::$menu_item) {
+            self::$menu_item = JFactory::getApplication()->getMenu()->getActive();
+        }
+
+		return self::$menu_item;
+    }
+
 
     /**
      * Gets the current template.
