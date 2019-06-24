@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 ?>
 <div class="c-card-wrap">
     <article class="c-card  <?php echo $theme; ?>">
-        <a href="<?php echo $item->category_route . '/' . $item->slug;?>" class="c-card__full-link  <?php echo $theme; ?>  u-fill-height--column">
+        <a href="<?php echo $item->link; ?>" class="c-card__full-link  <?php echo $theme; ?>  u-fill-height--column">
             <div class="c-card__image">
                 <div class="l-proportional-container  l-proportional-container--2-1">
                     <div class="l-proportional-container__content">

@@ -19,6 +19,18 @@ use \Michelf\Markdown;
 // Include the template helper:
 JLoader::register('TplNPEU6Helper', __DIR__ . '/helper.php');
 
+#echo '<pre>'; var_dump($_SERVER); echo '</pre>'; exit;
+switch ($_SERVER['SERVER_NAME']) {
+    case 'dev.npeu.ox.ac.uk' :
+        $env = 'development';
+        break;
+    case 'test.npeu.ox.ac.uk':
+        $env = 'testing';
+        break;
+    default:
+        $env = 'production';
+}
+#echo '<pre>'; var_dump($env); echo '</pre>'; exit;
 
 $app   = JFactory::getApplication();
 $doc   = JFactory::getDocument();
@@ -281,5 +293,4 @@ $inner_structure = $page_template_params->layout_name;
 // Page Content:
 // $page_content = '<p>Replace this.</p>';
 // Using <jdoc:include type="component" format="raw" />
-
 include(__DIR__ . '/layouts/structure.php');
