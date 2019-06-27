@@ -33,7 +33,7 @@
         Edge, Chrome 39+, Opera 26+, Safari 9+, iOS 9+, Android ~5+, Android UCBrowser 11.8+
         FF 47+
     -->
-    <link rel="stylesheet" href="/templates/npeu6/css/style.min.css" media="
+    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/style.min.css'); ?>" media="
         only print, screen and (min-width: 1vm),
         only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
         only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
@@ -42,7 +42,7 @@
 
     <?php if($page_brand->alias != 'npeu'): ?>
 
-    <link rel="stylesheet" href="/templates/npeu6/css/theme-<?php echo $page_brand->alias; ?>.min.css" media="
+    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/theme-' . $page_brand->alias . '.min.css'); ?>" media="
         only print, screen and (min-width: 1vm),
         only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
         only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
@@ -51,7 +51,7 @@
     <?php endif; ?>
 
     <?php foreach($page_stylesheets as $stylesheet => $options): ?>
-    <link rel="stylesheet" href="<?php echo $stylesheet; ?>" media="
+    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
         only print, screen and (min-width: 1vm),
         only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
         only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
@@ -59,7 +59,7 @@
     ">
     <?php endforeach; ?>
 
-    <script src="/templates/npeu6/js/script.min.js"></script>
+    <script src="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/js/script.min.js'); ?>"></script>
 
     <?php /*
 
@@ -111,14 +111,14 @@
     </script>
     <?php endif; ?>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/templates/npeu6/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/templates/npeu6/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/templates/npeu6/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/templates/npeu6/favicon/site.webmanifest">
-    <link rel="mask-icon" href="/templates/npeu6/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="/templates/npeu6/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>favicon-16x16.png">
+    <link rel="manifest" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>site.webmanifest">
+    <link rel="mask-icon" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>favicon.ico">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-config" content="/templates/npeu6/favicon/browserconfig.xml">
+    <meta name="msapplication-config" content="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Piwik -->
@@ -139,7 +139,7 @@
     <!-- End Piwik Code -->
 
 </head>
-<body role="document"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
+<body role="document" id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
     <?php echo $page_svg_icons; ?>
 

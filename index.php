@@ -68,7 +68,8 @@ if (!isset($menu_id)) {
 
 
 // Brand
-$page_brand = TplNPEU6Helper::get_brand();
+$page_brand        = TplNPEU6Helper::get_brand();
+$page_brand_folder = $page_brand->alias . '/';
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
 
 
@@ -76,14 +77,16 @@ $page_brand = TplNPEU6Helper::get_brand();
 // processed too late and get missed.
 // Pre-rendering all modules here to avoid that. Not sure if there will be other consequences.
 jimport('joomla.application.module.helper');
-$modules__header_nav_bar  = JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}');
-$modules__main_breadcumbs = JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}');
-$modules__main_upper      = JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}');
-$modules__sidebar_top     = JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}');
-$modules__sidebar_bottom  = JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}');
-$modules__main_lower      = JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}');
-$modules__bottom          = JHtml::_('content.prepare', '{loadposition 5-bottom,block}');
-$modules__footer_top      = JHtml::_('content.prepare', '{loadposition 6-footer-top,block}');
+$modules__header_nav_bar   = JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}');
+$modules__main_breadcumbs  = JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}');
+$modules__main_upper       = JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}');
+$modules__sidebar_top      = JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}');
+$modules__sidebar_bottom   = JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}');
+$modules__main_lower       = JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}');
+$modules__bottom           = JHtml::_('content.prepare', '{loadposition 5-bottom,block}');
+$modules__footer_top       = JHtml::_('content.prepare', '{loadposition 6-footer-top,block}');
+$modules__footer_mid_left  = JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}');
+$modules__footer_mid_right = JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,block}');
 
 
 // Branded search pages need an extra query string parameter to limit the search to just that part
@@ -140,6 +143,9 @@ $page_has_priority_content     = !empty($doc->article->fulltext);
 $page_has_sidebar_top          = $doc->countModules('4-sidebar-top');
 $page_has_sidebar_section_menu = $doc->countModules('4-sidebar-section-menu');
 $page_has_sidebar_bottom       = $doc->countModules('4-sidebar-bottom');
+$page_has_footer_top           = $doc->countModules('6-footer-top');
+$page_has_footer_mid_left      = $doc->countModules('6-footer-mid-left');
+$page_has_footer_mid_right     = $doc->countModules('6-footer-mid-right');
 
 
 // Sort out ToC. May make this a module to make it clearer to others where this comes from:

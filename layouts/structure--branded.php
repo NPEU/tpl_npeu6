@@ -2,6 +2,22 @@
 
         <header class="c-page-header  t-<?php echo $page_brand->alias; ?>">
 
+            <div class="u-text-group  u-text-group--push-apart  u-padding--sides--s">
+                <ul class="c-utilitext  c-utilitext--skiplinks">
+                    <li><a href="#main">Skip to content</a></li>
+                    <li><a href="#primary-nav">Skip to navigation</a></li>
+                    <li><a href="#page-footer">Skip to footer</a></li>
+                </ul>
+                <p class="c-utilitext  no-print">
+                    <?php if(!$user->get('guest')): ?>
+                    <a href="/user-profile">Logged in as <?php echo $user->username; ?> (view profile)</a> | <a href="/logout<?php /*echo '?' . JSession::getFormToken(); ?>=1&amp;return=<?php echo base64_encode('/login?logged-out'); */?>">Logout</a><?php if(!$user->get('staff')): ?> | <a href="/administrator">Admin</a><?php endif; ?>
+                    <?php else: ?>
+                    <a href="/login">NPEU Login</a>
+                    <?php endif; ?>
+                    | <a href="https://intranet.npeu.ox.ac.uk">Staff Area</a>
+                </p>
+            </div>
+
             <div class="u-padding--bottom--s">
                 <div class="l-col-to-row-wrap">
                     <div class="l-col-to-row">
@@ -35,7 +51,7 @@
                     </div>
                 </div>
 
-                <nav class="nav-bar__main">
+                <nav class="nav-bar__main" id="primary-nav" aria-label="primary">
 
                     <div class="over-panel over-panel--fade js-over-panel" id="menu-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden="" aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
@@ -102,7 +118,7 @@
         <?php endif; ?>
 
         <div class="sticky-footer-expand">
-            <main role="main">
+            <main role="main" id="main">
                 <?php if ($page_is_landing) : ?>
                 <jdoc:include type="component" format="raw" />
                 <?php else: ?>
@@ -170,7 +186,17 @@
                                     <?php endif; ?>
                                 </div>
                                 <?php if (!empty($doc->article->pagination)) : ?>
-                                <?php echo $doc->article->pagination; ?>
+                                <div class="u-space--below">
+                                    <?php echo $doc->article->pagination; ?>
+                                </div>
+                                <?php endif; ?>
+                                <?php if ($page_has_article) : ?>
+                                <footer class="t-neutral  d-background--very-light  u-max-measure  u-padding--s">
+                                    <p class="c-utilitext  u-text-group  u-text-group--push-apart">
+                                        <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
+                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank">Edit content</a><?php endif; ?>
+                                    </p>
+                                </footer>
                                 <?php endif; ?>
                             </div>
 
@@ -197,14 +223,35 @@
                 </div>
                 <?php endif; ?>
                 <?php echo $modules__bottom; /*<jdoc:include type="modules" name="5-bottom" style="block" />*/?>
-                
+
             </main>
         </div>
 
-        <footer class="sticky-footer  t-<?php echo $page_brand->alias; ?>  d-bands--top" role="contentinfo">
-            
+        <footer class="sticky-footer  t-<?php echo $page_brand->alias; ?>  d-bands--top" role="contentinfo" id="page-footer">
+
             <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />*/?>
             
+            <?php if ($page_has_footer_mid_left || $page_has_footer_mid_right): ?>
+            <div class="l-col-to-row-wrap  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
+                <div class="l-col-to-row">            
+                    <?php if ($page_has_footer_mid_left): ?>     
+                    <div class="l-col-to-row__item  ff-width-100--40--50">
+                        <div class="c-panel  t-white  u-fill-height">
+                            <?php echo $modules__footer_mid_left; ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    <?php if ($page_has_footer_mid_right): ?>     
+                    <div class="l-col-to-row__item  ff-width-100--40--50">
+                        <div class="c-panel  t-white  u-fill-height">
+                            <?php echo $modules__footer_mid_right; ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
             <div class="l-distribute-wrap">
                 <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">
 
@@ -245,9 +292,11 @@
                 </div>
             </div>
 
-            <p class="c-page-footer  u-text-align--center"><?php /* @TODO: sort out footer from form input. */ ?>
-                <?php echo $page_footer_text; ?>
-            </p>
+            <div class="c-page-footer  u-text-align--center"><?php /* @TODO: sort out footer from form input. */ ?>
+                <p class="c-utilitext">
+                    <?php echo $page_footer_text; ?>
+                </p>
+            </div>
 
         </footer>
 

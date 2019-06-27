@@ -26,7 +26,7 @@ $lang = JFactory::getLanguage();
     <?php endif; ?>
     <?php if ($row->next) :
         $direction = $lang->isRtl() ? 'left' : 'right'; ?>
-        <li class="n-pagination__item">
+        <li class="n-pagination__item  u-space--left--auto">
             <a class="n-pagination__link" aria-label="<?php echo JText::sprintf('PAGINATION_NEXT_TITLE', htmlspecialchars($rows[$location+1]->title)); ?>" href="<?php echo $row->next; ?>" rel="next">
                 <?php echo '<span aria-hidden="true">' . JText::_('PAGINATION_NEXT') . '</span>'; ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg>
             </a>

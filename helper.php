@@ -202,4 +202,22 @@ class TplNPEU6Helper
         $return = strtolower(trim(preg_replace('/\s+/', '-', self::stripPunctuation($text))));
         return $return;
     }
+    
+    /**
+     * Adds a timestamp to a filename
+     *
+     * @param string $filename Expects root-relative URL
+     * @param string $root_path
+     * @return string
+     * @access public
+     */
+    public static function stamp_filename($filename, $root_path = false)
+    {
+        if (!$root_path) {
+            $root_path = $_SERVER['DOCUMENT_ROOT'];
+        }
+        $stamp = filemtime($root_path . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $filename));
+        $return = preg_replace('/(.*?)((\.min)?\..+?)$/', '$1.' . $stamp . '$2', $filename);
+        return $return;
+    }
 }

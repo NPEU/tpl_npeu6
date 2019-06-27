@@ -53,6 +53,8 @@
         <position>4-sidebar-bottom</position>
         <position>5-bottom</position>
         <position>6-footer-top</position>
+        <position>6-footer-mid-left</position>
+        <position>6-footer-mid-right</position>
     </positions>
 
     <config>
