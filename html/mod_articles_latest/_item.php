@@ -9,21 +9,24 @@
 
 defined('_JEXEC') or die;
 /* <pre><?php var_dump($item); ?></pre> */
+$fields = FieldsHelper::getFields('com_content.article', $item, true);
 ?>
 <div class="c-card-wrap">
     <article class="c-card  <?php echo $theme; ?>">
         <a href="<?php echo $item->link; ?>" class="c-card__full-link  <?php echo $theme; ?>  u-fill-height--column">
+            <?php if (!empty($fields[0]->rawvalue)) : ?>
             <div class="c-card__image">
                 <div class="l-proportional-container  l-proportional-container--2-1">
                     <div class="l-proportional-container__content">
                         <div class="u-image-cover  js-image-cover">
                             <div class="u-image-cover__inner">
-                                <img src="/img/sites/royal-oldham-hospital.jpg" alt="" class="u-image-cover__image" width="150">
+                                <img src="/<?php echo $fields[0]->rawvalue; ?>" alt="<?php echo $fields[1]->rawvalue; ?>" class="u-image-cover__image" width="150">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
             <div class="c-card__main">
                 <h2 class="c-card__title"><?php echo $item->title; ?></h2>
                 <div class="c-card__footer">
