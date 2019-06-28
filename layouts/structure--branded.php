@@ -66,7 +66,7 @@
                     <div class="over-panel over-panel--fade js-over-panel" id="search-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden="" aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
-                            <form action="<?php echo $page_brand->alias; ?>/search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET">
+                            <form action="/<?php echo $page_brand->alias; ?>/search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET">
                                 <?php if ($page_search_area != ''): ?>
                                 <input type="hidden" value="<?php echo $page_search_area; ?>" name="Search">
                                 <?php endif; ?>
