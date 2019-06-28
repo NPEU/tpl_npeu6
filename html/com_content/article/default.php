@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die;
 
+require_once dirname(dirname(dirname(__DIR__))) . '/vendor/autoload.php';
+
+use \Michelf\Markdown;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 // Create shortcuts to some parameters.
@@ -32,13 +36,13 @@ foreach ($fields as $field) {
             $headline_image['headline-image'] = $field->rawvalue;
             break;
         case 'headline-image-alt-text':
-            $headline_image['headline-image-alt-text'] = $field->rawvalue;
+            $headline_image['headline-image-alt-text'] = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue));
             break;
         case 'headline-image-caption':
-            $headline_image['headline-image-caption'] = $field->rawvalue;
+            $headline_image['headline-image-caption'] = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue));
             break;
         case 'headline-image-credit-line':
-            $headline_image['headline-image-credit-line'] = $field->rawvalue;
+            $headline_image['headline-image-credit-line'] = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue));
             break;
     }
 }

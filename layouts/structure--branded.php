@@ -165,14 +165,21 @@
                                     <?php if ($page_has_article) : ?>
                                     <div class="c-longform-content">
                                         <?php if (!empty($doc->article->headline_image['headline-image'])) : ?>
-                                        <div class="l-proportional-container  l-proportional-container--2-1  u-space--below">
-                                            <div class="l-proportional-container__content">
-                                                <div class="u-image-cover  js-image-cover">
-                                                    <div class="u-image-cover__inner">
-                                                        <img class="u-image-cover__image" src="<?php echo $doc->article->headline_image['headline-image']; ?>" alt="<?php echo $doc->article->headline_image['headline-image-alt-text']; ?>" width="600">
+                                        <div class="u-space--below">
+                                            <div class="l-proportional-container  l-proportional-container--2-1">
+                                                <div class="l-proportional-container__content">
+                                                    <div class="u-image-cover  js-image-cover">
+                                                        <div class="u-image-cover__inner">
+                                                            <img class="u-image-cover__image" src="<?php echo $doc->article->headline_image['headline-image']; ?>" alt="<?php echo $doc->article->headline_image['headline-image-alt-text']; ?>" width="600">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <?php if (!empty($doc->article->headline_image['headline-image-credit-line'])) : ?>
+                                            <p class="c-utilitext  c-utilitext--smaller  c-utilitext--pale">
+                                                Credit: <?php echo $doc->article->headline_image['headline-image-credit-line']; ?>
+                                            </p>
+                                            <?php endif; ?>
                                         </div>
                                         <?php endif; ?>
                                         <?php if ($page_has_priority_content) : ?>
