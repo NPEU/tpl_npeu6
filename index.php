@@ -288,6 +288,9 @@ $page_unit        = $page_template_params->unit;
 // Footer:
 // In order: convert HTML entities, replace year placeholder with year, transform markdown, then remove enclosing p tag.
 $page_footer_text = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform(str_replace('{{ YEAR }}', date('Y'), htmlentities($page_template_params->footer_text))));
+// Page footer links need to have their link text wrapped in spans, as per the Utilitest pattern:
+$page_footer_text = preg_replace('/(<a[^>]+>)/', '$1<span>', $page_footer_text);
+$page_footer_text = preg_replace('/<\/a>/', '</span></a>', $page_footer_text);
 
 // Nested Layouts:
 $inner_structure = $page_template_params->layout_name;
