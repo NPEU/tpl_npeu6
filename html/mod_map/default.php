@@ -21,6 +21,7 @@ $lng    = $params->get('lng');
 $zoom   = $params->get('zoom');
 $token  = $params->get('access_token');
 $height = $params->get('height');
+$legend = $params->get('legend');
 
 // Add Leaflet assets:
 $doc->addStyleSheet($template_path . '/css/map.min.css');
@@ -99,11 +100,11 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
         </p>
         <?php echo $static_map_no_js; ?>
     </div>
+    <?php if (!empty($legend)): ?>
     <figcaption>
-        <span class="u-text-group  u-text-group--center  u-text-group--wide-space">
-            <span><img alt="Red marker" class="icon--marker" height="32" src="https://www.npeu.ox.ac.uk/img/icons/red-marker.svg" width="21"> - Recruiting site</span>
-        </span>
+        <?php echo $legend; ?>
     </figcaption>
+    <?php endif; ?>
 </figure>
 
 
