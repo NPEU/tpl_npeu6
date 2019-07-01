@@ -29,6 +29,7 @@ $assocParam = (JLanguageAssociations::isEnabled() && $params->get('show_associat
 
 // Get the custom fields for the article:
 $fields = $this->item->jcfields;
+#echo '<pre>'; var_dump($fields); echo '</pre>'; exit;
 $headline_image = array();
 foreach ($fields as $field) {
     switch ($field->name) {
@@ -36,13 +37,13 @@ foreach ($fields as $field) {
             $headline_image['headline-image'] = $field->rawvalue;
             break;
         case 'headline-image-alt-text':
-            $headline_image['headline-image-alt-text'] = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue));
+            $headline_image['headline-image-alt-text']    = !empty($field->rawvalue) ? preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue)) : '';
             break;
         case 'headline-image-caption':
-            $headline_image['headline-image-caption'] = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue));
+            $headline_image['headline-image-caption']     = !empty($field->rawvalue) ? preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue)) : '';
             break;
         case 'headline-image-credit-line':
-            $headline_image['headline-image-credit-line'] = preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue));
+            $headline_image['headline-image-credit-line'] = !empty($field->rawvalue) ? preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue)) : '';
             break;
     }
 }

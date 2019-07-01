@@ -4,17 +4,20 @@
 
             <div class="u-text-group  u-text-group--push-apart  u-padding--sides--s">
                 <ul class="c-utilitext  c-utilitext--skiplinks">
-                    <li><a href="#main">Skip to content</a></li>
-                    <li><a href="#primary-nav">Skip to navigation</a></li>
-                    <li><a href="#page-footer">Skip to footer</a></li>
+                    <li><a href="#main"><span>Skip to content</span></a></li>
+                    <li><a href="#primary-nav"><span>Skip to navigation</span></a></li>
+                    <li><a href="#page-footer"><span>Skip to footer</span></a></li>
                 </ul>
                 <p class="c-utilitext  no-print">
                     <?php if(!$user->get('guest')): ?>
-                    <a href="/user-profile">Logged in as <?php echo $user->username; ?> (view profile)</a> | <a href="/logout<?php /*echo '?' . JSession::getFormToken(); ?>=1&amp;return=<?php echo base64_encode('/login?logged-out'); */?>">Logout</a><?php if(!$user->get('staff')): ?> | <a href="/administrator">Admin</a><?php endif; ?>
+                    <a href="/user-profile"><span>Logged in as <?php echo $user->username; ?> (view profile)</span></a> | <a href="/logout<?php /*echo '?' . JSession::getFormToken(); ?>=1&amp;return=<?php echo base64_encode('/login?logged-out'); */?>"><span>Logout</span></a><?php if(!$user->get('staff')): ?> | <a href="/administrator"><span>Admin</span></a><?php endif; ?>
                     <?php else: ?>
-                    <a href="/login">NPEU Login</a>
+                    <a href="/login"><span>NPEU Login</span></a>
                     <?php endif; ?>
-                    | <a href="https://intranet.npeu.ox.ac.uk">Staff Area</a>
+                    | <a href="https://intranet.npeu.ox.ac.uk"><span>Staff Area</span></a>
+                    <?php if ($user->authorise("core.edit", "com_menus.menu." . $menu_id)): ?>
+                    | <a href="/administrator/index.php?option=com_menus&view=item&client_id=0&layout=edit&id=<?php echo $menu_item->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit page</span><svg display="none" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
+                    <?php endif; ?>
                 </p>
             </div>
 
@@ -163,7 +166,7 @@
 
                                 <div class="c-panel">
                                     <?php if ($page_has_article) : ?>
-                                    <div class="c-longform-content">
+                                    <div class="c-longform-content  c-user-content">
                                         <?php if (!empty($doc->article->headline_image['headline-image'])) : ?>
                                         <div class="u-space--below">
                                             <div class="l-proportional-container  l-proportional-container--2-1">
@@ -201,7 +204,7 @@
                                 <footer class="t-neutral  d-background--very-light  u-max-measure  u-padding--s">
                                     <p class="c-utilitext  u-text-group  u-text-group--push-apart">
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
-                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank">Edit content</a><?php endif; ?>
+                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg display="none" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
                                     </p>
                                 </footer>
                                 <?php endif; ?>
@@ -237,22 +240,18 @@
         <footer class="sticky-footer  t-<?php echo $page_brand->alias; ?>  d-bands--top" role="contentinfo" id="page-footer">
 
             <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />*/?>
-            
+
             <?php if ($page_has_footer_mid_left || $page_has_footer_mid_right): ?>
             <div class="l-col-to-row-wrap  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
-                <div class="l-col-to-row">            
-                    <?php if ($page_has_footer_mid_left): ?>     
+                <div class="l-col-to-row">
+                    <?php if ($page_has_footer_mid_left): ?>
                     <div class="l-col-to-row__item  ff-width-100--40--50">
-                        <div class="c-panel  t-white  u-fill-height">
-                            <?php echo $modules__footer_mid_left; ?>
-                        </div>
+                        <?php echo $modules__footer_mid_left; ?>
                     </div>
                     <?php endif; ?>
-                    <?php if ($page_has_footer_mid_right): ?>     
+                    <?php if ($page_has_footer_mid_right): ?>
                     <div class="l-col-to-row__item  ff-width-100--40--50">
-                        <div class="c-panel  t-white  u-fill-height">
-                            <?php echo $modules__footer_mid_right; ?>
-                        </div>
+                        <?php echo $modules__footer_mid_right; ?>
                     </div>
                     <?php endif; ?>
                 </div>
