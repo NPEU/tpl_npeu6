@@ -278,7 +278,7 @@
                     </div>
 
                     <div class="u-padding--s  l-center">
-                        <a href="https://www.npeu.ox.ac.uk" class="c-badge" rel="external noopener noreferrer" target="_blank">
+                        <a href="https://www.npeu.ox.ac.uk/athena-swan" class="c-badge" rel="external noopener noreferrer" target="_blank">
                             <img src="/img/affiliate-logos/athena-swan-silver-award.svg" onerror="this.src='/img/affiliate-logos/athena-swan-silver-award.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
                         </a>
                     </div>
