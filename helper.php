@@ -54,7 +54,7 @@ class TplNPEU6Helper
         if (!self::$brand) {
             //$menu_item = self::get_menu_item();
             //$top_item_id = $menu_item->tree[0];
-            
+
             $template = self::get_template();
             $brand_id = $template->params->get('brand_id');
 
@@ -81,11 +81,11 @@ class TplNPEU6Helper
         if (self::$menu_id) {
             return self::$menu_id;
         }
-        
+
         if (!self::$menu_item) {
             self::get_menu_item();
-        } 
-        
+        }
+
         $db = JFactory::getDBO();
 
         $query = $db->getQuery(true);
@@ -93,7 +93,7 @@ class TplNPEU6Helper
         $query->from('#__menu_types');
         $query->where('menutype = ' . $db->quote(self::$menu_item->menutype));
         $db->setQuery($query);
-        
+
         self::$menu_id = $db->loadResult();
 
 		return self::$menu_id;
@@ -130,7 +130,42 @@ class TplNPEU6Helper
 
 		return self::$template;
     }
-    
+
+    /**
+     * Creates an HTML-friendly string for use in id's
+     *
+     * @param string $text
+     * @return string
+     * @access public
+     */
+    public static function htmlID($text)
+    {
+        if (!is_string($text)) {
+            trigger_error('Function \'html_id\' expects argument 1 to be an string', E_USER_ERROR);
+            return false;
+        }
+        $return = strtolower(trim(preg_replace('/\s+/', '-', self::stripPunctuation($text))));
+        return $return;
+    }
+
+    /**
+     * Adds a timestamp to a filename
+     *
+     * @param string $filename Expects root-relative URL
+     * @param string $root_path
+     * @return string
+     * @access public
+     */
+    public static function stamp_filename($filename, $root_path = false)
+    {
+        if (!$root_path) {
+            $root_path = $_SERVER['DOCUMENT_ROOT'];
+        }
+        $stamp = filemtime($root_path . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $filename));
+        $return = preg_replace('/(.*?)((\.min)?\..+?)$/', '$1.' . $stamp . '$2', $filename);
+        return $return;
+    }
+
     /**
      * Gets the current template.
      *
@@ -185,39 +220,23 @@ class TplNPEU6Helper
         $return = str_replace('/', '_', $return);
         return str_replace("'", '', $return);
     }
-    
+
     /**
-     * Creates an HTML-friendly string for use in id's
+     * Tweaks markdown
      *
-     * @param string $text
      * @return string
-     * @access public
      */
-    public static function htmlID($text)
+    public static function tweak_markdown_output($html, $options = array())
     {
-        if (!is_string($text)) {
-            trigger_error('Function \'html_id\' expects argument 1 to be an string', E_USER_ERROR);
-            return false;
+        if (!empty($options['trim_paragraph'])) {
+            $html = preg_replace(array('/^<p>/', '/<\/p>$/'), '', $html);
         }
-        $return = strtolower(trim(preg_replace('/\s+/', '-', self::stripPunctuation($text))));
-        return $return;
-    }
-    
-    /**
-     * Adds a timestamp to a filename
-     *
-     * @param string $filename Expects root-relative URL
-     * @param string $root_path
-     * @return string
-     * @access public
-     */
-    public static function stamp_filename($filename, $root_path = false)
-    {
-        if (!$root_path) {
-            $root_path = $_SERVER['DOCUMENT_ROOT'];
+
+        if (!empty($options['add_link_spans'])) {
+            $html = preg_replace('/(<a[^>]+>)/', '$1<span>', $html);
+            $html = preg_replace('/<\/a>/', '</span></a>', $html);
         }
-        $stamp = filemtime($root_path . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $filename));
-        $return = preg_replace('/(.*?)((\.min)?\..+?)$/', '$1.' . $stamp . '$2', $filename);
-        return $return;
+
+        return $html;
     }
 }

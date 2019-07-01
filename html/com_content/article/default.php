@@ -14,6 +14,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/vendor/autoload.php';
 use \Michelf\Markdown;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 
 // Create shortcuts to some parameters.
 $params  = $this->item->params;
@@ -31,19 +32,39 @@ $assocParam = (JLanguageAssociations::isEnabled() && $params->get('show_associat
 $fields = $this->item->jcfields;
 #echo '<pre>'; var_dump($fields); echo '</pre>'; exit;
 $headline_image = array();
+$tweak_markdown_options = array('trim_paragraph' => true, 'add_link_spans' => true);
+
 foreach ($fields as $field) {
     switch ($field->name) {
         case 'headline-image':
             $headline_image['headline-image'] = $field->rawvalue;
             break;
         case 'headline-image-alt-text':
-            $headline_image['headline-image-alt-text']    = !empty($field->rawvalue) ? preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue)) : '';
+            $headline_image['headline-image-alt-text']
+                = !empty($field->rawvalue)
+                ? TplNPEU6Helper::tweak_markdown_output(
+                        Markdown::defaultTransform($field->rawvalue),
+                        $tweak_markdown_options
+                    )
+                : '';
             break;
         case 'headline-image-caption':
-            $headline_image['headline-image-caption']     = !empty($field->rawvalue) ? preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue)) : '';
+            $headline_image['headline-image-caption']
+                = !empty($field->rawvalue)
+                ? TplNPEU6Helper::tweak_markdown_output(
+                        Markdown::defaultTransform($field->rawvalue),
+                        $tweak_markdown_options
+                    )
+                : '';
             break;
         case 'headline-image-credit-line':
-            $headline_image['headline-image-credit-line'] = !empty($field->rawvalue) ? preg_replace(array('/^<p>/', '/<\/p>$/'), '', Markdown::defaultTransform($field->rawvalue)) : '';
+            $headline_image['headline-image-credit-line']
+                = !empty($field->rawvalue)
+                ? TplNPEU6Helper::tweak_markdown_output(
+                        Markdown::defaultTransform($field->rawvalue),
+                        $tweak_markdown_options
+                    )
+                : '';
             break;
     }
 }
