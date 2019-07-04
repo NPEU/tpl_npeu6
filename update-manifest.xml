@@ -128,4 +128,20 @@
             <tag>stable</tag>
         </tags>
     </update>
+    <update>
+        <name>NPEU: tpl_npeu6</name>
+        <description>Joomla! tpl_npeu6 template</description>
+        <element>npeu6</element>
+        <type>template</type>
+        <version>0.0.13</version>
+        <client>site</client>
+        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v0.0.13</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v0.0.13.zip</downloadurl>
+        </downloads>
+        <targetplatform name="joomla" />
+        <tags>
+            <tag>stable</tag>
+        </tags>
+    </update>
 </updates>
