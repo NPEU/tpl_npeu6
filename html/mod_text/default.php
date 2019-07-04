@@ -8,7 +8,12 @@
  */
 
 defined('_JEXEC') or die;
-
+$hx = $params->get('header_tag') ? $params->get('header_tag') : 'h2';
+// This is a bit of a hack but it works well enough for now:
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+if ($hx == 'h1') {
+    $module->content = '<h1 id="' . TplNPEU6Helper::html_id($module->title) . '">'. $module->title . '</h1>' . $module->content;
+}
 ?>
 <div class="c-panel  u-fill-height  u-padding--sides--l">
     <div class="c-longform-content">

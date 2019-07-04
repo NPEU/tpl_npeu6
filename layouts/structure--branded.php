@@ -109,11 +109,7 @@
             </div>
 
             <div class="c-hero__message">
-                <?php if ($page_is_landing) : ?>
-                <h1><?php echo $page_hero->text; ?></h1>
-                <?php else: ?>
                 <p><?php echo $page_hero->text; ?></p>
-                <?php endif; ?>
             </div>
 
         </div>
