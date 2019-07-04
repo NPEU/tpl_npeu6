@@ -73,6 +73,8 @@ $featurette-spacing-unit: $f__base-rem-space-unit;
 $glimpse-spacing-unit: $f__base-rem-space-unit;
 @import "component-patterns/_glimpse.scss";
 
+$hero-max-message-breakpoint: 100rem;
+$hero-max-message-size: 33px !default;
 @import "component-patterns/_hero.scss";
 
 $longform-content-max-width: $f__measure;
@@ -103,6 +105,8 @@ $signs--base-color: $f__base-ui-color;
 @import "component-patterns/_thumbnail.scss";
 
 //@import "component-patterns/_tool-form.scss";
+
+@import "component-patterns/_utilitext.scss";
 
 /* ---------------------------------------------------------------------------------------------- */
 
