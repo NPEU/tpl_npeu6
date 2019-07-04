@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 ?>
-<nav aria-label="breadcrumbs" class="u-padding--sides  u-padding--top  d-background  t-white">
+<nav aria-label="Breadcrumbs" class="u-padding--sides  u-padding--top  d-background  t-white">
     <dl class="n-breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
         <dt class="n-breadcrumbs__title"><?php echo JText::_('MOD_BREADCRUMBS_HERE'); ?></dt>
         

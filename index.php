@@ -170,7 +170,7 @@ if ($page_has_article) {
             preg_match('#id="[^"]+"#', $match[0], $id_match);
             #echo '<pre>'; var_dump($id_match); echo '</pre>'; #exit;
             if(!isset($id_match[0])) {
-                $h2_id = TplNPEU6Helper::htmlID($match[1]);
+                $h2_id = TplNPEU6Helper::html_id($match[1]);
                 $new_h2 = str_replace('<h2', '<h2 id="' . $h2_id . '"', $match[0]);
                 
                 $doc->article->text      = str_replace($match[0], $new_h2, $doc->article->text);

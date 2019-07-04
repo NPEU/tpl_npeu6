@@ -138,13 +138,13 @@ class TplNPEU6Helper
      * @return string
      * @access public
      */
-    public static function htmlID($text)
+    public static function html_id($text)
     {
         if (!is_string($text)) {
             trigger_error('Function \'html_id\' expects argument 1 to be an string', E_USER_ERROR);
             return false;
         }
-        $return = strtolower(trim(preg_replace('/\s+/', '-', self::stripPunctuation($text))));
+        $return = strtolower(trim(preg_replace('/\s+/', '-', self::strip_punctuation($text))));
         return $return;
     }
 
@@ -171,7 +171,7 @@ class TplNPEU6Helper
      *
      * @return object
      */
-    public static function stripPunctuation($text)
+    public static function strip_punctuation($text)
     {
         if (!is_string($text)) {
             trigger_error('Function \'strip_punctuation\' expects argument 1 to be an string', E_USER_ERROR);

@@ -127,10 +127,13 @@ if (!empty($module_wrapper_theme)) {
     $wrapper_theme_class = '  c-panel--' . $module_wrapper_theme;
 }
 
-// If we're showing a title, we want to use section, otherwise div:
+// If we're showing a title, we want to use an aside for the sidebar, otherwise div:
 $outer_el = 'div';
+$aria_labelledby = '';
 if ($module->showtitle) {
-    $outer_el = 'section';
+    //$outer_el = 'section';
+    $outer_el = 'aside';
+    $aria_labelledby = ' aria-labelledby="' . TplNPEU6Helper::html_id($module->title) . '"';
 }
 
 $has_cta            = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
@@ -150,7 +153,7 @@ if (!empty($module->content)): ?>
 <?php endif; ?>
 <?php if ($module_wrapper == 'panel'): ?>
 <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-neutral  u-space--below<?php if (!$has_headline_image): ?>  u-space--above<?php endif; ?>">
-    <<?php echo $outer_el; ?> class="c-panel--module">
+    <<?php echo $outer_el; ?> class="c-panel--module"<?php echo $aria_labelledby; ?>>
         <div<?php echo $wrapper_class; ?>>
 <?php endif; ?>
             <?php /*if ($has_headline_image): ?>
@@ -165,12 +168,12 @@ if (!empty($module->content)): ?>
             </div>
             <?php endif;*/ ?>
             <?php if ($module->showtitle && $has_cta): ?>
-            <header class="u-text-group  u-text-group--push-apart  u-space--below">
-                <h2<?php echo $header_class; ?>><?php echo $module->title; ?></h2>
+            <header class="u-text-group  u-text-group--push-apart  u-space--below"<?php echo $aria_labelledby; ?>>
+                <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
                 <p><a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
             </header>
             <?php elseif ($module->showtitle): ?>
-            <h2<?php echo $header_class; ?>><?php echo $module->title; ?></h2>
+            <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
             <?php endif; ?>
             <?php echo $module->content; ?>
 <?php if ($module_wrapper == 'panel'): ?>
