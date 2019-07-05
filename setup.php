@@ -99,7 +99,7 @@ if ($page_brand->alias != 'npeu') {
             WHERE title = "' . $page_brand->name . '";
         ';
         $db->setQuery($query);
-        $page_search_area = '&t[]=' . $db->loadResult();
+        $page_search_area = $db->loadResult();
 }
 
 
