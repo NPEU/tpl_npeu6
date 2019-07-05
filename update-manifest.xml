@@ -149,7 +149,7 @@
         <description>Joomla! tpl_npeu6 template</description>
         <element>npeu6</element>
         <type>template</type>
-        <version>0.0.143</version>
+        <version>0.0.14</version>
         <client>site</client>
         <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v0.0.14</infourl>
         <downloads>
