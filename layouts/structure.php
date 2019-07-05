@@ -40,7 +40,7 @@
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
 
-    <?php if($page_brand->alias != 'npeu'): ?>
+    <?php if($page_brand->alias != 'npeu' && !$is_error): ?>
 
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/theme-' . $page_brand->alias . '.min.css'); ?>" media="
         only print, screen and (min-width: 1vm),
