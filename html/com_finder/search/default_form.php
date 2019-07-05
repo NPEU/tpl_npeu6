@@ -13,6 +13,21 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helpe
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
+$db = JFactory::getDBO();
+$page_search_area = '';
+if ($page_brand->alias != 'npeu') {
+    
+        $query = '
+            SELECT id
+            FROM #__finder_taxonomy
+            WHERE title = "' . $page_brand->name . '";
+        ';
+        $db->setQuery($query);
+        $page_search_area = $db->loadResult();
+}
+
+
+
 
 if ($this->params->get('show_advanced', 1) || $this->params->get('show_autosuggest', 1))
 {
@@ -67,6 +82,9 @@ jQuery(function() {";
 
 ?>
 <form id="finder-search" action="<?php echo JRoute::_($this->query->toUri()); ?>" method="get" class="form-inline">
+    <?php if ($page_search_area != ''): ?>
+    <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
+    <?php endif; ?>
     <?php echo $this->getFields(); ?>
     <?php // DISABLED UNTIL WEIRD VALUES CAN BE TRACKED DOWN. ?>
     <?php if (false && $this->state->get('list.ordering') !== 'relevance_dsc') : ?>
@@ -79,12 +97,12 @@ jQuery(function() {";
         <span class="composite">
             <input type="text" name="q" id="q" size="30" value="<?php echo $this->escape($this->query->input); ?>" class="inputbox" />
             <?php if ($this->escape($this->query->input) != '' || $this->params->get('allow_empty_query')) : ?>
-            <button name="Search" type="submit" class="<?php echo $theme; ?>">
+            <button type="submit" class="<?php echo $theme; ?>">
                 <span class="icon-search icon-white"></span>
                 <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
             </button>
             <?php else : ?>
-            <button name="Search" type="submit" class="<?php echo $theme; ?> disabled">
+            <button type="submit" class="<?php echo $theme; ?> disabled">
                 <span class="icon-search icon-white"></span>
                 <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
             </button>

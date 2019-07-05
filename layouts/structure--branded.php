@@ -71,7 +71,7 @@
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
                             <form action="/<?php echo $page_brand->alias; ?>/search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET">
                                 <?php if ($page_search_area != ''): ?>
-                                <input type="hidden" value="<?php echo $page_search_area; ?>" name="Search">
+                                <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
                                 <?php endif; ?>
                                 <input type="search" class="search-form__field" id="search" placeholder="Search" name="q" value="" aria-label="Search">
                                 <button class="search-form__submit" type="submit">
