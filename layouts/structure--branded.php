@@ -120,7 +120,7 @@
             <main role="main" id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>">
                 <?php if ($page_is_landing) : ?>
                 <jdoc:include type="component" format="raw" />
-                <?php else: ?>
+                <?php else: ?><br id="highlighter-start" />
                 <div class="l-blockrow">
                     <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
 
@@ -226,7 +226,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div><br id="highlighter-end" />
                 <?php endif; ?>
                 <?php echo $modules__bottom; /*<jdoc:include type="modules" name="5-bottom" style="block" />*/?>
 
