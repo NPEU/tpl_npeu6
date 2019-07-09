@@ -40,37 +40,33 @@ ob_start();
         <main id="main" role="main">
             <div class="l-blockrow">
                 <div class="d-bands--bottom t-npeu">
-                    <div class="l-primary-content l-primary-content--has-pull-outs">
-                        <div class="l-primary-content__header">
-                            <div class="c-panel">
-                                <h1 id="404-page-not-found">404 Page not found</h1>
-                            </div>
-                        </div>
-                        <div class="l-primary-content__main">
-                            <div class="c-panel">
-                                <p>You could try searching:</p>
 
-                                <form action="/search" id="searchform" class="" method="GET">
-                                    <span class="composite">
-                                        <input type="search" class="search-form__field" id="search" placeholder="Search" name="q" value="" size="40 aria-label="Search">
-                                        <button class="search-form__submit" type="submit">
-                                            <span>Search</span>
-                                        </button>
-                                    </span>
-                                </form>
-
-                                <p>Or one of these links:</p>
-                                <ul>
-                                    <li><a href="https://www.npeu.ox.ac.uk"><span>Home</span></a></li>
-                                    <li><a href="https://www.npeu.ox.ac.uk/ctu/trials"><span>CTU Trials Portfolio</span></a></li>
-                                    <li><a href="https://www.npeu.ox.ac.uk/sheer"><span>SHEER Portfolio</span></a></li>
-                                    <li><a href="https://www.npeu.ox.ac.uk/prumnhc"><span>PRU-MNHC</span></a></li>
-                                    <li><a href="https://www.npeu.ox.ac.uk/about"><span>About the NPEU</span></a></li>
-                                </ul>
-
-                            </div>
-                        </div>
+                    <div class="c-panel">
+                        <h1 id="404-page-not-found">404 Page not found</h1>
                     </div>
+
+                    <div class="c-panel">
+                        <p>You could try searching:</p>
+
+                        <form action="/search" id="searchform" class="" method="GET">
+                            <span class="composite">
+                                <input type="search" class="search-form__field" id="search" placeholder="Search" name="q" value="" aria-label="Search">
+                                <button class="search-form__submit" type="submit">
+                                    <span>Search</span>
+                                </button>
+                            </span>
+                        </form>
+
+                        <p>Or one of these links:</p>
+                        <ul>
+                            <li><a href="https://www.npeu.ox.ac.uk"><span>Home</span></a></li>
+                            <li><a href="https://www.npeu.ox.ac.uk/ctu/trials"><span>CTU Trials Portfolio</span></a></li>
+                            <li><a href="https://www.npeu.ox.ac.uk/sheer"><span>SHEER Portfolio</span></a></li>
+                            <li><a href="https://www.npeu.ox.ac.uk/prumnhc"><span>PRU-MNHC</span></a></li>
+                            <li><a href="https://www.npeu.ox.ac.uk/about"><span>About the NPEU</span></a></li>
+                        </ul>
+                    </div>
+                    
                 </div>
             </div>
         </main>
