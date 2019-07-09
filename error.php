@@ -28,7 +28,7 @@ ob_start();
 
         <div class="c-hero__message">
             <p class="u-padding--s">
-                <a href="https://www..npeu.ox.ac.uk" class="c-badge">
+                <a href="/" class="c-badge">
                     <img src="/img/unit-logos/npeu-logo.svg" onerror="this.src='/img/unit-logos/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                 </a>
             </p>
