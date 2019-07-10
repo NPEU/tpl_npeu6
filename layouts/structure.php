@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-gb" class="wireframeX  d-background--very-dark  t-neutral">
+<html lang="en-gb" class="">
 <head>
     <meta charset="utf-8">
     <title><?php echo $page_title; ?></title>
