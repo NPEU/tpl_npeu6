@@ -35,9 +35,9 @@ $json_format    = $params->get('remote_markers_json_format', false);
 
 // Handle any manual markers:
 if ($manual_markers) {
-    
-    
-    // Treat markers as CSV.    
+
+
+    // Treat markers as CSV.
     $manual_markers_data = ModMapHelper::csvArray($manual_markers);
     foreach ($manual_markers_data as $row) {
         $markers[] = array_combine(array('lat', 'lng', 'color', 'popup'), $row);
@@ -47,7 +47,7 @@ if ($manual_markers) {
 // Then add any remote markers:
 if ($remote_markers) {
 
-    // Treat markers as CSV.    
+    // Treat markers as CSV.
     $remote_markers_data = file_get_contents($remote_markers);
     // Let's see if we an decode it:
     if ($remote_markers_json = json_decode($remote_markers_data, true)) {
@@ -71,7 +71,7 @@ if ($remote_markers) {
             $json = $twig->render('tpl', array('data' => $twig_data));
             $remote_markers = json_decode($json, true);
         }
-        
+
         $markers = array_merge($markers, $remote_markers);
     }
 }
@@ -81,10 +81,10 @@ if (!empty($markers)) {
 }
 
 $map_data = new StdClass();
-$map_data->lat   = $lat;        
-$map_data->lng   = $lng;        
-$map_data->zoom  = $zoom;       
-$map_data->token = $token;      
+$map_data->lat   = $lat;
+$map_data->lng   = $lng;
+$map_data->zoom  = $zoom;
+$map_data->token = $token;
 
 $static_map_alt   = $params->get('static_map_alt', '');
 $static_map_no_js = $params->get('static_map_no_js', '');
