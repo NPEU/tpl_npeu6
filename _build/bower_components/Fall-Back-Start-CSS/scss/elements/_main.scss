@@ -1,0 +1,38 @@
+/*-------------------------------------------------------------------------------------------------|
+    Fall-Back Start-CSS Element: main
+|-------------------------------------------------------------------------------------------------*/
+
+$f__main-max-line-length: 50em !default;
+$f__main-padding: $f__base-rem-space-unit !default;
+$f__main-text-color: $f__base-text-color !default;
+$f__main-background-color: $f__base-background-color !default;
+
+/*
+    1. Correct `block` display not defined for `main` in IE.
+*/
+main {
+    display: block; /* 1 */
+    
+    width: 100%;
+    min-height: 100%;
+
+    @if $f__main-max-line-length > 0 {
+        max-width: $f__main-max-line-length;
+
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    padding: $f__main-padding;
+
+    background-color: $f__main-background-color;
+    color: $f__main-text-color;
+
+
+    position: relative;
+
+     -webkit-flex: 1 0 auto;
+    -moz-box-flex: 1;
+         -ms-flex: 1 0 auto;
+             flex: 1 0 auto;
+}
