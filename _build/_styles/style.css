@@ -2841,17 +2841,7 @@ blockquote::after {
   margin-top: calc(2.4rem - 1px);
 }
 
-blockquote p:before {
-  content: "“";
-  content: open-quote;
-}
-
-blockquote p:after {
-  content: "”";
-  content: close-quote;
-}
-
-blockquote p:after, blockquote p:before {
+blockquote :first-child:before, :last-child:after {
   display: block;
   font-family: times,serif;
   font-size: 60px;
@@ -2860,13 +2850,17 @@ blockquote p:after, blockquote p:before {
   opacity: 0.7;
 }
 
-blockquote p:first-of-type:before {
+blockquote :first-child:before {
+  content: "“";
+  content: open-quote;
   float: left;
   margin-left: -3.6rem;
-  margin-top: 2.2rem;
+  margin-top: 2.5rem;
 }
 
-blockquote p:last-of-type:after {
+blockquote :last-child:after {
+  content: "”";
+  content: close-quote;
   display: inline-block;
   position: relative;
   top: 2.5rem;
@@ -6912,6 +6906,9 @@ _:-ms-lang(x), .l-col-to-row__item  {
   -webkit-justify-content: space-around;
   -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 .l-distribute > *, .c-user-content [data-display-as~="blocks"] > * > * {
@@ -9754,6 +9751,12 @@ html.wireframe {
 .c-user-content [data-display-as~="notice-box"] a[href].cta:active,
 .c-user-content [data-display-as~="notice-box"] a[href].cta:focus {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.c-user-content [data-display-as~="blocks"] > * > * {
+  -webkit-flex-basis: 15em;
+  flex-basis: 11.25em;
+  max-width: 15em;
 }
 
 .c-user-content img {
