@@ -233,7 +233,7 @@
             </main>
         </div>
 
-        <footer class="sticky-footer  t-<?php echo $page_brand->alias; ?>  d-bands--top" role="contentinfo" id="page-footer" aria-label="Page">
+        <footer class="sticky-footer" role="contentinfo" id="page-footer" aria-label="Page">
 
             <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />*/?>
 
