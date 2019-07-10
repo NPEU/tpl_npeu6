@@ -53,8 +53,8 @@ ob_start();
                                     <p>You could try searching:</p>
 
                                     <form action="/search" id="searchform" class="" method="GET">
-                                        <span class="composite">
-                                            <input type="search" class="search-form__field" id="search" placeholder="Search" name="q" value="" aria-label="Search">
+                                        <span class="composite  u-fill-width">
+                                            <input type="search" class="search-form__field  u-expand-width" id="search" placeholder="Search" name="q" value="" aria-label="Search">
                                             <button class="search-form__submit" type="submit">
                                                 <span>Search</span>
                                             </button>
