@@ -150,41 +150,9 @@ $page_has_footer_mid_right     = $doc->countModules('6-footer-mid-right');
 // Sort out ToC. May make this a module to make it clearer to others where this comes from:
 $page_toc = '';
 if ($page_has_article) {
-    $min_h2_count = 3;
+    $page_toc = JHtml::_('content.prepare', '{loadposition 3-main-toc,sidebar}');
     
-    // ToC requires id's on headers, so add them if not already present.
-    // Note this is a back-up, ideally the editor will create them so they're saved into the article.
-    #$h2s = preg_match_all('#<h2[^>]*(id="([^"]+)")?[^>]*>#', $doc->article->text, $matches, PREG_SET_ORDER);
-    preg_match_all('#<h2[^>]*>([^<]+)</h2>#', $doc->article->text, $matches, PREG_SET_ORDER);
-    
-    if (count($matches) >= $min_h2_count) {
-        
-        $page_toc .= '<div class="c-panel  c-panel--very-light  t-neutral  u-space--above  u-space--above">' . "\n";
-        $page_toc .= '<nav class="c-panel--module" aria-label="table of contents">' . "\n";
-        $page_toc .= '<div class="n-section-menu">' . "\n";
-        $page_toc .= '<h2>On this page</h2>' . "\n";
-        $page_toc .= '<ul class="n-section-menu__list">' . "\n";
-        
-        foreach ($matches as $match) {
-            preg_match('#id="[^"]+"#', $match[0], $id_match);
-            #echo '<pre>'; var_dump($id_match); echo '</pre>'; #exit;
-            if(!isset($id_match[0])) {
-                $h2_id = TplNPEU6Helper::html_id($match[1]);
-                $new_h2 = str_replace('<h2', '<h2 id="' . $h2_id . '"', $match[0]);
-                
-                $doc->article->text      = str_replace($match[0], $new_h2, $doc->article->text);
-                $doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
-                $doc->article->introtext = str_replace($match[0], $new_h2, $doc->article->introtext);
-            } else {
-                $h2_id = $id_match[0];
-            }
-            $page_toc .= '<li class="n-section-menu__item"><a href="#' . $h2_id . '" class="n-section-menu__link">' . $match[1] . '</a></li>' . "\n";
-        }
-        $page_toc .= '</ul>' . "\n";
-        $page_toc .= '</div>' . "\n";
-        $page_toc .= '</nav>' . "\n";
-        $page_toc .= '</div>' . "\n";
-        
+    if (!empty($toc)) {
         $page_has_sidebar_bottom++;
     }
 }
