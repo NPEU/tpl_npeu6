@@ -2,10 +2,11 @@
     "name": "npeu/npeu6_template",
     "description": "This file lists all the PHP packages required for the project.",
     "type": "project",
+    "version": "1.0.0",
+    "license": "MIT",
     "require": {
         "michelf/php-markdown": "^1.8"
     },
-    "license": "MIT",
     "authors": [
         {
             "name": "Andy Kirk",
