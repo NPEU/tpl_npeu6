@@ -10,7 +10,6 @@
 @import "_settings.scss";
 @import "_core_themes.scss";
 
-
 $experimental_checkradios: true;
 
 $f__html-background-color: darken(map-get(map-get($themes, neutral), primary-color), 20%);
@@ -51,7 +50,7 @@ blockquote {
 }
 
 
-blockquote :first-child:before, :last-child:after {
+blockquote :first-child:before, blockquote :last-child:after {
     display: block;
     font-family: times,serif;
     font-size: 60px;

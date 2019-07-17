@@ -610,6 +610,10 @@ details {
   /* N: IE 10/11 */
 }
 
+details > * {
+  box-sizing: border-box;
+}
+
 /*-------------------------------------------------------------------------------------------------|
     Fall-Back Start-CSS Element: dfn
 |-------------------------------------------------------------------------------------------------*/
@@ -2841,7 +2845,7 @@ blockquote::after {
   margin-top: calc(2.4rem - 1px);
 }
 
-blockquote :first-child:before, :last-child:after {
+blockquote :first-child:before, blockquote :last-child:after {
   display: block;
   font-family: times,serif;
   font-size: 60px;
@@ -5432,10 +5436,6 @@ _:-ms-lang(x), .c-card.c-card {
 /*
 
 */
-.c-contact-list.c-contact-list, .c-user-content [data-contains~="contact-details"] {
-  min-width: 20em;
-}
-
 .c-contact-list.c-contact-list dt, .c-user-content [data-contains~="contact-details"] dt {
   display: none;
 }
@@ -7955,7 +7955,7 @@ $pagination-button--border-color: darken($pagination--base-color, 20%) !default;
 
 /*
     Box spacing
-    
+
     @To Do: allow for responsive variations.
 */
 .u-space--left--auto {
@@ -8054,7 +8054,7 @@ $pagination-button--border-color: darken($pagination--base-color, 20%) !default;
   margin-top: 0 !important;
 }
 
-.u-space--bottom--none {
+.u-space--below--none {
   margin-bottom: 0 !important;
 }
 
@@ -8220,6 +8220,50 @@ $pagination-button--border-color: darken($pagination--base-color, 20%) !default;
         background-color : #8e8279
     ));
 */
+/*
+    Highlight :target-ed headings
+    Note I can't selected the whole section without it being wrapped in something, and I don't want
+    to mess around with that.
+*/
+main :target {
+  -moz-animation: target-fade 3s 1;
+  -webkit-animation: target-fade 3s 1;
+  animation: target-fade 3s 1;
+}
+
+@-moz-keyframes target-fade {
+  0% {
+    background-color: rgba(142, 130, 121, 0.4);
+    box-shadow: 0 0 0 1.2rem rgba(142, 130, 121, 0.4);
+  }
+  100% {
+    background-color: rgba(142, 130, 121, 0);
+    box-shadow: 0 0 0 1.2rem rgba(142, 130, 121, 0);
+  }
+}
+
+@-webkit-keyframes target-fade {
+  0% {
+    background-color: rgba(142, 130, 121, 0.4);
+    box-shadow: 0 0 0 1.2rem rgba(142, 130, 121, 0.4);
+  }
+  100% {
+    background-color: rgba(142, 130, 121, 0);
+    box-shadow: 0 0 0 1.2rem rgba(142, 130, 121, 0);
+  }
+}
+
+@keyframes target-fade {
+  0% {
+    background-color: rgba(142, 130, 121, 0.4);
+    box-shadow: 0 0 0 1.2rem rgba(142, 130, 121, 0.4);
+  }
+  100% {
+    background-color: rgba(142, 130, 121, 0);
+    box-shadow: 0 0 0 1.2rem rgba(142, 130, 121, 0);
+  }
+}
+
 /* ---------------------------------------------------------------------------------------------- */
 /* --| THEMES |---------------------------------------------------------------------------------- */
 /*
@@ -9951,7 +9995,7 @@ table[data-contains="numbers"] td {
   text-align: right;
 }
 
-details {
+.c-longform-content details {
   margin-bottom: 2rem;
   border-bottom: 1px solid #eee;
   padding: .5rem 0 .5rem 1.5rem;

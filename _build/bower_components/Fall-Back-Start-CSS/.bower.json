@@ -13,11 +13,11 @@
   ],
   "license": "Apache",
   "dependencies": {},
-  "_release": "200cbe1e13",
+  "_release": "40a7887940",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "200cbe1e1357311ac70b8a199fd228720bc1ee42"
+    "commit": "40a788794069a8fe1c7ba9b040dc083d35e505e4"
   },
   "_source": "https://github.com/Fall-Back/Start-CSS.git",
   "_target": "*",
