@@ -179,15 +179,18 @@ table[data-contains="numbers"] {
 
 
 
-.c-longform-content details {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #eee;
-    padding: .5rem 0 .5rem 1.5rem;
+
+
+// Shouldn't this be in StartCSS?
+
+summary + * {
+    margin-top: $f__base-rem-space-unit;
 }
 
-summary {
-    cursor: pointer;
-    margin-bottom: 1rem;
-    margin-left: -1.5rem;
-    font-weight: 700;
+
+// This is for the details polyfill - I removed the styles there so adding esssential back here.
+// May move this to StartCSS
+
+details:not([open]) > *:not(summary) {
+    display: none;
 }
