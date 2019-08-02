@@ -8,32 +8,18 @@
  */
 
 defined('_JEXEC') or die;
-/* <pre><?php var_dump($item); ?></pre> */
-$fields = FieldsHelper::getFields('com_content.article', $item, true);
-
-$card_data = array();
-
-$card_data['theme']        = $theme;
-$card_data['link']         = $item->link;
-$card_data['image']        = $fields[0]->rawvalue;
-$card_data['image_alt']    = $fields[1]->rawvalue;
-$card_data['title']        = $item->title;
-$card_data['publish_date'] = $item->publish_up;
-$card_data['date_format']  = $date_format;
-
-include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
-/*
+/* <pre><?php var_dump($card_data); ?></pre> */
 ?>
 <div class="c-card-wrap">
-    <article class="c-card  <?php echo $theme; ?>">
-        <a href="<?php echo $item->link; ?>" class="c-card__full-link  <?php echo $theme; ?>  u-fill-height--column">
-            <?php if (!empty($fields[0]->rawvalue)) : ?>
+    <article class="c-card  <?php echo $card_data['theme']; ?>">
+        <a href="<?php echo $card_data['link']; ?>" class="c-card__full-link  <?php echo $card_data['theme']; ?>  u-fill-height--column">
+            <?php if (!empty($card_data['image'])) : ?>
             <div class="c-card__image">
                 <div class="l-proportional-container  l-proportional-container--2-1">
                     <div class="l-proportional-container__content">
                         <div class="u-image-cover  js-image-cover">
                             <div class="u-image-cover__inner">
-                                <img src="/<?php echo $fields[0]->rawvalue; ?>" alt="<?php echo $fields[1]->rawvalue; ?>" class="u-image-cover__image" width="150">
+                                <img src="/<?php echo $card_data['image']; ?>" alt="<?php echo $card_data['image_alt']; ?>" class="u-image-cover__image" width="150">
                             </div>
                         </div>
                     </div>
@@ -41,10 +27,10 @@ include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
             </div>
             <?php endif; ?>
             <div class="c-card__main">
-                <h2 class="c-card__title"><?php echo $item->title; ?></h2>
+                <h2 class="c-card__title"><?php echo $card_data['title']; ?></h2>
                 <div class="c-card__footer">
                     <p>
-                        <?php echo date($date_format, strtotime($item->publish_up)); ?>
+                        <?php echo date($card_data['date_format'], strtotime($card_data['publish_date'])); ?>
                     </p> 
                 </div>
                 <!--<div class="c-card__footer  u-text-align--right">
@@ -54,5 +40,3 @@ include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
         </a>
     </article>
 </div>
-*/
-?>
