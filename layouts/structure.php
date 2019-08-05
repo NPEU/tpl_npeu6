@@ -10,6 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
+        /* FOUC font match fallback */
+        font-size: 15px
+        line-height: 1.6
+        visibility: visible
+        font-family: Arial
+        letter-spacing: 0.35px
+        word-spacing: -0.4px;
+        
         /* Tiny fallback styles */
         /* (https://github.com/Fall-Back/Base/edit/master/tiny-fallback-styles.css) */
         body{padding:1em;margin:0 auto;max-width: 50em;}
