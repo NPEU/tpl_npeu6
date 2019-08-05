@@ -60,7 +60,7 @@ if ($count >= 2 && $count < 5) {
 
 <?php /*
 <div class="s-updates  c-panel  c-panel--dark  u-space--none  <?php echo $theme; ?>">
-    <section class="c-panel--module">
+    <section class="c-panel__module">
         <header class="u-text-group  u-text-group--push-apart  u-space--below">
             <h2>Trial Updates</h2>
             <p><a href="<?php echo $items[0]->category_route; ?>" class="cta  cta--has-icon">See all updates<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>

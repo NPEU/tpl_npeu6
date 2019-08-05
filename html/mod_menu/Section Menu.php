@@ -120,7 +120,7 @@ foreach ($new_list as $i => &$item) {
 }
 ?>
 <?php if(!empty($nav)): ?>
-<ul class="n-section-menu__list">
+<ul class="n-section-menu__list  u-fill-width">
     <?php echo $nav; ?>
 </ul>
 <?php endif; ?>
