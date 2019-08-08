@@ -9,6 +9,11 @@
 
 defined('_JEXEC') or die;
 
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+$page_brand = TplNPEU6Helper::get_brand();
+$theme = 't-' . $page_brand->alias;
+
+
 // Create a shortcut for params.
 $params = $this->item->params;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -58,7 +63,7 @@ foreach ($fields as $field) {
 
 <div>
     <div class="c-card-wrap">
-        <article class="c-card  t-neoclear">
+        <article class="c-card  <?php echo $theme; ?>">
             <a href="<?php echo JRoute::_(
 						ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language)
 					); ?>" class="c-card__full-link  t-neoclear  u-fill-height--column">

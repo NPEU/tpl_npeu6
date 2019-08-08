@@ -28,6 +28,7 @@ defined('_JEXEC') or die;
             <?php endif; ?>
             <div class="c-card__main">
                 <h2 class="c-card__title"><?php echo $card_data['title']; ?></h2>
+                <?php if (!empty($card_data['date_format'])) : ?>
                 <div class="c-card__footer">
                     <p>
                         <?php echo date($card_data['date_format'], strtotime($card_data['publish_date'])); ?>
@@ -36,6 +37,7 @@ defined('_JEXEC') or die;
                 <!--<div class="c-card__footer  u-text-align--right">
                     <a href="#" class="cta  cta--has-icon">Read<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                 </div>-->
+                <?php endif; ?>
             </div>
         </a>
     </article>

@@ -13,6 +13,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('behavior.caption');
 
+
 $dispatcher = JEventDispatcher::getInstance();
 
 $this->category->text = $this->category->description;

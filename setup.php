@@ -145,7 +145,7 @@ $page_has_sidebar_bottom       = $doc->countModules('4-sidebar-bottom');
 $page_has_footer_top           = $doc->countModules('6-footer-top');
 $page_has_footer_mid_left      = $doc->countModules('6-footer-mid-left');
 $page_has_footer_mid_right     = $doc->countModules('6-footer-mid-right');
-
+#echo '<pre>'; var_dump($doc->countModules('4-sidebar-bottom')); echo '</pre>'; exit;
 
 // Sort out ToC. May make this a module to make it clearer to others where this comes from:
 $page_toc = '';
@@ -156,6 +156,8 @@ if ($page_has_article) {
         $page_has_sidebar_bottom++;
     }
 }
+
+
 
 
 #echo '<pre>'; var_dump($page_has_article); echo '</pre>'; exit;

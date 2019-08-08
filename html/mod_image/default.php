@@ -19,6 +19,14 @@ $n_images = count ($images);
 if ($n_images == 0) {
     return;
 }
+
+$wrapper = 'div';
+$has_details = false;
+if (!empty($images->images0->caption) || !empty($images->images0->credit)) {
+    $has_details = true;
+    $wrapper = 'figure';
+}
+
 ?>
 <?php if ($module->showtitle): ?>
 <<?php echo $hx; ?>><?php echo $module->title; ?></<?php echo $hx; ?>>
@@ -26,15 +34,35 @@ if ($n_images == 0) {
 <?php if($n_images > 1) : ?>
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>
-<div class="u-image-cover  js-image-cover">
+<<?php echo $wrapper; ?> class="u-image-cover  u-image-cover--min-20  js-image-cover" style="postiion: relative;">
     <div class="u-image-cover__inner">
         <img class="u-image-cover__image" src="<?php echo JURI::base() . $images->images0->image; ?>" width="600" alt="<?php echo $images->images0->alt; ?>">
     </div>
-</div>
-<?php endif; ?>
-<?php if (!empty($images->images0->caption)) : ?>
-<?php echo Markdown::defaultTransform($images->images0->caption); ?>
-<?php endif; ?>
-<?php if (!empty($images->images0->credit)) : ?>
-<?php echo Markdown::defaultTransform($images->images0->credit); ?>
+    <?php if ($has_details): ?>
+    <figcaption class="c-longform-content  c-user-content  c-panel  c-panel--very-dark" style="
+        position: absolute;
+        top: 0;
+        background: rgba(0,0,0,0.5);
+        padding: 0.5em;
+    ">
+        <details style="
+            padding: 0;
+            margin: 0;
+            border: 0;
+        ">
+            <summary style="
+                padding: 0;
+                margin: 0;
+                border: 0;
+            ">Info</summary>
+            <?php if (!empty($images->images0->caption)) : ?>
+            <?php echo Markdown::defaultTransform($images->images0->caption); ?>
+            <?php endif; ?>
+            <?php if (!empty($images->images0->credit)) : ?>
+            <?php echo Markdown::defaultTransform($images->images0->credit); ?>
+            <?php endif; ?>
+        </details>
+    </figcaption>
+    <?php endif; ?>
+</<?php echo $wrapper; ?>>
 <?php endif; ?>
