@@ -9,6 +9,17 @@
 
 defined('_JEXEC') or die;
 /* <pre><?php var_dump($card_data); ?></pre> */
+/*
+    Expects a $card_data array with the following keys:
+    theme       
+    link
+    image
+    image_alt
+    title
+    date_format
+    publish_date
+
+*/
 ?>
 <div class="c-card-wrap">
     <article class="c-card  <?php echo $card_data['theme']; ?>">
@@ -28,7 +39,7 @@ defined('_JEXEC') or die;
             <?php endif; ?>
             <div class="c-card__main">
                 <h2 class="c-card__title"><?php echo $card_data['title']; ?></h2>
-                <?php if (!empty($card_data['date_format'])) : ?>
+                <?php if (!empty($card_data['date_format']) && !empty($card_data['publish_date'])) : ?>
                 <div class="c-card__footer">
                     <p>
                         <?php echo date($card_data['date_format'], strtotime($card_data['publish_date'])); ?>

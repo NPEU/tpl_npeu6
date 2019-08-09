@@ -24,7 +24,7 @@ $info    = $params->get('info_block_position', 0);
 $assocParam = (JLanguageAssociations::isEnabled() && $params->get('show_associations'));
 
 // Maybe need to make this configurable?
-$date_fomat = 'd M Y';
+$date_format = 'd M Y';
 
 // Get the custom fields for the article:
 $fields = FieldsHelper::getFields('com_content.article', $this->item, true);
@@ -62,11 +62,28 @@ foreach ($fields as $field) {
 <?php echo $this->item->event->beforeDisplayContent; ?>
 
 <div>
+
+    <?php
+    $card_data = array();
+
+    $card_data['theme']        = $theme;
+    $card_data['link']         = JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
+    $card_data['image']        = $headline_image['headline-image'];
+    $card_data['image_alt']    = $headline_image['headline-image-alt-text'];
+    $card_data['title']        = $this->item->title;
+    $card_data['publish_date'] = $this->item->publish_up;
+    $card_data['date_format']  = $date_format;
+
+    include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
+    
+    
+    
+    /*
     <div class="c-card-wrap">
         <article class="c-card  <?php echo $theme; ?>">
             <a href="<?php echo JRoute::_(
 						ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language)
-					); ?>" class="c-card__full-link  t-neoclear  u-fill-height--column">
+					); ?>" class="c-card__full-link  <?php echo $theme; ?>  u-fill-height--column">
                 <?php if (!empty($headline_image['headline-image'])): ?>
                 <div class="c-card__image">
                     <div class="l-proportional-container  l-proportional-container--2-1">
@@ -94,6 +111,7 @@ foreach ($fields as $field) {
             </a>
         </article>
     </div>
+    */ ?>
 </div>
 
 
