@@ -32,7 +32,7 @@ if (count($matches) < $min_h_count) {
             <?php endif; ?>
             <ul class="n-section-menu__list  u-fill-width">
                 <?php foreach ($matches as $match): ?>
-                <?php preg_match('#id="[^"]+"#', $match[0], $id_match);
+                <?php preg_match('#id="([^"]+)"#', $match[0], $id_match);
                 if(!isset($id_match[0])) {
                     $h2_id = TplNPEU6Helper::html_id($match[1]);
                     $new_h2 = str_replace('<h2', '<h2 id="' . $h2_id . '"', $match[0]);
@@ -41,7 +41,7 @@ if (count($matches) < $min_h_count) {
                     $doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
                     $doc->article->introtext = str_replace($match[0], $new_h2, $doc->article->introtext);
                 } else {
-                    $h2_id = $id_match[0];
+                    $h2_id = $id_match[1];
                 } ?>
                 <li class="n-section-menu__item"><a href="#<?php echo $h2_id; ?>" class="n-section-menu__link"><?php echo $match[1]; ?></a></li>
                 <?php endforeach; ?>
