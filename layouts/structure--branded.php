@@ -260,15 +260,15 @@
                     <div class="u-padding--s  l-center">
                         <?php if ($page_unit == 'npeu') : ?>
                         <a href="https://www.npeu.ox.ac.uk" class="c-badge">
-                            <img src="/img/unit-logos/npeu-logo.svg" onerror="this.src='/img/unit-logos/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
+                            <img src="/img/brand-logos/unit/npeu-logo.svg" onerror="this.src='/img/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                         </a>
                         <?php elseif ($page_unit == 'npeu_ctu') : ?>
                         <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge">
-                            <img src="/img/unit-logos/npeu-ctu-logo.svg" onerror="this.src='/img/unit-logos/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
+                            <img src="/img/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/img/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
                         </a>
                         <?php elseif ($page_unit == 'sheer') : ?>
                         <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge">
-                            <img src="/img/unit-logos/sheer-logo.svg" onerror="this.src='/img/unit-logos/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
+                            <img src="/img/brand-logos/unit/sheer-logo.svg" onerror="this.src='/img/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
                         </a>
                         <?php endif; ?>
                     </div>

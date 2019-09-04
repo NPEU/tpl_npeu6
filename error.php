@@ -29,7 +29,7 @@ ob_start();
         <div class="c-hero__message">
             <p class="u-padding--s">
                 <a href="/" class="c-badge">
-                    <img src="/img/unit-logos/npeu-logo.svg" onerror="this.src='/img/unit-logos/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
+                    <img src="/img/brand-logos/unit/npeu-logo.svg" onerror="this.src='/img/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                 </a>
             </p>
             <p class="u-padding--top--s  u-padding--bottom--s  u-padding--sides">Uh oh. We couldn't find that page.</p>
