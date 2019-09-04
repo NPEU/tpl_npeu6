@@ -98,19 +98,19 @@ ob_start();
 
                 <div class="u-padding--s  l-center">
                     <a href="https://www.npeu.ox.ac.uk/athena-swan" class="c-badge" rel="external noopener noreferrer" target="_blank">
-                        <img src="/img/affiliate-logos/athena-swan-silver-award.svg" onerror="this.src='/img/affiliate-logos/athena-swan-silver-award.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
+                        <img src="/img/brand-logos/accolade/athena-swan-silver-award.svg" onerror="this.src='/img/brand-logos/accolade/athena-swan-silver-award.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
                     </a>
                 </div>
 
                 <div class="u-padding--s  l-center">
                     <a href="http://www.ndph.ox.ac.uk/" class="c-badge" rel="external noopener noreferrer" target="_blank">
-                        <img src="/img/affiliate-logos/ndph-logo.svg" onerror="this.src='/img/affiliate-logos/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
+                        <img src="/img/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/img/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
                     </a>
                 </div>
 
                 <div class="u-padding--s  l-center">
                     <a href="http://www.ox.ac.uk/" class="c-badge" rel="external noopener noreferrer" target="_blank">
-                        <img src="/img/affiliate-logos/ou-logo-rect.svg" onerror="this.src='/img/affiliate-logos/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
+                        <img src="/img/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/img/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
                     </a>
                 </div>
 

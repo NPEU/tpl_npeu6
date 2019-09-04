@@ -42,7 +42,7 @@ $theme = 't-' . $page_brand->alias;
                 <div class="u-text-align--center u-fill-width u-space--below">
                         <div>
                             <a href="<?php echo $params->get('brand_url'); ?>" class="c-badge  l-center" rel="external noopener noreferrer" target="_blank">
-                                <img src="/img/affiliate-logos/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/img/affiliate-logos/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: NIHR - National Institute of Health Research" height="80">
+                                <img src="/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: NIHR - National Institute of Health Research" height="80">
                             </a>
                         </div>
                     </div>	
