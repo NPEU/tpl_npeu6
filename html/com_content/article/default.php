@@ -57,7 +57,7 @@ foreach ($fields as $field) {
                     )
                 : '';
             break;
-        case 'headline-image-credit-line':
+        /*case 'headline-image-credit-line':
             $headline_image['headline-image-credit-line']
                 = !empty($field->rawvalue)
                 ? TplNPEU6Helper::tweak_markdown_output(
@@ -65,15 +65,31 @@ foreach ($fields as $field) {
                         $tweak_markdown_options
                     )
                 : '';
-            break;
+            break;*/
     }
 }
-$this->item->headline_image = $headline_image;
 
-$doc    = JFactory::getDocument();
+// Check for embedded credit info:
+$headline_image['headline-image-credit-line'] = '';
+$image_meta = array();
+
+$image_meta_response = json_decode(file_get_contents(
+    'https://' . $_SERVER['HTTP_HOST'] . '/plugins/system/imagemeta/ajax/image-meta.php?image=' . base64_encode($headline_image['headline-image'])
+), true);
+
+if (isset($image_meta_response['success']) && isset($image_meta_response['data'])) {
+    $image_meta = $image_meta_response['data'];
+}
+
+if (isset($image_meta['copyright'])) {
+    $headline_image['headline-image-credit-line'] = trim(TplNPEU6Helper::tweak_markdown_output(
+        Markdown::defaultTransform($image_meta['copyright']),
+        $tweak_markdown_options
+    ));
+}
+$this->item->headline_image = $headline_image;
+$doc        = JFactory::getDocument();
 $doc->article = $this->item;
-#echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
-#echo '<pre>'; var_dump($doc->article); echo '</pre>'; exit;
 return;
 ?>
 
