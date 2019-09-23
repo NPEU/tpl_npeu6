@@ -38,16 +38,16 @@ defined('_JEXEC') or die;
         // Render all but last item - along with separator ?>
         <dd class="n-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
             <?php if (!empty($item->link)): ?>
-            <a class="n-breadcrumbs__link" itemprop="item" href="<?php echo $item->link; ?>"><span itemprop="name"><?php echo $item->name; ?></span></a>
+            <a class="n-breadcrumbs__link" itemprop="item" href="<?php echo preg_replace('/\?.*/', '', $item->link); ?>"><span itemprop="name"><?php echo $item->name; ?></span></a>
             <?php else: ?>
-            <a class="n-breadcrumbs__link" itemprop="name"><span><?php echo $item->name; ?></span></a>
+            <a class="n-breadcrumbs__link" itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
             <?php endif; ?>
             <meta itemprop="position" content="<?php echo $key + 1; ?>">
         </dd>
         <?php elseif ($show_last):
         // Render last item if reqd. ?>
         <dd class="n-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a class="n-breadcrumbs__link" itemprop="name"><span><?php echo $item->name; ?></span></a>
+            <a class="n-breadcrumbs__link" itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
             <meta itemprop="position" content="<?php echo $key + 1; ?>">
         </dd>
         <?php endif; ?>
