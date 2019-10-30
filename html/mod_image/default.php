@@ -34,7 +34,7 @@ if (!empty($images->images0->caption) || !empty($images->images0->credit)) {
 <?php if($n_images > 1) : ?>
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>
-<<?php echo $wrapper; ?> class="u-image-cover  u-image-cover--min-20  js-image-cover" style="postiion: relative;">
+<<?php echo $wrapper; ?> class="u-image-cover  u-image-cover--min-40  js-image-cover">
     <div class="u-image-cover__inner">
         <img class="u-image-cover__image" src="<?php echo JURI::base() . $images->images0->image; ?>" width="600" alt="<?php echo $images->images0->alt; ?>">
     </div>

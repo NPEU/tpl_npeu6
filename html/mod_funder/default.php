@@ -28,7 +28,7 @@ $theme = 't-' . $page_brand->alias;
         <div class="l-col-to-row">            
             <?php if (!empty($params->get('image'))): ?>
             <div class="l-col-to-row__item  ff-width-100--40--50">
-                <div class="u-image-cover  u-image-cover--min-30  js-image-cover">
+                <div class="u-image-cover  u-image-cover--min-20  js-image-cover">
                     <div class="u-image-cover__inner">
                         <img class="u-image-cover__image" src="<?php echo $params->get('image'); ?>" width="150" alt="">
                     </div>

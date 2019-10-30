@@ -46,9 +46,11 @@
             <div class="nav-bar  u-padding--sides--s  t-<?php echo $page_brand->alias; ?>">
 
                 <div class="nav-bar__start">
+                    <?php if ($modules__header_nav_bar != '') : ?>
                     <div class="nav-bar__item">
                         <button class="over-panel-control t-<?php echo $page_brand->alias; ?> js-over-panel-control" hidden="" aria-controls="menu-panel" aria-label="Main menu" aria-expanded="false" data-js="overpanel__control"><svg display="none" class="icon  icon--is-closed"><use xlink:href="#icon-menu"></use></svg><svg display="none" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
                     </div>
+                    <?php endif; ?>
                     <div class="nav-bar__item">
                         <button class="over-panel-control t-<?php echo $page_brand->alias; ?> js-over-panel-control" hidden="" aria-controls="search-panel" aria-label="Search" aria-expanded="false" data-js="overpanel__control"><svg display="none" class="icon  icon--is-closed"><use xlink:href="#icon-search"></use></svg><svg display="none" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
                     </div>
@@ -69,7 +71,7 @@
                     <div class="over-panel over-panel--fade js-over-panel" id="search-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden="" aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
-                            <form action="/<?php echo $page_brand->alias; ?>/search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET" role="search">
+                            <form action="/<?php echo $page_brand->alias; ?>/search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET">
                                 <?php if ($page_search_area != ''): ?>
                                 <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
                                 <?php endif; ?>

@@ -222,6 +222,17 @@ $page_style       = $page_head_data['style'];
 $page_scripts     = $page_head_data['scripts'];
 $page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : array();
 
+// Need to remove unwanted stylesheets. This is a bit of a hack - there should be a better way:
+$exclude_stylesheet = array(
+    '/media/jui/css/chosen.css'
+);
+
+foreach ($exclude_stylesheet as $filename) {
+    if (array_key_exists($filename, $page_stylesheets)) {
+        unset($page_stylesheets[$filename]);
+    }
+}
+
 #echo '<pre>'; var_dump($page_stylesheets); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_styles); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_scripts); echo '</pre>'; exit;

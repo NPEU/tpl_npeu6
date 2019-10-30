@@ -38,7 +38,15 @@ $wrapper_classname = '';
 $header_classname  = '';
 $wrapper_class = '';
 $header_class = '';
-$wrapper_theme_class = '  c-panel--very-light';
+$wrapper_theme_class = '';
+
+$theme_name = $brand->alias;
+
+// Handle special case for 'WHITE' This probably needs a re-think in the next versio of the template
+if ($module_wrapper_theme == 'white') {
+    $theme_name = 'white';
+    $module_wrapper_theme = '';
+}
 #echo '<pre>'; var_dump($module); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($module_wrapper); echo '</pre>'; #exit;
 if (!empty($wrapper_classname)) {
@@ -60,15 +68,16 @@ if ($module->showtitle) {
     $outer_el = 'section';
 }
 
-$has_cta = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
+$has_cta      = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
+$cta_position = $params->get('cta_position');
 
 if (!empty($module->content)): ?>
 <?php if ($module_wrapper == 'panel'): ?>
-<div class="c-panel<?php echo $wrapper_theme_class; ?>  t-<?php echo $brand->alias; ?>  u-space--none">
+<div class="c-panel<?php echo $wrapper_theme_class; ?>  t-<?php echo $theme_name; ?>  u-space--none">
     <<?php echo $outer_el; ?> class="c-panel__module">
         <div<?php echo $wrapper_class; ?>>
 <?php endif; ?>
-            <?php if ($module->showtitle && $has_cta): ?>
+            <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
             <header class="u-text-group  u-text-group--push-apart  u-space--below">
                 <h2<?php echo $header_class; ?>><?php echo $module->title; ?></h2>
                 <p><a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
@@ -77,6 +86,9 @@ if (!empty($module->content)): ?>
             <h2<?php echo $header_class; ?>><?php echo $module->title; ?></h2>
             <?php endif; ?>
             <?php echo $module->content; ?>
+            <?php if ($has_cta && $cta_position == 'bottom'): ?>
+            <p><a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+            <?php endif; ?>
 <?php if ($module_wrapper == 'panel'): ?>
         </div>
     </<?php echo $outer_el; ?>>
@@ -137,6 +149,7 @@ if ($module->showtitle) {
 }
 
 $has_cta            = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
+$cta_position       = $params->get('cta_position');
 $has_headline_image = !empty($params->get('headline_image'));
 
 if (!empty($module->content)): ?>
@@ -169,7 +182,7 @@ if (!empty($module->content)): ?>
                 </div>
             </div>
             <?php endif;*/ ?>
-            <?php if ($module->showtitle && $has_cta): ?>
+            <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
             <header class="u-text-group  u-text-group--push-apart  u-space--below"<?php echo $aria_labelledby; ?>>
                 <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
                 <p><a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
@@ -178,6 +191,9 @@ if (!empty($module->content)): ?>
             <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
             <?php endif; ?>
             <?php echo $module->content; ?>
+            <?php if ($has_cta && $cta_position == 'bottom'): ?>
+            <p><a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+            <?php endif; ?>
 <?php if ($module_wrapper == 'panel'): ?>
         </div>
     </<?php echo $outer_el; ?>>
