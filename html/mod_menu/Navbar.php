@@ -152,7 +152,7 @@ foreach ($new_list as $i => &$item) {
         $nav_item .= "\n" . tab($level + 2) . '<div class="dropdown dropdown--only-wide js-dropdown">';
         $nav_item .= "\n" . tab($level + 3) . '<button id="' . $item->alias . '-sub-menu" class="dropdown__button  t-' . $brand->alias . '" data-js="dropdown__button" hidden="" aria-label="' . $item->title . ' sub-menu" aria-expanded="false"><svg display="none" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg display="none" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>';
         $nav_item .= "\n" . tab($level + 3) . '<div class="dropdown__area" id="' . $item->alias . '-sub-menu--target">';
-        $nav_item .= "\n" . tab($level + 4) . '<ul class="subnav__items  subnav__items--stacked--only-wide  t-' . $brand->alias . '">';
+        $nav_item .= "\n" . tab($level + 4) . '<ul class="subnav__items  subnav__items--stacked  t-' . $brand->alias . '">';
     }
     // The next item is shallower.
     elseif ($next_item && $next_level < $level) {
