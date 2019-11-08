@@ -109,11 +109,11 @@
                     </div>
                 </div>
             </div>
-
+            <?php if (!empty($page_hero->text)) : ?>
             <div class="c-hero__message">
                 <p><?php echo $page_hero->text; ?></p>
             </div>
-
+            <?php endif; ?>
         </div>
             <?php endif; ?>
         <?php endif; ?>
