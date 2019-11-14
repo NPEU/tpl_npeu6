@@ -42,7 +42,7 @@ $wrapper_theme_class = '';
 
 $theme_name = $brand->alias;
 
-// Handle special case for 'WHITE' This probably needs a re-think in the next versio of the template
+// Handle special case for 'WHITE' This probably needs a re-think in the next version of the template
 if ($module_wrapper_theme == 'white') {
     $theme_name = 'white';
     $module_wrapper_theme = '';

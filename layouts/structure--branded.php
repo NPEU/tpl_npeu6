@@ -153,6 +153,7 @@
                             <?php if ($page_has_sidebar_top || $page_has_priority_content || $page_toc) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--top">
                                 <?php echo $page_toc; ?>
+                                <?php echo $component__sidebar_top; ?>
                                 <?php echo $modules__sidebar_top; /*<jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />*/?>
                                 <?php if ($page_has_priority_content) : ?>
                                 <?php echo $doc->article->introtext; ?>
@@ -216,6 +217,7 @@
 
                             <?php if ($page_has_pull_outs && $page_has_sidebar_bottom) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--bottom">
+                                <?php echo $component__sidebar_bottom; ?>
                                 <?php echo $modules__sidebar_bottom; /*<jdoc:include type="modules" name="4-sidebar-bottom" style="sidebar" />*/ ?>
                             </div>
                             <?php endif; ?>

@@ -139,9 +139,21 @@ if ($page_heading != $page_template_params->site_title) {
 
 $page_has_article              = !empty($doc->article);
 $page_has_priority_content     = !empty($doc->article->fulltext);
-$page_has_sidebar_top          = $doc->countModules('4-sidebar-top');
-$page_has_sidebar_section_menu = $doc->countModules('4-sidebar-section-menu');
-$page_has_sidebar_bottom       = $doc->countModules('4-sidebar-bottom');
+
+
+// We can't FORCE show modules, because there may not be any, but we can force DON'T SHOW modules:
+$page_disable_modules = $menu_item->params->get('disable_modules');
+if (!(
+    $page_disable_modules == 'always'
+ || $page_disable_modules == 'root' && $page_is_component_root
+ || $page_disable_modules == 'sub' && !$page_is_component_root
+)) {
+    $page_has_pull_outs = false;
+    $page_has_sidebar_top          = $doc->countModules('4-sidebar-top');
+    $page_has_sidebar_section_menu = $doc->countModules('4-sidebar-section-menu');
+    $page_has_sidebar_bottom       = $doc->countModules('4-sidebar-bottom');
+}
+
 $page_has_footer_top           = $doc->countModules('6-footer-top');
 $page_has_footer_mid_left      = $doc->countModules('6-footer-mid-left');
 $page_has_footer_mid_right     = $doc->countModules('6-footer-mid-right');
@@ -153,10 +165,22 @@ if ($page_has_article) {
     $page_toc = JHtml::_('content.prepare', '{loadposition 3-main-toc,sidebar}');
     
     if (!empty($toc)) {
-        $page_has_sidebar_bottom++;
+        $page_has_sidebar_top++;
     }
 }
 
+
+$component__sidebar_top = false;
+if (isset($doc->component__sidebar_top)) {
+    $component__sidebar_top = $doc->component__sidebar_top;
+    $page_has_sidebar_top++;
+}
+
+$component__sidebar_bottom = false;
+if (isset($doc->component__sidebar_bottom)) {
+    $component__sidebar_bottom = $doc->component__sidebar_bottom;
+    $page_has_sidebar_bottom++;
+}
 
 
 
@@ -176,9 +200,12 @@ $page_current_view = $input->get('view');
 #echo '<pre>'; var_dump($page_current_view); echo '</pre>'; exit;
 $page_is_component_root = $page_default_view == $page_current_view;
 
-$page_disable_modules = $menu_item->params->get('disable_modules');
+
 
 // We can't FORCE show modules, because there may not be any, but we can force DON'T SHOW modules:
+// Hmmm. We're overriding the possibility of other pull-out content, which isn't great.
+// Changing this.
+/*
 if (
     $page_disable_modules == 'always'
  || $page_disable_modules == 'root' && $page_is_component_root
@@ -186,7 +213,7 @@ if (
 ) {
     $page_has_pull_outs = false;
 }
-
+*/
 #echo '<pre>'; var_dump($page_has_pull_outs); echo '</pre>'; exit;
 
 $menu_item->params->get('hero_image');
