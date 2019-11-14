@@ -19,7 +19,7 @@ if (!isset($is_sitemap)) {
     }
     
 }
-
+$start_level = (int) $params->get('startLevel');
 ?>
 <?php if(count($list) > 0): ?>
 <?php
@@ -83,7 +83,7 @@ foreach ($new_list as $i => &$item) {
     $item_link_class    = 'nav-bar__link';
     
     $tab_multiplier = 1;
-    if ($level == 3) {
+    if ($level == (1 + $start_level)) {
         $tab_multiplier = 2;
         
         $item_class         = 'subnav__item';
