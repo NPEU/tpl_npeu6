@@ -29,22 +29,36 @@ $beforeDisplayContent = trim(implode("\n", $results));
 $results = $dispatcher->trigger('onContentAfterDisplay', array($this->category->extension . '.categories', &$this->category, &$this->params, 0));
 $afterDisplayContent = trim(implode("\n", $results));
 
+/*
+    @TODO - should really cater for LEAD items here too
+    (and column I suppose though I don't currently use it).
+*/
 ?>
-
+<?php if (!empty($this->intro_items)) : ?>
 <div class="l-distribute-wrap  u-space--below">
     <div class="l-distribute--flush-edge-gutters">
         <div class="l-distribute  l-distribute--gutter--medium  l-distribute--limit-30">
-            <?php if (!empty($this->intro_items)) : ?>
             <?php foreach ($this->intro_items as $key => &$item) : ?>
                 <?php
 					$this->item = &$item;
 					echo $this->loadTemplate('item');
                 ?>
             <?php endforeach; ?>
-            <?php endif; ?>
         </div>
     </div>
 </div>
+<?php endif; ?>
+
+<?php if (!empty($this->link_items)) : ?>
+<ul>
+<?php foreach ($this->link_items as &$item) : ?>
+    <li>
+        <a href="<?php echo JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)); ?>">
+            <?php echo $item->title; ?></a>
+    </li>
+<?php endforeach; ?>
+</ul>
+<?php endif; ?>
 
 <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
 <div class="n-pagination">
