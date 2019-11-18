@@ -166,7 +166,7 @@
                                 <div class="c-panel">
                                     <?php if ($page_has_article) : ?>
                                     <div class="c-longform-content  c-user-content">
-                                        <?php if (!empty($doc->article->headline_image['headline-image'])) : ?>
+                                        <?php if (!empty($doc->article->headline_image['headline-image']) && $menu_item->params->get('show_headline_image') == 1) : ?>
                                         <div class="u-space--below">
                                             <div class="l-proportional-container  l-proportional-container--2-1">
                                                 <div class="l-proportional-container__content">

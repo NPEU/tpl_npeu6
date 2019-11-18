@@ -140,6 +140,10 @@ if ($page_heading != $page_template_params->site_title) {
 $page_has_article              = !empty($doc->article);
 $page_has_priority_content     = !empty($doc->article->fulltext);
 
+$page_has_pull_outs = false;
+$page_has_sidebar_top          = 0;
+$page_has_sidebar_section_menu = 0;
+$page_has_sidebar_bottom       = 0;
 
 // We can't FORCE show modules, because there may not be any, but we can force DON'T SHOW modules:
 $page_disable_modules = $menu_item->params->get('disable_modules');
@@ -148,7 +152,7 @@ if (!(
  || $page_disable_modules == 'root' && $page_is_component_root
  || $page_disable_modules == 'sub' && !$page_is_component_root
 )) {
-    $page_has_pull_outs = false;
+    
     $page_has_sidebar_top          = $doc->countModules('4-sidebar-top');
     $page_has_sidebar_section_menu = $doc->countModules('4-sidebar-section-menu');
     $page_has_sidebar_bottom       = $doc->countModules('4-sidebar-bottom');
@@ -164,7 +168,7 @@ $page_toc = '';
 if ($page_has_article) {
     $page_toc = JHtml::_('content.prepare', '{loadposition 3-main-toc,sidebar}');
     
-    if (!empty($toc)) {
+    if (!empty($page_toc)) {
         $page_has_sidebar_top++;
     }
 }
