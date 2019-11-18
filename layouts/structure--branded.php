@@ -25,7 +25,7 @@
                 <div class="l-col-to-row-wrap">
                     <div class="l-col-to-row">
                         <div class="l-col-to-row__item  ff-width-100--40--50  u-text-align--left  c-page-header__first  u-padding--top--s  u-padding--sides--s">
-                            <a href="/<?php echo $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
+                            <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
                                 <?php echo $page_brand->logo_svg_with_fallback; ?>
                             </a>
                         </div>
