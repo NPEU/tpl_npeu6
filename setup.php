@@ -305,6 +305,8 @@ $page_hero         = ($page_has_hero && !$page_has_carousel) ? $page_hero['hero_
 $page_carousel     = ($page_has_hero && $page_has_carousel)  ? $page_hero : false;
 
 
+// Headline image:
+$show_headline_image = $menu_item->params->get('show_headline_image', 1);
 
 // Meta (?):
 $page_unit        = $page_template_params->unit;
