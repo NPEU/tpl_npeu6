@@ -10,7 +10,7 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>1.10.1</version>
+    <version>1.8.0</version>
     <!-- The description is optional and defaults to the name -->
     <!--<description>TPL_NPEU6_DESCRIPTION</description>-->
     <!-- The above should work but doesn't and results in the untranslated string being shown. -->
@@ -49,6 +49,7 @@
         <position>3-main-breadcrumbs</position>
         <position>3-main-lower</position>
         <position>3-main-upper</position>
+        <position>3-main-badge</position>
         <position>3-main-toc</position>
         <position>4-sidebar-top</position>
         <position>4-sidebar-section-menu</position>
@@ -113,6 +114,7 @@
                 >
                     <option value="npeu">NPEU</option>
                     <option value="npeu_ctu">NPEU CTU</option>
+                    <option value="pru-mnhc">PRU-MNHC</option>
                     <option value="sheer">SHEER</option>
                 </field>
             </fieldset>
