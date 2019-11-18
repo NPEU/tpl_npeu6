@@ -145,6 +145,16 @@ $page_has_sidebar_top          = 0;
 $page_has_sidebar_section_menu = 0;
 $page_has_sidebar_bottom       = 0;
 
+
+// Handle page-specific disabling of sidebar modules:
+$page_default_view = $menu_item->query['view'];
+#echo '<pre>'; var_dump($page_default_view); echo '</pre>'; exit;
+$page_current_view = $input->get('view');
+#echo '<pre>'; var_dump($page_current_view); echo '</pre>'; exit;
+$page_is_component_root = $page_default_view == $page_current_view;
+
+
+
 // We can't FORCE show modules, because there may not be any, but we can force DON'T SHOW modules:
 $page_disable_modules = $menu_item->params->get('disable_modules');
 if (!(
@@ -162,6 +172,17 @@ $page_has_footer_top           = $doc->countModules('6-footer-top');
 $page_has_footer_mid_left      = $doc->countModules('6-footer-mid-left');
 $page_has_footer_mid_right     = $doc->countModules('6-footer-mid-right');
 #echo '<pre>'; var_dump($doc->countModules('4-sidebar-bottom')); echo '</pre>'; exit;
+
+// Sort out Badges
+$page_badge = '';
+if ($doc->countModules('3-main-badge') > 0) {
+    $page_badge = JHtml::_('content.prepare', '{loadposition 3-main-badge,sidebar}');
+    
+    if (!empty($page_badge)) {
+        $page_has_sidebar_top++;
+    }
+}
+
 
 // Sort out ToC. May make this a module to make it clearer to others where this comes from:
 $page_toc = '';
@@ -196,13 +217,6 @@ if (isset($doc->component__sidebar_bottom)) {
 
 $page_has_pull_outs = $page_has_priority_content || $page_has_sidebar_top || $page_has_sidebar_section_menu || $page_has_sidebar_bottom;
 #echo '<pre>'; var_dump($page_has_pull_outs); echo '</pre>'; #exit;
-
-// Handle page-specific disabling of sidebar modules:
-$page_default_view = $menu_item->query['view'];
-#echo '<pre>'; var_dump($page_default_view); echo '</pre>'; exit;
-$page_current_view = $input->get('view');
-#echo '<pre>'; var_dump($page_current_view); echo '</pre>'; exit;
-$page_is_component_root = $page_default_view == $page_current_view;
 
 
 
@@ -294,7 +308,7 @@ $page_carousel     = ($page_has_hero && $page_has_carousel)  ? $page_hero : fals
 
 // Meta (?):
 $page_unit        = $page_template_params->unit;
-
+#echo '<pre>'; var_dump($page_unit); echo '</pre>'; exit;
 
 // Footer:
 // Convert HTML entities, replace year placeholder with year, transform markdown.
