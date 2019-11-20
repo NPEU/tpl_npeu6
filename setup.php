@@ -110,9 +110,13 @@ if ($page_brand->alias != 'npeu') {
 //$page_is_landing = $menu_item->menutype != 'mainnenu' && $menu_item->menutype != 'user' && $menu_item->level == 1;
 // May be better to check the brand that's applied as that's less likely to change
 // (can't easily check template style unfortunately)
-$page_is_landing = $page_brand->alias == 'npeu' && $menu_item->level == 0; //? Needs checking
-$page_is_landing = $page_brand->alias != 'npeu' && $menu_item->level == 1;
-
+$page_is_landing = $menu_item->params->get('is_landing', 'auto');
+if ($page_is_landing == 'auto') {
+    $page_is_landing = $page_brand->alias == 'npeu' && $menu_item->level == 0; //? Needs checking
+    $page_is_landing = $page_brand->alias != 'npeu' && $menu_item->level == 1;
+} else {
+    $page_is_landing = (bool) $page_is_landing;
+}
 // Head data:
 $page_head_data = $doc->getHeadData();
 #echo '<pre>'; var_dump($page_head_data); echo '</pre>'; exit;

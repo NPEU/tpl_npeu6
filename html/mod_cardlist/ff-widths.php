@@ -14,9 +14,6 @@ use Joomla\String\StringHelper;
 $doc = JFactory::getDocument();
 $hx = StringHelper::increment($params->get('header_tag'));
 ?>
-<?php if ($module->showtitle): ?>
-<<?php echo $params->get('header_tag'); ?>><?php echo $module->title; ?></<?php echo $params->get('header_tag'); ?>>
-<?php endif; ?>
 
 <?php if (!empty($params->get('cards'))) : 
 $c = count((array) $params->get('cards'));

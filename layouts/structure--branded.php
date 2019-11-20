@@ -127,9 +127,15 @@
                     </div>
                 </div>
             </div>
-            <?php if (!empty($page_hero->text)) : ?>
-            <div class="c-hero__message">
-                <p><?php echo $page_hero->text; ?></p>
+            <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
+            <div class="c-hero__message<?php echo (!empty($page_hero->heading)) ? '  c-hero__message--wide"' : ''; ?>">
+                <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
+                <h1><?php echo $page_hero->heading; ?></h1>
+                <?php endif; ?>
+                <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
+                <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
+                <p class="u-space--left--auto"><a href="<?php echo $page_hero->cta_link; ?>" class="cta  cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <?php endif; ?>
             </div>
             <?php endif; ?>
         </div>
