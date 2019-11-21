@@ -132,6 +132,19 @@
                     readonly="true"
                 />
                 <field
+                    name="header_balance"
+                    type="radio"
+                    label="TPL_NPEU6_HEADER_BALANCE_LABEL"
+                    description="TPL_NPEU6_HEADER_BALANCE_DESC"
+                    default="50--50"
+                    class="btn-group"
+                >
+                    <option value="100">TPL_NPEU6_HEADER_BALANCE_100_LABEL</option>
+                    <option value="33--66">TPL_NPEU6_HEADER_BALANCE_33_66_LABEL</option>
+                    <option value="50--50">TPL_NPEU6_HEADER_BALANCE_50_50_LABEL</option>
+                    <option value="66--33">TPL_NPEU6_HEADER_BALANCE_66_33_LABEL</option>
+                </field>
+                <field
                     name="cta_text"
                     type="text"
                     default=""

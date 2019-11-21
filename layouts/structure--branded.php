@@ -24,14 +24,14 @@
             <div class="u-padding--bottom--s">
                 <div class="l-col-to-row-wrap">
                     <div class="l-col-to-row">
-                        <div class="l-col-to-row__item  ff-width-100--40--50  u-text-align--left  c-page-header__first  u-padding--top--s  u-padding--sides--s">
+                        <div class="l-col-to-row__item  ff-width-100--40--<?php echo $header_balance[0]; ?>  u-text-align--left  c-page-header__first  u-padding--top--s  u-padding--sides--s">
                             <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
                                 <?php echo $page_brand->logo_svg_with_fallback; ?>
                             </a>
                         </div>
 
                         <?php if ($page_display_cta || $page_unit == 'npeu') : ?>
-                        <div class="l-col-to-row__item  ff-width-100--40--50  l-center  u-padding--top--s  u-padding--sides--s">
+                        <div class="l-col-to-row__item  ff-width-100--40--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">
                             <?php if ($page_display_cta) : ?>
                             <span>
                                 <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><?php echo $page_cta_text; ?></a>
@@ -121,16 +121,16 @@
                     <div class="l-proportional-container__content">
                         <div class="u-image-cover  js-image-cover">
                             <div class="u-image-cover__inner">
-                                <img class="u-image-cover__image" src="<?php echo $page_hero->image; ?>" width="600" alt="<?php echo $page_hero->alt; ?>">
+                                <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
-            <div class="c-hero__message<?php echo (!empty($page_hero->heading)) ? '  c-hero__message--wide"' : ''; ?>">
+            <div class="c-hero__message<?php echo (!empty($page_hero->heading)) ? '  c-hero__message--wide' : ''; ?>">
                 <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
-                <h1><?php echo $page_hero->heading; ?></h1>
+                <h1 class="c-hero__message--fluid_heading"><?php echo $page_hero->heading; ?></h1>
                 <?php endif; ?>
                 <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
                 <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>

@@ -8,6 +8,11 @@
  */
 
 defined('_JEXEC') or die;
+?>
+
+<?php echo $module->content; ?>
+
+<?php /*
 $hx = $params->get('header_tag') ? $params->get('header_tag') : 'h2';
 // This is a bit of a hack but it works well enough for now:
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
@@ -25,3 +30,4 @@ if ($hx == 'h1') {
         <?php endif; ?>
     </div>
 </div>
+*/ ?>

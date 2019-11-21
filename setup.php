@@ -293,6 +293,26 @@ $page_cta_text     = $page_template_params->cta_text;
 $page_cta_url      = $page_template_params->cta_url;
 $page_display_cta  = $page_cta_text && $page_cta_url;
 
+// Header:
+$header_balance = array();
+$header_balance[] = '50';
+$header_balance[] = '50';
+if (!empty($page_template_params->header_balance)) {
+    switch ($page_template_params->header_balance) {
+        case '100' :
+            $header_balance[0] = '100';
+            $header_balance[1] = '100';
+            break;
+        case '33--66' :
+            $header_balance[0] = '33-333';
+            $header_balance[1] = '66-666';
+            break;
+        case '66--33' :
+            $header_balance[0] = '66-666';
+            $header_balance[1] = '33-333';
+            break;    
+    }
+}
 
 // Navbar:
 $page_has_navbar   = $page_template_params->show_navbar && $doc->countModules('2-header-nav-bar') > 0;

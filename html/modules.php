@@ -39,6 +39,7 @@ $header_classname  = '';
 $wrapper_class = '';
 $header_class = '';
 $wrapper_theme_class = '';
+$hx = $params->get('header_tag', 'h2');
 
 $theme_name = $brand->alias;
 
@@ -49,6 +50,7 @@ if ($module_wrapper_theme == 'white') {
 }
 #echo '<pre>'; var_dump($module); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($module_wrapper); echo '</pre>'; #exit;
+#echo '<pre>'; var_dump($module_wrapper_theme); echo '</pre>'; #exit;
 if (!empty($wrapper_classname)) {
     $wrapper_class = ' class="' . $wrapper_classname . '"';
 }
@@ -72,24 +74,24 @@ $has_cta      = !empty($params->get('cta_text')) && !empty($params->get('cta_url
 $cta_position = $params->get('cta_position');
 
 if (!empty($module->content)): ?>
-<?php if ($module_wrapper == 'panel'): ?>
-<div class="c-panel<?php echo $wrapper_theme_class; ?>  t-<?php echo $theme_name; ?>  u-space--none">
-    <<?php echo $outer_el; ?> class="c-panel__module">
+<?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
+<div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?>  u-space--none  u-fill-height">
+    <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content' : 'c-panel__module'; ?>">
         <div<?php echo $wrapper_class; ?>>
 <?php endif; ?>
             <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
             <header class="u-text-group  u-text-group--push-apart  u-space--below">
-                <h2<?php echo $header_class; ?>><?php echo $module->title; ?></h2>
+                <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
                 <p><a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
             </header>
             <?php elseif ($module->showtitle): ?>
-            <h2<?php echo $header_class; ?>><?php echo $module->title; ?></h2>
+            <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
             <?php endif; ?>
             <?php echo $module->content; ?>
             <?php if ($has_cta && $cta_position == 'bottom'): ?>
             <p><a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
             <?php endif; ?>
-<?php if ($module_wrapper == 'panel'): ?>
+<?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
         </div>
     </<?php echo $outer_el; ?>>
 </div>
