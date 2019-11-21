@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 /* <pre><?php var_dump($item); ?></pre> */
 $fields = FieldsHelper::getFields('com_content.article', $item, true);
 
+$i = isset($i) ? $i : 0;
+
 $card_data = array();
 
 $card_data['theme']        = $theme;
@@ -18,6 +20,8 @@ $card_data['link']         = $item->link;
 $card_data['image']        = $fields[0]->rawvalue;
 $card_data['image_alt']    = $fields[1]->rawvalue;
 $card_data['title']        = $item->title;
+$card_data['body']         = $i == 1 ? $item->introtext : '';
+$card_data['cta']          = $i == 1 ? $item->introtext : '';
 $card_data['publish_date'] = $item->publish_up;
 $card_data['date_format']  = $date_format;
 

@@ -39,6 +39,16 @@ defined('_JEXEC') or die;
             <?php endif; ?>
             <div class="c-card__main">
                 <h2 class="c-card__title"><?php echo $card_data['title']; ?></h2>
+                <?php if (!empty($card_data['body'])) : ?>
+                <div class="c-card__body">
+                    <?php echo $card_data['body']; ?>
+                </div>
+                <?php endif; ?>
+                <?php if (!empty($card_data['cta'])) : ?>
+                <div class="c-card__footer  u-text-align--right">
+                    <span class="cta  cta--has-icon">Read more<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></span>
+                </div>
+                <?php endif; ?>
                 <?php if (!empty($card_data['date_format']) && !empty($card_data['publish_date'])) : ?>
                 <div class="c-card__footer">
                     <p>

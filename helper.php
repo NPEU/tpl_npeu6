@@ -56,7 +56,11 @@ class TplNPEU6Helper
             //$top_item_id = $menu_item->tree[0];
 
             $template = self::get_template();
-            $brand_id = $template->params->get('brand_id');
+            $brand_id = $template->params->get('brand_id', false);
+            
+            if (!$brand_id) {
+                return false;
+            }
 
             $db = JFactory::getDBO();
 
