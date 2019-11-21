@@ -142,7 +142,19 @@ if ($page_heading != $page_template_params->site_title) {
 }
 
 $page_has_article              = !empty($doc->article);
-$page_has_priority_content     = !empty($doc->article->fulltext);
+
+// Category blogs should be assumed to use 'Read More' as-is, and treat introtext as just that, NOT
+// priority content.
+$page_has_priority_content = false;
+$is_blog = (
+    $menu_item->query['option'] == 'com_content'
+ && $menu_item->query['view']   == 'category'
+ && $menu_item->query['layout'] == 'blog'
+);
+
+if (!$is_blog) {
+    $page_has_priority_content = !empty($doc->article->fulltext);
+}
 
 $page_has_pull_outs = false;
 $page_has_sidebar_top          = 0;

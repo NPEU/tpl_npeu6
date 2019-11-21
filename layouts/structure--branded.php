@@ -213,6 +213,7 @@
                                         <?php echo $doc->article->fulltext; ?>
                                         <?php else: ?>
                                         <?php echo $doc->article->introtext; ?>
+                                        <?php echo $doc->article->fulltext; ?>
                                         <?php endif; ?>
                                     </div>
                                     <?php else: ?>
