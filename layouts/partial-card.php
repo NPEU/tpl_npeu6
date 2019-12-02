@@ -42,11 +42,11 @@ defined('_JEXEC') or die;
                 <?php if (!empty($card_data['body'])) : ?>
                 <div class="c-card__body">
                     <?php echo $card_data['body']; ?>
-                </div>
-                <?php endif; ?>
-                <?php if (!empty($card_data['cta'])) : ?>
-                <div class="c-card__footer  u-text-align--right">
-                    <span class="cta  cta--has-icon">Read more<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></span>
+                    <?php if (!empty($card_data['cta'])) : ?>
+                    <p class="u-text-align--right">
+                        <span class="cta  cta--has-icon">Read more<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></span>
+                    </p>
+                    <?php endif; ?>
                 </div>
                 <?php endif; ?>
                 <?php if (!empty($card_data['date_format']) && !empty($card_data['publish_date'])) : ?>
