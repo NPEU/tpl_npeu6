@@ -136,6 +136,23 @@ class TplNPEU6Helper
     }
 
     /**
+     * Returns a tab string for indenting
+     *
+     * @param string $text
+     * @return string
+     * @access public
+     */
+    public static function tab($level)
+    {
+        if (!is_int($level)) {
+            trigger_error('Function \'tab\' expects argument 1 to be an integer', E_USER_ERROR);
+            return false;
+        }
+        $level = $level + 5;
+        return str_repeat(" ", ($level) * 4);
+    }
+
+    /**
      * Creates an HTML-friendly string for use in id's
      *
      * @param string $text
