@@ -109,6 +109,11 @@
 
             </div>
             <?php endif; ?>
+            <?php if(!empty($modules__main_breadcumbs) && $menu_item->alias != $page_brand->alias) : ?>
+            <div class="u-padding--sides  u-padding--bottom--xs  u-padding--top--xs  d-background--dark  t-<?php echo $page_brand->alias; ?>">
+            <?php echo $modules__main_breadcumbs; /*<jdoc:include type="modules" name="3-main-breadcrumbs" style="basic" />*/?>
+            </div>
+            <?php endif; ?>
         </header>
 
         <?php if($page_has_hero) : ?>
@@ -154,7 +159,6 @@
 
                             <div class="l-primary-content__header">
 
-                                <?php echo $modules__main_breadcumbs; /*<jdoc:include type="modules" name="3-main-breadcrumbs" style="basic" />*/?>
                                 <?php echo $modules__main_upper; /*<jdoc:include type="modules" name="3-main-upper" style="basic" />*/?>
 
                                 <div class="c-panel">
