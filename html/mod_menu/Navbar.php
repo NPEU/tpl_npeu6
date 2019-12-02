@@ -41,11 +41,6 @@ $hidden_from_menus_and_sitemap = $db->loadResult();
 $nav = '';
 //$level = 1;
 
-function tab($level) {
-    $level = $level + 5;
-    return str_repeat(" ", ($level) * 4);
-}
-
 // First pass to remove items we want to skip.
 // Needs to be done this way as otherwise there's no way (I think) to determine if an item really
 // has children or not without 'lookahead' loops.
@@ -105,7 +100,7 @@ foreach ($new_list as $i => &$item) {
         $class = ' class="' . trim($class) . '"';
     }
 
-    $nav_item .= "\n" . tab($level * $tab_multiplier + 1) . '<li'.$class.'>' . "\n" . tab($level * $tab_multiplier + 2);
+    $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<li'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
     
     $item->anchor_css = $item_link_class;
 
@@ -131,7 +126,7 @@ foreach ($new_list as $i => &$item) {
     ob_end_clean();
     
     // Reset title to prevent spans appearing on <title> tag:
-    $item->title = $title;
+    $item->title = str_replace(array('&lt;span&gt;', '&lt;/span&gt;'), '', $title);
     
     if ($current) {
         $output = preg_replace('#href="[^"]+"#', 'href="#main"', $output);
@@ -149,22 +144,22 @@ foreach ($new_list as $i => &$item) {
 
     // The next item is deeper.
     if ($next_item && $next_level > $level) {
-        $nav_item .= "\n" . tab($level + 2) . '<div class="dropdown dropdown--only-wide js-dropdown">';
-        $nav_item .= "\n" . tab($level + 3) . '<button id="' . $item->alias . '-sub-menu" class="dropdown__button  t-' . $brand->alias . '" data-js="dropdown__button" hidden="" aria-label="' . $item->title . ' sub-menu" aria-expanded="false"><svg display="none" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg display="none" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>';
-        $nav_item .= "\n" . tab($level + 3) . '<div class="dropdown__area" id="' . $item->alias . '-sub-menu--target">';
-        $nav_item .= "\n" . tab($level + 4) . '<ul class="subnav__items  subnav__items--stacked  t-' . $brand->alias . '">';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 2) . '<div class="dropdown dropdown--only-wide js-dropdown">';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<button id="' . $item->alias . '-sub-menu" class="dropdown__button  t-' . $brand->alias . '" data-js="dropdown__button" hidden="" aria-label="' . $item->title . ' sub-menu" aria-expanded="false"><svg display="none" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg display="none" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<div class="dropdown__area" id="' . $item->alias . '-sub-menu--target">';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 4) . '<ul class="subnav__items  subnav__items--stacked  t-' . $brand->alias . '">';
     }
     // The next item is shallower.
     elseif ($next_item && $next_level < $level) {
-        $nav_item .= "\n" . tab($level + 4) . '</li>';
-        $nav_item .= "\n" . tab($level + 3) . '</ul>';
-        $nav_item .= "\n" . tab($level + 2) . '</div>';
-        $nav_item .= "\n" . tab($level + 1) . '</div>';
-        $nav_item .= "\n" . tab($level) . '</li>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 4) . '</li>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '</ul>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 2) . '</div>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 1) . '</div>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level) . '</li>';
     }
     // The next item is on the same level.
     else {
-        $nav_item .= "\n" . tab($level * $tab_multiplier + 1) . '</li>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '</li>';
     }
     $nav .= $nav_item;
 }
@@ -173,6 +168,6 @@ foreach ($new_list as $i => &$item) {
 <ul class="nav-bar__items">
     <?php echo $nav; ?>
     
-<?php echo tab(2); ?></ul>
+<?php echo TplNPEU6Helper::tab(2); ?></ul>
 <?php endif; ?>
 <?php endif; ?>

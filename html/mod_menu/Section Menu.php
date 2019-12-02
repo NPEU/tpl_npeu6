@@ -109,6 +109,9 @@ foreach ($new_list as $i => &$item) {
     $output = ob_get_contents();
     ob_end_clean();
     
+    // Reset title to prevent spans appearing on <title> tag:
+    $item->title = str_replace(array('&lt;span&gt;', '&lt;/span&gt;'), '', $title);
+    
     if ($current) {
         $output = preg_replace('#href="[^"]+"#', 'href="#main"', $output);
     }

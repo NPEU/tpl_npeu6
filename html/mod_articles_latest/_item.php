@@ -17,7 +17,7 @@ $card_data = array();
 
 $card_data['theme']        = $theme;
 $card_data['link']         = $item->link;
-$card_data['image']        = $fields[0]->rawvalue;
+$card_data['image']        = !empty($item->skip_image) ? false : $fields[0]->rawvalue;
 $card_data['image_alt']    = $fields[1]->rawvalue;
 $card_data['title']        = $item->title;
 $card_data['body']         = $i == 1 ? $item->introtext : '';

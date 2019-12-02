@@ -34,12 +34,19 @@ function format_person($p) {
 $pi_s = empty($this->item->pi_2) ? '' : 's';
 $fu_s = count($this->item->funders) > 1 ? 's' : '';
 
+$brand = false;
+if (!empty($this->item->brand_details)) {
+    $brand = $this->item->brand_details;
+}
+
 ob_start();
 ?>
 <div class="u-space">
+    <?php if ($brand) : ?>
     <div class="u-space--below">
         <a href="<?php echo $this->item->brand_details->alias; ?>" class="c-badge"><img src="<?php echo $this->item->brand_details->logo_svg_path; ?>" onerror="this.src='<?php echo $this->item->brand_details->logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $this->item->brand_details->name; ?>" height="80"></a>
     </div>
+    <?php endif; ?>
     <dl>
         <dt>Principal investigator<?php echo $pi_s; ?></dt>
         <dd><?php echo format_person($this->item->pi_1) . (empty($this->item->pi_2) ? '' : ', ' . format_person($this->item->pi_2)); ?></dd>

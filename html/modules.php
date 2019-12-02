@@ -76,7 +76,7 @@ $cta_position = $params->get('cta_position');
 if (!empty($module->content)): ?>
 <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
 <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?>  u-space--none  u-fill-height">
-    <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content' : 'c-panel__module'; ?>">
+    <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content  c-user-content' : 'c-panel__module'; ?>">
         <div<?php echo $wrapper_class; ?>>
 <?php endif; ?>
             <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>

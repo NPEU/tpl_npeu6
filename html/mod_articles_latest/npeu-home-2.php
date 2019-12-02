@@ -43,11 +43,11 @@ $count = $params->get('count');
 <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
 <?php else:
 $i = 1;
-
+$j = 0;
 $item = array_shift($items);
 $count--;
 ?>
-<div class="l-col-to-row-wrap">
+<div class="l-col-to-row-wrap  u-space--below">
     <div class="l-col-to-row--flush-edge-gutters">
         <div class="l-col-to-row  l-col-to-row--gutter--medium">
             <div class="l-col-to-row__item  ff-width-100--55--50">
@@ -74,14 +74,20 @@ $count--;
                 $wrap_class   = 'l-distribute-wrap';
                 $outer_class  = 'l-distribute--flush-edge-gutters';
                 $inner_class  = 'l-distribute  l-distribute--gutter--small  l-distribute--limit-30'; 
-                $item_class   = 'u-padding--s';
             /*}*/
             ?>
                 <div class="<?php echo $wrap_class; ?>">
                     <div class="<?php echo $outer_class; ?>">
                         <ul class="<?php echo $inner_class; ?>">
-                            <?php foreach ($items as $item): ?>
-                            <li class="<?php echo $item_class; ?>">
+                            <?php foreach ($items as $item): $j++; 
+                            
+                            // Ditch hero images after first 2:
+                            if ($j > 2) {
+                                $item->skip_image = true;
+                            }
+                            
+                            ?>
+                            <li>
                                 <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
                             </li>
                             <?php endforeach; ?>
