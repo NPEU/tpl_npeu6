@@ -59,6 +59,8 @@ if (!isset($menu_id)) {
     $menu_id = TplNPEU6Helper::get_menu_id();
 }
 #echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($menu_item->alias); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($menu_item->title); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->params->get('hero_image')); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_root); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->access); echo '</pre>'; exit;
@@ -71,21 +73,20 @@ $page_brand        = TplNPEU6Helper::get_brand();
 $page_brand_folder = $page_brand->alias . '/';
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
 
-
 // Modules sometimes need to add scripts and styles ot the $doc but if we wait to use <jdoc> they're
 // processed too late and get missed.
 // Pre-rendering all modules here to avoid that. Not sure if there will be other consequences.
 jimport('joomla.application.module.helper');
-$modules__header_nav_bar   = JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}');
-$modules__main_breadcumbs  = JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}');
-$modules__main_upper       = JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}');
-$modules__sidebar_top      = JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}');
-$modules__sidebar_bottom   = JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}');
-$modules__main_lower       = JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}');
-$modules__bottom           = JHtml::_('content.prepare', '{loadposition 5-bottom,block}');
-$modules__footer_top       = JHtml::_('content.prepare', '{loadposition 6-footer-top,block}');
-$modules__footer_mid_left  = JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}');
-$modules__footer_mid_right = JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,block}');
+$modules__header_nav_bar   = trim(JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}'));
+$modules__main_breadcumbs  = trim(JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}'));
+$modules__main_upper       = trim(JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}'));
+$modules__sidebar_top      = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}'));
+$modules__sidebar_bottom   = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}'));
+$modules__main_lower       = trim(JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}'));
+$modules__bottom           = trim(JHtml::_('content.prepare', '{loadposition 5-bottom,block}'));
+$modules__footer_top       = trim(JHtml::_('content.prepare', '{loadposition 6-footer-top,block}'));
+$modules__footer_mid_left  = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}'));
+$modules__footer_mid_right = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,block}'));
 
 
 // Branded search pages need an extra query string parameter to limit the search to just that part
@@ -128,13 +129,11 @@ $page_template_params = $page_template->params->toObject();
 #echo '<pre>'; var_dump($page_template); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($page_template_params); echo '</pre>'; exit;
 
-
 // Page Heading / Title
 $page_heading = isset($doc->article)
               ? $doc->article->title
               : $menu_item->title;
               
-#echo '<pre>'; var_dump($page_heading); echo '</pre>'; exit;
 $page_title   = $page_heading;
 
 if ($page_heading != $page_template_params->site_title) {
