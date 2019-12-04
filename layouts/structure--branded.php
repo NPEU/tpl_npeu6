@@ -150,6 +150,13 @@
         <div class="sticky-footer-expand">
             <main role="main" id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>">
                 <?php if ($page_is_landing) : ?>
+                <?php if ($show_page_heading) : ?>
+                <div class="l-blockrow">
+                    <div class="c-panel">
+                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
+                    </div>
+                </div>
+                <?php endif; ?>
                 <jdoc:include type="component" format="raw" />
                 <?php else: ?><br id="highlighter-start" />
                 <div class="l-blockrow">

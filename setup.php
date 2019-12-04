@@ -133,8 +133,21 @@ $page_template_params = $page_template->params->toObject();
 $page_heading = isset($doc->article)
               ? $doc->article->title
               : $menu_item->title;
-              
-$page_title   = $page_heading;
+$page_title    = $page_heading;
+
+// Menu Items can override the heading / title in 'Page Display' tab:
+if (!empty($menu_item->params->get('page_heading', false))) {
+    $page_heading = $menu_item->params->get('page_heading');
+}
+
+if (!empty($menu_item->params->get('page_title', false))) {
+    $page_title = $menu_item->params->get('page_title');
+}
+
+$show_page_heading = $menu_item->params->get('show_page_heading', false);
+
+
+
 
 if ($page_heading != $page_template_params->site_title) {
    $page_title .= ' | ' . $page_template_params->site_title;
