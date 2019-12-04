@@ -41,13 +41,25 @@ $hidden_from_menus_and_sitemap = $db->loadResult();
 $nav = '';
 //$level = 3;
 
+
+
+
 // First pass to remove items we want to skip.
 // Needs to be done this way as otherwise there's no way (I think) to determine if an item really
 // has children or not without 'lookahead' loops.
+// For the Section Menu, we only want to show items on the current level, but the module doesn't
+// allow for this option, so sort that out here too.
+$menu_item = TplNPEU6Helper::get_menu_item();
+$current_level = (int) $menu_item->level;
+#echo '<pre>'; var_dump($current_level); echo '</pre>';
+
 $new_list = array();
 foreach ($list as $i => &$item) 
 {
     $skip_item  = false;
+    if ((int) $item->level != $current_level + 1) {
+        $skip_item = true;
+    }
     // Don't show hidden menu items:
     if ($is_sitemap && $item->access == $hidden_from_menus_and_sitemap) {
         $skip_item = true;
@@ -60,6 +72,11 @@ foreach ($list as $i => &$item)
        $new_list[] =& $item;
     }
 }
+
+
+
+
+
 
 // We're now using a new list. NOTE deeper/shallower no longer always accurate - DO NOT USE 
 
