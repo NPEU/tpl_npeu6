@@ -38,7 +38,6 @@ $afterDisplayContent = trim(implode("\n", $results));
     <div class="d-bands--bottom  t-npeu">
         <div class="c-panel  u-space--none  u-fill-height">
             <section class="c-panel__module">
-                <h1 id="latest-news">Latest News</h1>
                 <?php if (!empty($this->intro_items)) : ?>
                 <div class="l-distribute-wrap  u-space--below">
                     <div class="l-distribute--flush-edge-gutters">
