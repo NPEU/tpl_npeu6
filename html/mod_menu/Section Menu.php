@@ -20,9 +20,8 @@ if (!isset($is_sitemap)) {
     
 }
 
-?>
-<?php if(count($list) > 0): ?>
-<?php
+if(count($list) > 0) :
+
 // Find the access id for 'Hidden' menu items:
 $db = JFactory::getDBO();
 
@@ -50,16 +49,23 @@ $nav = '';
 // For the Section Menu, we only want to show items on the current level, but the module doesn't
 // allow for this option, so sort that out here too.
 $menu_item = TplNPEU6Helper::get_menu_item();
-$current_level = (int) $menu_item->level;
-#echo '<pre>'; var_dump($current_level); echo '</pre>';
+$menu_level = (int) $menu_item->level;
+#echo '<pre>'; var_dump($menu_level); echo '</pre>';
 
 $new_list = array();
 foreach ($list as $i => &$item) 
 {
     $skip_item  = false;
-    if ((int) $item->level != $current_level + 1) {
+    
+    $item_level = (int) $item->level;
+    
+    if ($menu_level == 2 && $item->level <= $menu_level) {
         $skip_item = true;
     }
+    if ($menu_level == 3 && $item->level < $menu_level) {
+        $skip_item = true;
+    }
+    
     // Don't show hidden menu items:
     if ($is_sitemap && $item->access == $hidden_from_menus_and_sitemap) {
         $skip_item = true;
