@@ -74,7 +74,7 @@ unset($this->people['*']);
         <div class="c-panel  u-padding--sides--l">
             <div filterable_group>
                 <script type="text/template" filterable_form_template>
-                    <form class="tool-form  space-bottom">
+                    <form class="tool-form">
                         <div class="tool-form__fieldset">
                             <label for="filter_staff_list">Filter staff list:</label> <input id="filter_staff_list" filterable_input>
                         </div>
@@ -99,7 +99,7 @@ unset($this->people['*']);
                 <?php $i = 0; foreach($this->people as $group_heading => $data): ?>
                 <?php $html_id = trim(str_replace(' ', '-', preg_replace("/[^a-zA-Z0-9]/", '-', $group_heading))); ?>
                 <?php if($data['length'] > 0): ?>
-                <section id="group-<?php echo $data['alias']; ?>" class="space-bottom">
+                <section id="group-<?php echo $data['alias']; ?>">
                     <h2 class="" id="<?php echo $html_id; ?>"><?php echo $group_heading; ?></h2>
                     <ul id="people-<?php echo $data['alias']; ?>" class="gallery-grid  gallery-grid--gutter--small  gallery-grid--basis-15" filterable_list>
 

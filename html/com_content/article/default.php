@@ -90,6 +90,8 @@ if (isset($image_meta['copyright'])) {
 $this->item->headline_image = $headline_image;
 $doc        = JFactory::getDocument();
 $doc->article = $this->item;
+
+#echo '<pre>'; var_dump($this->item); echo '</pre>'; exit;
 return;
 ?>
 
