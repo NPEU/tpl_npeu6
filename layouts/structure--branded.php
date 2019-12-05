@@ -192,7 +192,7 @@
                                 <?php echo $component__sidebar_top; ?>
                                 <?php echo $modules__sidebar_top; /*<jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />*/?>
                                 <?php if ($page_has_priority_content) : ?>
-                                <?php echo $doc->article->introtext; ?>
+                                <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
                                 <?php endif; ?>
                             </div>
                             <?php endif; ?>
@@ -221,10 +221,10 @@
                                         </div>
                                         <?php endif; ?>
                                         <?php if ($page_has_priority_content) : ?>
-                                        <?php echo $doc->article->fulltext; ?>
+                                        <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
                                         <?php else: ?>
-                                        <?php echo $doc->article->introtext; ?>
-                                        <?php echo $doc->article->fulltext; ?>
+                                        <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
+                                        <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
                                         <?php endif; ?>
                                     </div>
                                     <?php else: ?>
