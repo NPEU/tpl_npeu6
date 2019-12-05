@@ -6,9 +6,10 @@
  * @copyright   Copyright (C) NPEU 2019.
  * @license     MIT License; see LICENSE.md
  */
- 
+
 // Include the template helper:
 JLoader::register('TplNPEU6Helper', dirname(__DIR__) . '/helper.php');
+
 function modChrome_basic($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
@@ -26,7 +27,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     #echo  '<pre>'; var_dump($template); echo '</pre>';
 
-    
+
 
     $brand = TplNPEU6Helper::get_brand();
 
