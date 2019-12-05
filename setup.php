@@ -35,11 +35,13 @@ $doc   = JFactory::getDocument();
 $input = JFactory::getApplication()->input;
 $db    = JFactory::getDBO();
 $user  = JFactory::getUser();
+$uri   = JUri::getInstance(); 
 
 #echo '<pre>'; var_dump($app); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($input); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($user); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($uri); echo '</pre>'; exit;
 
 
 
@@ -58,6 +60,7 @@ $menu_root = explode('/', $menu_item->route)[0];
 if (!isset($menu_id)) {
     $menu_id = TplNPEU6Helper::get_menu_id();
 }
+
 #echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->alias); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->title); echo '</pre>'; exit;
@@ -66,6 +69,15 @@ if (!isset($menu_id)) {
 #echo '<pre>'; var_dump($menu_item->access); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_id); echo '</pre>'; exit;
 #####echo '<pre>'; var_dump($user->authorise("core.edit", "com_menus.menu." . $menu_id)); echo '</pre>'; exit;
+
+// Work out if current page is a route of a component or not;
+$menu_route = trim($menu_item->route, '/');
+$uri_route  = trim($uri->getPath(), '/');
+
+#echo '<pre>'; var_dump($menu_route); echo '</pre>'; #exit;
+#echo '<pre>'; var_dump($uri_route); echo '</pre>'; exit;
+
+$page_is_subroute = ($menu_route == $uri_route) ? false : true;
 
 
 // Brand
@@ -118,6 +130,12 @@ if ($page_is_landing == 'auto') {
 } else {
     $page_is_landing = (bool) $page_is_landing;
 }
+
+// Override landing setting for subroutes if necessary:
+if ($page_is_subroute) {
+    $page_is_landing = (bool) $menu_item->params->get('subroute_is_landing', '1');
+}
+
 // Head data:
 $page_head_data = $doc->getHeadData();
 #echo '<pre>'; var_dump($page_head_data); echo '</pre>'; exit;
