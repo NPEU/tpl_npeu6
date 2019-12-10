@@ -64,7 +64,7 @@ $afterDisplayContent = trim(implode("\n", $results));
             <?php endif; ?>
 
             <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
-            <div class="n-pagination  u-space--below">
+            <div class="n-pagination">
                 <?php if ($this->params->def('show_pagination_results', 1)): ?>
                 <?php #echo $this->pagination->getPagesCounter(); ?>
                 <?php endif; ?>
