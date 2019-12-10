@@ -105,7 +105,7 @@ foreach ($fields as $field) {
                         </p> 
                     </div>
                     <!--<div class="c-card__footer  u-text-align--right">
-                        <a href="#" class="cta  cta--has-icon">Read<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                        <a href="#" class="c-cta  c-cta--has-icon">Read<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                     </div>-->
                 </div>
             </a>

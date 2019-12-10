@@ -25,7 +25,7 @@ if ($hx == 'h1') {
         <?php echo $module->content; ?>
         <?php if (!empty($params->get('cta_url')) && !empty($params->get('cta_text'))): ?>
         <p>
-            <a href="<?php echo $params->get('cta_url'); ?>" class="cta  cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+            <a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
         </p>
         <?php endif; ?>
     </div>

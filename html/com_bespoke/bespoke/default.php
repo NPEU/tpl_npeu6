@@ -17,10 +17,23 @@ $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
 ?>
-<?php foreach ($this->blocks as $name => $block): ?>
+<?php foreach ($this->blocks as $name => $block):
+$block_theme   = $theme;
+$block_classes = '';
+if (!empty($block['block_classes'])) {
+    $block_classes = $block['block_classes'];
+    
+    // Check to see if a theme has already been added:
+    if (preg_match('#t-[a-z]+#', $block_classes)) {
+        $block_theme = '';
+    }
+}
+
+$block_classes .= $block_theme;
+?>
 <?php if (!empty($block['leftpane'])): ?>
 <div class="l-blockrow">
-    <div<?php if (!empty($block['block_classes'])) { echo ' class="' . $block['block_classes'] . '  ' . $theme . '"'; } ?>>
+    <div<?php if ($block_classes) { echo ' class="' . $block_classes . '"'; } ?>>
         <?php if (!empty($block['rightpane'])): ?>
         <?php
             if ($block['panebalance'] == '33--66') {

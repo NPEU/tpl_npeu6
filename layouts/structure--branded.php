@@ -139,7 +139,7 @@
                 <?php endif; ?>
                 <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
                 <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
-                <p class="u-space--left--auto"><a href="<?php echo $page_hero->cta_link; ?>" class="cta  cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <p class="u-space--left--auto"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta  c-cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 <?php endif; ?>
             </div>
             <?php endif; ?>
@@ -149,18 +149,17 @@
 
         <div class="sticky-footer-expand">
             <main role="main" id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>">
-                <?php if ($page_is_landing) : ?>
-                <?php if ($show_page_heading) : ?>
-                <div class="l-blockrow">
-                    <div class="c-panel">
-                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
-                    </div>
-                </div>
-                <?php endif; ?>
-                <jdoc:include type="component" format="raw" />
-                <?php else: ?><br id="highlighter-start" />
+                <br id="highlighter-start" />
                 <div class="l-blockrow">
                     <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
+                        <?php if ($page_is_landing) : ?>
+                        <?php if ($show_page_heading) : ?>
+                        <div class="c-panel">
+                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
+                        </div>
+                        <?php endif; ?>
+                        <jdoc:include type="component" format="raw" />
+                        <?php else: ?>
 
                         <div class="l-primary-content<?php if ($page_has_pull_outs) : ?>  l-primary-content--has-pull-outs<?php endif; ?>">
 
@@ -263,14 +262,12 @@
                                 <?php echo $modules__main_lower; /*<jdoc:include type="modules" name="3-main-lower" style="basic" />*/?>
                             </div>
                             <?php endif; ?>
-
                         </div>
-
+                        <?php endif; ?>
                     </div>
                 </div><br id="highlighter-end" />
-                <?php endif; ?>
                 <?php echo $modules__bottom; /*<jdoc:include type="modules" name="5-bottom" style="block" />*/?>
-
+                
             </main>
         </div>
 

@@ -35,45 +35,43 @@ $afterDisplayContent = trim(implode("\n", $results));
 */
 ?>
 <div class="l-blockrow">
-    <div class="d-bands--bottom  t-npeu">
-        <div class="c-panel  u-space--none  u-fill-height">
-            <section class="c-panel__module">
-                <?php if (!empty($this->intro_items)) : ?>
-                <div class="l-distribute-wrap  u-space--below">
-                    <div class="l-distribute--flush-edge-gutters">
-                        <div class="l-distribute  l-distribute--gutter--medium  l-distribute--limit-30">
-                            <?php foreach ($this->intro_items as $key => &$item) : ?>
-                                <?php
-                                    $this->item = &$item;
-                                    echo $this->loadTemplate('item');
-                                ?>
-                            <?php endforeach; ?>
-                        </div>
+    <div class="c-panel  u-space--none  u-fill-height">
+        <section class="c-panel__module">
+            <?php if (!empty($this->intro_items)) : ?>
+            <div class="l-distribute-wrap  u-space--below">
+                <div class="l-distribute--flush-edge-gutters">
+                    <div class="l-distribute  l-distribute--gutter--medium  l-distribute--limit-30">
+                        <?php foreach ($this->intro_items as $key => &$item) : ?>
+                            <?php
+                                $this->item = &$item;
+                                echo $this->loadTemplate('item');
+                            ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-                <?php endif; ?>
+            </div>
+            <?php endif; ?>
 
-                <?php if (!empty($this->link_items)) : ?>
-                <ul>
-                <?php foreach ($this->link_items as &$item) : ?>
-                    <li>
-                        <a href="<?php echo JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)); ?>">
-                            <?php echo $item->title; ?></a>
-                    </li>
-                <?php endforeach; ?>
-                </ul>
-                <?php endif; ?>
+            <?php if (!empty($this->link_items)) : ?>
+            <ul>
+            <?php foreach ($this->link_items as &$item) : ?>
+                <li>
+                    <a href="<?php echo JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)); ?>">
+                        <?php echo $item->title; ?></a>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
 
-                <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
-                <div class="n-pagination">
-                    <?php if ($this->params->def('show_pagination_results', 1)): ?>
-                    <?php #echo $this->pagination->getPagesCounter(); ?>
-                    <?php endif; ?>
-                    <?php echo $this->pagination->getPagesLinks(); ?>
-                </div>
+            <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
+            <div class="n-pagination  u-space--below">
+                <?php if ($this->params->def('show_pagination_results', 1)): ?>
+                <?php #echo $this->pagination->getPagesCounter(); ?>
                 <?php endif; ?>
-            </section>
-        </div>
+                <?php echo $this->pagination->getPagesLinks(); ?>
+            </div>
+            <?php endif; ?>
+        </section>
     </div>
 </div>
 
