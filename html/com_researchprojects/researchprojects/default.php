@@ -42,13 +42,21 @@ function format_person($p) {
 ?>
 <?php if (!empty($this->topics)) :
 ob_start(); ?>
-<div class="u-space">
-    <h2>Research Topics</h2>
-    <ul class="u-list--plain">
-        <?php foreach ($this->topics as $topic) : ?>
-        <li><a href="<?php echo JRoute::_('index.php?option=com_researchprojects') . '/' . $topic->alias; ?>"><?php echo $topic->title; ?></a></li>
-        <?php endforeach; ?>
-    </ul>
+<div class="c-panel">
+    <div class="c-panel__module">
+        <h2>Research Topics</h2>
+        <ul class="u-list--plain">
+            <?php foreach ($this->topics as $topic) : ?>
+            <li><a href="<?php echo JRoute::_('index.php?option=com_researchprojects') . '/' . $topic->alias; ?>"><?php echo $topic->title; ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<div class="c-panel  c-panel--dark  t-npeu">
+    <div class="c-panel__module">
+        <h2>Suggest a Topic</h2>
+        <p>If you'd like to suggest a new topic for us to consider, please email <a href="mailto:general@npeu.ox.ac.uk">general@npeu.ox.ac.uk</a></p>
+    </div>
 </div>
 <?php
 $doc->component__sidebar_bottom = ob_get_contents();
