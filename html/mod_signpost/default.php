@@ -21,7 +21,7 @@ $theme = 't-' . $page_brand->alias;
 ?>
 <?php if (count($signs) > 0) : ?>
 <div class="c-signpost-wrap  u-fill-height">
-    <div class="c-signpost  u-fill-height">
+    <div class="c-signpost">
         <?php foreach ($signs as $sign): ?>
         <?php
             $sign_class= 'c-sign';
