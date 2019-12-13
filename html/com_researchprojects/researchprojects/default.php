@@ -64,18 +64,23 @@ ob_end_clean();
 endif; ?>
 
 <?php if (!empty($this->items)) : ?>
-<div filterable_group>
+<div filterable_group filterable_mark_results>
     <script type="text/template" filterable_form_template>
         <form class="tool-form  u-space--below">
             <div class="tool-form__fieldset">
-                <label for="filter_title" class="u-space--right">Filter projects by title:</label> <input id="filter_title" filterable_input>
+                <label for="filter" class="u-space--right">Filter projects:</label> <input id="filter" filterable_input>
+                <div class="tool-form__fieldset">
+                    <label for="filter_title">By title:</label> <input type="radio" name="filter_choice" id="filter_title" filterable_toggle="title"> |
+                    <label for="filter_lead">By lead:</label> <input type="radio" name="filter_choice" id="filter_lead" filterable_toggle="lead"> |
+                    <label for="filter_all">Both:</label> <input type="radio" name="filter_choice" id="filter_all" filterable_toggle="" checked>
+                </div>
             </div>
         </form>
     </script>
     <script type="text/template" filterable_empty_list_template>
         <p filterable_empty_list_message hidden>No matches found.</p>
     </script>
-    <ul class="u-list--plain">
+    <ul class="u-list--plain  u-fill-width">
     <?php foreach ($this->items as $i => $row) :
         #$view_link = JRoute::_('index.php?option=com_researchprojects&task=researchproject.view&id=' . $row->id);
         $view_link = JRoute::_('index.php?option=com_researchprojects&task=researchproject.view');
@@ -89,7 +94,7 @@ endif; ?>
                             <h2 class="c-card__title" filterable_index filterable_index_name="title"><?php echo $row->title; ?></h2>
                             <div class="c-card__body">
                                 <p><?php $has_pi_2 = !empty($row->pi_2); ?>
-                                    <span>Lead<?php echo ($has_pi_2 ? 's' : '') ?>: <?php echo format_person($row->pi_1); ?><?php if ($has_pi_2) : ?> and <?php echo format_person($row->pi_2); ?><?php endif; ?><span><br>
+                                    <span>Lead<?php echo ($has_pi_2 ? 's' : '') ?>: <span filterable_index filterable_index_name="lead"><?php echo format_person($row->pi_1); ?><?php if ($has_pi_2) : ?> and <?php echo format_person($row->pi_2); ?><?php endif; ?></span></span><br>
                                     <span>Topics: <?php echo implode(", ", $row->topics); ?><span>
                                 </p>
                             </div>
@@ -101,4 +106,6 @@ endif; ?>
     <?php endforeach; ?>
     </ul>
 </div>
+<?php else: ?>
+<p>There are currently no project with this topic.</p>
 <?php endif; ?>
