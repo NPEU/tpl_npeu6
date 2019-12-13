@@ -101,9 +101,8 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
                 <label for="filter_title" class="u-space--right">Filter publications by title:</label> <input id="filter_title" filterable_input>
             </div>
             <div class="tool-form__fieldset">
-                <label for="filter_type_journalarticle">Show only Journal Articles:</label> <input type="radio" name="filter_type" id="filter_type_journalarticle" filterable_toggle="title"> |
-                <label for="filter_type_reportother">Show only Reports / Other:</label> <input type="radio" name="filter_type" id="filter_type_reportother" filterable_toggle="title"> |
-                <label for="filter_type_both">Show both:</label> <input type="radio" name="filter_type" id="filter_type_both" filterable_toggle="" checked>
+                <label for="include_1">Include Journal Articles:</label> <input type="checkbox" name="include_1" id="include_1" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^(Journal Article)$"><br>
+                <label for="include_2">Include Reports / Other:</label> <input type="checkbox" name="include_2" id="include_2" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^((?!Journal Article).)*$">
             </div>
         </form>
     </script>
@@ -125,7 +124,7 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
             <?php if (!empty($publication['url'])) : ?>
             <br><a href="<?php echo $publication['url']; ?>">Link to the publication or abstract</a>
             <?php endif; ?>
-            <br>[<?php echo $publication['type']; ?>]
+            <br>[<span data-pub-type><?php echo $publication['type']; ?></span>]
         </li>
         <?php endforeach; ?>
     </ul>
