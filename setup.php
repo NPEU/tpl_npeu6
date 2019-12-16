@@ -310,8 +310,10 @@ $page_svg_icons   = str_replace("> ", ">\n ", $page_template_params->svg_icons);
 // Assets:
 $page_stylesheets = $page_head_data['styleSheets'];
 $page_style       = $page_head_data['style'];
-$page_scripts     = $page_head_data['scripts'];
-$page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : array();
+$page_scripts     = TplNPEU6Helper::remove_joomla_scripts($page_head_data['scripts']);
+// This is problematic as it's not easy to remove Joomla/jQuery stuff so just bypass for now:
+#$page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : array();
+$page_script      = '';
 
 // Need to remove unwanted stylesheets. This is a bit of a hack - there should be a better way:
 $exclude_stylesheet = array(
