@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+$template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
+
 $table_id = 'researchprojectsTable';
 // If you need specific JS/CSS for this view, add them here.
 // Example included for DataTables (https://datatables.net/) delete if you don't want this.
@@ -17,6 +19,8 @@ $table_id = 'researchprojectsTable';
 #JHtml::_('bootstrap.framework');
 // Get the doc object:
 $doc = JFactory::getDocument();
+
+$doc->addScript($template_path . '/js/filter.min.js');
 
 /*
 // Add a script tag with a src:
@@ -67,14 +71,16 @@ endif; ?>
 <div filterable_group filterable_mark_results>
     <script type="text/template" filterable_form_template>
         <form class="tool-form  u-space--below">
-            <div class="tool-form__fieldset">
-                <label for="filter" class="u-space--right">Filter projects:</label> <input id="filter" filterable_input>
+            <fieldset>
                 <div class="tool-form__fieldset">
-                    <label for="filter_title">By title:</label> <input type="radio" name="filter_choice" id="filter_title" filterable_toggle="title"> |
-                    <label for="filter_lead">By lead:</label> <input type="radio" name="filter_choice" id="filter_lead" filterable_toggle="lead"> |
-                    <label for="filter_all">Both:</label> <input type="radio" name="filter_choice" id="filter_all" filterable_toggle="" checked>
+                    <label for="filter" class="u-space--right">Filter projects:</label> <input id="filter" filterable_input>
+                    <div class="tool-form__fieldset">
+                        <label for="filter_title">By title:</label> <input type="radio" name="filter_choice" id="filter_title" filterable_toggle="title"> |
+                        <label for="filter_lead">By lead:</label> <input type="radio" name="filter_choice" id="filter_lead" filterable_toggle="lead"> |
+                        <label for="filter_all">Both:</label> <input type="radio" name="filter_choice" id="filter_all" filterable_toggle="" checked>
+                    </div>
                 </div>
-            </div>
+            </fieldset>
         </form>
     </script>
     <script type="text/template" filterable_empty_list_template>

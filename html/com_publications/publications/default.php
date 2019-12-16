@@ -10,7 +10,10 @@
 // No direct access
 defined('_JEXEC') or die;
 
+$template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
+
 $doc = JFactory::getDocument();
+$doc->addScript($template_path . '/js/filter.min.js');
 
 unset($this->all['*']);
 
@@ -20,7 +23,6 @@ ob_start(); ?>
 
         <form class="control-form" id="pubsForm" name="pubsForm" method="get" action="/research/publications">
             <fieldset>
-
                     <label class="" for="filter_keywords" id="filter_keywords-lbl">Search publications</label>
                     <span class="c-composite">
                         <input type="text" value="<?php echo isset($_GET['keywords']) ? htmlspecialchars($_GET['keywords']) : ''; ?>" id="filter_keywords" name="keywords">
@@ -51,7 +53,7 @@ $fieldset_class = isset($fieldset_info->class)
                 ? ' class="' . $fieldset_info->class . '"'
                 : '';
 $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter') . '_info';
-?>
+/*?>
 
 <div>
     <?php $i = 0; foreach($this->all as $year => $data): ?>
@@ -76,34 +78,24 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
     <?php $i++; ?>
     <?php endforeach; ?>
 </div>
-<?php endif; ?>
+<?php endif;*/ ?>
 
-
-<?php return;  /* Reinstate filterability when up to scratch.*/ ?>
-
-<?php /*
-<form action="">
-    <select name="#">
-    <?php foreach($this->all as $year => $data): ?>
-    <?php if(!empty($data['publications'])): ?>
-    <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-    <?php endif; ?>
-    <?php endforeach; ?>
-    </select>
-    <button type="submit">Select year</button>
-</form> */ ?>
-
-<?php /*
-<div filterable_group>
+<div filterable_group filterable_mark_results filterable_replace="#pubsForm">
     <script type="text/template" filterable_form_template>
-        <form class="tool-form  u-space--below">
-            <div class="tool-form__fieldset">
-                <label for="filter_title" class="u-space--right">Filter publications by title:</label> <input id="filter_title" filterable_input>
-            </div>
-            <div class="tool-form__fieldset">
-                <label for="include_1">Include Journal Articles:</label> <input type="checkbox" name="include_1" id="include_1" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^(Journal Article)$"><br>
-                <label for="include_2">Include Reports / Other:</label> <input type="checkbox" name="include_2" id="include_2" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^((?!Journal Article).)*$">
-            </div>
+        <form class="control-form">
+            <fieldset>
+                <div class="tool-form__fieldset">
+                    <label for="filter_title" class="u-space--right">Filter publications by title:</label>
+                    <span class="c-composite">
+                         <input id="filter_title" filterable_input> <button filterable_submit>Filter</button>
+                    </span>
+                    <a class="c-cta" href="/research/publications">Clear</a>
+                </div>
+                <div class="tool-form__fieldset">
+                    <label for="include_1">Include Journal Articles:</label> <input type="checkbox" name="include_1" id="include_1" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^(Journal Article)$"><br>
+                    <label for="include_2">Include Reports / Other:</label> <input type="checkbox" name="include_2" id="include_2" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^((?!Journal Article).)*$">
+                </div>
+            </fieldset>
         </form>
     </script>
     <script type="text/template" filterable_empty_list_template>
@@ -133,5 +125,3 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
     <?php endforeach; ?>
 </div>
 <?php endif; ?>
-*/
-?>
