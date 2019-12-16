@@ -134,6 +134,28 @@ class TplNPEU6Helper
 
 		return self::$template;
     }
+    
+    /**
+     * Remove unwanted scripts added by Joomla.
+     *
+     * @return object
+     */
+    public static function remove_joomla_scripts($scripts)
+    {
+        $patterns = array(
+            '#^/media/jui/js#',
+            '#^/media/system/js#'
+        );
+        
+        foreach ($scripts as $script => $data) {
+            foreach ($patterns as $pattern) {
+                if (preg_match($pattern, $script)) {
+                    unset($scripts[$script]);
+                }
+            }
+        }
+		return $scripts;
+    }
 
     /**
      * Returns a tab string for indenting
