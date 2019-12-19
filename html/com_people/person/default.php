@@ -54,21 +54,29 @@ function get_team($team) {
 
                 <?php foreach($team as $id => $member): ?>
                 <li class="gallery-grid__item">
-                    <article class="glimpse  u-word-wrap--inside">
-                        <h3 class="glimpse__heading">
-                            <a href="/about/people/<?php echo $member['alias']; ?>">
-                                <span><?php echo $member['firstname']; ?></span></span> <span><?php echo $member['lastname']; ?></span>
-                                <div class="glimpse__image">
-                                    <img src="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=144" alt="" width="72px" />
+                
+                    <article class="c-glimpse  u-word-wrap--insideX">
+                        <a href="/about/people/<?php echo $member['alias']; ?>" class="c-glimpse__link">
+                            <div class="c-glimpse__image">
+                                <div class="l-proportional-container  l-proportional-container--1-1">
+                                    <div class="l-proportional-container__content">
+                                        <div class="u-image-cover  js-image-cover">
+                                            <div class="u-image-cover__inner">
+                                                <img src="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=300" sizes="100vw" srcset="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=1600 1600w, <?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=900 900w, <?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=300 300w" alt="" class="u-image-cover__image" width="200">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </a>
-                        </h3>
-                        <div class="glimpse__content">
-                            <?php if(!empty($member['role'])): ?>
-                            <p><?php echo $member['role']; ?></p>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                            <div class="c-glimpse__content">
+                                <h3 class="c-glimpse__heading"><span><?php echo $member['firstname']; ?></span></span> <span><?php echo $member['lastname']; ?></span></h3>
+                                <?php if(!empty($member['role'])): ?>
+                                <p><?php echo $member['role']; ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </a>
                     </article>
+
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -89,7 +97,7 @@ function get_projects($projects) {
                     $svg_info = svg_info($svg_path);
                 ?>
                 <li class="gallery-grid__item">
-                    <a href="/<?php echo $project['alias']; ?>" class="c-badge">
+                    <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height">
          
                         <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
                     </a>
@@ -111,7 +119,7 @@ function get_custom($custom_title, $custom) {
 }
 ?>
 <div class="l-blockrow">
-    <div class="d-bands--bottom  t-npeu">
+    <div class="">
         <div class="c-panel  u-padding--sides--l">
             <article class="person">
             <?php #echo '<pre>'; var_dump($person); echo '</pre>'; ?>
