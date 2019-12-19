@@ -29,7 +29,7 @@ if (!empty($block['block_classes'])) {
     }
 }
 
-$block_classes .= $block_theme;
+$block_classes .= '  ' . $block_theme;
 ?>
 <?php if (!empty($block['leftpane'])): ?>
 <div class="l-blockrow">
