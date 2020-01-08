@@ -47,10 +47,10 @@
         <position>1-top</position>
         <position>2-header-nav-bar</position>
         <position>3-main-breadcrumbs</position>
-        <position>3-main-lower</position>
-        <position>3-main-upper</position>
         <position>3-main-badge</position>
         <position>3-main-toc</position>
+        <position>3-main-upper</position>
+        <position>3-main-lower</position>
         <position>4-sidebar-top</position>
         <position>4-sidebar-section-menu</position>
         <position>4-sidebar-bottom</position>
