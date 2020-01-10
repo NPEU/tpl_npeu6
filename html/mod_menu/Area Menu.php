@@ -2,9 +2,25 @@
 // No direct access
 defined('_JEXEC') or die;
 
-$doc         = JFactory::getDocument();
-$app         = JFactory::getApplication();
-$active_menu = $app->getMenu()->getActive();
+/*
+    Vars defined in \modules\mod_menu\mod_menu.php:
+
+    $list
+    $base
+    $active
+    $default
+    $active_id
+    $default_id
+    $path
+    $showAll
+    $class_sfx
+
+*/
+
+#$doc    = JFactory::getDocument();
+#$app    = JFactory::getApplication();
+
+$current_url_path = str_replace(JURI::root(), '', JURI::current());
 
 // Include the template helper:
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
@@ -13,16 +29,15 @@ $brand = TplNPEU6Helper::get_brand();
 
 if (!isset($is_sitemap)) {
     $is_sitemap = false;
-    
-    if ($active_menu->alias == 'sitemap2' || $active_menu->alias == 'sitemap') {
+
+    if ($active->alias == 'sitemap2' || $active->alias == 'sitemap') {
         $is_sitemap = true;
     }
-    
+
 }
 
-?>
-<?php if(count($list) > 0): ?>
-<?php
+if(count($list) > 0) :
+
 // Find the access id for 'Hidden' menu items:
 $db = JFactory::getDBO();
 
@@ -45,7 +60,7 @@ $nav = '';
 // Needs to be done this way as otherwise there's no way (I think) to determine if an item really
 // has children or not without 'lookahead' loops.
 $new_list = array();
-foreach ($list as $i => &$item) 
+foreach ($list as $i => &$item)
 {
     $skip_item  = false;
     // Don't show hidden menu items:
@@ -61,11 +76,11 @@ foreach ($list as $i => &$item)
     }
 }
 
-// We're now using a new list. NOTE deeper/shallower no longer always accurate - DO NOT USE 
+// We're now using a new list. NOTE deeper/shallower no longer always accurate - DO NOT USE
 
-foreach ($new_list as $i => &$item) {    
+foreach ($new_list as $i => &$item) {
     $level = (int) $item->level;
-    
+
     $item_class         = 'n-section-menu__item';
     $item_current_class = 'n-section-menu__item--active';
     $item_link_class    = 'n-section-menu__link';
@@ -75,9 +90,16 @@ foreach ($new_list as $i => &$item) {
     // Construct the class:
     $class   = $item_class;
     $current = false;
+
     if ($item->id == $active_id) {
+        // If the id's match, we're in the current menu item, so that needs to be reflected on the
+        // menu...
         $class .= '  ' . $item_current_class;
-        $current = true;
+        // However, we may be in a subroot, so only declare $current if that's not the case, or the
+        // menu's URL will not be correct:
+        if ($active->route == $current_url_path) {
+            $current = true;
+        }
     }
 
     if (!empty($class)) {
@@ -85,7 +107,7 @@ foreach ($new_list as $i => &$item) {
     }
 
     $nav_item .= str_repeat("\t", $level) . '<li'.$class.'>';
-    
+
     $item->anchor_css = $item_link_class;
 
     // Add spans for styling purposes:
@@ -108,16 +130,16 @@ foreach ($new_list as $i => &$item) {
     }
     $output = ob_get_contents();
     ob_end_clean();
-    
+
     // Reset title to prevent spans appearing on <title> tag:
     $item->title = str_replace(array('&lt;span&gt;', '&lt;/span&gt;'), '', $title);
-    
+
     if ($current) {
         $output = preg_replace('#href="[^"]+"#', 'href="#main"', $output);
     }
-    
+
     $nav_item .= str_replace(' >', '>', $output);
-    
+
     $nav_item .= "\n" . str_repeat("\t", $level) . '</li>';
     $nav .= $nav_item;
 }
