@@ -126,7 +126,6 @@ unset($this->people['*']);
                                     </div>
                                 </a>
                             </article>
-
                         </li>
                         <?php endforeach; ?>
 

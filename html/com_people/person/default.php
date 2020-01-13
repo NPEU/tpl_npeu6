@@ -10,12 +10,7 @@
 // No direct access
 defined('_JEXEC') or die;
 
-$application_env = $_SERVER['SERVER_NAME'] == 'dev.npeu.ox.ac.uk' ? 'development' : ($_SERVER['SERVER_NAME'] == 'test.npeu.ox.ac.uk' ? 'testing' : 'production');
-#$application_env = 'production';
-
-if ($application_env != 'development') {
-    jimport('joomla.html.html.bootstrap');
-}
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 
 $person = $this->person;
 
@@ -53,30 +48,28 @@ function get_team($team) {
             <ul class="gallery-grid  gallery-grid--gutter--medium  gallery-grid--basis-20">
 
                 <?php foreach($team as $id => $member): ?>
-                <li class="gallery-grid__item">
-                
-                    <article class="c-glimpse  u-word-wrap--insideX">
-                        <a href="/about/people/<?php echo $member['alias']; ?>" class="c-glimpse__link">
-                            <div class="c-glimpse__image">
+                <li class="gallery-grid__item" filterable_item>
+                    <article class="c-glimpse  u-space--none">
+                        <a href="/about/people/<?php echo $member['alias']; ?>" aria-describedby="<?php echo $html_id; ?>" class="c-glimpse__link">
+                            <div class="c-glimpse__image  c-glimpse__image--rounded">
                                 <div class="l-proportional-container  l-proportional-container--1-1">
                                     <div class="l-proportional-container__content">
                                         <div class="u-image-cover  js-image-cover">
                                             <div class="u-image-cover__inner">
-                                                <img src="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=300" sizes="100vw" srcset="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=1600 1600w, <?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=900 900w, <?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=300 300w" alt="" class="u-image-cover__image" width="200">
+                                                <img src="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=140" alt="" width="70px" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="c-glimpse__content">
-                                <h3 class="c-glimpse__heading"><span><?php echo $member['firstname']; ?></span></span> <span><?php echo $member['lastname']; ?></span></h3>
+                                <h3 class="c-glimpse__heading"><span filterable_index filterable_index_name="first_name"><?php echo $member['firstname']; ?></span></span> <span filterable_index filterable_index_name="last_name"><?php echo $member['lastname']; ?></span></h3>         
                                 <?php if(!empty($member['role'])): ?>
                                 <p><?php echo $member['role']; ?></p>
                                 <?php endif; ?>
                             </div>
                         </a>
                     </article>
-
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -118,16 +111,165 @@ function get_custom($custom_title, $custom) {
 <?php
 }
 ?>
+
+<div class="l-primary-content  l-primary-content--has-pull-outs">
+                            
+
+    <div class="l-primary-content__header">
+
+        <div class="c-panel">
+            <h1 id="<?php echo TplNPEU6Helper::html_id($person['name']); ?>"><?php if(!empty($person['title'])): ?><?php echo $person['title']; ?> <?php endif; ?><?php echo $person['name']; ?><?php if(!empty($person['qualifications'])): ?> <small><?php echo $person['qualifications']; ?></small><?php endif; ?></h1>
+            
+            <?php if(!empty($person['role']) || !empty($person['email'])): ?>
+            <p class="u-text-group  u-text-group--wide-space">
+                <?php if(!empty($person['role'])): ?>
+                <b><?php echo $person['role']; ?></b>
+                <?php endif; ?>
+                <?php if(!empty($person['email'])): ?>
+                <a href="mailto:<?php echo $person['email']; ?>"><?php echo $person['email']; ?></a>
+                <?php endif; ?>
+            </p>
+            <?php endif; ?>
+        </div>
+    </div>
+    
+    <?php if (!true) : ?>
+    <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  u-space--above  c-user-content">
+        <div class="l-primary-content__pull-out__padded--@small">
+            <div aria-hidden="true" class="" data-display-is="width-one-quarter  pulled-left" data-extra-id="2095">
+                <span data-contains="image portrait">
+                    <b>
+                        <img src="<?php echo $person['profile_img_src']; echo strpos($person['profile_img_src'], '?') === false ? '?' : '&'; ?>s=200" alt="Portrait of <?php echo $person['name']; ?>" width="180" />
+                    </b>
+                </span>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <?php #if (!true) : ?>
+    <div class="l-primary-content__pull-out  l-primary-content__pull-out--top  c-user-content">
+        <div class="l-primary-content__pull-out__padded--@small">
+            <div aria-hidden="true" class="" data-display-is="width-one-quarter  pulled-left" data-extra-id="2095">
+                <span data-contains="image portrait">
+                    <b>
+                        <img src="<?php echo $person['profile_img_src']; echo strpos($person['profile_img_src'], '?') === false ? '?' : '&'; ?>s=200" alt="Portrait of <?php echo $person['name']; ?>" width="180" />
+                    </b>
+                </span>
+            </div>
+        </div>
+    </div>
+    <?php #endif; ?>
+
+    <div class="l-primary-content__main">
+
+        <div class="c-panel">
+            <div>
+                <?php if(!empty($person['biography'])): ?>
+                    <section class="c-user-content">
+                        <h2>Biography</h2>
+                        <?php echo $person['biography']; ?>
+                    </section>
+                <?php endif; ?>
+                
+                <?php if(!empty($person['custom_title']) && !empty($person['custom']) && $person['custom_placement'] == "Main area"): ?>
+                    <div class="c-user-content">
+                    <?php echo get_custom($person['custom_title'], $person['custom']); ?>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if(!empty($person['publications_data']) || !empty($person['publications_manual'])): ?>
+                <section>
+                    <h2>Publications</h2>
+                    <?php if(!empty($person['publications_data'])): /* Publications data present */?>
+                    <?php if(isset($person['publications_data'][0])): /* Publications as single list */?>
+                    <ul>
+                    <?php foreach($person['publications_data'] as $publication): ?>
+                        <li>
+                        <?php echo $this->escape($publication['full_entry']); ?>
+                        <?php if (!empty($publication['url'])) : ?><br><a href="<?php echo $publication['url']; ?>"><?php echo $publication['url']; ?></a><?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+                    <?php else: /* Publications collected */ ?>
+                    <?php foreach($person['publications_data'] as $heading=>$collection): ?>
+                    <?php if (!empty($collection['publications'])): ?>
+                    <section>
+                        <h3><?php echo is_numeric($heading) ? $heading : $heading . 's'; ?></h3>
+                        <ul>
+                            <?php foreach($collection['publications'] as $publication): ?>
+                            <li>
+                            <?php echo $this->escape($publication['full_entry']); ?>
+                            <?php if (!empty($publication['url'])) : ?><br><a href="<?php echo $publication['url']; ?>"><?php echo $publication['url']; ?></a><?php endif; ?>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </section>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php endif; ?>
+                    
+                    <?php if(!empty($person['publications_manual'])): ?>
+                    <?php echo $person['publications_manual']; ?>
+                    <?php endif; ?>
+                </section>
+                <?php endif; ?>
+                
+                <?php if(!empty($person['team']) && $person['team_placement'] == "Main area"): ?>
+                <?php echo get_team($person['team']); ?>
+                <?php endif; ?>
+                
+                <?php if(!empty($person['projects']) && $person['projects_placement'] == "Main area"): ?>
+                <?php echo get_projects($person['projects']); ?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+    </div>
+
+    <?php if (
+        !empty($person['team']) && $person['team_placement'] == "Sidebar"
+     || !empty($person['projects']) && $person['projects_placement'] == "Sidebar"
+     || !empty($person['custom_title']) && !empty($person['custom']) && $person['custom_placement'] == "Sidebar"
+    ) : ?>
+    <div class="l-primary-content__pull-out  l-primary-content__pull-out--bottom">
+        <div class="l-primary-content__pull-out__padded--@small">
+            <?php if(!empty($person['team']) && $person['team_placement'] == "Sidebar"): ?>
+            <?php echo get_team($person['team']); ?>
+            <?php endif; ?>
+            
+            <?php if(!empty($person['projects']) && $person['projects_placement'] == "Sidebar"): ?>
+            <?php echo get_projects($person['projects']); ?>
+            <?php endif; ?>
+            
+            <?php if(!empty($person['custom_title']) && !empty($person['custom']) && $person['custom_placement'] == "Sidebar"): ?>
+            <?php echo get_custom($person['custom_title'], $person['custom']); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+
+<?php return; ?>
+
 <div class="l-blockrow">
     <div class="">
         <div class="c-panel  u-padding--sides--l">
-            <article class="person">
+            <article class="c-longform-content  c-user-content">
             <?php #echo '<pre>'; var_dump($person); echo '</pre>'; ?>
 
                 <?php /*<h1 class="person__name   [ flr_main-page-heading  flr_main-page-heading--flush  flr_main-page-heading--npeu ]"><?php if(!empty($person['title'])): ?><?php echo $person['title']; ?> <?php endif; ?><?php echo $person['name']; ?><?php if(!empty($person['qualifications'])): ?> <small><?php echo $person['qualifications']; ?></small><?php endif; ?></h1> */?>
                 <h1 class="person__name"><?php if(!empty($person['title'])): ?><?php echo $person['title']; ?> <?php endif; ?><?php echo $person['name']; ?><?php if(!empty($person['qualifications'])): ?> <small><?php echo $person['qualifications']; ?></small><?php endif; ?></h1>
-                <div class="person__image">      
+                <?php /*<div class="person__image">      
                     <img src="<?php echo $person['profile_img_src']; echo strpos($person['profile_img_src'], '?') === false ? '?' : '&'; ?>s=200" alt="" />
+                </div>*/ ?>
+                <div aria-hidden="true" class="user-insert user-insert--left user-insert--one-quarter user-insert--portrait" data-display-is="width-one-quarter  pulled-left" data-extra-id="2095">
+                    <span data-contains="image portrait">
+                        <b>
+                            <img src="<?php echo $person['profile_img_src']; echo strpos($person['profile_img_src'], '?') === false ? '?' : '&'; ?>s=200" alt="Portrait of <?php echo $person['name']; ?>" width="180" />
+                        </b>
+                    </span>
                 </div>
                 <div>
                     <?php if(!empty($person['role'])): ?>
