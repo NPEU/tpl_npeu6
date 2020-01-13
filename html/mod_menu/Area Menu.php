@@ -60,8 +60,7 @@ $nav = '';
 // Needs to be done this way as otherwise there's no way (I think) to determine if an item really
 // has children or not without 'lookahead' loops.
 $new_list = array();
-foreach ($list as $i => &$item)
-{
+foreach ($list as $i => &$item) {
     $skip_item  = false;
     // Don't show hidden menu items:
     if ($is_sitemap && $item->access == $hidden_from_menus_and_sitemap) {
