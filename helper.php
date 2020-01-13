@@ -45,6 +45,29 @@ class TplNPEU6Helper
 	public static $template = null;
 
     /**
+     * Checks if a category is empty or not.
+     *
+     * @return object
+     */
+    public static function check_category_empty($cat_id = false)
+    {
+        if (!$cat_id) {
+            return;
+        }
+
+        $db = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $query->select('COUNT(*) as total_item');
+        $query->from('#__content');
+        $query->where('catid = ' . $cat_id);
+        $db->setQuery($query);
+        $result = (int) $db->loadResult();
+
+		return (bool) $result;
+    }
+
+    /**
      * Gets the current menu item's brand.
      *
      * @return object
@@ -57,7 +80,7 @@ class TplNPEU6Helper
 
             $template = self::get_template();
             $brand_id = $template->params->get('brand_id', false);
-            
+
             if (!$brand_id) {
                 return false;
             }
@@ -134,7 +157,7 @@ class TplNPEU6Helper
 
 		return self::$template;
     }
-    
+
     /**
      * Remove unwanted scripts added by Joomla.
      *
@@ -146,7 +169,7 @@ class TplNPEU6Helper
             '#^/media/jui/js#',
             '#^/media/system/js#'
         );
-        
+
         foreach ($scripts as $script => $data) {
             foreach ($patterns as $pattern) {
                 if (preg_match($pattern, $script)) {
