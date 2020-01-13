@@ -70,6 +70,22 @@ foreach ($list as $i => &$item)
     if (!$is_sitemap && ($item->access == $hidden_from_menus_and_sitemap || $item->access == $hidden_from_menus)) {
         $skip_item = true;
     }
+    
+    #echo '<pre>'; var_dump($item); echo '</pre>';
+    // If the menu item is for a news blog and there are no news items in that category, then we 
+    // don't want to show the link, as it'll effectively be to a blank page:
+    // (Note checking the alias isn't great, as it's implicit on naming convention, but there's 
+    // currently no explicit way of distinguishing a 'news' blog to any other type on blog).
+    if (
+        $item->alias == 'news'
+     && $item->query['option'] == 'com_content'
+     && $item->query['view'] == 'category'
+     && $item->query['layout'] == 'blog'
+    ) {
+        if (!TplNPEU6Helper::check_category_empty($item->query['id'])) {
+            $skip_item = true;
+        }
+    }
 
     if (!$skip_item) {
        $new_list[] =& $item;
