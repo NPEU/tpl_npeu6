@@ -280,7 +280,7 @@ if (
 */
 #echo '<pre>'; var_dump($page_has_pull_outs); echo '</pre>'; exit;
 
-$menu_item->params->get('hero_image');
+#$menu_item->params->get('hero_image');
 
 $page_has_main_lower = $doc->countModules('3-main-lower');
 
