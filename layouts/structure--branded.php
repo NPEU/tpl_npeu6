@@ -127,6 +127,9 @@
                         <div class="u-image-cover  js-image-cover">
                             <div class="u-image-cover__inner">
                                 <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
+                                <?php if ($page_hero->credit): ?>
+                                <small class="c-hero__image-credit"><?php echo $page_hero->credit; ?></small>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

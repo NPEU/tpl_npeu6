@@ -369,6 +369,28 @@ $page_hero         = (array) $menu_item->params->get('hero_image');
 $page_has_hero     = !empty($page_hero['hero_image0']->image);
 $page_has_carousel = $page_has_hero && count($page_hero) > 1;
 
+// Extract meta for ease of use:
+if ($page_has_hero) {
+    foreach ($page_hero as $key => $image) {
+        $image_meta = array();
+        $image_meta_response = json_decode(file_get_contents(
+            'https://' . $_SERVER['HTTP_HOST'] . '/plugins/system/imagemeta/ajax/image-meta.php?image=' . base64_encode($image->image)
+        ), true);
+
+        if (isset($image_meta_response['success']) && isset($image_meta_response['data'])) {
+            $image_meta = $image_meta_response['data'];
+        }
+
+        if (isset($image_meta['copyright'])) {
+            $image->credit = trim(TplNPEU6Helper::tweak_markdown_output(
+                Markdown::defaultTransform($image_meta['copyright']),
+                array('trim_paragraph' => true, 'add_link_spans' => true)
+            ));
+        }
+    }
+}
+#echo '<pre>'; var_dump($page_hero); echo '</pre>'; exit;
+
 $page_hero         = ($page_has_hero && !$page_has_carousel) ? $page_hero['hero_image0'] : false;
 $page_carousel     = ($page_has_hero && $page_has_carousel)  ? $page_hero : false;
 
