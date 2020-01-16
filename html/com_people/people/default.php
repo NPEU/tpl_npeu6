@@ -1,13 +1,12 @@
 <?php
 /**
- * @package		People
+ * @package		Joomla.Site
  * @subpackage	com_people
- * @copyright	Copyright (C) 2012 Andy Kirk.
- * @author		Andy Kirk
- * @license		License GNU General Public License version 2 or later
+ *
+ * @copyright   Copyright (C) NPEU 2019.
+ * @license     MIT License; see LICENSE.md
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 $application_env = $_SERVER['SERVER_NAME'] == 'dev.npeu.ox.ac.uk' ? 'development' : ($_SERVER['SERVER_NAME'] == 'test.npeu.ox.ac.uk' ? 'testing' : 'production');

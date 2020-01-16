@@ -1,13 +1,12 @@
 <?php
 /**
- * @package		People
+ * @package		Joomla.Site
  * @subpackage	com_people
- * @copyright	Copyright (C) 2012 Andy Kirk.
- * @author		Andy Kirk
- * @license		License GNU General Public License version 2 or later
+ *
+ * @copyright   Copyright (C) NPEU 2019.
+ * @license     MIT License; see LICENSE.md
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');

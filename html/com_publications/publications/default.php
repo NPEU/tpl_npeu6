@@ -7,7 +7,6 @@
  * @license     MIT License; see LICENSE.md
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 $template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
