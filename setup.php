@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Administrator
+ * @package     Joomla.Site
  * @subpackage  tpl_npeu6
  *
  * @copyright   Copyright (C) NPEU 2019.

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Administrator
+ * @package     Joomla.Site
  * @subpackage  tpl_npeu6
  *
  * @copyright   Copyright (C) NPEU 2019.
@@ -140,6 +140,22 @@ class TplNPEU6Helper
 		return self::$menu_item;
     }
 
+    /**
+     * Gets messages queued for the current page view.
+     *
+     * @return object
+     */
+    public static function get_messages()
+    {
+        	$doc = JFactory::getDocument();
+            if (isset($doc->mesages_renderered) && $doc->mesages_renderered == true) {
+                return '';
+            }
+            
+            $messages = new JDocumentRendererMessage($doc);
+            $doc->mesages_renderered = true;
+            return $messages->render(NULL);
+    }
 
     /**
      * Gets the current template.

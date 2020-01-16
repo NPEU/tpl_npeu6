@@ -9,10 +9,11 @@
 
 defined('_JEXEC') or die;
 
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+
 // May need to sort out containers.
 // See Trello note.
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
