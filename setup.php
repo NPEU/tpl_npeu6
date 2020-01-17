@@ -308,22 +308,15 @@ $page_svg_icons   = str_replace("> ", ">\n ", $page_template_params->svg_icons);
 
 
 // Assets:
-$page_stylesheets = $page_head_data['styleSheets'];
+$page_stylesheets = TplNPEU6Helper::remove_joomla_stylesheets($page_head_data['styleSheets'], $doc);
 $page_style       = $page_head_data['style'];
-$page_scripts     = TplNPEU6Helper::remove_joomla_scripts($page_head_data['scripts']);
+$doc->joomla_scripts = array();
+$page_scripts     = TplNPEU6Helper::remove_joomla_scripts($page_head_data['scripts'], $doc);
 // This is problematic as it's not easy to remove Joomla/jQuery stuff so just bypass for now:
-#$page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : array();
-$page_script      = '';
-
-// Need to remove unwanted stylesheets. This is a bit of a hack - there should be a better way:
-$exclude_stylesheet = array(
-    '/media/jui/css/chosen.css'
-);
-
-foreach ($exclude_stylesheet as $filename) {
-    if (array_key_exists($filename, $page_stylesheets)) {
-        unset($page_stylesheets[$filename]);
-    }
+if ($doc->include_script) {
+    $page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : array();
+} else {
+    $page_script      = '';
 }
 
 #echo '<pre>'; var_dump($page_stylesheets); echo '</pre>'; #exit;

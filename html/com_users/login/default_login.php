@@ -1,10 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_users
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- * @since		1.5
+ * @package     Joomla.Site
+ * @subpackage  com_users
+ *
+ * @copyright   Copyright (C) NPEU 2019.
+ * @license     MIT License; see LICENSE.md
  */
 
 defined('_JEXEC') or die;
@@ -27,7 +27,6 @@ $session = JFactory::getSession();
   || $this->params->get('login_image') != ''
   ) : ?>
 <div>
-
     <?php if($this->params->get('logindescription_show') == 1) : ?>
     <?php echo $this->params->get('login_description'); ?>
     <?php endif; ?>

@@ -67,6 +67,25 @@ class TplNPEU6Helper
 		return (bool) $result;
     }
 
+
+    /**
+     * Cleans a title attribute to prevent HTML errors.
+     *
+     * @return object
+     */
+    public static function clean_title($element) {
+        //return $element;
+        $return = $element;
+        preg_match('#\s*title="(.*?)"#', $element, $matches);
+        if (empty($matches[0])) {
+            // No title attribute present.
+            return $return;
+        } else {
+            $title = strip_tags(str_replace(array('&gt;', '&lt;'), array('> ', '<'), $matches[1]));
+            return str_replace($matches[1], $title, $return);
+        }
+    }
+
     /**
      * Gets the current menu item's brand.
      *
@@ -179,7 +198,7 @@ class TplNPEU6Helper
      *
      * @return object
      */
-    public static function remove_joomla_scripts($scripts)
+    public static function remove_joomla_scripts($scripts, &$doc)
     {
         $patterns = array(
             '#^/media/jui/js#',
@@ -189,11 +208,35 @@ class TplNPEU6Helper
         foreach ($scripts as $script => $data) {
             foreach ($patterns as $pattern) {
                 if (preg_match($pattern, $script)) {
+                    $doc->joomla_scripts[$script] = $data;
                     unset($scripts[$script]);
                 }
             }
         }
 		return $scripts;
+    }
+    
+    /**
+     * Remove unwanted stylesheets added by Joomla.
+     *
+     * @return object
+     */
+    public static function remove_joomla_stylesheets($stylesheets, &$doc)
+    {
+        $patterns = array(
+            '#^/media/jui/css#',
+            '#^/media/system/css#'
+        );
+
+        foreach ($stylesheets as $stylesheet => $data) {
+            foreach ($patterns as $pattern) {
+                if (preg_match($pattern, $stylesheet)) {
+                    $doc->joomla_stylesheets[$stylesheet] = $data;
+                    unset($stylesheets[$stylesheet]);
+                }
+            }
+        }
+		return $stylesheets;
     }
 
     /**
@@ -243,6 +286,13 @@ class TplNPEU6Helper
         if (!$root_path) {
             $root_path = $_SERVER['DOCUMENT_ROOT'];
         }
+        
+        // Don't stamp filenames of 3rd Party or System files:
+        #echo '<pre>'; var_dump($filename); echo '</pre>'; #exit;
+        if (strpos($filename, '/templates/npeu6/') !== 0) {
+            return $filename;
+        }
+        
         $stamp = filemtime($root_path . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $filename));
         $return = preg_replace('/(.*?)((\.min)?\..+?)$/', '$1.' . $stamp . '$2', $filename);
         return $return;

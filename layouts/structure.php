@@ -66,6 +66,17 @@
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
     <?php endforeach; ?>
+    
+    <?php if (!empty($doc->joomla_stylesheets)): ?>
+   <?php foreach($doc->joomla_stylesheets as $stylesheet => $options): ?>
+    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
+        only print, screen and (min-width: 1vm),
+        only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
+        only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
+        only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
+    ">
+    <?php endforeach; ?>
+    <?php endif; ?>
 
     <script src="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/js/script.min.js'); ?>"></script>
 
@@ -101,6 +112,12 @@
 
     */ ?>
 
+    <?php if (!empty($doc->joomla_scripts)): ?>
+    <?php foreach($doc->joomla_scripts as $script => $options): ?>
+    <script src="<?php echo $script; ?>"></script>
+    <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php foreach($page_scripts as $script => $options): ?>
     <script src="<?php echo $script; ?>"></script>
     <?php endforeach; ?>
@@ -111,12 +128,6 @@
     <?php echo $style . "\n\n"; ?>
     <?php endforeach; ?>
     </style>
-    <?php endif; ?>
-
-    <?php if (!empty($page_script)): ?>
-    <script>
-    <?php echo $page_script; ?>
-    </script>
     <?php endif; ?>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>apple-touch-icon.png">
@@ -169,6 +180,12 @@
     {% endif %}
     
     */ ?>
+
+    <?php if (!empty($page_script)): ?>
+    <script>
+    <?php echo $page_script; ?>
+    </script>
+    <?php endif; ?>
 
 </body>
 </html>
