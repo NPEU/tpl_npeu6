@@ -313,7 +313,7 @@ $page_style       = $page_head_data['style'];
 $doc->joomla_scripts = array();
 $page_scripts     = TplNPEU6Helper::remove_joomla_scripts($page_head_data['scripts'], $doc);
 // This is problematic as it's not easy to remove Joomla/jQuery stuff so just bypass for now:
-if ($doc->include_script) {
+if (!empty($doc->include_script)) {
     $page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : array();
 } else {
     $page_script      = '';

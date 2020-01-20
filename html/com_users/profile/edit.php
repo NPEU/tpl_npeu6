@@ -119,7 +119,7 @@ $doc->include_script = true;
     <fieldset id="fieldset<?php echo $i; ?>">
         <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
         <legend><h2><?php echo JText::_($fieldset->label); ?></h2></legend>
-        <p>
+        <p class="u-text-align--right  u-space--below--none">
             <button <?php /*id="profile_save"*/ ?> type="submit" class=""><span><?php echo JText::_('JSAVE'); ?></span></button>
             <span><?php echo JText::_('COM_USERS_OR'); ?>
                 <a class="" href="<?php echo JRoute::_('/user-profile'); ?>" title="<?php echo JText::_('JCANCEL'); ?>"><?php echo JText::_('JCANCEL'); ?></a>
@@ -127,25 +127,27 @@ $doc->include_script = true;
         </p>
         <?php endif; ?>
         <div class="l-col-to-row-wrap">
-            <dl class="l-col-to-row  l-col-to-row--gutter">
+            <div class="l-col-to-row  l-col-to-row--gutterX">
                 <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
                 <?php #echo '<pre>'; var_dump($field->type); echo '</pre>'; ?>
                 <?php if ($field->type == 'EditHelp'): ?>
-                <?php $help .= $field->input . "\n"; ?>
+                <div class="u-fill-width">
+                    <?php $help .= $field->input . "\n"; ?>
+                </div>
                 <?php elseif ($field->type == 'EditMsg'): //editmsg ?>
-                <dt hidden aria-hidden="false">Notice</dt>
-                <dd class="u-text-align--center  c-system-message  u-space--below  u-space--left--none  u-fill-width"><?php echo TplNPEU6Helper::clean_title($field->label); ?></dd>
+                <div hidden aria-hidden="false">Notice</div>
+                <p class="u-text-align--center  c-system-message  u-fill-width"><?php echo TplNPEU6Helper::clean_title($field->label); ?></p>
                 <?php elseif ($field->hidden): // If the field is hidden, just display the input. ?>
                 <?php $hidden .= $field->input . "\n"; ?>
                 <?php else: ?>
-                <dt class="l-col-to-row__item  u-space--below--none  <?php echo $field->type == 'Editor' ? 'u-fill-width' : 'ff-width-100--25--25'?>">
+                <div class="l-col-to-row__item  u-padding--right <?php echo $field->type == 'Editor' ? 'u-fill-width' : 'ff-width-100--25--25'?>">
                     <?php if ($field->type == 'Gravatar' || $field->type == 'ImageEdit'): ?>
                     <?php echo preg_replace('/\sfor="[^"]+"/', '', TplNPEU6Helper::clean_title($field->label)); ?>
                     <?php else: ?>
                     <?php echo TplNPEU6Helper::clean_title($field->label); ?>
                     <?php endif; ?>
-                </dt>
-                <dd class="l-col-to-row__item  u-space--below  <?php echo $field->type == 'Editor' ? 'u-fill-width' : 'ff-width-100--25--75'?>">
+                </div>
+                <div class="l-col-to-row__item  <?php echo $field->type == 'Editor' ? 'u-fill-width  u-space--below' : 'ff-width-100--25--75'?>">
                     <?php if ($field->type == 'Editor' && $field->required): ?>
                     <?php echo preg_replace('/<textarea/', '<textarea class="required" required aria-required="true"', $field->input); ?>
                     <?php elseif ($field->type == 'ImageEdit'): ?>
@@ -159,10 +161,10 @@ $doc->include_script = true;
                     <?php #echo in_array($field->type, array('Email', 'Text')) ? add_class($field->input, 'text-input') : $field->input; ?>
                     <?php echo $field->input; ?>
                     <?php endif; ?>
-                </dd>
+                </div>
                 <?php endif; ?>
                 <?php endforeach; ?>
-            </dl>
+            </div>
         </div>
         <?php if (!empty($help)): ?>
         <?php echo $help; ?>
