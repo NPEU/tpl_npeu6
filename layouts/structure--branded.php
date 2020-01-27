@@ -63,7 +63,7 @@
             <?php if($page_has_navbar) : ?>
             <div class="nav-bar  u-padding--sides--s  t-<?php echo $page_brand->alias; ?>">
 
-                <div class="nav-bar__start">
+                <div class="nav-bar__start" data-area="navbar-controls">
                     <?php if ($modules__header_nav_bar != '') : ?>
                     <div class="nav-bar__item">
                         <button class="over-panel-control t-<?php echo $page_brand->alias; ?> js-over-panel-control" hidden="" aria-controls="menu-panel" aria-label="Main menu" aria-expanded="false" data-js="overpanel__control"><svg display="none" class="icon  icon--is-closed"><use xlink:href="#icon-menu"></use></svg><svg display="none" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
 
-                <nav class="nav-bar__main" id="primary-nav" aria-label="Primary">
+                <nav class="nav-bar__main" id="primary-nav" aria-label="Primary" data-area="main-nav">
 
                     <div class="over-panel over-panel--fade js-over-panel" id="menu-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden="" aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
@@ -85,7 +85,7 @@
 
                 </nav>
 
-                <div class="nav-bar__end">
+                <div class="nav-bar__end" data-area="search-form">
                     <div class="over-panel over-panel--fade js-over-panel" id="search-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden="" aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
@@ -110,8 +110,8 @@
             </div>
             <?php endif; ?>
             <?php if(!empty($modules__main_breadcumbs) && $menu_item->alias != $page_brand->alias) : ?>
-            <div class="u-padding--sides  u-padding--bottom--xs  u-padding--top--xs  d-background--dark  t-<?php echo $page_brand->alias; ?>">
-            <?php echo $modules__main_breadcumbs; /*<jdoc:include type="modules" name="3-main-breadcrumbs" style="basic" />*/?>
+            <div class="u-padding--sides  u-padding--bottom--xs  u-padding--top--xs  d-background--dark  t-<?php echo $page_brand->alias; ?>" data-area="breadcrumbs">
+                <?php echo $modules__main_breadcumbs; /*<jdoc:include type="modules" name="3-main-breadcrumbs" style="basic" />*/?>
             </div>
             <?php endif; ?>
         </header>
@@ -307,22 +307,22 @@
             <div class="l-col-to-row-wrap  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                 <div class="l-col-to-row">
                     <?php if ($page_has_footer_mid_left): ?>
-                    <div class="l-col-to-row__item  ff-width-100--40--50">
+                    <div class="l-col-to-row__item  ff-width-100--40--50" data-position="6-footer-mid-left">
                         <?php echo $modules__footer_mid_left; ?>
                     </div>
                     <?php endif; ?>
                     <?php if ($page_has_footer_mid_right): ?>
-                    <div class="l-col-to-row__item  ff-width-100--40--50">
+                    <div class="l-col-to-row__item  ff-width-100--40--50" data-position="6-footer-mid-right">
                         <?php echo $modules__footer_mid_right; ?>
                     </div>
                     <?php endif; ?>
                 </div>
             </div>
             <?php endif; ?>
-
+            
+            <?php if ($page_unit != 'npeu') : ?>
             <div class="l-distribute-wrap">
-                <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">
-                    <?php if ($page_unit != 'npeu') : ?>
+                <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">            
                     <div class="u-padding--s  l-center">
                         <?php if ($page_unit == 'pru-mnhc') : ?>
                         <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height">
@@ -355,9 +355,9 @@
                             <img src="/img/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/img/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
                         </a>
                     </div>
-                    <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="c-page-footer  u-text-align--center"><?php /* @TODO: sort out footer from form input. */ ?>
                 <p class="c-utilitext">
