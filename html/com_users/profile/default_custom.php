@@ -39,7 +39,7 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
         <?php foreach ($fields as $field): ?>
         <?php if (!$field->hidden): ?>
 		<dt class="ff-width-100--25--25 l-col-to-row__item"><?php echo preg_replace('/<br>.*/', '', $field->title); ?></dt>
-		<dd class="ff-width-100--25--75 l-col-to-row__item">
+		<dd class="ff-width-100--25--75 l-col-to-row__item  u-last-child--space--below--none">
 		<?php if (JHtml::isRegistered('users.'.$field->id)): ?>
         <?php echo JHtml::_('users.'.$field->id, $field->value); ?>
 		<?php elseif (JHtml::isRegistered('users.'.$field->fieldname)): ?>

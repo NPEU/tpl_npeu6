@@ -127,7 +127,7 @@ $doc->include_script = true;
         </p>
         <?php endif; ?>
         <div class="l-col-to-row-wrap">
-            <div class="l-col-to-row  l-col-to-row--gutterX">
+            <div class="l-col-to-row">
                 <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
                 <?php #echo '<pre>'; var_dump($field->type); echo '</pre>'; ?>
                 <?php if ($field->type == 'EditHelp'): ?>

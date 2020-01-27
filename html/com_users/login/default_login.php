@@ -98,7 +98,7 @@ $session = JFactory::getSession();
         </div>
         <div class="ff-width-100--45--66-666 l-col-to-row__item  u-text-align--center">
 
-            <div class="l-col-to-row-wrap">
+            <div class="l-col-to-row-wrap  u-fill-height">
                 <div class="l-col-to-row  u-padding-top--none">
                     <div class="ff-width-100--35--50 l-col-to-row__item">
                         <h2>Randomisation</h2>
