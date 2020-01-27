@@ -218,6 +218,8 @@ $page_has_footer_top           = $doc->countModules('6-footer-top');
 $page_has_footer_mid_left      = $doc->countModules('6-footer-mid-left');
 $page_has_footer_mid_right     = $doc->countModules('6-footer-mid-right');
 #echo '<pre>'; var_dump($doc->countModules('4-sidebar-bottom')); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($page_has_footer_mid_left); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($page_has_footer_mid_right); echo '</pre>'; exit;
 
 // Sort out Badges
 $page_badge = '';
