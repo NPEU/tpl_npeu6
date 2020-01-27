@@ -44,10 +44,10 @@ function get_team($team) {
 ?>
         <section class="person__team">
             <h2>Team</h2>
-            <ul class="gallery-grid  gallery-grid--gutter--medium  gallery-grid--basis-20">
+            <ul class="l-gallery-grid  l-gallery-grid--gutter--medium  l-gallery-grid--basis-20">
 
                 <?php foreach($team as $id => $member): ?>
-                <li class="gallery-grid__item" filterable_item>
+                <li class="l-gallery-grid__item" filterable_item>
                     <article class="c-glimpse  u-space--none">
                         <a href="/about/people/<?php echo $member['alias']; ?>" aria-describedby="<?php echo $html_id; ?>" class="c-glimpse__link">
                             <div class="c-glimpse__image  c-glimpse__image--rounded">
@@ -81,14 +81,14 @@ function get_projects($projects) {
 ?>
         <section class="person__projects">
             <h2>Projects</h2>
-            <ul class="gallery-grid  gallery-grid--gutter--medium  gallery-grid--basis-20">
+            <ul class="l-gallery-grid  l-gallery-grid--gutter--medium  l-gallery-grid--basis-20">
             
                 <?php foreach($projects as $project):
                     $svg_path = '/img/brand-logos/unit/' . $project['alias'] . '-logo.svg';
                     $png_path = '/img/brand-logos/unit/' . $project['alias'] . '-logo.png';
                     $svg_info = svg_info($svg_path);
                 ?>
-                <li class="gallery-grid__item">
+                <li class="l-gallery-grid__item">
                     <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height">
          
                         <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>

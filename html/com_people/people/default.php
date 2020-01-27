@@ -100,10 +100,10 @@ unset($this->people['*']);
                 <?php if($data['length'] > 0): ?>
                 <section id="group-<?php echo $data['alias']; ?>">
                     <h2 class="" id="<?php echo $html_id; ?>"><?php echo $group_heading; ?></h2>
-                    <ul id="people-<?php echo $data['alias']; ?>" class="gallery-grid  gallery-grid--gutter--small  gallery-grid--basis-15" filterable_list>
+                    <ul id="people-<?php echo $data['alias']; ?>" class="l-gallery-grid  l-gallery-grid--gutter--small  l-gallery-grid--basis-15" filterable_list>
 
                         <?php foreach($data['people'] as $person): ?>
-                        <li class="gallery-grid__item" filterable_item>
+                        <li class="l-gallery-grid__item" filterable_item>
                             <article class="c-glimpse  u-space--none">
                                 <a href="/about/people/<?php echo $person['alias']; ?>" aria-describedby="<?php echo $html_id; ?>" class="c-glimpse__link">
                                     <div class="c-glimpse__image  c-glimpse__image--rounded">
