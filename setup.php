@@ -41,9 +41,13 @@ $uri   = JUri::getInstance();
 #echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($input); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($user); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($user->getAuthorisedGroups()); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($uri); echo '</pre>'; exit;
 
-
+// If the user has the staff group id (10) in their auth groups array, they are a member of staff,
+// so provide a short cut:
+$user->set('is_staff', in_array(10, $user->getAuthorisedGroups()));
+#echo '<pre>'; var_dump($user); echo '</pre>'; exit;
 
 // Set variables otherwise declared in error.php:
 if (!isset($is_error)) {
