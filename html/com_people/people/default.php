@@ -49,7 +49,7 @@ unset($this->people['*']);
                                 <div class="l-proportional-container__content">
                                     <div class="u-image-cover  js-image-cover">
                                         <div class="u-image-cover__inner">
-                                            <img  src="<?php echo $director['profile_img_src']; echo strpos($director['profile_img_src'], '?') === false ? '?' : '&'; ?>s=340" alt="" width="170px" />
+                                            <img src="<?php echo $director['profile_img_src']; echo strpos($director['profile_img_src'], '?') === false ? '?' : '&'; ?>s=340" alt="" width="170px" />
                                         </div>
                                     </div>
                                 </div>
