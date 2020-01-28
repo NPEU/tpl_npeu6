@@ -18,7 +18,7 @@ if (!$pg_title = base64_decode($_GET['title'])) {
 
 $piwik_url = 'https://' . $_SERVER['HTTP_HOST'] . '/administrator/components/com_piwik/piwik/';
 
-require_once '../administrator/components/com_piwik/PiwikTracker.php';
+require_once '../../../administrator/components/com_piwik/PiwikTracker.php';
 
 PiwikTracker::$URL = $piwik_url;
 
