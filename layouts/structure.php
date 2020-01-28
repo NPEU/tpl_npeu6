@@ -78,6 +78,7 @@
     <?php endforeach; ?>
     <?php endif; ?>
 
+    <!-- Template scripts -->
     <script src="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/js/script.min.js'); ?>"></script>
 
     <?php /*
@@ -112,12 +113,14 @@
 
     */ ?>
 
-    <?php if (!empty($doc->joomla_scripts)): ?>
+    <?php if (!empty($doc->include_joomla_scripts) && !empty($doc->joomla_scripts)): ?>
+    <!-- CMS scripts -->
     <?php foreach($doc->joomla_scripts as $script => $options): ?>
     <script src="<?php echo $script; ?>"></script>
     <?php endforeach; ?>
     <?php endif; ?>
 
+    <!-- Other scripts -->
     <?php foreach($page_scripts as $script => $options): ?>
     <script src="<?php echo $script; ?>"></script>
     <?php endforeach; ?>
@@ -160,6 +163,19 @@
 </head>
 <body role="document" id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
+    <noscript>
+        <!-- Piwik no-js tracking: -->
+        <img src="/templates/npeu6/endpoints/piwik-no-js.php<?php echo $piwik_url; ?>" style="display:none;" alt="" />
+    </noscript>
+    <style>
+    @media print {
+        /* Piwik print tracking: */
+        html::after {
+            content: url("/templates/npeu6/endpoints/piwik-print.php<?php echo $piwik_url; ?>");
+        }
+    }
+    </style>
+
     <?php echo $page_svg_icons; ?>
 
     <div class="no-style-notice  no-css-only">
@@ -183,7 +199,7 @@
 
     <?php if (!empty($page_script)): ?>
     <script>
-    <?php echo $page_script; ?>
+        <?php echo $page_script; ?>
     </script>
     <?php endif; ?>
 
