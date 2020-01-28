@@ -101,6 +101,7 @@ $doc->addStyleSheet('/media/jui/css/chosen.css');
 $page_head_data = $doc->getHeadData();
 
 $doc->include_script = true;
+$doc->include_joomla_scripts = true;
 #echo '<pre>'; var_dump($page_head_data); echo '</pre>'; exit;
 #exit;
 ?>
