@@ -60,6 +60,7 @@ foreach ($fields as $field) {
     $card_data = array();
 
     $card_data['theme']        = $theme;
+    $card_data['full_link']    = true;
     $card_data['link']         = JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
     $card_data['image']        = $headline_image['headline-image'];
     $card_data['image_alt']    = $headline_image['headline-image-alt-text'];
