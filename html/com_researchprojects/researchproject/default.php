@@ -38,6 +38,7 @@ $brand = false;
 if (!empty($this->item->brand_details)) {
     $brand = $this->item->brand_details;
 }
+#echo '<pre>'; var_dump($this->item); echo '</pre>'; exit;
 
 ob_start();
 ?>
@@ -55,15 +56,16 @@ ob_start();
             $i = 0;
             $c = count($this->item->collaborators) - 1;
             foreach($this->item->collaborators as $collaborator) {
-                echo format_person($collaborator['collaborator']) . ($i <  $c ? ', ' : '');
+                echo format_person($collaborator->collaborator) . ($i <  $c ? ', ' : '');
                 $i++;
             }
         ?></dd>
         <dt>Topics</dt>
         <dd><?php 
             $i = 0;
-            $c = count($this->item->topic_details) - 1;
-            foreach($this->item->topic_details as $topic) {
+            $topics = $this->item->topics->getProperties();
+            $c = count($topics) - 1;
+            foreach($topics as $topic) {
                 echo $topic . ($i <  $c ? ', ' : '');
                 $i++;
             }
@@ -72,7 +74,7 @@ ob_start();
         <dd><?php $i = 0;
             $c = count($this->item->funders) - 1;
             foreach($this->item->funders as $funder) {
-                echo $funder['funder'] . ($i <  $c ? ', ' : '');
+                echo $funder->funder . ($i <  $c ? ', ' : '');
                 $i++;
             } ?></dd>
         <dt>Start year</dt>
