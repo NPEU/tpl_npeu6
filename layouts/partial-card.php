@@ -11,7 +11,8 @@ defined('_JEXEC') or die;
 /* <pre><?php var_dump($card_data); ?></pre> */
 /*
     Expects a $card_data array with the following keys:
-    theme       
+    theme
+    full_link
     link
     image
     image_alt
@@ -23,7 +24,7 @@ defined('_JEXEC') or die;
 ?>
 <div class="c-card-wrap">
     <article class="c-card  <?php echo $card_data['theme']; ?>">
-        <a href="<?php echo $card_data['link']; ?>" class="c-card__full-link  <?php echo $card_data['theme']; ?>  u-fill-height--column">
+        <?php if (!empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>" class="c-card__full-link  <?php echo $card_data['theme']; ?>  u-fill-height--column"><?php endif; ?>
             <?php if (!empty($card_data['image'])) : ?>
             <div class="c-card__image">
                 <div class="l-proportional-container  l-proportional-container--2-1">
@@ -38,13 +39,17 @@ defined('_JEXEC') or die;
             </div>
             <?php endif; ?>
             <div class="c-card__main">
-                <h2 class="c-card__title"><?php echo $card_data['title']; ?></h2>
+                <h2 class="c-card__title">
+                <?php /*if (empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>"><?php endif;*/?>
+                <?php echo $card_data['title']; ?>
+                <?php /*if (empty($card_data['full_link'])) : ?></a><?php endif;*/ ?>
+                </h2>
                 <?php if (!empty($card_data['body'])) : ?>
                 <div class="c-card__body">
                     <?php echo $card_data['body']; ?>
-                    <?php if (!empty($card_data['cta'])) : ?>
+                    <?php if (empty($card_data['full_link'])) : ?>
                     <p class="u-text-align--right">
-                        <span class="c-cta  c-cta--has-icon">Read more<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></span>
+                        <a href="<?php echo $card_data['link']; ?>" class="c-cta  c-cta--has-icon">Read more<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                     </p>
                     <?php endif; ?>
                 </div>
@@ -53,13 +58,13 @@ defined('_JEXEC') or die;
                 <div class="c-card__footer">
                     <p>
                         <?php echo date($card_data['date_format'], strtotime($card_data['publish_date'])); ?>
-                    </p> 
+                    </p>
                 </div>
                 <!--<div class="c-card__footer  u-text-align--right">
                     <a href="#" class="c-cta  c-cta--has-icon">Read<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                 </div>-->
                 <?php endif; ?>
             </div>
-        </a>
+        <?php if (!empty($card_data['full_link'])) : ?></a><?php endif; ?>
     </article>
 </div>
