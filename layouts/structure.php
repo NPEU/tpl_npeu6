@@ -33,7 +33,7 @@
         Accessible font loading. FOUT is a lesser evil than FOIT.
         (https://keithclark.co.uk/articles/loading-css-without-blocking-render/)
     -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,700,900&display=swap" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
     <!--
         Print (Edge doesn't apply to print otherwise)
@@ -203,5 +203,11 @@
     </script>
     <?php endif; ?>
 
+    <script>
+        var need_twitter = !!document.querySelectorAll('.twitter-share-button').length > 0;
+        if (need_twitter) {
+            window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)?w:((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)},w)}(document,"script","twitter-wjs");
+        }
+    </script>
 </body>
 </html>
