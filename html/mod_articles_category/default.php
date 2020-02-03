@@ -53,6 +53,7 @@ if ($count >= 2 && $count < 5) {
                 $card_data = array();
 
                 $card_data['theme']        = $theme;
+                $card_data['full_link']    = true;
                 $card_data['link']         = $item->link;
                 $card_data['image']        = $fields[0]->rawvalue;
                 $card_data['image_alt']    = $fields[1]->rawvalue;
