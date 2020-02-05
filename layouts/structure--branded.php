@@ -1,4 +1,4 @@
-    <div class="sticky-footer-wrap  c-page-wrap">
+    <div class="sticky-footer-wrap  c-page-wrap"  data-brand="<?php echo $page_brand->alias; ?>">
 
         <header class="c-page-header  t-<?php echo $page_brand->alias; ?>" aria-label="Page">
 
@@ -222,7 +222,9 @@
                                 <?php echo $component__sidebar_top; ?>
                                 <?php echo $modules__sidebar_top; /*<jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />*/?>
                                 <?php if ($page_has_priority_content) : ?>
-                                <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
+                                <div class="l-primary-content__pull-out__padded--@small  c-user-content" data-contains="priority-content">
+                                    <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
+                                </div>
                                 <?php endif; ?>
                             </div>
                             <?php endif; ?>

@@ -88,6 +88,20 @@ if (isset($image_meta['copyright'])) {
     ));
 }
 $this->item->headline_image = $headline_image;
+
+// If it's a news item:
+if ($this->item->catid == 63) {
+    $twitter  = '<p>';
+    $twitter .= '    <a href="https://twitter.com/intent/tweet?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . $this->item->readmore_link) . '&url=' . $this->item->readmore_link . '&via=NPEU_Oxford" class="twitter-share-button">Tweet</a>';
+    $twitter .= '</p>';
+
+    if (!empty($this->item->fulltext)) {
+        $this->item->fulltext .= $twitter;
+    } else {
+        $this->item->introtext .= $twitter;
+    }
+}
+
 $doc        = JFactory::getDocument();
 $doc->article = $this->item;
 

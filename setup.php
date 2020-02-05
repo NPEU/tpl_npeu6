@@ -93,17 +93,20 @@ $page_brand_folder = $page_brand->alias . '/';
 // processed too late and get missed.
 // Pre-rendering all modules here to avoid that. Not sure if there will be other consequences.
 jimport('joomla.application.module.helper');
-$modules__header_nav_bar   = trim(JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}'));
-$modules__main_breadcumbs  = trim(JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}'));
-$modules__main_upper       = trim(JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}'));
-$modules__sidebar_top      = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}'));
-$modules__sidebar_bottom   = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}'));
-$modules__main_lower       = trim(JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}'));
-$modules__bottom           = trim(JHtml::_('content.prepare', '{loadposition 5-bottom,block}'));
-$modules__footer_top       = trim(JHtml::_('content.prepare', '{loadposition 6-footer-top,block}'));
-$modules__footer_mid_left  = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}'));
-$modules__footer_mid_right = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,block}'));
+$modules__header_nav_bar       = trim(JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}'));
+$modules__main_breadcumbs      = trim(JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}'));
+$modules__main_upper           = trim(JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}'));
+$modules__sidebar_top          = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}'));
+$modules__sidebar_section_menu = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-section-menu,sidebar}'));
+$modules__sidebar_bottom       = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}'));
+$modules__main_lower           = trim(JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}'));
+$modules__bottom               = trim(JHtml::_('content.prepare', '{loadposition 5-bottom,block}'));
+$modules__footer_top           = trim(JHtml::_('content.prepare', '{loadposition 6-footer-top,block}'));
+$modules__footer_mid_left      = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}'));
+$modules__footer_mid_right     = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,block}'));
 
+
+#echo '<pre>'; var_dump($modules__sidebar_bottom); echo '</pre>'; exit;
 
 // Branded search pages need an extra query string parameter to limit the search to just that part
 // of the site. This may not be the best place to establish this, so keep that in mind.
@@ -191,6 +194,7 @@ if (!$is_blog) {
 }
 
 $page_has_pull_outs = false;
+$page_has_sidebar_super        = 0;
 $page_has_sidebar_top          = 0;
 $page_has_sidebar_section_menu = 0;
 $page_has_sidebar_bottom       = 0;
@@ -213,14 +217,16 @@ if (!(
  || $page_disable_modules == 'sub' && !$page_is_component_root
 )) {
     
-    $page_has_sidebar_top          = $doc->countModules('4-sidebar-top');
-    $page_has_sidebar_section_menu = $doc->countModules('4-sidebar-section-menu');
-    $page_has_sidebar_bottom       = $doc->countModules('4-sidebar-bottom');
+    $page_has_sidebar_top          = empty($modules__sidebar_top)          ? 0 : $doc->countModules('4-sidebar-top');
+    $page_has_sidebar_section_menu = empty($modules__sidebar_section_menu) ? 0 : $doc->countModules('4-sidebar-section-menu');
+    $page_has_sidebar_bottom       = empty($modules__sidebar_bottom)       ? 0 : $doc->countModules('4-sidebar-bottom');
 }
 
-$page_has_footer_top           = $doc->countModules('6-footer-top');
-$page_has_footer_mid_left      = $doc->countModules('6-footer-mid-left');
-$page_has_footer_mid_right     = $doc->countModules('6-footer-mid-right');
+#echo '<pre>'; var_dump($page_has_sidebar_bottom); echo '</pre>'; exit;
+
+$page_has_footer_top           = empty($modules__footer_top)       ? 0 : $doc->countModules('6-footer-top');
+$page_has_footer_mid_left      = empty($modules__footer_mid_left)  ? 0 : $doc->countModules('6-footer-mid-left');
+$page_has_footer_mid_right     = empty($modules__footer_mid_right) ? 0 : $doc->countModules('6-footer-mid-right');
 #echo '<pre>'; var_dump($doc->countModules('4-sidebar-bottom')); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($page_has_footer_mid_left); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($page_has_footer_mid_right); echo '</pre>'; exit;
@@ -231,7 +237,7 @@ if ($doc->countModules('3-main-badge') > 0) {
     $page_badge = JHtml::_('content.prepare', '{loadposition 3-main-badge,sidebar}');
     
     if (!empty($page_badge)) {
-        $page_has_sidebar_top++;
+        $page_has_sidebar_super++;
     }
 }
 
@@ -258,6 +264,7 @@ if (isset($doc->component__sidebar_bottom)) {
     $component__sidebar_bottom = $doc->component__sidebar_bottom;
     $page_has_sidebar_bottom++;
 }
+#echo '<pre>'; var_dump($component__sidebar_bottom); echo '</pre>'; exit;
 
 
 
@@ -265,7 +272,7 @@ if (isset($doc->component__sidebar_bottom)) {
 #echo '<pre>'; var_dump($page_has_priority_content); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_has_sidebar_top); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_has_sidebar_section_menu); echo '</pre>'; #exit;
-#echo '<pre>'; var_dump($page_has_sidebar_bottom); echo '</pre>'; #exit;
+#echo '<pre>'; var_dump($page_has_sidebar_bottom); echo '</pre>'; exit;
 
 $page_has_pull_outs = $page_has_priority_content || $page_has_sidebar_top || $page_has_sidebar_section_menu || $page_has_sidebar_bottom;
 #echo '<pre>'; var_dump($page_has_pull_outs); echo '</pre>'; #exit;
@@ -298,6 +305,20 @@ $page_description = $doc->description != ''
 if (isset($menu_item)) {
     if ($menu_description = $menu_item->params->get('menu-meta_description', false)) {
         $page_description = $menu_description ;
+    }
+}
+
+// Page description is quite important, but very rarely entered for menu items or article.
+// (Need culture shift / training here).
+// It's especially important for news articles for social media, so attempting to auto-improve
+// things here:
+if ($page_description == $page_template_params->site_description) {
+    // Description is still the default...
+    
+    if (isset($doc->article) && $doc->article->catid == 63) {
+        // This is news article, extract the first paragraph:
+        $text = $doc->article->introtext;
+        $page_description = strip_tags(substr($text, strpos($text, "<p"), strpos($text, "</p>") + 4));
     }
 }
 
@@ -404,12 +425,28 @@ $page_unit        = $page_template_params->unit;
 // Footer:
 // Convert HTML entities, replace year placeholder with year, transform markdown.
 // Remove enclosing p tag.
-// Page footer links need to have their link text wrapped in spans, as per the Utilitest pattern.
+// Page footer links need to have their link text wrapped in spans, as per the Utilitext pattern.
 $page_footer_text = TplNPEU6Helper::tweak_markdown_output(
     Markdown::defaultTransform(str_replace('{{ YEAR }}', date('Y'), htmlentities($page_template_params->footer_text))),
     array('trim_paragraph' => true, 'add_link_spans' => true)
 );
 
+
+// Social Media:
+
+// Twitter:
+$twitter = array();
+
+$twitter['site']        = '@NPEU_Oxford';
+$twitter['card']        = 'summary';
+$twitter['description'] = $page_description;
+$twitter['title']       = $page_title;
+if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) {
+    
+    $twitter['image'] = 'https://www.npeu.ox.ac.uk/' . $doc->article->headline_image['headline-image'];
+    $twitter['card']  = 'summary_large_image';
+}
+/*<?php if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) : ?>*/
 
 
 // Nested Layouts:

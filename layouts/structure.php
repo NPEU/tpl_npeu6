@@ -158,8 +158,18 @@
         })();
     </script>
     <?php $piwik_url = '?url=' . base64_encode($_SERVER['REQUEST_URI']) . '&title=' . base64_encode($page_title); ?>
+    
     <!-- End Piwik Code -->
 
+    <!-- Social Media -->
+    <?php if (!empty($twitter)): ?>
+    <?php foreach ($twitter as $name => $value): ?>
+    
+    <meta name="twitter:<?php echo $name; ?>" content="<?php echo $value; ?>">
+    <?php endforeach; ?>
+    <?php endif;?>
+
+    <!-- End Social Media -->
 </head>
 <body role="document" id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
