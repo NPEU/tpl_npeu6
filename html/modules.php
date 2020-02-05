@@ -155,7 +155,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-neutral  u-space--below  u-space--above">
+    <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-neutral  u-space--below">
         <?php if ($has_headline_image): ?>
         <div class="c-panel__banner">
             <div class="l-proportional-container  l-proportional-container--2-1  l-proportional-container--4-1--wide">

@@ -24,7 +24,7 @@ if (count($matches) < $min_h_count) {
     return;
 }
 ?>
-<div class="c-panel  c-panel--very-light  t-neutral  u-space--above  u-space--above">
+<div class="c-panel  c-panel--very-light  t-neutral  u-space--below">
     <nav class="c-panel__module" aria-label="table of contents">
         <div class="">
             <?php if ($module->showtitle): ?>

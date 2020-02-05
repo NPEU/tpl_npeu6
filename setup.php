@@ -35,7 +35,7 @@ $doc   = JFactory::getDocument();
 $input = JFactory::getApplication()->input;
 $db    = JFactory::getDBO();
 $user  = JFactory::getUser();
-$uri   = JUri::getInstance(); 
+$uri   = JUri::getInstance();
 
 #echo '<pre>'; var_dump($app); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
@@ -97,7 +97,7 @@ $modules__header_nav_bar       = trim(JHtml::_('content.prepare', '{loadposition
 $modules__main_breadcumbs      = trim(JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}'));
 $modules__main_upper           = trim(JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}'));
 $modules__sidebar_top          = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}'));
-$modules__sidebar_section_menu = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-section-menu,sidebar}'));
+//$modules__sidebar_section_menu = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-section-menu,sidebar}'));
 $modules__sidebar_bottom       = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}'));
 $modules__main_lower           = trim(JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}'));
 $modules__bottom               = trim(JHtml::_('content.prepare', '{loadposition 5-bottom,block}'));
@@ -112,7 +112,7 @@ $modules__footer_mid_right     = trim(JHtml::_('content.prepare', '{loadposition
 // of the site. This may not be the best place to establish this, so keep that in mind.
 $page_search_area = '';
 if ($page_brand->alias != 'npeu') {
-    
+
         $query = '
             SELECT id
             FROM #__finder_taxonomy
@@ -216,9 +216,9 @@ if (!(
  || $page_disable_modules == 'root' && $page_is_component_root
  || $page_disable_modules == 'sub' && !$page_is_component_root
 )) {
-    
+
     $page_has_sidebar_top          = empty($modules__sidebar_top)          ? 0 : $doc->countModules('4-sidebar-top');
-    $page_has_sidebar_section_menu = empty($modules__sidebar_section_menu) ? 0 : $doc->countModules('4-sidebar-section-menu');
+    //$page_has_sidebar_section_menu = empty($modules__sidebar_section_menu) ? 0 : $doc->countModules('4-sidebar-section-menu');
     $page_has_sidebar_bottom       = empty($modules__sidebar_bottom)       ? 0 : $doc->countModules('4-sidebar-bottom');
 }
 
@@ -235,7 +235,7 @@ $page_has_footer_mid_right     = empty($modules__footer_mid_right) ? 0 : $doc->c
 $page_badge = '';
 if ($doc->countModules('3-main-badge') > 0) {
     $page_badge = JHtml::_('content.prepare', '{loadposition 3-main-badge,sidebar}');
-    
+
     if (!empty($page_badge)) {
         $page_has_sidebar_super++;
     }
@@ -246,7 +246,7 @@ if ($doc->countModules('3-main-badge') > 0) {
 $page_toc = '';
 if ($page_has_article) {
     $page_toc = JHtml::_('content.prepare', '{loadposition 3-main-toc,sidebar}');
-    
+
     if (!empty($page_toc)) {
         $page_has_sidebar_top++;
     }
@@ -297,6 +297,35 @@ if (
 
 $page_has_main_lower = $doc->countModules('3-main-lower');
 
+// Determine if an Area Menu or Section Menu is present:
+$page_has_area_menu    = false;
+$page_has_section_menu = false;
+$sidebar_bottom_modules = JModuleHelper::getModules('4-sidebar-bottom');
+
+foreach ($sidebar_bottom_modules as $module) {
+    $registry = Joomla\Registry\Registry::getInstance('mod_' . $module->id);
+    $module_params = $registry->loadString($module->params);
+
+    if ($module_params->get('layout') == 'npeu6:Area Menu') {
+        $t1 = JHtml::_('content.prepare', '{loadmoduleid ' . $module->id .'}');
+
+        if (!empty($t1)) {
+            $page_has_area_menu = true;
+            continue;
+        }
+    }
+
+    if ($module_params->get('layout') == 'npeu6:Section Menu') {
+        $t2 = JHtml::_('content.prepare', '{loadmoduleid ' . $module->id .'}');
+
+        if (!empty($t2)) {
+            $page_has_section_menu = true;
+            continue;
+        }
+    }
+}
+
+
 // Page Description
 $page_description = $doc->description != ''
                   ? $doc->description
@@ -314,7 +343,7 @@ if (isset($menu_item)) {
 // things here:
 if ($page_description == $page_template_params->site_description) {
     // Description is still the default...
-    
+
     if (isset($doc->article) && $doc->article->catid == 63) {
         // This is news article, extract the first paragraph:
         $text = $doc->article->introtext;
@@ -374,7 +403,7 @@ if (!empty($page_template_params->header_balance)) {
         case '66--33' :
             $header_balance[0] = '66-666';
             $header_balance[1] = '33-333';
-            break;    
+            break;
     }
 }
 
@@ -442,7 +471,7 @@ $twitter['card']        = 'summary';
 $twitter['description'] = $page_description;
 $twitter['title']       = $page_title;
 if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) {
-    
+
     $twitter['image'] = 'https://www.npeu.ox.ac.uk/' . $doc->article->headline_image['headline-image'];
     $twitter['card']  = 'summary_large_image';
 }
@@ -460,7 +489,7 @@ $inner_structure = $page_template_params->layout_name;
 if ($is_error) {
     $page_title      = 'Error ' . $error_code;
     $inner_structure = 'structure--basic';
-    $page_content    = $error_output;  
+    $page_content    = $error_output;
 }
 
 include(__DIR__ . '/layouts/structure.php');

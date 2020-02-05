@@ -201,13 +201,28 @@
                                     ?>
                                     <?php echo $doc->article->event->afterDisplayTitle; ?>
                                     <?php endif; ?>
+                                    <?php if ($page_has_area_menu || $page_has_section_menu) : ?>
+                                    <p class="c-utilitext  u-text-align--right">
+                                        <?php if ($page_has_area_menu) : ?>
+                                        <a href="#menu"><span>Menu</span></a>
+                                        <?php endif; ?>
+                                        <?php if ($page_has_section_menu) : ?>
+                                        <?php if ($page_has_area_menu) : ?>
+                                        |
+                                        <?php endif; ?>
+                                        <a href="#in-this-section"><span>In this section</span></a>
+                                        <?php endif; ?>
+                                    </p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
+                            <?php if ($page_has_sidebar_super) : ?>
                             <?php if ($page_badge) : ?>
-                            <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  u-space--above">
+                            <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  u-space--above  u-space--below">
                                 <?php echo $page_badge; ?>
                             </div>
+                            <?php endif; ?>
                             <?php endif; ?>
 
                             <?php if ($page_has_article) : ?>
@@ -218,18 +233,19 @@
 
                             <?php if ($page_has_sidebar_top || $page_has_priority_content || $page_toc) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--top">
-                                <?php echo $page_toc; ?>
-                                <?php echo $component__sidebar_top; ?>
-                                <?php echo $modules__sidebar_top; /*<jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />*/?>
                                 <?php if ($page_has_priority_content) : ?>
                                 <div class="l-primary-content__pull-out__padded--@small  c-user-content" data-contains="priority-content">
                                     <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
                                 </div>
                                 <?php endif; ?>
+                                <?php echo $page_toc; ?>
+                                <?php echo $component__sidebar_top; ?>
+                                <?php echo $modules__sidebar_top; /*<jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />*/?>
+                                
                             </div>
                             <?php endif; ?>
 
-                            <div class="l-primary-content__main">
+                            <div class="l-primary-content__main  u-space--below">
 
                                 <div class="c-panel">
                                     <?php if ($page_has_article) : ?>
