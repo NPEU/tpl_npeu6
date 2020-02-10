@@ -202,7 +202,7 @@
                                     <?php echo $doc->article->event->afterDisplayTitle; ?>
                                     <?php endif; ?>
                                     <?php if ($page_has_area_menu || $page_has_section_menu) : ?>
-                                    <p class="c-utilitext  u-text-align--right">
+                                    <p class="l-primary-content__hidden--wide  c-utilitext  u-text-align--right">
                                         <?php if ($page_has_area_menu) : ?>
                                         <a href="#menu"><span>Menu</span></a>
                                         <?php endif; ?>
