@@ -274,7 +274,7 @@ if (isset($doc->component__sidebar_bottom)) {
 #echo '<pre>'; var_dump($page_has_sidebar_section_menu); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_has_sidebar_bottom); echo '</pre>'; exit;
 
-$page_has_pull_outs = $page_has_priority_content || $page_has_sidebar_top || $page_has_sidebar_section_menu || $page_has_sidebar_bottom;
+$page_has_pull_outs = $page_has_sidebar_super || $page_has_priority_content || $page_has_sidebar_top || $page_has_sidebar_section_menu || $page_has_sidebar_bottom;
 #echo '<pre>'; var_dump($page_has_pull_outs); echo '</pre>'; #exit;
 
 
