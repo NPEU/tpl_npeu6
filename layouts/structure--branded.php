@@ -123,7 +123,7 @@
             <?php if($page_has_carousel) : ?>
         <!-- @TOTO -->
             <?php else: /* @TODO - need to think about credit lines. */?>
-        <div id="hero" class="c-hero  c-hero--reversed  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
+        <div id="hero" class="c-hero<?php echo (isset($page_hero->text_position) && $page_hero->text_position == 1) ? '' : '  c-hero--reversed'; ?>  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
             <div class="c-hero__image">
                 <div class="l-proportional-container  l-proportional-container--3-1  l-proportional-container--5-1--wide">
                     <div class="l-proportional-container__content">

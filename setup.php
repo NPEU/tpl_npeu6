@@ -386,6 +386,7 @@ $page_cta_text     = $page_template_params->cta_text;
 $page_cta_url      = $page_template_params->cta_url;
 $page_display_cta  = $page_cta_text && $page_cta_url;
 
+
 // Header:
 $header_balance = array();
 $header_balance[] = '50';
@@ -443,6 +444,7 @@ if ($page_has_hero) {
 $page_hero         = ($page_has_hero && !$page_has_carousel) ? $page_hero['hero_image0'] : false;
 $page_carousel     = ($page_has_hero && $page_has_carousel)  ? $page_hero : false;
 
+#echo '<pre>'; var_dump($page_hero); echo '</pre>'; exit;
 
 // Headline image:
 $show_headline_image = $menu_item->params->get('show_headline_image', 1);
