@@ -15,7 +15,7 @@ use \Michelf\Markdown;
 
 $hx       = $params->get('header_tag', 'h2');
 $images   = $params->get('images', array());
-$n_images = count ($images);
+$n_images = count((array) $images);
 if ($n_images == 0) {
     return;
 }
