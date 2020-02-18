@@ -38,7 +38,7 @@ $brand = false;
 if (!empty($this->item->brand_details)) {
     $brand = $this->item->brand_details;
 }
-echo '<pre>'; var_dump($this->item); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($this->item); echo '</pre>'; exit;
 
 ob_start();
 ?>
