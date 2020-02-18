@@ -96,10 +96,10 @@ ob_end_clean();
 
 <h2>Summary</h2>
 <?php echo $this->item->content; ?>
-
+<?php if (!empty($this->item->publications)) : ?>
 <h2>Publications</h2>
 <?php echo $this->item->publications; ?>
-
+<?php endif; ?>
 <p>
     <a href="<?php echo JRoute::_('index.php?option=com_researchprojects'); ?>">Back</a>
 </p>
