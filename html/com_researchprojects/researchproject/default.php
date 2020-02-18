@@ -38,7 +38,7 @@ $brand = false;
 if (!empty($this->item->brand_details)) {
     $brand = $this->item->brand_details;
 }
-#echo '<pre>'; var_dump($this->item); echo '</pre>'; exit;
+echo '<pre>'; var_dump($this->item); echo '</pre>'; exit;
 
 ob_start();
 ?>
@@ -51,21 +51,23 @@ ob_start();
     <dl>
         <dt>Principal investigator<?php echo $pi_s; ?></dt>
         <dd><?php echo format_person($this->item->pi_1) . (empty($this->item->pi_2) ? '' : ', ' . format_person($this->item->pi_2)); ?></dd>
+        <?php if (!empty($this->item->collaborators)) : ?>
         <dt>Collaborators</dt>
         <dd><?php 
             $i = 0;
             $c = count($this->item->collaborators) - 1;
             foreach($this->item->collaborators as $collaborator) {
-                echo format_person($collaborator->collaborator) . ($i <  $c ? ', ' : '');
+                echo format_person($collaborator['collaborator']) . ($i <  $c ? ', ' : '');
                 $i++;
             }
         ?></dd>
+        <?php endif; ?>
         <dt>Topics</dt>
         <dd><?php 
             $i = 0;
-            $topics = $this->item->topics->getProperties();
+            $topics = $this->item->topic_details;
             $c = count($topics) - 1;
-            foreach($topics as $topic) {
+            foreach($topics as $i => $topic) {
                 echo $topic . ($i <  $c ? ', ' : '');
                 $i++;
             }
@@ -74,7 +76,7 @@ ob_start();
         <dd><?php $i = 0;
             $c = count($this->item->funders) - 1;
             foreach($this->item->funders as $funder) {
-                echo $funder->funder . ($i <  $c ? ', ' : '');
+                echo $funder['funder'] . ($i <  $c ? ', ' : '');
                 $i++;
             } ?></dd>
         <dt>Start year</dt>
