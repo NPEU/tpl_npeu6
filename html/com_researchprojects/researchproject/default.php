@@ -72,6 +72,7 @@ ob_start();
                 $i++;
             }
         ?></dd>
+        <?php if (!empty($this->item->funders)) : ?>
         <dt>Funder<?php echo $fu_s; ?></dt>
         <dd><?php $i = 0;
             $c = count($this->item->funders) - 1;
@@ -79,6 +80,7 @@ ob_start();
                 echo $funder['funder'] . ($i <  $c ? ', ' : '');
                 $i++;
             } ?></dd>
+        <?php endif; ?>
         <dt>Start year</dt>
         <dd><?php echo $this->item->end_year; ?></dd>
         <dt>End year</dt>
