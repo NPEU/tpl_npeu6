@@ -67,7 +67,7 @@ ob_start();
             $i = 0;
             $topics = $this->item->topic_details;
             $c = count($topics) - 1;
-            foreach($topics as $i => $topic) {
+            foreach($topics as $topic) {
                 echo $topic . ($i <  $c ? ', ' : '');
                 $i++;
             }
