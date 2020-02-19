@@ -57,6 +57,7 @@
         <position>6-footer-top</position>
         <position>6-footer-mid-left</position>
         <position>6-footer-mid-right</position>
+        <position>6-footer-bottom</position>
     </positions>
 
     <config>

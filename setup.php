@@ -104,6 +104,7 @@ $modules__bottom               = trim(JHtml::_('content.prepare', '{loadposition
 $modules__footer_top           = trim(JHtml::_('content.prepare', '{loadposition 6-footer-top,block}'));
 $modules__footer_mid_left      = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}'));
 $modules__footer_mid_right     = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,block}'));
+$modules__footer_bottom        = trim(JHtml::_('content.prepare', '{loadposition 6-footer-bottom,block}'));
 
 
 #echo '<pre>'; var_dump($modules__sidebar_bottom); echo '</pre>'; exit;
