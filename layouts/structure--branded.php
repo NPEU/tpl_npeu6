@@ -380,6 +380,8 @@
             </div>
             <?php endif; ?>
 
+            <?php echo $modules__footer_bottom; ?>
+
             <div class="c-page-footer  u-text-align--center"><?php /* @TODO: sort out footer from form input. */ ?>
                 <p class="c-utilitext">
                     <?php echo $page_footer_text; ?>
