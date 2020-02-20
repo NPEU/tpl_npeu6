@@ -23,6 +23,10 @@
                     <?php endif; ?>
                 </p>
             </div>
+            
+            <?php if ($modules__top != '') : ?>
+            <?php echo $modules__top; ?>
+            <?php endif; ?>
 
             <div class="u-padding--bottom--s">
                 <div class="l-col-to-row-wrap">

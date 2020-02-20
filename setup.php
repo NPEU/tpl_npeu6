@@ -93,6 +93,7 @@ $page_brand_folder = $page_brand->alias . '/';
 // processed too late and get missed.
 // Pre-rendering all modules here to avoid that. Not sure if there will be other consequences.
 jimport('joomla.application.module.helper');
+$modules__top                  = trim(JHtml::_('content.prepare', '{loadposition 1-top,basic}'));
 $modules__header_nav_bar       = trim(JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}'));
 $modules__main_breadcumbs      = trim(JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}'));
 $modules__main_upper           = trim(JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}'));
