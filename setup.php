@@ -108,6 +108,8 @@ $modules__footer_mid_right     = trim(JHtml::_('content.prepare', '{loadposition
 $modules__footer_bottom        = trim(JHtml::_('content.prepare', '{loadposition 6-footer-bottom,block}'));
 
 
+$modules__log_in_out_button        = trim(JHtml::_('content.prepare', '{loadposition log-in-out-button,basic}'));
+
 #echo '<pre>'; var_dump($modules__sidebar_bottom); echo '</pre>'; exit;
 
 // Branded search pages need an extra query string parameter to limit the search to just that part
