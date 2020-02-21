@@ -10,9 +10,11 @@
 defined('_JEXEC') or die;
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
-
+use Joomla\CMS\Factory;
 $session = JFactory::getSession();
+$jinput = Factory::getApplication()->input;
 
+#echo '<pre>'; var_dump($input->get('return', '/user-profile')); echo '</pre>'; exit;
 ?>
 <?php echo TplNPEU6Helper::get_messages(); ?>
 
@@ -78,7 +80,7 @@ $session = JFactory::getSession();
                     <?php endif; ?>
 
                     <button type="submit"><?php echo JText::_('JLOGIN'); ?></button>
-                    <input type="hidden" name="return" value="<?php echo base64_encode($this->params->get('login_redirect_url', $this->form->getValue('return'))); ?>" />
+                    <input type="hidden" name="return" value="<?php echo $jinput->get('return', '/user-profile'); ?>" />
                     <?php echo JHtml::_('form.token'); ?>
 
                     <p class="u-text-group  u-text-group--wide-space">

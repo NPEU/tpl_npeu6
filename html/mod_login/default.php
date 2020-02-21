@@ -15,7 +15,7 @@ JHtml::_('behavior.keepalive');
 JHtml::_('bootstrap.tooltip');
 
 ?>
-<a href="/login"><span>NPEU Login</span></a>
+<a href="/login?return=<?php echo base64_encode(JUri::getInstance()->toString()); ?>"><span>NPEU Login</span></a>
 <?php return; ?>
 
 
