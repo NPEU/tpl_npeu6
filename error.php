@@ -1,6 +1,15 @@
 <?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  tpl_npeu6
+ *
+ * @copyright   Copyright (C) NPEU 2019.
+ * @license     MIT License; see LICENSE.md
+ */
+
 defined('_JEXEC') or die;
-ini_set('display_errors', 'On');
+
+#ini_set('display_errors', 'On');
 
 if (!isset($this->error)) {
 	$this->error = JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
