@@ -47,54 +47,56 @@ $j = 0;
 $item = array_shift($items);
 $count--;
 ?>
-<div class="l-col-to-row--flush-edge-gutters  u-space--below">
-    <div class="l-col-to-row  l-col-to-row--gutter--medium">
-        <div class="l-col-to-row__item  ff-width-100--55--50">
-            <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
-        </div>
+<div class="l-col-to-row-wrap  u-space--below">
+    <div class="l-col-to-row--flush-edge-gutters">
+        <div class="l-col-to-row  l-col-to-row--gutter--medium">
+            <div class="l-col-to-row__item  ff-width-100--55--50">
+                <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+            </div>
 
-        <div class="l-col-to-row__item  ff-width-100--55--50">
-        <?php
-        // Have a go at providing useful classes:
-        $i = 0;
-       /* if ($count >= 2 && $count < 5) {
-            $wrap_class  = '';
-            $outer_class = 'l-col-to-row--flush-edge-gutters';
-            $inner_class = 'l-col-to-row  l-col-to-row--gutter--medium';
-            $portion ='50';
-            if ($count == 3) {
-                $portion = '33-333';
-            }
-            if ($count == 4) {
-                $portion = '25';
-            }
-            $item_class  = 'l-col-to-row__item  ff-width-100--45--' . $portion;
-        } else {*/
-            $wrap_class   = 'l-distribute-wrap';
-            $outer_class  = 'l-distribute--flush-edge-gutters';
-            $inner_class  = 'l-distribute  l-distribute--gutter--small  l-distribute--limit-30'; 
-        /*}*/
-        ?>
-            <div class="<?php echo $wrap_class; ?>">
-                <div class="<?php echo $outer_class; ?>">
-                    <ul class="<?php echo $inner_class; ?>">
-                        <?php foreach ($items as $item): $j++; 
-                        
-                        // Ditch hero images after first 2:
-                        if ($j > 2) {
-                            $item->skip_image = true;
-                        }
-                        
-                        ?>
-                        <li>
-                            <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+            <div class="l-col-to-row__item  ff-width-100--55--50">
+            <?php
+            // Have a go at providing useful classes:
+            $i = 0;
+           /* if ($count >= 2 && $count < 5) {
+                $wrap_class  = '';
+                $outer_class = 'l-col-to-row--flush-edge-gutters';
+                $inner_class = 'l-col-to-row  l-col-to-row--gutter--medium';
+                $portion ='50';
+                if ($count == 3) {
+                    $portion = '33-333';
+                }
+                if ($count == 4) {
+                    $portion = '25';
+                }
+                $item_class  = 'l-col-to-row__item  ff-width-100--45--' . $portion;
+            } else {*/
+                $wrap_class   = 'l-distribute-wrap';
+                $outer_class  = 'l-distribute--flush-edge-gutters';
+                $inner_class  = 'l-distribute  l-distribute--gutter--small  l-distribute--limit-30'; 
+            /*}*/
+            ?>
+                <div class="<?php echo $wrap_class; ?>">
+                    <div class="<?php echo $outer_class; ?>">
+                        <ul class="<?php echo $inner_class; ?>">
+                            <?php foreach ($items as $item): $j++; 
+                            
+                            // Ditch hero images after first 2:
+                            if ($j > 2) {
+                                $item->skip_image = true;
+                            }
+                            
+                            ?>
+                            <li>
+                                <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
 <?php endif; ?>

@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 ?>
-<?php #echo TplNPEU6Helper::get_messages(); ?>
+<?php echo TplNPEU6Helper::get_messages(); ?>
 <form action="<?php echo JRoute::_('index.php?option=com_users&task=reset.confirm'); ?>" method="post">
     <?php $i = 0; foreach ($this->form->getFieldsets() as $group => $fieldset):// Iterate through the form fieldsets and display each one.?>
     <?php if ($group == 'params') { continue; } ?>

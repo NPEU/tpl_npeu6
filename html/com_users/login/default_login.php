@@ -16,7 +16,7 @@ $jinput = Factory::getApplication()->input;
 
 #echo '<pre>'; var_dump($input->get('return', '/user-profile')); echo '</pre>'; exit;
 ?>
-<?php #echo TplNPEU6Helper::get_messages(); ?>
+<?php echo TplNPEU6Helper::get_messages(); ?>
 
 <?php if(isset($_GET['logged-out'])): ?>
 <div>

@@ -105,7 +105,7 @@ $doc->include_joomla_scripts = true;
 #echo '<pre>'; var_dump($page_head_data); echo '</pre>'; exit;
 #exit;
 ?>
-<?php #echo TplNPEU6Helper::get_messages(); ?>
+<?php echo TplNPEU6Helper::get_messages(); ?>
 <form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_users&task=profile.save&redirect=user-profile/edit'); ?>" method="post" enctype="multipart/form-data">
     <div class="u-text-align--center  c-system-message  u-space--below">
         <p><?php echo JText::_('PLG_USER_STAFFPROFILE_COMPULSORY_MESSAGE'); ?></p>
