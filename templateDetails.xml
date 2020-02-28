@@ -10,7 +10,7 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>1.56.0</version>
+    <version>1.57.0</version>
     <!-- The description is optional and defaults to the name -->
     <!--<description>TPL_NPEU6_DESCRIPTION</description>-->
     <!-- The above should work but doesn't and results in the untranslated string being shown. -->
