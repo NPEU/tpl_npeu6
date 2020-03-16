@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die;
 
+require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/administrator/components/com_brands/vendor/autoload.php';
+
+use SVG\SVG;
+
 $db = JFactory::getDBO();
 
 $query = $db->getQuery(true);
@@ -22,6 +26,12 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
+// This would probably be best done at the Brand component level, but that is more work.
+// The NEXT time I find I need to use this, I should add a column to the BRand table via SQL update
+// and add the already-extracted title to the data before saving in the controller.
+$logo_image = @SVG::fromString($brand->logo_svg);
+$logo_svg_doc = $logo_image->getDocument();
+$logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
 ?>
 <div class="d-bands--bottom  <?php echo $theme; ?>">
     <div class="l-col-to-row-wrap">
@@ -42,7 +52,7 @@ $theme = 't-' . $page_brand->alias;
                     <div class="u-text-align--center u-fill-width u-space--below">
                         <div>
                             <a href="<?php echo $params->get('brand_url'); ?>" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
-                                <img src="/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: NIHR - National Institute of Health Research" height="80">
+                                <img src="/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80">
                             </a>
                         </div>
                     </div>
