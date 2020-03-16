@@ -52,7 +52,7 @@ $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
                     <div class="u-text-align--center u-fill-width u-space--below">
                         <div>
                             <a href="<?php echo $params->get('brand_url'); ?>" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
-                                <img src="/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80">
+                                <img src="/img/brand-logos/funder/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/img/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80">
                             </a>
                         </div>
                     </div>
