@@ -23,6 +23,7 @@ $theme = 't-' . $page_brand->alias;
 <div class="c-signpost-wrap  u-fill-height">
     <div class="c-signpost">
         <?php foreach ($signs as $sign): ?>
+        <?php if (isset($sign->status) && $sign->status == '0') { continue; } ?>
         <?php
             $sign_class= 'c-sign';
             if ($sign->colspan) {
