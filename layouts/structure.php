@@ -8,6 +8,7 @@
     <meta name="keywords" content="<?php echo $page_keywords; ?>" />
     <?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
 
     <style>
         /* FOUC font match fallback */
@@ -17,7 +18,7 @@
         font-family: Arial
         letter-spacing: 0.35px
         word-spacing: -0.4px;
-        
+
         /* Tiny fallback styles */
         /* (https://github.com/Fall-Back/Base/edit/master/tiny-fallback-styles.css) */
         body{padding:1em;margin:0 auto;max-width: 50em;}
@@ -66,7 +67,7 @@
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
     <?php endforeach; ?>
-    
+
     <?php if (!empty($doc->joomla_stylesheets)): ?>
    <?php foreach($doc->joomla_stylesheets as $stylesheet => $options): ?>
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
@@ -158,13 +159,13 @@
         })();
     </script>
     <?php $piwik_url = '?url=' . base64_encode($_SERVER['REQUEST_URI']) . '&title=' . base64_encode($page_title); ?>
-    
+
     <!-- End Piwik Code -->
 
     <!-- Social Media -->
     <?php if (!empty($twitter)): ?>
     <?php foreach ($twitter as $name => $value): ?>
-    
+
     <meta name="twitter:<?php echo $name; ?>" content="<?php echo $value; ?>">
     <?php endforeach; ?>
     <?php endif;?>
@@ -197,14 +198,14 @@
     </div>
 
     <?php require_once(__DIR__ . '/' . $inner_structure . '.php'); ?>
-    
+
     <?php /*
-    
+
     {% if page.load_highlighter != false %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     {% endif %}
-    
+
     */ ?>
 
     <?php if (!empty($page_script)): ?>
