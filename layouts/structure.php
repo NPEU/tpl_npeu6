@@ -151,7 +151,7 @@
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-            var u="//<?php echo $_SERVER['SERVER_NAME']; ?>/administrator/components/com_piwik/piwik/";
+            var u="https://<?php echo $_SERVER['SERVER_NAME']; ?>/administrator/components/com_piwik/piwik/";
             _paq.push(['setTrackerUrl', u+'piwik.php']);
             _paq.push(['setSiteId', '1']);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
