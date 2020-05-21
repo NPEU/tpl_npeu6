@@ -70,7 +70,7 @@ if ($count >= 2 && $count < 5) {
     <section class="c-panel__module">
         <header class="u-text-group  u-text-group--push-apart  u-space--below">
             <h2>Trial Updates</h2>
-            <p><a href="<?php echo $items[0]->category_route; ?>" class="c-cta  c-cta--has-icon">See all updates<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+            <p><a href="<?php echo $items[0]->category_route; ?>" class="c-cta  c-cta--has-icon">See all updates<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
         </header>
         
         <div class="l-col-to-row--flush-edge-gutters">

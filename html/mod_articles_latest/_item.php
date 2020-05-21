@@ -52,7 +52,7 @@ include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
                     </p> 
                 </div>
                 <!--<div class="c-card__footer  u-text-align--right">
-                    <a href="#" class="c-cta  c-cta--has-icon">Read<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                    <a href="#" class="c-cta  c-cta--has-icon">Read<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                 </div>-->
             </div>
         </a>

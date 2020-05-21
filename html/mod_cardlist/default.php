@@ -25,7 +25,7 @@ $hx = 'h' . $hx;
         <?php foreach ($params->get('cards') as $card) :
 
         if (!empty($card->link && !empty($card->link_text))) {
-            $card->body .= '<p class="c-card__cta"><a href="' . $card->link .'" class="c-cta  c-cta--has-icon">' . $card->link_text . '<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>';
+            $card->body .= '<p class="c-card__cta"><a href="' . $card->link .'" class="c-cta  c-cta--has-icon">' . $card->link_text . '<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>';
         }
 
         $full_link = false;

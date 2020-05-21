@@ -49,7 +49,7 @@ defined('_JEXEC') or die;
                     <?php echo $card_data['body']; ?>
                     <?php if (empty($card_data['full_link'])) : ?>
                     <p class="u-text-align--right">
-                        <a href="<?php echo $card_data['link']; ?>" class="c-cta  c-cta--has-icon">Read more<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                        <a href="<?php echo $card_data['link']; ?>" class="c-cta  c-cta--has-icon">Read more<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                     </p>
                     <?php endif; ?>
                 </div>
@@ -61,7 +61,7 @@ defined('_JEXEC') or die;
                     </p>
                 </div>
                 <!--<div class="c-card__footer  u-text-align--right">
-                    <a href="#" class="c-cta  c-cta--has-icon">Read<svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                    <a href="#" class="c-cta  c-cta--has-icon">Read<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                 </div>-->
                 <?php endif; ?>
             </div>

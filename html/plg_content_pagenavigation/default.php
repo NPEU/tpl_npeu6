@@ -20,7 +20,7 @@ $lang = JFactory::getLanguage();
         $direction = $lang->isRtl() ? 'right' : 'left'; ?>
         <li class="n-pagination__item">
             <a class="n-pagination__link" aria-label="<?php echo JText::sprintf('PAGINATION_PREVIOUS_TITLE', htmlspecialchars($rows[$location-1]->title)); ?>" href="<?php echo $row->prev; ?>" rel="prev">
-                <svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-left"></use></svg><?php echo '<span aria-hidden="true">' . JText::_('PAGINATION_PREVIOUS') . '</span>'; ?>
+                <svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-left"></use></svg><?php echo '<span aria-hidden="true">' . JText::_('PAGINATION_PREVIOUS') . '</span>'; ?>
             </a>
         </li>
     <?php endif; ?>
@@ -28,7 +28,7 @@ $lang = JFactory::getLanguage();
         $direction = $lang->isRtl() ? 'left' : 'right'; ?>
         <li class="n-pagination__item  u-space--left--auto">
             <a class="n-pagination__link" aria-label="<?php echo JText::sprintf('PAGINATION_NEXT_TITLE', htmlspecialchars($rows[$location+1]->title)); ?>" href="<?php echo $row->next; ?>" rel="next">
-                <?php echo '<span aria-hidden="true">' . JText::_('PAGINATION_NEXT') . '</span>'; ?><svg display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg>
+                <?php echo '<span aria-hidden="true">' . JText::_('PAGINATION_NEXT') . '</span>'; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg>
             </a>
         </li>
     <?php endif; ?>
