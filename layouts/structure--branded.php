@@ -161,11 +161,16 @@
                         <?php if ($page_is_landing) : ?>
                         <?php if ($show_page_heading) : ?>
                         <div class="c-panel">
-                            <?php if (isset($doc->header_cta)) : ?>
+                            <?php if (isset($doc->header_cta) || $is_blog) : ?>
                             <header class="u-text-group  u-text-group--push-apart">
                                 <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
                                 <p>
+                                    <?php if (isset($doc->header_cta)) : ?>
                                     <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                                    <?php endif; ?>
+                                    <?php if ($is_blog) : ?>
+                                    <a href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-rss"></use></svg></a>
+                                    <?php endif; ?>
                                 </p>
                             </header>
                             <?php else: ?>
@@ -186,11 +191,16 @@
                                 <?php echo $modules__main_upper; /*<jdoc:include type="modules" name="3-main-upper" style="basic" />*/?>
 
                                 <div class="c-panel">
-                                    <?php if (isset($doc->header_cta)) : ?>
+                                    <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                     <header class="u-text-group  u-text-group--push-apart">
                                         <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
                                         <p>
+                                            <?php if (isset($doc->header_cta)) : ?>
                                             <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                                            <?php endif; ?>
+                                            <?php if ($is_blog) : ?>
+                                            <a href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-rss"></use></svg></a>
+                                            <?php endif; ?>
                                         </p>
                                     </header>
                                     <?php else: ?>

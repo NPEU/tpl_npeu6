@@ -7,8 +7,14 @@
     <?php if($page_keywords): ?>
     <meta name="keywords" content="<?php echo $page_keywords; ?>" />
     <?php endif; ?>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
+    <?php if ($is_blog): ?>
+
+    <link href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0">
+    <link href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0">
+    <?php endif; ?>
 
     <style>
         /* FOUC font match fallback */
