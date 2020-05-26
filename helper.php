@@ -269,7 +269,7 @@ class TplNPEU6Helper
             trigger_error('Function \'html_id\' expects argument 1 to be an string', E_USER_ERROR);
             return false;
         }
-        $return = strtolower(trim(preg_replace('/\s+/', '-', self::strip_punctuation($text))));
+        $return = strtolower(trim(trim(preg_replace('/\s+/', '-', self::strip_punctuation($text))), '-'));
         return $return;
     }
 
