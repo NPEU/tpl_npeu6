@@ -18,12 +18,15 @@
 
     <style>
         /* FOUC font match fallback */
-        font-size: 15px
-        line-height: 1.6
-        visibility: visible
-        font-family: Arial
-        letter-spacing: 0.35px
-        word-spacing: -0.4px;
+        /* Match your final body webfont with this tool: https://meowni.ca/font-style-matcher/ */
+        body {
+            font-size: 15px
+            line-height: 1.6
+            visibility: visible
+            font-family: Arial
+            letter-spacing: 0.35px
+            word-spacing: -0.4px;
+        }
 
         /* Tiny fallback styles */
         /* (https://github.com/Fall-Back/Base/edit/master/tiny-fallback-styles.css) */
