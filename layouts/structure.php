@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-gb" class="">
+<html lang="en-gb" class="env-<?php echo $env; ?>">
 <head>
     <meta charset="utf-8">
     <title><?php echo $page_title; ?></title>
@@ -19,14 +19,7 @@
     <style>
         /* FOUC font match fallback */
         /* Match your final body webfont with this tool: https://meowni.ca/font-style-matcher/ */
-        body {
-            font-size: 15px
-            line-height: 1.6
-            visibility: visible
-            font-family: Arial
-            letter-spacing: 0.35px
-            word-spacing: -0.4px;
-        }
+        body{font-size:15px;line-height:1.6;visibility:visible;font-family:Arial,sans-serif;letter-spacing:0.35px;word-spacing:-0.4px;}
 
         /* Tiny fallback styles */
         /* (https://github.com/Fall-Back/Base/edit/master/tiny-fallback-styles.css) */
