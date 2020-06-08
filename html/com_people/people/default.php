@@ -67,7 +67,11 @@ unset($this->people['*']);
         </div>
     </div>
 </div>
-
+<?php
+if (!is_array($this->people) || empty($this->people)) {
+    return;
+}
+?>
 <div class="l-blockrow">
     <div class="c-panel  u-padding--sides--l">
         <div filterable_group>
