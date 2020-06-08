@@ -49,7 +49,7 @@ function get_team($team) {
                 <?php foreach($team as $id => $member): ?>
                 <li class="l-gallery-grid__item" filterable_item>
                     <article class="c-glimpse  u-space--none">
-                        <a href="/about/people/<?php echo $member['alias']; ?>" aria-describedby="<?php echo $html_id; ?>" class="c-glimpse__link">
+                        <a href="/about/people/<?php echo $member['alias']; ?>" class="c-glimpse__link">
                             <div class="c-glimpse__image  c-glimpse__image--rounded">
                                 <div class="l-proportional-container  l-proportional-container--1-1">
                                     <div class="l-proportional-container__content">
