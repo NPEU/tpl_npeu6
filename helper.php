@@ -293,7 +293,7 @@ class TplNPEU6Helper
             return $filename;
         }
         
-        $stamp = filemtime($root_path . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $filename));
+        $stamp = filemtime($root_path . DIRECTORY_SEPARATOR . trim(DIRECTORY_SEPARATOR, str_replace('/', DIRECTORY_SEPARATOR, $filename)));
         $return = preg_replace('/(.*?)((\.min)?\..+?)$/', '$1.' . $stamp . '$2', $filename);
         return $return;
     }
