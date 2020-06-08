@@ -71,7 +71,7 @@
     <?php endforeach; ?>
 
     <?php if (!empty($doc->joomla_stylesheets)): ?>
-   <?php foreach($doc->joomla_stylesheets as $stylesheet => $options): ?>
+    <?php foreach($doc->joomla_stylesheets as $stylesheet => $options): ?>
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
         only print, screen and (min-width: 1vm),
         only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
