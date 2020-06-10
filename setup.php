@@ -435,6 +435,7 @@ if ($page_has_hero) {
             $image_meta = $image_meta_response['data'];
         }
 
+        $image->credit = false;
         if (isset($image_meta['copyright'])) {
             $image->credit = trim(TplNPEU6Helper::tweak_markdown_output(
                 Markdown::defaultTransform($image_meta['copyright']),
