@@ -153,9 +153,14 @@ class TplNPEU6Helper
     public static function get_menu_item()
     {
         if (!self::$menu_item) {
-            self::$menu_item = JFactory::getApplication()->getMenu()->getActive();
+            $menu_item = JFactory::getApplication()->getMenu()->getActive();
+            
+            if (is_null($menu_item)) {
+                
+                $menu_item = JFactory::getApplication()->getMenu()->getItem(120);
+            }
         }
-
+        self::$menu_item = $menu_item;
 		return self::$menu_item;
     }
 
