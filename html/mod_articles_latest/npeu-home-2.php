@@ -11,15 +11,6 @@ defined('_JEXEC') or die;
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 
-// Hack for template migration. DELETE THIS WHEN MIGRATOPM COMPLETE:
-$tmpl = TplNPEU6Helper::get_template();
-
-if ($tmpl->template == 'npeu5') {
-    require dirname(dirname(dirname(__DIR__))) .'/npeu5/html/mod_articles_latest/home.php';
-    return;
-}
-
-
 $page_brand = TplNPEU6Helper::get_brand();
 
 $theme = '';
