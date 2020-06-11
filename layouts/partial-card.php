@@ -19,10 +19,11 @@ defined('_JEXEC') or die;
     title
     date_format
     publish_date
+    state
 
 */
 ?>
-<div class="c-card-wrap">
+<div class="c-card-wrap<?php if ($this->item->state != 1): ?>  c-card--unpublished<?php endif; ?>">
     <article class="c-card  <?php echo $card_data['theme']; ?>">
         <?php if (!empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>" class="c-card__full-link  <?php echo $card_data['theme']; ?>  u-fill-height--column"><?php endif; ?>
             <?php if (!empty($card_data['image'])) : ?>
