@@ -91,19 +91,34 @@ class TplNPEU6Helper
      *
      * @return object
      */
-    public static function get_brand()
+    public static function get_brand($brand_id = false)
     {
-        if (!self::$brand) {
+        $get_page_brand = !$brand_id;
+        
+
+        // If we haven't got a brand id supplied, we're looking for the page brand.
+        // If we have that, return it.
+        if ($get_page_brand && self::$brand) {
+            return self::$brand;
+        }
+        
+        // So we haven't returned a page brand yet, are we looking for that?
+        // If so get the brand id.
+        if ($get_page_brand) {
             //$menu_item = self::get_menu_item();
             //$top_item_id = $menu_item->tree[0];
 
             $template = self::get_template();
             $brand_id = $template->params->get('brand_id', false);
 
+            // We haven't got a page brand, so quit.
             if (!$brand_id) {
                 return false;
             }
-
+        }
+        
+        // We have a valid brand id now, so let's get the brand data:
+        if ($brand_id) {
             $db = JFactory::getDBO();
 
             $query = $db->getQuery(true);
@@ -111,10 +126,16 @@ class TplNPEU6Helper
             $query->from('#__brands');
             $query->where('id = ' . $brand_id);
             $db->setQuery($query);
-            self::$brand = $db->loadObject();
+            $brand = $db->loadObject();
+            
+            if ($get_page_brand) {
+                self::$brand = $brand;
+            }
+            
+            return $brand;
         }
 
-		return self::$brand;
+		return false;
     }
 
     /**
@@ -160,6 +181,7 @@ class TplNPEU6Helper
                 $menu_item = JFactory::getApplication()->getMenu()->getItem(120);
             }
         }
+        #echo '<pre>'; var_dump($menu_item); echo '</pre>'; #exit;
         self::$menu_item = $menu_item;
 		return self::$menu_item;
     }
