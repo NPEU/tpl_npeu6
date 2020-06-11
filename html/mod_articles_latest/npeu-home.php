@@ -21,7 +21,7 @@ $date_format = 'd M Y';
 $items = $list;
 $count = $params->get('count');
 
-// Note this is a bit rigid. Maybe move to seperate templates or allow layout ff_widths to responsd
+// Note this is a bit rigid. Maybe move to separate templates or allow layout ff_widths to respond
 // to $count in some way?
 ?>
 <?php if ($count == 1): ?>
