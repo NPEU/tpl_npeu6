@@ -91,8 +91,8 @@ $this->item->headline_image = $headline_image;
 
 // If it's a news item:
 if ($this->item->catid == 63) {
-    $twitter  = '<p>';
-    $twitter .= '    <a href="https://twitter.com/intent/tweet?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . $this->item->readmore_link) . '&url=' . $this->item->readmore_link . '&via=NPEU_Oxford" class="twitter-share-button">Tweet</a>';
+    $twitter  = '<p class="c-utilitext">';
+    $twitter .= '    <a href="https://twitter.com/intent/tweet?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . $this->item->readmore_link) . '&url=' . $this->item->readmore_link . '&via=NPEU_Oxford" class="twitter-share-button"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-twitter"></use></svg> <span>Tweet</span></a>';
     $twitter .= '</p>';
 
     if (!empty($this->item->fulltext)) {
