@@ -181,7 +181,6 @@ class TplNPEU6Helper
                 $menu_item = JFactory::getApplication()->getMenu()->getItem(120);
             }
         }
-        #echo '<pre>'; var_dump($menu_item); echo '</pre>'; #exit;
         self::$menu_item = $menu_item;
 		return self::$menu_item;
     }
