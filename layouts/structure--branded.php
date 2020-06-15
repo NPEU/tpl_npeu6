@@ -168,7 +168,7 @@
                                     <?php if (isset($doc->header_cta)) : ?>
                                     <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                     <?php endif; ?>
-                                    <?php if ($is_blog) : ?>
+                                    <?php if ($is_blog && $page_is_subroute == false) : ?>
                                     <a href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-rss"></use></svg></a>
                                     <?php endif; ?>
                                 </p>
@@ -198,7 +198,7 @@
                                             <?php if (isset($doc->header_cta)) : ?>
                                             <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                             <?php endif; ?>
-                                            <?php if ($is_blog) : ?>
+                                            <?php if ($is_blog && $page_is_subroute == false) : ?>
                                             <a href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-rss"></use></svg></a>
                                             <?php endif; ?>
                                         </p>

@@ -83,7 +83,9 @@ $uri_route  = trim($uri->getPath(), '/');
 
 $page_is_subroute = ($menu_route == $uri_route) ? false : true;
 
-
+#echo '<pre>'; var_dump($menu_route); echo '</pre>'; #exit;
+#echo '<pre>'; var_dump($uri_route); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($page_is_subroute); echo '</pre>'; exit;
 // Brand
 $page_brand        = TplNPEU6Helper::get_brand();
 $page_brand_folder = $page_brand->alias . '/';
