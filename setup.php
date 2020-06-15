@@ -182,7 +182,7 @@ if ($page_heading != $page_template_params->site_title) {
    $page_title .= ' | ' . $page_template_params->site_title;
 }
 
-$page_has_article              = !empty($doc->article);
+$page_has_article = !empty($doc->article);
 
 // Category blogs should be assumed to use 'Read More' as-is, and treat introtext as just that, NOT
 // priority content.
@@ -467,6 +467,17 @@ $page_footer_text = TplNPEU6Helper::tweak_markdown_output(
     array('trim_paragraph' => true, 'add_link_spans' => true)
 );
 
+// Article Brand (only for NPEU News category items)#
+$page_article_brand = false;
+if ($page_has_article) {
+    if ($brand_alias = $doc->article->params->get('brand', false)) {
+        if ($brand_alias != 1) {
+            $brand_id = explode('-', $brand_alias)[1];
+            $page_article_brand = TplNPEU6Helper::get_brand($brand_id);
+        }
+    }
+    
+}
 
 // Social Media:
 

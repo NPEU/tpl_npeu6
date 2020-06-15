@@ -293,7 +293,17 @@
                                     <?php endif; ?>
                                 </div>
                                 <?php if ($page_has_article) : ?>
+                                <?php if ($page_article_brand) : ?>
+                                <div class="u-max-measure  u-padding--s">
+                                    <p>
+                                        <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
+                                            <img alt="Logo: <?php echo $page_article_brand->name; ?>" height="60" onerror="this.src='<?php echo $page_article_brand->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $page_article_brand->logo_svg_path; ?>">
+                                        </a>
+                                    </p>
+                                </div>
+                                <?php endif; ?>
                                 <footer class="t-neutral  d-background--very-light  u-max-measure  u-padding--s">
+                                    
                                     <p class="c-utilitext  u-text-group  u-text-group--push-apart">
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                         <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
