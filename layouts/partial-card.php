@@ -23,7 +23,7 @@ defined('_JEXEC') or die;
 
 */
 ?>
-<div class="c-card-wrap<?php if ($this->item->state != 1): ?>  c-card--unpublished<?php endif; ?>">
+<div class="c-card-wrap<?php if ($card_data['state'] != 1): ?>  c-card--unpublished<?php endif; ?>">
     <article class="c-card  <?php echo $card_data['theme']; ?>">
         <?php if (!empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>" class="c-card__full-link  <?php echo $card_data['theme']; ?>  u-fill-height--column"><?php endif; ?>
             <?php if (!empty($card_data['image'])) : ?>

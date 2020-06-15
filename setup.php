@@ -431,6 +431,8 @@ if ($page_has_hero) {
             'https://' . $_SERVER['HTTP_HOST'] . '/plugins/system/imagemeta/ajax/image-meta.php?image=' . base64_encode($image->image)
         ), true);
 
+        #echo '<pre>'; var_dump($image_meta_response); echo '</pre>'; exit;
+
         if (isset($image_meta_response['success']) && isset($image_meta_response['data'])) {
             $image_meta = $image_meta_response['data'];
         }
@@ -444,6 +446,7 @@ if ($page_has_hero) {
         }
     }
 }
+
 #echo '<pre>'; var_dump($page_hero); echo '</pre>'; exit;
 
 $page_hero         = ($page_has_hero && !$page_has_carousel) ? $page_hero['hero_image0'] : false;
@@ -472,7 +475,7 @@ $page_article_brand = false;
 if ($page_has_article) {
     if ($brand_alias = $doc->article->params->get('brand', false)) {
         if ($brand_alias != 1) {
-            $brand_id = explode('-', $brand_alias)[1];
+            $brand_id = substr($brand_alias, strrpos($brand_alias, '-') + 1);
             $page_article_brand = TplNPEU6Helper::get_brand($brand_id);
         }
     }
