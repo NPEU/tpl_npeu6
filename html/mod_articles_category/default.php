@@ -58,7 +58,7 @@ if ($count >= 2 && $count < 5) {
                 $card_data['image']        = $fields[0]->rawvalue;
                 $card_data['image_alt']    = $fields[1]->rawvalue;
                 $card_data['title']        = $item->title;
-                #$card_data['publish_date'] = $item->publish_up;
+                $card_data['state']        = (int) $item->state;
                 #$card_data['date_format']  = $date_format;
 
                 include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
