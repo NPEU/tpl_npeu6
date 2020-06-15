@@ -43,6 +43,7 @@ $uri   = JUri::getInstance();
 #echo '<pre>'; var_dump($user); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($user->getAuthorisedGroups()); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($uri); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($uri->getPath()); echo '</pre>'; exit;
 
 // If the user has the staff group id (10) in their auth groups array, they are a member of staff,
 // so provide a short cut:

@@ -12,8 +12,8 @@
     <meta name="format-detection" content="telephone=no">
     <?php if ($is_blog && $page_is_subroute == false): ?>
 
-    <link href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0">
-    <link href="<?php echo $_SERVER['REQUEST_URI']; ?>?format=feed&type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0">
+    <link href="<?php echo $uri->getPath() ?>?format=feed&type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0">
+    <link href="<?php echo $uri->getPath() ?>?format=feed&type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0">
     <?php endif; ?>
 
     <style>
