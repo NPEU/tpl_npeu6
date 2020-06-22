@@ -84,8 +84,8 @@ function get_projects($projects) {
             <ul class="l-gallery-grid  l-gallery-grid--gutter--medium  l-gallery-grid--basis-20">
             
                 <?php foreach($projects as $project):
-                    $svg_path = '/img/brand-logos/unit/' . $project['alias'] . '-logo.svg';
-                    $png_path = '/img/brand-logos/unit/' . $project['alias'] . '-logo.png';
+                    $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
+                    $png_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.png';
                     $svg_info = svg_info($svg_path);
                 ?>
                 <li class="l-gallery-grid__item">

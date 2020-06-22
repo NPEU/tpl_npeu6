@@ -28,7 +28,7 @@ ob_start();
                 <div class="l-proportional-container__content">
                     <div class="u-image-cover  js-image-cover">
                         <div class="u-image-cover__inner">
-                            <img src="/img/npeu/hero-image-404.jpg" alt="" class="u-image-cover__image" width="200">
+                            <img src="/assets/images/npeu/hero-image-404.jpg" alt="" class="u-image-cover__image" width="200">
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@ ob_start();
         <div class="c-hero__message">
             <p class="u-padding--s">
                 <a href="/" class="c-badge">
-                    <img src="/img/brand-logos/unit/npeu-logo.svg" onerror="this.src='/img/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
+                    <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                 </a>
             </p>
             <p class="u-padding--top--s  u-padding--bottom--s  u-padding--sides">Uh oh. We couldn't find that page.</p>
@@ -107,19 +107,19 @@ ob_start();
 
                 <div class="u-padding--s  l-center">
                     <a href="https://www.npeu.ox.ac.uk/athena-swan" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                        <img src="/img/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/img/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="50">
+                        <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="50">
                     </a>
                 </div>
 
                 <div class="u-padding--s  l-center">
                     <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                        <img src="/img/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/img/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
+                        <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
                     </a>
                 </div>
 
                 <div class="u-padding--s  l-center">
                     <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                        <img src="/img/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/img/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
+                        <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
                     </a>
                 </div>
 
