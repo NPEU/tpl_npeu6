@@ -383,7 +383,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="u-padding--s  l-center">
-                        <a href="https://www.npeu.ox.ac.uk/athena-swan" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
+                        <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
                             <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
                         </a>
                     </div>
