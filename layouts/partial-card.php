@@ -16,6 +16,7 @@ defined('_JEXEC') or die;
     link
     image
     image_alt
+    image_width
     title
     date_format
     publish_date
@@ -32,7 +33,8 @@ defined('_JEXEC') or die;
                     <div class="l-proportional-container__content">
                         <div class="u-image-cover  js-image-cover">
                             <div class="u-image-cover__inner">
-                                <img src="/<?php echo $card_data['image']; ?>" alt="<?php echo $card_data['image_alt']; ?>" class="u-image-cover__image" width="150">
+                                <?php /*<img src="/<?php echo $card_data['image'] . (empty($card_data['image_width']) ? '' : '?s=' . $card_data['image_width']); ?>" alt="<?php echo $card_data['image_alt']; ?>" class="u-image-cover__image" width="150">*/ ?>
+                                <img src="/<?php echo $card_data['image']; ?>?s=900" alt="<?php echo $card_data['image_alt']; ?>" class="u-image-cover__image" sizes="(min-width: 960px) 430px, 90vw" srcset="<?php echo $card_data['image']; ?>?s=460 460w, <?php echo $card_data['image']; ?>?s=900 900w" width="150">
                             </div>
                         </div>
                     </div>
