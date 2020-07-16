@@ -115,12 +115,16 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
     $module_wrapper = $params->get('wrapper') ? $params->get('wrapper') : '';
     $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
+    $module_wrapper_color = $params->get('color') ? $params->get('color') : 'neutral';
 
     $wrapper_classname = '';
     $header_classname  = '';
     $wrapper_class = '';
     $header_class = '';
     $wrapper_theme_class = '  c-panel--very-light';
+    
+    $theme_name = $module_wrapper_color == 'brand' ? $brand->alias : 'neutral';
+    
     // @ASSUMPTION: If there's a menu in the sidebar, it's a section menu.
     if ($module->module == 'mod_menu') {
         $wrapper_classname = 'n-section-menu';
@@ -155,7 +159,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-neutral  u-space--below">
+    <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-<?php echo $theme_name; ?>  u-space--below">
         <?php if ($has_headline_image): ?>
         <div class="c-panel__banner">
             <div class="l-proportional-container  l-proportional-container--2-1  l-proportional-container--4-1--wide">
