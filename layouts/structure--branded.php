@@ -368,6 +368,7 @@
             <div class="l-distribute-wrap">
                 <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">            
                     <div class="u-padding--s  l-center">
+                        <?php /* Note the following should be made DRYer using brands info */ ?>
                         <?php if ($page_unit == 'pru-mnhc') : ?>
                         <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
                             <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
@@ -379,6 +380,10 @@
                         <?php elseif ($page_unit == 'sheer') : ?>
                         <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center">
                             <img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
+                        </a>
+                        <?php elseif ($page_unit == 'he') : ?>
+                        <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center">
+                            <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
                         </a>
                         <?php endif; ?>
                     </div>
