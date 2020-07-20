@@ -116,6 +116,7 @@
                     <option value="npeu_ctu">NPEU CTU</option>
                     <option value="pru-mnhc">PRU-MNHC</option>
                     <option value="sheer">SHEER</option>
+                    <option value="he">Health Economics</option>
                 </field>
             </fieldset>
             <fieldset
