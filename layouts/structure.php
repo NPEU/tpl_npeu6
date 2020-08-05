@@ -44,7 +44,7 @@
         Edge, Chrome 39+, Opera 26+, Safari 9+, iOS 9+, Android ~5+, Android UCBrowser 11.8+
         FF 47+
     -->
-    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/style.min.css'); ?>" media="
+    <?php /*<link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/style.min.css'); ?>" media="
         only print, screen and (min-width: 1vm),
         only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
         only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
@@ -52,14 +52,14 @@
     ">
 
     <?php if($page_brand->alias != 'npeu' && !$is_error): ?>
-
+    */ ?>
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/theme-' . $page_brand->alias . '.min.css'); ?>" media="
         only print, screen and (min-width: 1vm),
         only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
         only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
-    <?php endif; ?>
+    <?php //endif; ?>
 
     <?php foreach($page_stylesheets as $stylesheet => $options): ?>
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
