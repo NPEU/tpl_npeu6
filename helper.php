@@ -314,12 +314,12 @@ class TplNPEU6Helper
         }
         
         // Don't stamp filenames of 3rd Party or System files:
-        #echo '<pre>'; var_dump($filename); echo '</pre>'; #exit;
         if (strpos($filename, '/templates/npeu6/') !== 0) {
             return $filename;
         }
-        
-        $stamp = filemtime($root_path . DIRECTORY_SEPARATOR . trim(DIRECTORY_SEPARATOR, str_replace('/', DIRECTORY_SEPARATOR, $filename)));
+
+        $filepath = $root_path . DIRECTORY_SEPARATOR . trim(str_replace('/', DIRECTORY_SEPARATOR, $filename), DIRECTORY_SEPARATOR);
+        $stamp = filemtime($filepath);
         $return = preg_replace('/(.*?)((\.min)?\..+?)$/', '$1.' . $stamp . '$2', $filename);
         return $return;
     }
