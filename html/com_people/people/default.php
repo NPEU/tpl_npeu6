@@ -25,13 +25,13 @@ unset($this->people['*']);
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="l-col-to-row__item  ff-width-100--40--50">
                     <?php echo JHtml::_('content.prepare', '{loadposition people_image}'); ?>
                 </div>
             </div>
         </div>
-                
+
     </div>
 </div>
 
@@ -41,7 +41,7 @@ unset($this->people['*']);
         <div class="c-panel  c-panel--dark  t-npeu  u-space--none  u-fill-height  u-padding--top--none">
 
             <div id="group-director" class="">
-            
+
                 <article class="c-glimpse  c-glimpse--large-image  u-space--below--none">
                     <a href="https://www.npeu.ox.ac.uk/about/people/<?php echo $director['alias']; ?>" class="c-glimpse__link">
                         <div class="c-glimpse__image  c-glimpse__image--rounded">
@@ -56,14 +56,14 @@ unset($this->people['*']);
                             </div>
                         </div>
                         <div class="c-glimpse__content">
-                            <h2 class="c-glimpse__heading"><?php echo $director['name']; ?></h2>         
+                            <h2 class="c-glimpse__heading"><?php echo $director['name']; ?></h2>
                             <p><?php echo $director['role']; ?></p>
                         </div>
                     </a>
                 </article>
-                
+
             </div>
-        
+
         </div>
     </div>
 </div>
@@ -101,9 +101,9 @@ if (!is_array($this->people) || empty($this->people)) {
             <?php $i = 0; foreach($this->people as $group_heading => $data): ?>
             <?php $html_id = trim(str_replace(' ', '-', preg_replace("/[^a-zA-Z0-9]/", '-', $group_heading))); ?>
             <?php if($data['length'] > 0): ?>
-            <div id="group-<?php echo $data['alias']; ?>" class="u-space--below">
-                <h2 class="" id="<?php echo $html_id; ?>"><?php echo $group_heading; ?></h2>
-                <ul id="people-<?php echo $data['alias']; ?>" class="l-gallery-grid  l-gallery-grid--gutter--small  l-gallery-grid--basis-15" filterable_list>
+            <div id="group-<?php echo $data['alias']; ?>" class="u-space--below"  style="display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap;">
+                <h2 class="" id="<?php echo $html_id; ?>" style="-ms-flex-preferred-size: 100%; flex-basis: 100%;"><?php echo $group_heading; ?></h2>
+                <ul id="people-<?php echo $data['alias']; ?>" class="l-gallery-grid  l-gallery-grid--gutter--small  l-gallery-grid--basis-15" filterable_list style="-ms-flex-preferred-size: 100%; flex-basis: 100%;">
 
                     <?php foreach($data['people'] as $person): ?>
                     <li class="l-gallery-grid__item" filterable_item>
@@ -121,7 +121,7 @@ if (!is_array($this->people) || empty($this->people)) {
                                     </div>
                                 </div>
                                 <div class="c-glimpse__content">
-                                    <h3 class="c-glimpse__heading"><span filterable_index filterable_index_name="first_name"><?php echo $person['firstname']; ?></span></span> <span filterable_index filterable_index_name="last_name"><?php echo $person['lastname']; ?></span></h3>         
+                                    <h3 class="c-glimpse__heading"><span filterable_index filterable_index_name="first_name"><?php echo $person['firstname']; ?></span></span> <span filterable_index filterable_index_name="last_name"><?php echo $person['lastname']; ?></span></h3>
                                     <?php if(!empty($person['role'])): ?>
                                     <p><?php echo $person['role']; ?></p>
                                     <?php endif; ?>
