@@ -9,8 +9,7 @@
                     <li><a href="#page-footer"><span>Skip to footer</span></a></li>
                 </ul>
                 <div class="c-utilitext  no-print">
-                    <?php echo $modules__log_in_out_button; ?>
-                    | <a href="https://intranet.npeu.ox.ac.uk"><span>Staff Area</span></a>
+                    <?php echo $modules__log_in_out_button; ?>&nbsp;|&nbsp;<a href="https://intranet.npeu.ox.ac.uk"><span>Staff Area</span></a>
                     <?php if($user->get('is_staff')): ?>
                     | <a href="http://api.qrserver.com/v1/create-qr-code/?data=http://qr.npeu.ox.ac.uk/<?php echo $menu_item->id; ?>&amp;format=eps" class="icon  icon-qrcode"><span>QR code (eps)</span></a>
                     <?php endif; ?>
