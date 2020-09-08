@@ -19,17 +19,17 @@
     <style>
         /* FOUC font match fallback */
         /* Match your final body webfont with this tool: https://meowni.ca/font-style-matcher/ */
-        body{font-size:15px;line-height:1.6;visibility:visible;font-family:Arial,sans-serif;letter-spacing:0.35px;word-spacing:-0.4px;}
+        body{font-size:15px;line-height:1.6;font-family:Arial,sans-serif;letter-spacing:.35px;word-spacing:-.4px}
 
         /* Tiny fallback styles */
-        /* (https://github.com/Fall-Back/Base/edit/master/tiny-fallback-styles.css) */
-        body{padding:1em;margin:0 auto;max-width: 50em;}
-        img{max-width:100%;-ms-interpolation-mode: bicubic;}
+        /* (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md) */
+        body{padding:1em;margin:0 auto;max-width:50em;}
+        img{max-width:100%;-ms-interpolation-mode:bicubic;}
         [hidden]{display:none;}
         main{display:block;}
 
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
-        .embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%}.embed-container embed,.embed-container iframe,.embed-container object{position:absolute;top:0;left:0;width:100%;height:100%}
     </style>
 
    <!--
@@ -39,45 +39,77 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
     <!--
-        Print (Edge doesn't apply to print otherwise)
-        IE 10, 11
-        Edge, Chrome 39+, Opera 26+, Safari 9+, iOS 9+, Android ~5+, Android UCBrowser 11.8+
+        Print, Edge 12? - 18
+        Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
         FF 47+
     -->
-    <?php /*<link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/style.min.css'); ?>" media="
-        only print, screen and (min-width: 1vm),
-        only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
-        only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
-        only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
-    ">
-
-    <?php if($page_brand->alias != 'npeu' && !$is_error): ?>
-    */ ?>
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/theme-' . $page_brand->alias . '.min.css'); ?>" media="
         only print, screen and (min-width: 1vm),
-        only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
-        only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
+        only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
-    <?php //endif; ?>
+    <!-- Load styles for IE11, UC -->
+    <script>
+    if (
+        (!!window.MSInputMethodContext && !!document.documentMode)
+     || (navigator.userAgent.indexOf('UCBrowser') > -1)
+    ) {
+        var link  = document.createElement('link');
+        link.rel  = 'stylesheet';
+        link.href = '<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/theme-' . $page_brand->alias . '.min.css'); ?>';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    </script>
 
     <?php foreach($page_stylesheets as $stylesheet => $options): ?>
+    <!--
+        Print, Edge 12? - 18
+        Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
+        FF 47+
+    -->
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
         only print, screen and (min-width: 1vm),
-        only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
-        only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
+        only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
+    <!-- Load styles for IE11, UC -->
+    <script>
+    if (
+        (!!window.MSInputMethodContext && !!document.documentMode)
+     || (navigator.userAgent.indexOf('UCBrowser') > -1)
+    ) {
+        var link  = document.createElement('link');
+        link.rel  = 'stylesheet';
+        link.href = '<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    </script>
     <?php endforeach; ?>
 
     <?php if (!empty($doc->joomla_stylesheets)): ?>
     <?php foreach($doc->joomla_stylesheets as $stylesheet => $options): ?>
+    <!--
+        Print, Edge 12? - 18
+        Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
+        FF 47+
+    -->
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
         only print, screen and (min-width: 1vm),
-        only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active),
-        only all and (pointer: fine), only all and (pointer: coarse), only all and (pointer: none),
+        only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">
+    <!-- Load styles for IE11, UC -->
+    <script>
+    if (
+        (!!window.MSInputMethodContext && !!document.documentMode)
+     || (navigator.userAgent.indexOf('UCBrowser') > -1)
+    ) {
+        var link  = document.createElement('link');
+        link.rel  = 'stylesheet';
+        link.href = '<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    </script>
     <?php endforeach; ?>
     <?php endif; ?>
 
