@@ -1,6 +1,6 @@
     <div class="sticky-footer-wrap  c-page-wrap"  data-brand="<?php echo $page_brand->alias; ?>">
 
-        <header class="c-page-header  t-<?php echo $page_brand->alias; ?>" aria-label="Page">
+        <header class="c-page-header<?php if ($page_unit == 'npeu' && !$page_display_cta) : ?>  c-page-header--no-cta<?php endif; ?>  t-<?php echo $page_brand->alias; ?>" aria-label="Page">
 
             <div class="u-text-group  u-text-group--push-apart  u-padding--sides--s">
                 <ul class="c-utilitext  c-utilitext--skiplinks">
@@ -18,47 +18,75 @@
                     <?php endif; ?>
                 </div>
             </div>
-            
+
             <?php if ($modules__top != '') : ?>
             <?php echo $modules__top; ?>
             <?php endif; ?>
 
             <div class="u-padding--bottom--s">
+                <?php /*
                 <div class="l-col-to-row-wrap">
                     <div class="l-col-to-row">
-                        <div class="l-col-to-row__item  ff-width-100--40--<?php echo $header_balance[0]; ?>  u-text-align--left  c-page-header__first  u-padding--top--s  u-padding--sides--s">
+                        <div class="l-col-to-row__item  ff-width-100--50--<?php echo $header_balance[0]; ?>  u-text-align--left  c-page-header__first  u-padding--top--s  u-padding--sides--s">
                             <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
                                 <?php echo $page_brand->logo_svg_with_fallback; ?>
                             </a>
                         </div>
 
                         <?php if ($page_display_cta || $page_unit == 'npeu') : ?>
-                        <div class="l-col-to-row__item  ff-width-100--40--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">
+                        <div class="l-col-to-row__item  ff-width-100--50--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">
                             <?php if ($page_display_cta) : ?>
                             <span>
                                 <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><?php echo $page_cta_text; ?></a>
                             </span>
                             <?php endif; ?>
                             <?php if ($page_unit == 'npeu') : ?>
-                            <div class="l-distribute-wrap">
-                                <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">
-                                    <div class="u-padding--s  l-center">
-                                        <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                                            <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
-                                        </a>
-                                    </div>
+                            <div class="l-distribute  l-distribute--end  l-distribute--gutter--s  l-distribute--limit-20">
+                                <div class="u-padding--xs  l-center">
+                                    <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
+                                        <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="60">
+                                    </a>
+                                </div>
 
-                                    <div class="u-padding--s  l-center">
-                                        <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                                            <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
-                                        </a>
-                                    </div>
+                                <div class="u-padding--xs  l-center">
+                                    <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
+                                        <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
+                                    </a>
                                 </div>
                             </div>
                             <?php endif; ?>
                         </div>
                         <?php endif; ?>
                     </div>
+                </div>
+                */ ?>
+
+                <div class="l-distribute">
+                    <div class="Xff-width-100--45--<?php echo $header_balance[0]; ?>  u-text-align--leftX  c-page-header__logo  u-padding--top--s  u-padding--sides--s">
+                        <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
+                            <?php echo $page_brand->logo_svg_with_fallback; ?>
+                        </a>
+                    </div>
+                    <?php if ($page_display_cta) : ?>
+                    <div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
+                        <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><?php echo $page_cta_text; ?></a>
+                    </div>
+                    <?php endif; ?>
+                    <?php if ($page_unit == 'npeu') : ?>
+                    <div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">
+                        <div class="u-padding--s  l-center">
+                            <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
+                                <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="60">
+                            </a>
+                        </div>
+
+                        <div class="u-padding--s  l-center">
+                            <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
+                                <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
+                            </a>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -186,12 +214,12 @@
 
                             <?php if ($page_has_sidebar_super) : ?>
                             <?php if ($page_badge) : ?>
-                            <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  u-space--above  l-primary-content__pull-out__margin--@large">
+                            <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  l-primary-content__pull-out__margin--@large  u-space--above  u-text-align--center">
                                 <?php echo $page_badge; ?>
                             </div>
                             <?php endif; ?>
                             <?php endif; ?>
-                            
+
                             <div class="l-primary-content__header">
 
                                 <?php echo $modules__main_upper; /*<jdoc:include type="modules" name="3-main-upper" style="basic" />*/?>
@@ -235,7 +263,7 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            
+
                             <?php /*if ($page_has_sidebar_super) : ?>
                             <?php if ($page_badge) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  u-space--above  l-primary-content__pull-out__margin--@large">
@@ -260,7 +288,7 @@
                                 <?php echo $page_toc; ?>
                                 <?php echo $component__sidebar_top; ?>
                                 <?php echo $modules__sidebar_top; /*<jdoc:include type="modules" name="4-sidebar-top" style="sidebar" />*/?>
-                                
+
                             </div>
                             <?php endif; ?>
 
@@ -309,7 +337,7 @@
                                 </div>
                                 <?php endif; ?>
                                 <footer class="t-neutral  d-background--very-light  u-max-measure  u-padding--s">
-                                    
+
                                     <p class="c-utilitext  u-text-group  u-text-group--push-apart">
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                         <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
@@ -335,7 +363,7 @@
                                 <?php echo $modules__sidebar_bottom; /*<jdoc:include type="modules" name="4-sidebar-bottom" style="sidebar" />*/ ?>
                             </div>
                             <?php endif; ?>
-                            
+
                             <?php if ($page_has_main_lower) : ?>
                             <div class="l-primary-content__footer">
                                 <?php echo $modules__main_lower; /*<jdoc:include type="modules" name="3-main-lower" style="basic" />*/?>
@@ -370,10 +398,10 @@
                 </div>
             </div>
             <?php endif; ?>
-            
+
             <?php if ($page_unit != 'npeu') : ?>
             <div class="l-distribute-wrap">
-                <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">            
+                <div class="l-distribute  l-distribute--gutter--small  l-distribute--limit-15">
                     <div class="u-padding--s  l-center">
                         <?php /* Note the following should be made DRYer using brands info */ ?>
                         <?php if ($page_unit == 'pru-mnhc') : ?>
