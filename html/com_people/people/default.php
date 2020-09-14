@@ -16,19 +16,18 @@ unset($this->people['*']);
 ?>
 <div class="l-blockrow">
     <div class="d-bands--bottom  t-npeu">
-        <div class="l-col-to-row-wrap">
-            <div class="l-col-to-row">
-                <div class="l-col-to-row__item  ff-width-100--40--50">
-                    <div class="c-panel  u-padding--sides--l  t-white  u-space--none  u-fill-height">
-                        <div class="c-longform-content  c-user-content">
-                            <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
-                        </div>
+
+        <div class="l-col-to-row">
+            <div class="ff-width-100--40--50">
+                <div class="c-panel  u-padding--sides--l  t-white  u-space--none  u-fill-height">
+                    <div class="c-longform-content  c-user-content">
+                        <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
                     </div>
                 </div>
+            </div>
 
-                <div class="l-col-to-row__item  ff-width-100--40--50">
-                    <?php echo JHtml::_('content.prepare', '{loadposition people_image}'); ?>
-                </div>
+            <div class="ff-width-100--40--50">
+                <?php echo JHtml::_('content.prepare', '{loadposition people_image}'); ?>
             </div>
         </div>
 
@@ -101,12 +100,12 @@ if (!is_array($this->people) || empty($this->people)) {
             <?php $i = 0; foreach($this->people as $group_heading => $data): ?>
             <?php $html_id = trim(str_replace(' ', '-', preg_replace("/[^a-zA-Z0-9]/", '-', $group_heading))); ?>
             <?php if($data['length'] > 0): ?>
-            <div id="group-<?php echo $data['alias']; ?>" class="u-space--below"  style="display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap;">
-                <h2 class="" id="<?php echo $html_id; ?>" style="-ms-flex-preferred-size: 100%; flex-basis: 100%;"><?php echo $group_heading; ?></h2>
-                <ul id="people-<?php echo $data['alias']; ?>" class="l-gallery-grid  l-gallery-grid--gutter--small  l-gallery-grid--basis-15" filterable_list style="-ms-flex-preferred-size: 100%; flex-basis: 100%;">
+            <div id="group-<?php echo $data['alias']; ?>" class="u-space--below">
+                <h2 class="" id="<?php echo $html_id; ?>"><?php echo $group_heading; ?></h2>
+                <ul id="people-<?php echo $data['alias']; ?>" class="l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-15" filterable_list>
 
                     <?php foreach($data['people'] as $person): ?>
-                    <li class="l-gallery-grid__item" filterable_item>
+                    <li filterable_item>
                         <article class="c-glimpse  u-space--none">
                             <a href="/about/people/<?php echo $person['alias']; ?>" aria-describedby="<?php echo $html_id; ?>" class="c-glimpse__link">
                                 <div class="c-glimpse__image  c-glimpse__image--rounded">
