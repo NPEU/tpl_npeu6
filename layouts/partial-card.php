@@ -23,8 +23,18 @@ defined('_JEXEC') or die;
     state
 
 */
+
+
+$wrapper_classes = array();
+if ($card_data['state'] != 1) {
+    $wrapper_classes[] = 'c-card--unpublished';
+}
+
+if (!empty($card_data['wrapper_classes'])) {
+    $wrapper_classes = array_merge($wrapper_classes, $card_data['wrapper_classes']);
+}
 ?>
-<div class="c-card-wrap<?php if ($card_data['state'] != 1): ?>  c-card--unpublished<?php endif; ?>">
+<div<?php if (!empty($wrapper_classes)): ?> class="<?php echo implode('  ', $wrapper_classes); ?>"<?php endif; ?>>
     <article class="c-card  <?php echo $card_data['theme']; ?>">
         <?php if (!empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>" class="c-card__full-link  <?php echo $card_data['theme']; ?>  u-fill-height--column"><?php endif; ?>
             <?php if (!empty($card_data['image'])) : ?>
@@ -52,7 +62,7 @@ defined('_JEXEC') or die;
                     <?php echo $card_data['body']; ?>
                     <?php if (empty($card_data['full_link'])) : ?>
                     <p class="u-text-align--right">
-                        <a href="<?php echo $card_data['link']; ?>" class="c-cta  c-cta--has-icon">Read more<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                        <a href="<?php echo $card_data['link']; ?>" class="c-cta  c-cta--has-icon">Read more<span hidden aria-hidden="false"> about <?php echo $card_data['title']; ?></span><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                     </p>
                     <?php endif; ?>
                 </div>
