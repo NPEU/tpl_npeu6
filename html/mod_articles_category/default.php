@@ -24,7 +24,7 @@ $count = $params->get('count');
 if ($count >= 2 && $count < 5) {
     $wrap_class  = '';
     $outer_class = 'l-col-to-row--flush-edge-gutters';
-    $inner_class = 'l-col-to-row  l-col-to-row--gutter--medium';
+    $inner_class = 'l-col-to-row  l-col-to-row--gutter';
     $portion ='50';
     if ($count == 3) {
         $portion = '33-333';
@@ -34,9 +34,9 @@ if ($count >= 2 && $count < 5) {
     }
     $item_class  = 'l-col-to-row__item  ff-width-100--50--' . $portion;
 } else {
-    $wrap_class   = 'l-distribute-wrap  u-space--below';
+    $wrap_class   = 'u-space--below';
     $outer_class  = 'l-distribute--flush-edge-gutters';
-    $inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20'; 
+    $inner_class  = 'l-distribute  l-distribute--gutter  l-distribute--balance-top  l-distribute--basis-25'; 
     $item_class   = '';
 }
 
@@ -52,13 +52,14 @@ if ($count >= 2 && $count < 5) {
 
                 $card_data = array();
 
-                $card_data['theme']        = $theme;
-                $card_data['full_link']    = true;
-                $card_data['link']         = $item->link;
-                $card_data['image']        = $fields[0]->rawvalue;
-                $card_data['image_alt']    = $fields[1]->rawvalue;
-                $card_data['title']        = $item->title;
-                $card_data['state']        = (int) $item->state;
+                $card_data['theme']           = $theme;
+                $card_data['full_link']       = true;
+                $card_data['link']            = $item->link;
+                $card_data['image']           = $fields[0]->rawvalue;
+                $card_data['image_alt']       = $fields[1]->rawvalue;
+                $card_data['title']           = $item->title;
+                $card_data['state']           = (int) $item->state;
+                $card_data['wrapper_classes'] = array('u-fill-height');
                 #$card_data['date_format']  = $date_format;
 
                 include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
