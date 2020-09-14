@@ -33,7 +33,7 @@ $count = $params->get('count');
 if ($count >= 2 && $count < 5) {
     $wrap_class  = '';
     $outer_class = 'l-col-to-row--flush-edge-gutters';
-    $inner_class = 'l-col-to-row  l-col-to-row--gutter--medium';
+    $inner_class = 'l-col-to-row  l-col-to-row--gutter--m';
     $portion ='50';
     if ($count == 3) {
         $portion = '33-333';
@@ -43,7 +43,7 @@ if ($count >= 2 && $count < 5) {
     }
     $item_class  = 'l-col-to-row__item  ff-width-100--50--' . $portion;
 } else {
-    $wrap_class   = 'l-distribute-wrap  u-space--below';
+    $wrap_class   = 'u-space--below';
     $outer_class  = 'l-distribute--flush-edge-gutters';
     $inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20'; 
     $item_class   = '';
