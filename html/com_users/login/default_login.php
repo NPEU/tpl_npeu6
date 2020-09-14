@@ -46,31 +46,30 @@ $jinput = Factory::getApplication()->input;
             <h2>NPEU Website</h2>
             <form action="<?php echo JRoute::_('index.php?option=com_users&task=user.login'); ?>" method="post" class="u-space--below--none">
                 <fieldset class="u-space--below--none">
-                    <div class="l-col-to-row-wrap">
-                        <div class="l-col-to-row">
+                    <div class="l-col-to-row">
 
-                            <?php foreach ($this->form->getFieldset('credentials') as $field): ?>
-                            <?php if (!$field->hidden): ?>
+                        <?php foreach ($this->form->getFieldset('credentials') as $field): ?>
+                        <?php if (!$field->hidden): ?>
 
-                            <?php
-                            #$label = add_classes($field->label, '');
-                            $label = $field->label;
-                            #$input = add_classes(preg_replace('#\s?size="\d+"#', '', $field->input), '');
-                            $input = $field->input;
-                            if ($session->get('plgSystemFormErrors.password', false)) {
-                                #$label = add_class($label, 'error');
-                                #$input = add_class($input, 'error');
-                            }
-                            ?>
-                            <div class="ff-width-100--25--25 l-col-to-row__item">
-                            <?php echo $label; ?>
-                            </div>
-                            <div class="ff-width-100--25--75 l-col-to-row__item">
-                            <?php echo $input; ?>
-                            </div>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
+                        <?php
+                        #$label = add_classes($field->label, '');
+                        $label = $field->label;
+                        #$input = add_classes(preg_replace('#\s?size="\d+"#', '', $field->input), '');
+                        $input = $field->input;
+                        if ($session->get('plgSystemFormErrors.password', false)) {
+                            #$label = add_class($label, 'error');
+                            #$input = add_class($input, 'error');
+                        }
+                        ?>
+                        <div class="ff-width-100--25--25 l-col-to-row__item">
+                        <?php echo $label; ?>
                         </div>
+                        <div class="ff-width-100--25--75 l-col-to-row__item">
+                        <?php echo $input; ?>
+                        </div>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+
                     </div>
                     <?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>
                     <div>
@@ -100,7 +99,7 @@ $jinput = Factory::getApplication()->input;
         </div>
         <div class="ff-width-100--45--66-666 l-col-to-row__item  u-text-align--center">
 
-            <div class="l-col-to-row-wrap  u-fill-height">
+            <div class="u-fill-height">
                 <div class="l-col-to-row  u-padding-top--none">
                     <div class="ff-width-100--35--50 l-col-to-row__item">
                         <h2>Randomisation</h2>
