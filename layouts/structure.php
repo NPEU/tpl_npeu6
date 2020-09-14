@@ -178,7 +178,7 @@
     <meta name="msapplication-config" content="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- Piwik -->
+    <!-- Matamo -->
     <script type="text/javascript">
         var _paq = _paq || [];
         // tracker methods like "setCustomDimension" should be called before "trackPageView"
@@ -194,7 +194,7 @@
     </script>
     <?php $piwik_url = '?url=' . base64_encode($_SERVER['REQUEST_URI']) . '&title=' . base64_encode($page_title); ?>
 
-    <!-- End Piwik Code -->
+    <!-- End Matamo Code -->
 
     <!-- Social Media -->
     <?php if (!empty($twitter)): ?>
@@ -209,12 +209,12 @@
 <body role="document" id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
     <noscript>
-        <!-- Piwik no-js tracking: -->
+        <!-- Matamo no-js tracking: -->
         <img src="/templates/npeu6/endpoints/piwik-no-js.php<?php echo $piwik_url; ?>" style="display:none;" alt="" />
     </noscript>
     <style>
     @media print {
-        /* Piwik print tracking: */
+        /* Matamo print tracking: */
         html::after {
             content: url("/templates/npeu6/endpoints/piwik-print.php<?php echo $piwik_url; ?>");
         }
