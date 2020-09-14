@@ -93,20 +93,18 @@ endif; ?>
         $view_link .= '/' . $row->id . '-' . $row->alias;
     ?>
         <li class="u-space--below" filterable_item>
-            <div class="c-card-wrap">
-                <div class="c-card  c-card--light  t-white">
-                    <a href="<?php echo $view_link; ?>" class="c-card__full-link  u-fill-height--column">
-                        <div class="c-card__main">
-                            <h2 class="c-card__title" filterable_index filterable_index_name="title"><?php echo $row->title; ?></h2>
-                            <div class="c-card__body">
-                                <p><?php $has_pi_2 = !empty($row->pi_2); ?>
-                                    <span>Lead<?php echo ($has_pi_2 ? 's' : '') ?>: <span filterable_index filterable_index_name="lead"><?php echo format_person($row->pi_1); ?><?php if ($has_pi_2) : ?> and <?php echo format_person($row->pi_2); ?><?php endif; ?></span></span><br>
-                                    <span>Topics: <?php echo implode(", ", $row->topics); ?><span>
-                                </p>
-                            </div>
+            <div class="c-card  c-card--light  t-white">
+                <a href="<?php echo $view_link; ?>" class="c-card__full-link  u-fill-height--column">
+                    <div class="c-card__main">
+                        <h2 class="c-card__title" filterable_index filterable_index_name="title"><?php echo $row->title; ?></h2>
+                        <div class="c-card__body">
+                            <p><?php $has_pi_2 = !empty($row->pi_2); ?>
+                                <span>Lead<?php echo ($has_pi_2 ? 's' : '') ?>: <span filterable_index filterable_index_name="lead"><?php echo format_person($row->pi_1); ?><?php if ($has_pi_2) : ?> and <?php echo format_person($row->pi_2); ?><?php endif; ?></span></span><br>
+                                <span>Topics: <?php echo implode(", ", $row->topics); ?><span>
+                            </p>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
         </li>
     <?php endforeach; ?>

@@ -63,9 +63,9 @@ $has_items = !empty($this->intro_items);
     <div class="c-panel  u-space--none  u-fill-height">
         <section class="c-panel__module">
             <?php if (!empty($this->intro_items)) : ?>
-            <div class="l-distribute-wrap  u-space--below">
+            <div class="u-space--below">
                 <div class="l-distribute--flush-edge-gutters">
-                    <div class="l-distribute  l-distribute--gutter--medium  l-distribute--limit-30">
+                    <div class="l-distribute  l-distribute--gutter  l-distribute--balance-top  l-distribute--basis-30">
                         <?php foreach ($this->intro_items as $key => &$item) : ?>
                             <?php
                                 $this->item = &$item;
