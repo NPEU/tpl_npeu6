@@ -20,7 +20,7 @@ $theme = 't-' . $page_brand->alias;
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
 ?>
 <?php if (count($signs) > 0) : ?>
-<div class="c-signpost-wrap  u-fill-height">
+<div class="u-fill-height">
     <div class="c-signpost">
         <?php foreach ($signs as $sign): ?>
         <?php if (isset($sign->status) && $sign->status == '0') { continue; } ?>
