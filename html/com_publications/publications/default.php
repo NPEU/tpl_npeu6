@@ -25,7 +25,7 @@ ob_start(); ?>
                     <label class="" for="filter_keywords" id="filter_keywords-lbl">Search publications</label>
                     <span class="c-composite">
                         <input type="text" value="<?php echo isset($_GET['keywords']) ? htmlspecialchars($_GET['keywords']) : ''; ?>" id="filter_keywords" name="keywords">
-                        <button type="submit" class="btn">Search</button>
+                        <button type="submit">Search</button>
                         <a class="c-cta" href="/research/publications">Clear</a>
                     </span>
                 </span>
