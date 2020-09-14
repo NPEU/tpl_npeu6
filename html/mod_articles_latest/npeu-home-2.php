@@ -39,12 +39,12 @@ $item = array_shift($items);
 $count--;
 ?>
 <div class="l-col-to-row--flush-edge-gutters  u-space--below">
-    <div class="l-col-to-row  l-col-to-row--gutter--medium">
-        <div class="l-col-to-row__item  ff-width-100--55--50">
+    <div class="l-col-to-row  l-col-to-row--gutter--m">
+        <div class="ff-width-100--55--50">
             <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
         </div>
 
-        <div class="l-col-to-row__item  ff-width-100--55--50">
+        <div class="ff-width-100--55--50">
         <?php
         // Have a go at providing useful classes:
         $i = 0;
@@ -61,28 +61,25 @@ $count--;
             }
             $item_class  = 'l-col-to-row__item  ff-width-100--45--' . $portion;
         } else {*/
-            $wrap_class   = 'l-distribute-wrap';
-            $outer_class  = 'l-distribute--flush-edge-gutters';
-            $inner_class  = 'l-distribute  l-distribute--gutter--small  l-distribute--limit-30'; 
+            $outer_class  = 'l-distribute--flush-edge-gutters  u-fill-height';
+            $inner_class  = 'l-distribute  l-distribute--balance-top  l-distribute--gutter--m  l-distribute--basis-25'; 
         /*}*/
         ?>
-            <div class="<?php echo $wrap_class; ?>">
-                <div class="<?php echo $outer_class; ?>">
-                    <ul class="<?php echo $inner_class; ?>">
-                        <?php foreach ($items as $item): $j++; 
-                        
-                        // Ditch hero images after first 2:
-                        if ($j > 2) {
-                            $item->skip_image = true;
-                        }
-                        
-                        ?>
-                        <li>
-                            <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+            <div class="<?php echo $outer_class; ?>">
+                <ul class="<?php echo $inner_class; ?>">
+                    <?php foreach ($items as $item): $j++; 
+                    
+                    // Ditch hero images after first 2:
+                    if ($j > 2) {
+                        $item->skip_image = true;
+                    }
+                    
+                    ?>
+                    <li>
+                        <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         </div>
 
