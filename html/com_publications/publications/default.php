@@ -20,7 +20,7 @@ ob_start(); ?>
 <div class="c-panel  c-panel--white  c-panel--framed">
     <div class="c-panel__module">
 
-        <form class="control-form" id="pubsForm" name="pubsForm" method="get" action="/research/publications">
+        <form id="pubsForm" name="pubsForm" method="get" action="/research/publications">
             <fieldset>
                     <label class="" for="filter_keywords" id="filter_keywords-lbl">Search publications</label>
                     <span class="c-composite">
@@ -81,16 +81,16 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
 
 <div filterable_group filterable_mark_results filterable_replace="#pubsForm">
     <script type="text/template" filterable_form_template>
-        <form class="control-form">
+        <form>
             <fieldset>
-                <div class="tool-form__fieldset">
+                <div>
                     <label for="filter_title" class="u-space--right">Filter publications by title:</label>
                     <span class="c-composite">
                          <input id="filter_title" filterable_input> <button filterable_submit>Filter</button>
                     </span>
                     <a class="c-cta" href="/research/publications">Clear</a>
                 </div>
-                <div class="tool-form__fieldset">
+                <div>
                     <label for="include_1">Include Journal Articles:</label> <input type="checkbox" name="include_1" id="include_1" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^(Journal Article)$"><br>
                     <label for="include_2">Include Reports / Other:</label> <input type="checkbox" name="include_2" id="include_2" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^((?!Journal Article).)*$">
                 </div>
