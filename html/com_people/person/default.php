@@ -132,7 +132,7 @@ function get_custom($custom_title, $custom) {
         </div>
     </div>
     
-    <?php if (!true) : ?>
+    <?php /*if (!true) : ?>
     <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  u-space--above  c-user-content">
         <div class="l-primary-content__pull-out__padded--@small">
             <div aria-hidden="true" class="" data-display-is="width-one-quarter  pulled-left">
@@ -144,7 +144,7 @@ function get_custom($custom_title, $custom) {
             </div>
         </div>
     </div>
-    <?php endif; ?>
+    <?php endif;*/ ?>
 
     <?php #if (!true) : ?>
     <div class="l-primary-content__pull-out  l-primary-content__pull-out--top  c-user-content">
@@ -152,7 +152,7 @@ function get_custom($custom_title, $custom) {
             <div aria-hidden="true" class="" data-display-is="width-one-quarter  pulled-left">
                 <span data-contains="image portrait">
                     <b>
-                        <img src="<?php echo $person['profile_img_src']; echo strpos($person['profile_img_src'], '?') === false ? '?' : '&'; ?>s=200" alt="Portrait of <?php echo $person['name']; ?>" width="180" />
+                        <img src="<?php echo $person['profile_img_src']; echo strpos($person['profile_img_src'], '?') === false ? '?' : '&'; ?>s=500" alt="Portrait of <?php echo $person['name']; ?>" width="180" />
                     </b>
                 </span>
             </div>
