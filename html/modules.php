@@ -149,7 +149,8 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     $aria_labelledby = '';
     if ($module->showtitle) {
         //$outer_el = 'section';
-        $outer_el = 'aside';
+        //$outer_el = 'aside'; //!!! Changing this die to a11y landmark nesting issue - needs investigation.
+        $outer_el = 'div';
         $aria_labelledby = ' aria-labelledby="' . TplNPEU6Helper::html_id($module->title) . '"';
     }
 
