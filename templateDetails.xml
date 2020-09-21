@@ -159,6 +159,14 @@
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
+                <field
+                    name="search_hint"
+                    type="text"
+                    hint="TPL_NPEU6_HEADER_SEARCH_HINT_LABEL_DEFAULT"
+                    label="TPL_NPEU6_HEADER_SEARCH_HINT_LABEL"
+                    description="TPL_NPEU6_HEADER_SEARCH_HINT_DESC"
+                    filter="string"
+                />
             </fieldset>
             <fieldset
                 name="page_footer"

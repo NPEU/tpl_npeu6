@@ -131,7 +131,6 @@ if ($page_brand->alias != 'npeu') {
 
 
 
-
 // Level 1 menu items that are not mainmenu or are landing pages:
 // (Note this isn't robust as if new non-brand menus are created or names change, this will fail)
 //$page_is_landing = $menu_item->menutype != 'mainnenu' && $menu_item->menutype != 'user' && $menu_item->level == 1;
@@ -417,6 +416,12 @@ if (!empty($page_template_params->header_balance)) {
 
 // Navbar:
 $page_has_navbar   = $page_template_params->show_navbar && $doc->countModules('2-header-nav-bar') > 0;
+
+// Search field:
+$search_field_hint = $page_template_params->search_hint;
+
+
+
 
 
 // Hero image / Carousel:

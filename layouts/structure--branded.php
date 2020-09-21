@@ -121,7 +121,7 @@
                                 <?php if ($page_search_area != ''): ?>
                                 <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
                                 <?php endif; ?>
-                                <input type="search" class="search-form__field" id="search" placeholder="Search (e.g. Randomisation)" name="q" value="" aria-label="Search">
+                                <input type="search" class="search-form__field" id="search" placeholder="Search<?php if (!empty($search_field_hint)): ?> (e.g. <?php echo $search_field_hint; ?>)<?php endif; ?>" name="q" value="" aria-label="Search">
                                 <button class="search-form__submit" type="submit">
                                     <span>
                                         <svg width="20" height="20" viewBox="0 0 20 20" focusable="false">
