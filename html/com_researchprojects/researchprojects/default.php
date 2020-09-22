@@ -70,16 +70,23 @@ endif; ?>
 <?php if (!empty($this->items)) : ?>
 <div filterable_group filterable_mark_results>
     <script type="text/template" filterable_form_template>
-        <form class="tool-form  u-space--below">
-            <fieldset>
-                <div class="tool-form__fieldset">
-                    <label for="filter" class="u-space--right">Filter projects:</label> <input id="filter" filterable_input>
-                    <div class="tool-form__fieldset">
-                        <label for="filter_title">By title:</label> <input type="radio" name="filter_choice" id="filter_title" filterable_toggle="title"> |
-                        <label for="filter_lead">By lead:</label> <input type="radio" name="filter_choice" id="filter_lead" filterable_toggle="lead"> |
-                        <label for="filter_all">Both:</label> <input type="radio" name="filter_choice" id="filter_all" filterable_toggle="" checked>
-                    </div>
-                </div>
+        <form class="c-tool-form  c-panel  d-bands  u-space--below">
+            <label for="filter">Filter projects:</label>
+            <span class="c-composite">
+                 <input id="filter" filterable_input> <button filterable_submit>Filter</button>
+            </span>
+            <a class="c-cta" href="/research/projects">Clear</a>
+            <fieldset class="c-tool-form__fieldset">
+                <legend>Filter by:</legend>
+                <span class="c-tool-form__group">
+                    <label for="filter_title">Title:</label> <input type="radio" name="filter_choice" id="filter_title" filterable_toggle="title">
+                </span>
+                <span class="c-tool-form__group">
+                    <label for="filter_lead">Lead:</label> <input type="radio" name="filter_choice" id="filter_lead" filterable_toggle="lead">
+                </span>
+                <span class="c-tool-form__group">
+                    <label for="filter_all">Both:</label> <input type="radio" name="filter_choice" id="filter_all" filterable_toggle checked>
+                </span>
             </fieldset>
         </form>
     </script>
