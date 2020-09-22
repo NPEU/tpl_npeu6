@@ -145,7 +145,7 @@
         </header>
 
         <div class="sticky-footer-expand">
-            <main role="main" id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>">
+            <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>">
                 <?php if($page_has_hero) : ?>
                     <?php if($page_has_carousel) : ?>
                 <!-- @TOTO -->
@@ -377,7 +377,7 @@
             </main>
         </div>
 
-        <footer class="sticky-footer" role="contentinfo" id="page-footer" aria-label="Page">
+        <footer class="sticky-footer" id="page-footer" aria-label="Page">
 
             <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />*/?>
 

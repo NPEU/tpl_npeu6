@@ -206,7 +206,7 @@
 
     <!-- End Social Media -->
 </head>
-<body role="document" id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
+<body id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
     <noscript>
         <!-- Matamo no-js tracking: -->
