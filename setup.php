@@ -418,7 +418,7 @@ if (!empty($page_template_params->header_balance)) {
 $page_has_navbar   = $page_template_params->show_navbar && $doc->countModules('2-header-nav-bar') > 0;
 
 // Search field:
-$search_field_hint = $page_template_params->search_hint;
+$search_field_hint = !empty($page_template_params->search_hint) ? $page_template_params->search_hint : '';
 
 
 
