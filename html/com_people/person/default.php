@@ -81,17 +81,17 @@ function get_projects($projects) {
 ?>
         <section class="person__projects">
             <h2>Projects</h2>
-            <ul class="l-gallery-grid  l-gallery-grid--gutter--medium  l-gallery-grid--basis-20">
+            <ul class="l-distribute  l-distribute--basis-20  l-distribute--gutter--s  u-padding--s">
             
                 <?php foreach($projects as $project):
                     $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
                     $png_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.png';
                     $svg_info = svg_info($svg_path);
                 ?>
-                <li class="l-gallery-grid__item">
-                    <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height">
+                <li class="l-center  u-padding--s">
+                    <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height--8">
          
-                        <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
+                        <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?> height="80">
                     </a>
                 </li>
                 <?php endforeach; ?>
