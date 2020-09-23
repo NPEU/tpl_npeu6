@@ -77,16 +77,18 @@ endif; ?>
             </span>
             <a class="c-cta" href="/research/projects">Clear</a>
             <fieldset class="c-tool-form__fieldset">
-                <legend>Filter by:</legend>
-                <span class="c-tool-form__group">
-                    <label for="filter_title">Title:</label> <input type="radio" name="filter_choice" id="filter_title" filterable_toggle="title">
-                </span>
-                <span class="c-tool-form__group">
-                    <label for="filter_lead">Lead:</label> <input type="radio" name="filter_choice" id="filter_lead" filterable_toggle="lead">
-                </span>
-                <span class="c-tool-form__group">
-                    <label for="filter_all">Both:</label> <input type="radio" name="filter_choice" id="filter_all" filterable_toggle checked>
-                </span>
+                <div>
+                    <legend>Filter by:</legend>
+                    <span class="c-tool-form__group">
+                        <label for="filter_title">Title:</label> <input type="radio" name="filter_choice" id="filter_title" filterable_toggle="title">
+                    </span>
+                    <span class="c-tool-form__group">
+                        <label for="filter_lead">Lead:</label> <input type="radio" name="filter_choice" id="filter_lead" filterable_toggle="lead">
+                    </span>
+                    <span class="c-tool-form__group">
+                        <label for="filter_all">Both:</label> <input type="radio" name="filter_choice" id="filter_all" filterable_toggle checked>
+                    </span>
+                </div>
             </fieldset>
         </form>
     </script>
