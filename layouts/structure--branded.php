@@ -399,7 +399,7 @@
             <?php endif; ?>
 
             <?php if ($page_unit != 'npeu') : ?>
-            <div class="l-distribute  l-distribute--gutter--s  l-distribute--limit-15">
+            <div class="l-distribute  l-distribute--gutter--s  l-distribute--balance-top  l-distribute--basis-20">
                 <div class="u-padding--s  l-center">
                     <?php /* Note the following should be made DRYer using brands info */ ?>
                     <?php if ($page_unit == 'pru-mnhc') : ?>
