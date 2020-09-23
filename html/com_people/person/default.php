@@ -81,7 +81,7 @@ function get_projects($projects) {
 ?>
         <section class="person__projects">
             <h2>Projects</h2>
-            <ul class="l-distribute  l-distribute--basis-20  l-distribute--gutter--s  u-padding--s">
+            <ul class="l-distribute  l-distribute--basis-25  l-distribute--gutter--s  u-padding--s">
             
                 <?php foreach($projects as $project):
                     $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
