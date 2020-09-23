@@ -250,7 +250,7 @@
                                     <?php if ($page_has_area_menu || $page_has_section_menu) : ?>
                                     <p class="l-primary-content__hidden--wide  c-utilitext  u-text-align--right">
                                         <?php if ($page_has_area_menu) : ?>
-                                        <a href="#menu"><span>Menu</span></a>
+                                        <a href="#<?php echo $page_area_menu_id; ?>"><span>Menu</span></a>
                                         <?php endif; ?>
                                         <?php if ($page_has_section_menu) : ?>
                                         <?php if ($page_has_area_menu) : ?>

@@ -305,6 +305,7 @@ $page_has_main_lower = $doc->countModules('3-main-lower');
 
 // Determine if an Area Menu or Section Menu is present:
 $page_has_area_menu    = false;
+$page_area_menu_id     = 'menu';
 $page_has_section_menu = false;
 $sidebar_bottom_modules = JModuleHelper::getModules('4-sidebar-bottom');
 
@@ -317,6 +318,7 @@ foreach ($sidebar_bottom_modules as $module) {
 
         if (!empty($t1)) {
             $page_has_area_menu = true;
+            $page_area_menu_id  = TplNPEU6Helper::html_id($module->title);
             continue;
         }
     }
