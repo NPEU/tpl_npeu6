@@ -60,18 +60,21 @@
                 */ ?>
 
                 <div class="l-distribute">
-                    <div class="Xff-width-100--45--<?php echo $header_balance[0]; ?>  u-text-align--leftX  c-page-header__logo  u-padding--top--s  u-padding--sides--s">
+                    <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[0]; ?>  u-text-align--leftX  c-page-header__logo  u-padding--top--s  u-padding--sides--s">*/ ?>
+                    <div class="c-page-header__logo  u-padding--top--s  u-padding--sides--s">
                         <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
                             <?php echo $page_brand->logo_svg_with_fallback; ?>
                         </a>
                     </div>
                     <?php if ($page_display_cta) : ?>
-                    <div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
+                    <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">*/ ?>
+                    <div class="l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
                         <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><?php echo $page_cta_text; ?></a>
                     </div>
                     <?php endif; ?>
                     <?php if ($page_unit == 'npeu') : ?>
-                    <div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">
+                    <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">*/ ?>
+                    <div class="l-center  u-padding--top--s  u-padding--sides--s  c-page-header__affiliate_logos">
                         <div class="u-padding--s  l-center">
                             <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height--6" rel="external noopener noreferrer" target="_blank">
                                 <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="60">
