@@ -19,7 +19,12 @@
     <style>
         /* FOUC font match fallback */
         /* Match your final body webfont with this tool: https://meowni.ca/font-style-matcher/ */
-        body{font-size:15px;line-height:1.6;font-family:Arial,sans-serif;letter-spacing:.35px;word-spacing:-.4px}
+        /*
+            Leaving this out for now because this system doesn't actually work properly - the 
+            properties that are set in the stylesheets that override these should only be applied
+            if/when the font is loaded, or they don't actually help.
+        */
+        /*body{font-size:15px;line-height:1.6;font-family:Arial,sans-serif;letter-spacing:.35px;word-spacing:-.4px}*/
 
         /* Tiny fallback styles */
         /* (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md) */
