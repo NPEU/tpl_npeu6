@@ -53,9 +53,9 @@ if (!empty($card_data['wrapper_classes'])) {
             <?php endif; ?>
             <div class="c-card__main">
                 <h2 class="c-card__title">
-                <?php /*if (empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>"><?php endif;*/?>
+                <?php if (empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>"><?php endif; ?>
                 <?php echo $card_data['title']; ?>
-                <?php /*if (empty($card_data['full_link'])) : ?></a><?php endif;*/ ?>
+                <?php if (empty($card_data['full_link'])) : ?></a><?php endif; ?>
                 </h2>
                 <?php if (!empty($card_data['body'])) : ?>
                 <div class="c-card__body">
