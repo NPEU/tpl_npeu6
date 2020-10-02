@@ -25,6 +25,7 @@
             if/when the font is loaded, or they don't actually help.
         */
         /*body{font-size:15px;line-height:1.6;font-family:Arial,sans-serif;letter-spacing:.35px;word-spacing:-.4px}*/
+        body{font-family:sans-serif;}
 
         /* Tiny fallback styles */
         /* (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md) */
