@@ -57,13 +57,13 @@ $hx = 'h' . $hx;
                     <div class="c-card__main">
                         <<?php echo $hx; ?> class="c-card__title"><?php echo $card->title; ?></<?php echo $hx; ?>>
 
-                        <?php if (!empty($card->body)) : ?>
+                        <?php if (!empty(trim($card->body))) : ?>
                         <div class="c-card__body">
                             <?php echo $card->body; ?>
                         </div>
                         <?php endif; ?>
 
-                        <?php if (!empty($card->footer)) : ?>
+                        <?php if (!empty(trim($card->footer))) : ?>
                         <div class="c-card__footer">
                             <?php echo $card->footer; ?>
                             <?php /* Not sure how to handle this, as this markup would be a pain in the editor, but is what's needed for proper footer layout
