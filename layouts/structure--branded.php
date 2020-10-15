@@ -177,7 +177,7 @@
                     </div>
                     <?php endif; ?>
                     <?php if ($page_hero->credit): ?>
-                    <details class="c-info-overlay">
+                    <details class="c-info-overlay  c-info-overlay--half-width">
                         <summary><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-info"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></summary>
                         <div><?php echo $page_hero->credit; ?></div>
                     </details>
