@@ -192,7 +192,7 @@ $page_has_priority_content = false;
 $is_blog = (
     $menu_item->query['option'] == 'com_content'
  && $menu_item->query['view']   == 'category'
- && $menu_item->query['layout'] == 'blog'
+ && (isset($menu_item->query['layout']) && $menu_item->query['layout']== 'blog')
 );
 
 if (!$is_blog) {
@@ -368,8 +368,8 @@ if (isset($doc->_metaTags['standard'])) {
 
 
 // Page SVG Icons
-$page_svg_icons   = str_replace("> ", ">\n ", $page_template_params->svg_icons);
-
+#$page_svg_icons   = str_replace("> ", ">\n ", $page_template_params->svg_icons);
+$page_svg_icons = str_replace("> ", ">\n ", file_get_contents(__DIR__ . '/svg/icons.svg'));
 
 // Assets:
 $page_stylesheets = TplNPEU6Helper::remove_joomla_stylesheets($page_head_data['styleSheets'], $doc);
