@@ -160,9 +160,6 @@
                                 <div class="u-image-cover  js-image-cover">
                                     <div class="u-image-cover__inner">
                                         <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
-                                        <?php if ($page_hero->credit): ?>
-                                        <small class="c-hero__image-credit"><?php echo $page_hero->credit; ?></small>
-                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -178,6 +175,12 @@
                         <p class="u-space--left--auto"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta  c-cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                         <?php endif; ?>
                     </div>
+                    <?php endif; ?>
+                    <?php if ($page_hero->credit): ?>
+                    <details class="c-info-overlay">
+                        <summary><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-info"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></summary>
+                        <div><?php echo $page_hero->credit; ?></div>
+                    </details>
                     <?php endif; ?>
                 </div>
                     <?php endif; ?>
