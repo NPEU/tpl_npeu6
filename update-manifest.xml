@@ -2400,4 +2400,20 @@
             <tag>stable</tag>
         </tags>
     </update>
+    <update>
+        <name>NPEU: tpl_npeu6</name>
+        <description>Joomla! tpl_npeu6 template</description>
+        <element>npeu6</element>
+        <type>template</type>
+        <version>1.101.0</version>
+        <client>site</client>
+        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v1.101.0</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v1.101.0.zip</downloadurl>
+        </downloads>
+        <targetplatform name="joomla" />
+        <tags>
+            <tag>stable</tag>
+        </tags>
+    </update>
 </updates>
