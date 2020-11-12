@@ -66,7 +66,7 @@ $count--;
         /*}*/
         ?>
             <div class="<?php echo $outer_class; ?>">
-                <ul class="<?php echo $inner_class; ?>">
+                <div class="<?php echo $inner_class; ?>">
                     <?php foreach ($items as $item): $j++; 
                     
                     // Ditch hero images after first 2:
@@ -75,11 +75,11 @@ $count--;
                     }
                     
                     ?>
-                    <li>
+                    <div>
                         <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
-                    </li>
+                    </div>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             </div>
         </div>
 

@@ -17,25 +17,16 @@
     <?php endif; ?>
 
     <style>
-        /* FOUC font match fallback */
-        /* Match your final body webfont with this tool: https://meowni.ca/font-style-matcher/ */
-        /*
-            Leaving this out for now because this system doesn't actually work properly - the 
-            properties that are set in the stylesheets that override these should only be applied
-            if/when the font is loaded, or they don't actually help.
-        */
-        /*body{font-size:15px;line-height:1.6;font-family:Arial,sans-serif;letter-spacing:.35px;word-spacing:-.4px}*/
-        body{font-family:sans-serif;}
-
-        /* Tiny fallback styles */
-        /* (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md) */
-        body{padding:1em;margin:0 auto;max-width:50em;}
+        /* Tiny Fall-Back Styles (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md) */
+        body{font-family:sans-serif;line-height:1.2;padding:1em;margin:0 auto;max-width:50em;}
         img{max-width:100%;-ms-interpolation-mode:bicubic;}
         [hidden]{display:none;}
         main{display:block;}
+        pre{overflow-x:scroll;overflow-y:auto;}
+        button,input,select,textarea{vertical-align:middle;}
 
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
-        .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%}.embed-container embed,.embed-container iframe,.embed-container object{position:absolute;top:0;left:0;width:100%;height:100%}
+        .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top 0;left:0;width:100%;height:100%;}
     </style>
 
    <!--

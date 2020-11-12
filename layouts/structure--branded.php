@@ -8,7 +8,7 @@
                     <li><a href="#primary-nav"><span>Skip to navigation</span></a></li>
                     <li><a href="#page-footer"><span>Skip to footer</span></a></li>
                 </ul>
-                <div class="c-utilitext  no-print">
+                <p class="c-utilitext  no-print">
                     <?php echo $modules__log_in_out_button; ?>&nbsp;|&nbsp;<a href="https://intranet.npeu.ox.ac.uk"><span>Staff Area</span></a>
                     <?php if($user->get('is_staff')): ?>
                     | <a href="http://api.qrserver.com/v1/create-qr-code/?data=http://qr.npeu.ox.ac.uk/<?php echo $menu_item->id; ?>&amp;format=eps" class="icon  icon-qrcode"><span>QR code (eps)</span></a>
@@ -16,7 +16,7 @@
                     <?php if ($user->authorise("core.edit", "com_menus.menu." . $menu_id)): ?>
                     | <a href="/administrator/index.php?option=com_menus&view=item&client_id=0&layout=edit&id=<?php echo $menu_item->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit page</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
                     <?php endif; ?>
-                </div>
+                </p>
             </div>
 
             <?php if ($modules__top != '') : ?>
@@ -128,7 +128,7 @@
                                 <button class="search-form__submit" type="submit">
                                     <span>
                                         <svg width="20" height="20" viewBox="0 0 20 20" focusable="false">
-                                            <path fill="#ffffff" d="M12.917 11.667h-0.662l-0.229-0.229c0.817-0.946 1.308-2.175 1.308-3.521 0-2.992-2.425-5.417-5.417-5.417s-5.417 2.425-5.417 5.417 2.425 5.417 5.417 5.417c1.346 0 2.575-0.492 3.521-1.304l0.229 0.229v0.658l4.167 4.158 1.242-1.242-4.158-4.167zM7.917 11.667c-2.071 0-3.75-1.679-3.75-3.75s1.679-3.75 3.75-3.75 3.75 1.679 3.75 3.75-1.679 3.75-3.75 3.75z"></path>
+                                            <path fill="currentColor" d="M12.917 11.667h-0.662l-0.229-0.229c0.817-0.946 1.308-2.175 1.308-3.521 0-2.992-2.425-5.417-5.417-5.417s-5.417 2.425-5.417 5.417 2.425 5.417 5.417 5.417c1.346 0 2.575-0.492 3.521-1.304l0.229 0.229v0.658l4.167 4.158 1.242-1.242-4.158-4.167zM7.917 11.667c-2.071 0-3.75-1.679-3.75-3.75s1.679-3.75 3.75-3.75 3.75 1.679 3.75 3.75-1.679 3.75-3.75 3.75z"></path>
                                             <text y="-10">Search</text>
                                         </svg>
                                     </span>
