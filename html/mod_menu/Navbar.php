@@ -72,8 +72,17 @@ foreach ($new_list as $i => &$item) {
         $next_level = (int) $next_item->level;      
     }
     
+    $params = Joomla\Registry\Registry::getInstance('');
+    $params->loadObject($item->params);
     
-    $item_class         = 'nav-bar__item';
+    if (isset($params->get('data')->aliasoptions)) {
+        $ref_id = $params->get('data')->aliasoptions;
+    } else {
+        $ref_id = $item->id;
+    }
+    
+    
+    $item_class         = 'nav-bar__item  dropdown-container';
     $item_current_class = 'nav-bar__item--current';
     $item_link_class    = 'nav-bar__link';
     
@@ -91,7 +100,7 @@ foreach ($new_list as $i => &$item) {
     // Construct the class:
     $class   = $item_class;
     $current = false;
-    if ($item->id == $active_id) {
+    if ($active_id == $ref_id) {
         $class .= '  ' . $item_current_class;
         $current = true;
     }
@@ -109,7 +118,7 @@ foreach ($new_list as $i => &$item) {
     // then, as Joomla caches the menu, the tags are added per-menu, (e.g. twice) so using
     // removing them to prevent this.
     $title = str_replace(array('&lt;span&gt;', '&lt;/span&gt;'), '', $item->title);
-    $item->title = '<span>' . $title  . '</span>';
+    $item->title = '<span>' . $title . '</span>';
     ob_start();
     // Render the menu item.
     switch ($item->type) {
