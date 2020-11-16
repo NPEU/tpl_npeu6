@@ -8,7 +8,7 @@
                     <li><a href="#primary-nav"><span>Skip to navigation</span></a></li>
                     <li><a href="#page-footer"><span>Skip to footer</span></a></li>
                 </ul>
-                <p class="c-utilitext  no-print">
+                <div class="c-utilitext  no-print">
                     <?php echo $modules__log_in_out_button; ?>&nbsp;|&nbsp;<a href="https://intranet.npeu.ox.ac.uk"><span>Staff Area</span></a>
                     <?php if($user->get('is_staff')): ?>
                     | <a href="http://api.qrserver.com/v1/create-qr-code/?data=http://qr.npeu.ox.ac.uk/<?php echo $menu_item->id; ?>&amp;format=eps" class="icon  icon-qrcode"><span>QR code (eps)</span></a>
@@ -16,7 +16,7 @@
                     <?php if ($user->authorise("core.edit", "com_menus.menu." . $menu_id)): ?>
                     | <a href="/administrator/index.php?option=com_menus&view=item&client_id=0&layout=edit&id=<?php echo $menu_item->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit page</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
                     <?php endif; ?>
-                </p>
+                </div>
             </div>
 
             <?php if ($modules__top != '') : ?>
