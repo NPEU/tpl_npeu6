@@ -69,7 +69,7 @@
                     <?php if ($page_display_cta) : ?>
                     <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">*/ ?>
                     <div class="l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
-                        <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><?php echo $page_cta_text; ?></a>
+                        <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><span><?php echo $page_cta_text; ?><span></a>
                     </div>
                     <?php endif; ?>
                     <?php if ($page_unit == 'npeu') : ?>
