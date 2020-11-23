@@ -152,7 +152,7 @@
                 <?php if($page_has_hero) : ?>
                     <?php if($page_has_carousel) : ?>
                 <!-- @TOTO -->
-                    <?php else: /* @TODO - need to think about credit lines. */?>
+                    <?php else : /* @TODO - need to think about credit lines. */?>
                 <div id="hero" class="c-hero<?php echo (isset($page_hero->text_position) && $page_hero->text_position == 1) ? '' : '  c-hero--reversed'; ?>  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                     <div class="c-hero__image">
                         <div class="l-proportional-container  l-proportional-container--3-1  l-proportional-container--5-1--wide">
@@ -205,7 +205,7 @@
                                     <?php endif; ?>
                                 </p>
                             </header>
-                            <?php else: ?>
+                            <?php else : ?>
                             <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
                             <?php endif; ?>
                         </div>
@@ -213,7 +213,7 @@
                         <?php echo TplNPEU6Helper::get_messages(); ?>
 
                         <jdoc:include type="component" format="raw" />
-                        <?php else: ?>
+                        <?php else : ?>
 
                         <div class="l-primary-content<?php if ($page_has_pull_outs) : ?>  l-primary-content--has-pull-outs<?php endif; ?>">
 
@@ -242,7 +242,7 @@
                                             <?php endif; ?>
                                         </p>
                                     </header>
-                                    <?php else: ?>
+                                    <?php else : ?>
                                     <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
                                     <?php endif; ?>
                                     <?php echo TplNPEU6Helper::get_messages(); ?>
@@ -322,12 +322,12 @@
                                         <?php endif; ?>
                                         <?php if ($page_has_priority_content) : ?>
                                         <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
-                                        <?php else: ?>
+                                        <?php else : ?>
                                         <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
                                         <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
                                         <?php endif; ?>
                                     </div>
-                                    <?php else: ?>
+                                    <?php else : ?>
                                     <jdoc:include type="component" format="raw" />
                                     <?php endif; ?>
                                 </div>
@@ -344,8 +344,12 @@
                                 <footer class="t-neutral  d-background--very-light  u-max-measure  u-padding--s">
 
                                     <p class="c-utilitext  u-text-group  u-text-group--push-apart">
+                                        <?php if ($is_blog && !empty($doc->article->publish_up)) : ?>
+                                        <span>Published on <?php echo JHtml::_('date', $doc->article->publish_up, JText::_('DATE_FORMAT_LC1')); ?></span>
+                                        <?php else : ?>
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                         <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
+                                        <?php endif; ?>
                                     </p>
                                 </footer>
                                 <?php endif; ?>
