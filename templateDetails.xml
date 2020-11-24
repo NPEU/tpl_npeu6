@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="template" version="3.2.0" client="site">
 
-    <name>NPEU6</name>
+    <name>npeu6</name>
     <author>Andy Kirk</author>
     <authorEmail>andy.kirk@npeu.ox.ac.uk</authorEmail>
     <authorUrl>https://www.npeu.ox.ac.uk</authorUrl>
@@ -10,7 +10,7 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>1.109.0</version>
+    <version>1.109.1</version>
     <!-- The description is optional and defaults to the name -->
     <!--<description>TPL_NPEU6_DESCRIPTION</description>-->
     <!-- The above should work but doesn't and results in the untranslated string being shown. -->
