@@ -348,8 +348,8 @@
                                         <span>Published on <?php echo JHtml::_('date', $doc->article->publish_up, JText::_('DATE_FORMAT_LC1')); ?></span>
                                         <?php else : ?>
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
-                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
                                         <?php endif; ?>
+                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
                                     </p>
                                 </footer>
                                 <?php endif; ?>
