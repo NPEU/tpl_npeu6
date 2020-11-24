@@ -10,11 +10,9 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>1.108.0</version>
+    <version>1.108.1</version>
     <!-- The description is optional and defaults to the name -->
-    <!--<description>TPL_NPEU6_DESCRIPTION</description>-->
-    <!-- The above should work but doesn't and results in the untranslated string being shown. -->
-    <description>TPL_NPEU6_DETAILS_DESCRIPTION</description>
+    <description>TPL_NPEU6_DESCRIPTION</description>
 
     <updateservers>
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
