@@ -9,57 +9,79 @@
 
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.keepalive');
-JHtml::_('behavior.formvalidation');
-
-require_once 'templates/npeu5/helpers.php';
-
-$heading_config = array(
-	'title'   => $this->params->get('page_heading'),
-	'project' => 'npeu',
-    'project_name'  => 'NPEU',
-    'flush_heading' => true
-);
-
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 ?>
-<div class="registration<?php echo $this->pageclass_sfx?>">
-    <?php if ($this->params->get('show_page_heading')) : ?>
-    <?php echo heading($heading_config); ?>
+<?php #echo TplNPEU6Helper::get_messages(); ?>
+<form action="<?php echo JRoute::_('index.php?option=com_users&task=registration.register'); ?>" method="post" enctype="multipart/form-data">
+
+
+    <?php $i = 0; foreach ($this->form->getFieldsets() as $group => $fieldset):// Iterate through the form fieldsets and display each one.?>
+    <?php if ($group == 'params') { continue; } ?>
+    <?php $fields = $this->form->getFieldset($group); $hidden = ''; $help = ''; ?>
+    <?php if (count($fields)) : ?>
+    
+    <div id="fieldset<?php echo $i; ?>">
+        <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
+        <p><?php echo JText::_($fieldset->label); ?></p>
+        <?php endif; ?>
+        <div class="l-col-to-row">
+            <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
+            <?php #echo '<pre>'; var_dump($field->type); echo '</pre>'; ?>
+            <?php if ($field->type == 'EditHelp'): ?>
+            <div class="u-fill-width">
+                <?php $help .= $field->input . "\n"; ?>
+            </div>
+            <?php elseif ($field->type == 'EditMsg'): //editmsg ?>
+            <div hidden aria-hidden="false">Notice</div>
+            <p class="u-text-align--center  c-system-message  u-fill-width"><?php echo TplNPEU6Helper::clean_title($field->label); ?></p>
+            <?php elseif ($field->hidden): // If the field is hidden, just display the input. ?>
+            <?php $hidden .= $field->input . "\n"; ?>
+            <?php else: ?>
+            <div class="l-col-to-row__item  u-padding--right <?php echo $field->type == 'Editor' ? 'u-fill-width' : 'ff-width-100--25--25'?>">
+                <?php if ($field->type == 'Gravatar' || $field->type == 'ImageEdit'): ?>
+                <?php echo preg_replace('/\sfor="[^"]+"/', '', TplNPEU6Helper::clean_title($field->label)); ?>
+                <?php else: ?>
+                <?php echo TplNPEU6Helper::clean_title($field->label); ?>
+                <?php endif; ?>
+            </div>
+            <div class="l-col-to-row__item  <?php echo $field->type == 'Editor' ? 'u-fill-width  u-space--below' : 'ff-width-100--25--75'?>">
+                <?php if ($field->type == 'Editor' && $field->required): ?>
+                <?php echo preg_replace('/<textarea/', '<textarea class="required" required aria-required="true"', $field->input); ?>
+                <?php elseif ($field->type == 'ImageEdit'): ?>
+                <div>
+                    <?php echo $field->input; ?>
+                </div>
+                <?php elseif ($field->type == 'Password'): ?>
+                <?php #echo add_class(str_replace('autocomplete="off"', 'autocomplete="new-password"', $field->input), 'text-input'); ?>
+                <?php echo str_replace('autocomplete="off"', 'autocomplete="new-password"', $field->input); ?>
+                <?php else: ?>
+                <?php #echo in_array($field->type, array('Email', 'Text')) ? add_class($field->input, 'text-input') : $field->input; ?>
+                <?php echo $field->input; ?>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+        <?php if (!empty($help)): ?>
+        <?php echo $help; ?>
+        <?php endif; ?>
+        <?php if (!empty($hidden)): ?>
+        <?php echo $hidden; ?>
+        <?php endif; ?>
+
+    </div>
     <?php endif; ?>
-
-
-	<form id="member-registration" action="<?php echo JRoute::_('index.php?option=com_users&task=registration.register'); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
-<?php foreach ($this->form->getFieldsets() as $fieldset): // Iterate through the form fieldsets and display each one.?>
-	<?php $fields = $this->form->getFieldset($fieldset->name);?>
-	<?php if (count($fields)):?>
-		<fieldset>
-            <?php if (isset($fieldset->label)): // If the fieldset has a label set, display it as the legend. ?>
-			<legend><?php echo JText::_($fieldset->label);?></legend>
-            <?php endif;?>
-            <dl class="gw2"><!--
-            <?php foreach ($fields as $field) : // Iterate through the fields in the set and display them. ?>
-			<?php if ($field->hidden): // If the field is hidden, just display the input. ?>
-                <?php echo '-->' . $field->input . '<!--'; ?>
-			<?php else:?>
-                --><dt class="g2 one-quarter underline">
-					<?php echo clean_title($field->label); ?>
-				</dt><!--
-				--><dd class="g2  three-quarters">
-                    <?php echo in_array($field->type, array('Email', 'Text', 'Password')) ? add_class($field->input, 'text-input') : $field->input; ?>
-				</dd><!--
-			<?php endif;?>
-            <?php endforeach;?>
-            --></dl>
-		</fieldset>
-	<?php endif;?>
-<?php endforeach;?>
-		<p class="push--one-quarter">
-			<button type="submit" class="btn btn--primary validate"><?php echo JText::_('JREGISTER');?></button>
-            <?php echo JText::_('COM_USERS_OR'); ?>
-			<a class="btn" href="<?php echo JRoute::_('');?>" title="<?php echo JText::_('JCANCEL');?>"><?php echo JText::_('JCANCEL');?></a>
-			<input type="hidden" name="option" value="com_users" />
-			<input type="hidden" name="task" value="registration.register" />
-			<?php echo JHtml::_('form.token');?>
-		</p>
-	</form>
-</div>
+    <?php $i++; endforeach; ?>
+    <div class="l-col-to-row">
+        <div class="l-col-to-row__item  u-padding--right  ff-width-100--25--25">
+        </div>
+        <div class="l-col-to-row__item  ff-width-100--25--75">
+            <span>
+                <button type="submit"><span><?php echo JText::_('JREGISTER'); ?></span></button>
+            </span>
+        </div>
+    </div>
+    <input type="hidden" name="option" value="com_users" />
+    <input type="hidden" name="task" value="registration.register" />
+    <?php echo JHtml::_('form.token'); ?>
+</form>
