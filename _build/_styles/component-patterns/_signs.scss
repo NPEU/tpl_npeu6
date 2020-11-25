@@ -39,33 +39,29 @@ $theme-only: false !default;
         IE11 needs this wrapper to behave properly.
         If you're not supporting IE11, you don't this this CSS or the HTML that goes with it.
     */
-    .#{$signs-namespace}signpost-wrap {
-        display: -ms-flexbox;
+    /*.#{$signs-namespace}signpost-wrap {
+
         display: flex;
 
         & > .#{$signs-namespace}signpost {
             -ms-flex-preferred-size: 100%;
             flex-basis: 100%;
         }
-    }
+    }*/
 
 
+    /*
+        1. This is a hack for IE11, otherwise the container goes as wide as the children in a row.
+    */
     .#{$signs-namespace}signpost {
         flex-basis: 100%;
 
-        display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
-
-        -webkit-flex-direction: row;
-            -ms-flex-direction: row;
-                flex-direction: row;
-
-            -webkit-flex-wrap: wrap;
-                -ms-flex-wrap: wrap;
-                    flex-wrap: wrap;
-
-        width: 100%;
+        flex-direction: row;
+            flex-wrap: wrap;
+                    
+        width: 0; /* [1] */
+        min-width: 100%; /* [1] */
     }
 
     /*@media only screen and (min-width: $not-too-small) {
@@ -94,26 +90,14 @@ $theme-only: false !default;
         &#{&} {
             background-color: $signs--background-color;
 
-            /*-webkit-flex: 1 0 15em;
-                -ms-flex: 1 0 15em;
-                    flex: 1 0 15em;*/
-            -webkit-flex: 1 0 50%;
-                -ms-flex: 1 0 50%;
-                    flex: 1 0 50%;
+            flex: 1 0 50%;
 
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
-
-            -webkit-flex-direction: column;
-                -ms-flex-direction: column;
-                    flex-direction: column;
+            flex-direction: column;
         }
 
         &#{&}--span-all {
-                 -webkit-flex-basis: 100%;
-                         flex-basis: 100%;
-            -ms-flex-preferred-size: 100%;
+             flex-basis: 100%;
         }
         
         // FF and Chrome handle span breaks differently.
@@ -125,19 +109,11 @@ $theme-only: false !default;
 
         a[href]#{&}__link {
             padding: $sz-xs;
-            //display: block;
 
-            -webkit-flex: 1 0 auto;
-                -ms-flex: 1 0 auto;
-                    flex: 1 0 auto;
+            flex: 1 0 auto;
 
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
-
-            -webkit-flex-direction: column;
-                -ms-flex-direction: column;
-                    flex-direction: column;
+            flex-direction: column;
 
 
             //background: linear-gradient(to right, #007DB1 0%,#007DB1 25%,#64AED3 25%,#64AED3 50%,#B6B1C7 50%,#B6B1C7 75%,#6F6992 75%,#6F6992 100%);
@@ -194,37 +170,21 @@ $theme-only: false !default;
             font-size: 0.875em;
         }
 
-        /*
-            1. IE10
-        */
+
         #{&}__centered-content {
 
             padding: $sz-s;
             outline: 1px solid #fff;
             position: relative;
 
-            //height: 100%;
+            flex: 1 0 auto;
 
-            display: block; /* [1]  */
-            display: -webkit-flex;
             display: flex;
-
-            -webkit-flex: 1 0 auto;
-                -ms-flex: 1 0 auto;
-                    flex: 1 0 auto;
-
-            -webkit-align-items: center;
-                    align-items: center;
-
-            -webkit-align-content: center;
-                    align-content: center;
-
-            -webkit-justify-content: center;
-                    justify-content: center;
-
-            -webkit-flex-wrap: wrap;
-                    flex-wrap: wrap;
-        }
+            flex-wrap: wrap;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+}
 
         #{&}__svg {
             display: block;

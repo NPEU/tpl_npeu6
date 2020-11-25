@@ -5,9 +5,14 @@ $theme-namespace: t- !default;
 
 
 $hero-breakpoint: 40rem !default;
+$hero-breakpoint-wide: $hero-breakpoint * 1.6 !default;
+
 $hero-max-message-breakpoint: 100rem !default;
-$hero-min-message-size: 20px !default;
-$hero-max-message-size: 52px !default;
+
+$hero-min-message-size: 16px !default;
+$hero-max-message-size: 26px !default;
+$hero-min-heading-size: 24px !default;
+$hero-max-heading-size: 46px !default;
 
 $theme-only: false !default;
 
@@ -23,37 +28,96 @@ $theme-only: false !default;
         }
 
         #{&}__message {
-            @extend .u-word-wrap;
+            //@extend .u-word-wrap;
         
-        }
-        #{&}__message > * {
-            /*
-                1. For IE10 to wrap text.
-            */
             padding: $sz-xs $sz-m;
-            //font-size: 1.25em;
-            @include fluid-type(strip-unit($hero-breakpoint) * 16px, strip-unit($hero-max-message-breakpoint) * 16px, $hero-min-message-size, $hero-max-message-size);
-            //#{$hero-breakpoint}
-            line-height: 1.3;
-            font-weight: bold;
-            margin: 0;
-            max-width: 100%; /* [1] */
-            
-            > b {
-                font-weight: bold;
-            }
         }
+        
 
         #{&}__message * {
             margin: 0;
         }
+        
+        #{&}__message > #{&}__message--fluid_text,
+        #{&}__message > #{&}__message--fluid_heading {
+            /*
+                1. For IE10 to wrap text.
+            */
+            
+            @include fluid-type(strip-unit($hero-breakpoint) * 16px, strip-unit($hero-max-message-breakpoint) * 16px, $hero-min-message-size, $hero-max-message-size);
+
+            line-height: 1.3;
+            font-weight: bold;
+            margin: 0;
+            max-width: 100%; /* [1] */
+        }
+        
+        #{&}__message > #{&}__message--fluid_heading {
+            @include fluid-type(strip-unit($hero-breakpoint) * 16px, strip-unit($hero-max-message-breakpoint) * 16px, $hero-min-heading-size, $hero-max-heading-size);
+        }
+        
+        #{&}__image-credit {
+            font-size: 0.875em;
+            line-height: 1.3;
+            padding: 0.2em 0.5em;
+            color: #fff;
+            background-color: rgba(0,0,0,0.4);
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            max-width: 50%;
+            
+            a[href] {
+                background-color: transparent;
+                color: #fff;
+                border-width: 1px;
+
+                &:hover,
+                &:active,
+                &:focus {
+                    background-color: transparent;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    
+    .#{$hero-namespace}hero--reversed .#{$hero-namespace}hero__image-credit {
+        right: auto;
+        left: 0;
     }
 
+    @media only screen and (max-width:#{$hero-breakpoint}) {
+        .#{$hero-namespace}hero {
+            #{&}__message {
+                /*
+                    1. This is here to override the inline style width declaration.
+                       Allowing Joomla interface to specify width so it can be tweaked to suit the text,
+                       but we want it full-width on narrow screens and we can't do MQ's in inline styles,
+                */
+                width: 100% !important; /* [1] */
+            }
+        }
+    }
+    
+    @media only screen and (max-width:#{$hero-breakpoint-wide}) {
+        .#{$hero-namespace}hero {
+            #{&}__message--wide {
+                /*
+                    1. This is here to override the inline style width declaration.
+                       Allowing Joomla interface to specify width so it can be tweaked to suit the text,
+                       but we want it full-width on narrow screens and we can't do MQ's in inline styles,
+                */
+                width: 100% !important; /* [1] */
+            }
+        }
+    }
+    
     @media only screen and (min-width:#{$hero-breakpoint}) {
 
         .#{$hero-namespace}hero {
-
-            #{&}__message {
+        
+            #{&}__message:not(#{&}__message--wide) {
                 position: absolute;
                 z-index: 1;
 
@@ -63,23 +127,50 @@ $theme-only: false !default;
                 top: 0;
                 background: rgba(255,255,255,0.75);
 
-                display: -ms-flexbox;
-                display: -webkit-flex;
                 display: flex;
-                
-                -webkit-flex-wrap: wrap;
-                    -ms-flex-wrap: wrap;
-                        flex-wrap: wrap;
-
-                     -ms-flex-align: center;
-                -webkit-align-items: center;
-                        align-items: center;
-
-                          -ms-flex-pack: center;
-                -webkit-justify-content: center;
-                        justify-content: center;
+                flex-wrap: wrap;
+                align-items: center;
+                align-content: center;
+                justify-content: flex-start;
             }
+            
+            #{&}__message > * {
+                flex: 1 0 100%;
+            }
+        }
+        
+        .#{$hero-namespace}hero--reversed .#{$hero-namespace}hero__message:not(.#{$hero-namespace}hero__message--wide) {
+            right: 0;
+            left: auto;
+        }
 
+    }
+
+    @media only screen and (min-width:#{$hero-breakpoint-wide}) {
+
+        .#{$hero-namespace}hero {
+        
+            #{&}__message--wide {
+                position: absolute;
+                z-index: 1;
+
+                bottom: 0;
+                left: 0;
+                width: calc(20em + 20%);
+                top: 0;
+                background: rgba(255,255,255,0.75);
+
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;;
+                align-content: center;
+                justify-content: flex-start;
+            }
+            
+            
+            #{&}__message > * {
+                flex: 1 0 100%;
+            }
         }
         
         .#{$hero-namespace}hero--reversed .#{$hero-namespace}hero__message {

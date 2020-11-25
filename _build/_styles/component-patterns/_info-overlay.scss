@@ -23,39 +23,82 @@ $theme-only: false !default;
     .#{$info-overlay-namespace}info-overlay {
         &#{&} {
             position: absolute;
-            font-size: 0.75em;
+            left: 0;
+            top: 0;
             color: #fff;
-            background: rgba(0,0,0,0.6);
-            padding: 0 $sz-xs;
-            margin: 0;
+            background: rgba(0,0,0,0.5);
+            padding: 0;
+            margin: 0;       
+            
+            a[href],
+            a[href]:hover,
+            a[href]:focus,
+            a[href]:active {
+                color: #fff;
+            }
+        }
+        
+        & > summary {
+            
+            width: 2.4rem;
+            height: 2.4rem;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+ 
+            
+            & > :first-child {
+                display: inline;
+            }
+            
+            & > :last-child {
+                display: none;
+            }
+            
+            &::before {
+                display: none;
+            }
+            
+            &:hover,
+            &:focus,
+            &:active {
+                background: rgba(255,255,255,0.4);
+            }
+        }
+        
+        &[open] {
+            & > summary {
+                & > :first-child {
+                    display: none;
+                }
+                
+                & > :last-child {
+                    display: inline;
+                }
+            }
+        }
+        
+        & > summary + * {
+            position: relative;
+            left: 2.4rem;
+            margin-top: -2.4rem;
+            max-width: calc(100% - 2.4rem);
+            padding: $sz-xs $sz-m;
+            font-size: 0.875em;
         }
 
         * {
             margin: 0;
         }
 
-        &--full-width {
+        &--full-width[open] {
             width: 100%;
         }
-
-        &--tl {
-            top: 0;
-            left: 0;
+        
+        &--half-width[open] {
+            width: 50%;
         }
 
-        &--tr {
-            top: 0;
-            right: 0;
-        }
-
-        &--bl {
-            bottom: 0;
-            left: 0;
-        }
-
-        &--br {
-            bottom: 0;
-            right: 0;
-        }
     }
 }

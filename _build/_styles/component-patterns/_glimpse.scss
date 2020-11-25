@@ -15,6 +15,9 @@ $glimpse--background-color: lighten($glimpse--base-color, 60);
 $glimpse--spacing-unit: 2rem !default;
 $glimpse--max-width: 30em !default;
 $glimpse--image-size: 7.2rem !default;
+$glimpse--image-size-large: 17.2rem !default;
+
+$glimpse--content-breakpoint: 30em;
 
 $glimpse--base-color: #eee !default;
 $glimpse--text-color: #333 !default;
@@ -39,53 +42,51 @@ $theme-only: false !default;
 
 // We don't need this if we're only themeing the pattern:
 @if $theme-only == false {
-
+    /*
+        1. This is a hack for IE11, otherwise the container goes as wide as the children in a row.
+    */
     .#{$glimpse-namespace}glimpse {
-        &#{&} {
+        &#{&} {        
             position: relative;
             max-width: $glimpse--max-width;
-            //@if $glimpse--border-size != false {
-            //    border: $glimpse--border-size $glimpse--border-style $glimpse--border-color;
-            //}
-
-            //margin-bottom: $glimpse--spacing-unit;
-
-            //padding-top:    $glimpse--spacing-unit;
-            //padding-right:  $glimpse--spacing-unit;
-            //padding-bottom: $glimpse--spacing-unit;
-            padding-left:   $glimpse--image-size + $glimpse--spacing-unit;
-
-            //color: $glimpse--text-color;
-            //background-color: $glimpse--background-color;
-
             min-height: $glimpse--image-size;
-
-            //box-shadow: 0 0 9px inset;
+            
+            width: 0; /* [1] */
+            min-width: 100%; /* [1] */
+        }
+       
+        
+        &#{&}--large-image {
+        
         }
 
+        #{&}__link[href] {
+        
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        
+            border-bottom: 0;
 
-        #{&}__header {
+            &:hover,
+            &:active,
+            &:focus {
 
-            a {
-                border-bottom: 0;
-
-                &:hover {
-                    border-bottom: 0;
-
-                    span {
-                        border-bottom: 1px solid;
-                    }
-
-                    .#{$glimpse-namespace}glimpse__image {
-                        box-shadow: 0 0 0 2px currentColor;
-                    }
+                .#{$glimpse-namespace}glimpse__image {
+                    box-shadow: 0 0 0 2px currentColor;
                 }
             }
-        }
-        
-        #{&}__heading {
-            font-size: $glimpse-heading--font-size;
-            margin: 0;
+            
+            &#{&}:before,
+            &#{&}:after {
+                content: " ";
+                display: table;
+            }
+
+            &#{&},
+            &#{&}:after {
+                clear: both;
+            }
         }
 
         #{&}__image {
@@ -94,10 +95,12 @@ $theme-only: false !default;
 
             overflow: hidden;
 
-            position: absolute;
+            //position: absolute;
             left: 0;
             top: 0;
             border: 1px solid currentColor;
+            
+            margin-right: $glimpse--spacing-unit;
 
         }
 
@@ -107,14 +110,42 @@ $theme-only: false !default;
         }
 
         #{&}__content {
-            font-size: $glimpse-footer--font-size;
 
             margin: 0;
+            
+            max-width: 100%;
+            width: calc((#{$glimpse--content-breakpoint} - 100%) * 1000);
+            min-width: calc(100% - #{$glimpse--image-size + $glimpse--spacing-unit});
         }
+        
+            #{&}__content #{&}__heading {
+                    font-size: $glimpse-heading--font-size;
+                    line-height: $glimpse--spacing-unit * 1.5;
+                    margin: 0;
+                }
 
             #{&}__content * {
+                font-size: $glimpse-footer--font-size;
                 margin: 0;
             }
+
+
+        &#{&}--large-image #{&}__content {
+            min-width: calc(100% - #{$glimpse--image-size-large + $glimpse--spacing-unit});
+            margin-left: $glimpse--spacing-unit;
+            margin-top: $glimpse--spacing-unit;
+            margin-bottom: $glimpse--spacing-unit;
+        }
+        
+        &#{&}--large-image #{&}__image {
+            width: $glimpse--image-size-large;
+            height: $glimpse--image-size-large;
+            
+            margin-right: 0;
+            margin-top: -$glimpse--spacing-unit;
+            margin-bottom: -$glimpse--spacing-unit;
+            margin-left: -#{$glimpse--spacing-unit / 2};
+        }
 
     }
 

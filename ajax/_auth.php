@@ -23,7 +23,7 @@ $app->initialise(null, false);
 
 $user    = JFactory::getUser();
 
-#echo '<pre>'; var_dump($user->groups); echo '</pre>';
+#echo '<pre>'; var_dump($user->groups); echo '</pre>'; exit;
 
 // Only SuperUsers can access templates:
 if (!$user->authorise('core.admin')) {

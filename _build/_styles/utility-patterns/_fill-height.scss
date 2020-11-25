@@ -9,10 +9,16 @@ $fill-height-namespace: u- !default;
     min-height seems to be safe for Safari though, and is needed for Edge.
 */
 .#{$fill-height-namespace}fill-height {
-    -webkit-flex: 1 0 auto;
-            flex: 1 0 auto;
+    flex: 1 0 auto;
             
     min-height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+            
+    & > * {
+        flex: 1 0 auto;
+    }
 }
 
 @media #{$f__ie10-11} {
@@ -23,19 +29,14 @@ $fill-height-namespace: u- !default;
 
 
 .#{$fill-height-namespace}fill-height--column {
-    display: -webkit-flex !important;
     display: flex !important;
-
-    -webkit-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 
     & > * {
-        -webkit-flex: 0 0 auto;
-                flex: 0 0 auto;
+        flex: 0 0 auto;
     }
     
     & > .#{$fill-height-namespace}fill-height--column__expand {
-        -webkit-flex: 1 0 auto;
-                flex: 1 0 auto;
+        flex: 1 0 auto;
     }
 }

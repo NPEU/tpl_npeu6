@@ -15,7 +15,7 @@ $pagination-spacing-unit: 2rem !default;
 // Pagination outer:
 
 $pagination--text-color: #333 !default;
-$pagination--text-color--disabled: lighten($pagination--text-color, 30%) !default;
+$pagination--text-color--disabled: lighten($pagination--text-color, 20%) !default;
 
 $pagination--background-color: $pagination--base-color !default;
 
@@ -127,28 +127,8 @@ $pagination-button--border-color: darken($pagination--base-color, 20%) !default;
 
 
     .#{$pagination-namespace}pagination.#{$pagination-namespace}pagination {
-
-        display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
-
-       /*-webkit-flex-direction: row;
-            -ms-flex-direction: row;
-                flex-direction: row;
-
-            -webkit-flex-wrap: wrap;
-                -ms-flex-wrap: wrap;
-                    flex-wrap: wrap;*/
-
-        -webkit-justify-content: center;
-                  -ms-flex-pack: center;
-                justify-content: center;
-/*
-        -webkit-align-items: flex-end;
-             -ms-flex-align: end;
-                align-items: flex-end;
-*/
-
+        justify-content: center;
 
         color: $pagination--text-color;
         background: $pagination--background-color;
@@ -166,12 +146,6 @@ $pagination-button--border-color: darken($pagination--base-color, 20%) !default;
             border-radius: $pagination--border-radius;
         }
 
-        /*max-width: 20em;*/
-        /*margin-top: 0 auto;
-        margin-bottom: 1.5rem;
-        margin-left: auto;
-        margin-right: auto;*/
-
         /*
             If the 'pull' is > module body content height, it'll protrude below the container,
             so hide it:
@@ -179,48 +153,25 @@ $pagination-button--border-color: darken($pagination--base-color, 20%) !default;
         overflow: hidden;
     }
 
-        /*.#{$pagination-namespace}pagination > * {
-            -webkit-flex: 0 1 auto;
-                -ms-flex: 0 1 auto;
-                    flex: 0 1 auto;
-
-            width: 100%;
-        }*/
-
-
-        /*.#{$pagination-namespace}pagination .#{$pagination-namespace}pagination__title {
-            border-bottom: 1px solid #999;
-        }*/
-
 
         .#{$pagination-namespace}pagination .#{$pagination-namespace}pagination__list {
             list-style: none;
             padding: 0;
             margin: 0;
 
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
-
-            -webkit-flex-direction: row;
-                -ms-flex-direction: row;
-                    flex-direction: row
+            flex-direction: row
         }
-        
+
         .#{$pagination-namespace}pagination .#{$pagination-namespace}pagination__list--push-apart {
             width: 100%;
-            
-            -webkit-justify-content: space-between;
-                      -ms-flex-pack: justify;
-                    justify-content: space-between;
-        
+
+            justify-content: space-between;
         }
 
             .#{$pagination-namespace}pagination .#{$pagination-namespace}pagination__item {
-                -webkit-flex: 0 0 auto;
-                    -ms-flex: 0 0 auto;
-                        flex: 0 0 auto;
-                
+                flex: 0 0 auto;
+
                 padding: 0;
                 margin: 0;
             }
@@ -244,27 +195,19 @@ $pagination-button--border-color: darken($pagination--base-color, 20%) !default;
                     margin: 0;
 
                     border: 0;
-                    
+
                     @if $pagination--link-background-color != false {
                         background: $pagination--link-background-color;
                     }
 
                     display: block;
-
-                    /*display: -webkit-flex;
-                    display: -ms-flexbox;
-                    display: flex;
-
-                    -webkit-justify-content: center;
-                              -ms-flex-pack: center;
-                            justify-content: center;
-
-                    -webkit-align-items: center;
-                         -ms-flex-align: center;
-                            align-items: center;*/
                 }
 
                 .#{$pagination-namespace}pagination a.#{$pagination-namespace}pagination__link {
+                    span {
+                        text-decoration: underline;
+                    }
+
                     &:hover {
                         border: 0;
                         @if $pagination--link-background-color--alt != false {

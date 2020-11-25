@@ -6,22 +6,12 @@ $end-namespace: l- !default;
 
 .#{$end-namespace}end {
     &#{&} {
-        display: -ms-flexbox;
-        display: -webkit-flex;
         display: flex;
+        align-items: end;
+        justify-content: end;
+    }
 
-             -ms-flex-align: end;
-        -webkit-align-items: end;
-                align-items: end;
-
-                  -ms-flex-pack: end;
-        -webkit-justify-content: end;
-                justify-content: end;
-
-        & > * {
-            webkit-flex: 0 1 auto;
-               -ms-flex: 0 1 auto;
-                   flex: 0 1 auto;
-        }
+    & > * {
+        flex: 0 1 auto;
     }
 }

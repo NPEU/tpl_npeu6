@@ -45,17 +45,9 @@ $utilitext-namespace: c- !default;
             padding: 0;
             margin: 0;
 
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
-            
-            -webkit-flex-wrap: wrap;
-                -ms-flex-wrap: wrap;
-                    flex-wrap: wrap;
-
-            -webkit-flex-direction: row;
-                -ms-flex-direction: row;
-                    flex-direction: row;        
+            flex-wrap: wrap;
+            flex-direction: row;        
 
             li {
                 margin: 0;

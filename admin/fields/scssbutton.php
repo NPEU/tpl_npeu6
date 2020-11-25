@@ -48,7 +48,7 @@ class JFormFieldSCSSButton extends JFormField
     {
         $doc = JFactory::getDocument();
         //$doc->addStylesheet('/templates/npeu6/admin/css/toolbar.css');
-        $doc->addScript('/templates/npeu6/admin/js/scss_compile.js');
+        $doc->addScript('/templates/npeu6/admin/js/scss_compile_brands.js');
         #$input = parent::getInput();
         
         $button[] = '<button id="compile_scss" class="btn btn-success">';

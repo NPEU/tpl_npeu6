@@ -41,7 +41,7 @@ $card-main--background-color: $card--background-color !default;
 // Card title:
 
 $card-title--text-color: $card--text-color !default;
-$card-title--background-color: $card--background-color !default;
+$card-title--background-color: $card-main--background-color !default;
 
 
 $card--padding: 0 !default;
@@ -110,7 +110,7 @@ $theme-only: false !default;
     }
 */
 // Themes mixin:
-@mixin card-theme ($theme-name: "", $theme: ()) {
+@mixin card-theme ($theme-name: "", $theme: (), $pattern-varient: "") {
     // Set up theme name:
     $theme-class: "";
     @if $theme-name != "" {
@@ -120,23 +120,37 @@ $theme-only: false !default;
 
 //.c-card .c-card__full-link,
 // .c-card .c-card__full-link:hover
-    .#{$card-namespace}card .#{$card-namespace}card__full-link#{$theme-class},
-    .#{$card-namespace}card .#{$card-namespace}card__full-link#{$theme-class}:hover {
+    .#{$card-namespace}card#{$pattern-varient} .#{$card-namespace}card__full-link#{$theme-class},
+    .#{$card-namespace}card#{$pattern-varient} .#{$card-namespace}card__full-link#{$theme-class}:hover {
         background: map-get($theme, card-background-color);
     }
     
-    .#{$card-namespace}card#{$theme-class},
-    .#{$card-namespace}card#{$theme-class} .#{$card-namespace}card__main {
-		background-color: map-get($theme, card-background-color);
+    .#{$card-namespace}card#{$pattern-varient}#{$theme-class},
+    .#{$card-namespace}card#{$pattern-varient}#{$theme-class} .#{$card-namespace}card__main {
+		background-color: map-get($theme, card-main-background-color);
 	}
 
-    .#{$card-namespace}card#{$theme-class} .#{$card-namespace}card__main {
+    .#{$card-namespace}card#{$pattern-varient}#{$theme-class} .#{$card-namespace}card__main .#{$card-namespace}card__title,
+    .#{$card-namespace}card#{$pattern-varient}#{$theme-class} .#{$card-namespace}card__main .#{$card-namespace}card__body,
+    .#{$card-namespace}card#{$pattern-varient}#{$theme-class} .#{$card-namespace}card__main .#{$card-namespace}card__footer {
         color: map-get($theme, card-text-color);
-        background: map-get($theme, card-main-background-color);
+        background-color: map-get($theme, card-main-background-color);
+        
+        a[href] {
+            background-color: map-get($theme, card-main-background-color);
+            color: map-get($theme, card-text-color);
+
+            &:hover,
+            &:active,
+            &:focus {
+                background-color: map-get($theme, card-main-background-color);
+                color: map-get($theme, card-text-color);
+            }
+        }
     }
 
     @if map-has-key($theme, card-border-color) {
-        .#{$card-namespace}card#{$theme-class} {
+        .#{$card-namespace}card#{$pattern-varient}#{$theme-class} {
             border-color: map-get($theme, card-border-color);
         }
     }
@@ -165,19 +179,16 @@ $theme-only: false !default;
         IE10-11 needs this wrapper to behave properly.
         If you're not supporting IE11, you don't this this CSS or the HTML that goes with it.   
     */
-    .#{$card-namespace}card-wrap {
+    /*.#{$card-namespace}card-wrap {
         &#{&} {
-            display: -ms-flexbox;
             display: flex;
-
             height: 100%;
         }
 
         & > .#{$card-namespace}card {
-            -ms-flex-preferred-size: 100%;
             flex-basis: 100%;
         }
-    }
+    }*/
     
     /*
         Older webkit browsers also need special treatment.
@@ -185,30 +196,28 @@ $theme-only: false !default;
         1. Chrome 39-50, Opera 26-37, Safari/iOS 9-10. Using prefixed property as flex-direction
            breaks IE11 otherwise, so may as well use for all.
     */
-    _:-webkit-any-link, :root .#{$card-namespace}card-wrap.#{$card-namespace}card-wrap {
-        
-        height: auto;
-        flex: 1 0 auto; /* [1] */
-        flex-direction: column; /* [1] */
-    }
+    //_:-webkit-any-link, :root .#{$card-namespace}card-wrap.#{$card-namespace}card-wrap {
+    //    
+    //    height: auto;
+    //    flex: 1 0 auto; /* [1] */
+    //    flex-direction: column; /* [1] */
+    //}
     
-
+    /*
+        1. This is a hack for IE11, otherwise the container goes as wide as the children in a row.
+    */
     .#{$card-namespace}card {
         &#{&} {
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
+            flex-direction: column;
 
-            -webkit-flex-direction: column;
-                -ms-flex-direction: column;
-                    flex-direction: column;
-
-            height: 100%;
+            min-height: 100%;
+            flex-grow: 1;
 
             margin: 0;
 
             color: $card--text-color;
-            background: $card--background-color;
+            background-color: $card--background-color;
             padding: $card--padding;
 
 
@@ -228,14 +237,15 @@ $theme-only: false !default;
                 so hide it:
             */
             overflow: hidden;
+            
+            width: 0; /* [1] */
+            min-width: 100%; /* [1] */
         }
 
 
 
         > * {
-            -webkit-flex: 0 0 auto;
-                -ms-flex: 0 0 auto;
-                    flex: 0 0 auto;
+            flex: 0 0 auto;
 
             width: 100%;
         }
@@ -257,9 +267,10 @@ $theme-only: false !default;
             }
 
             #{&}__full-link {
-                -webkit-flex: 1 0 auto;
-                    -ms-flex: 1 0 auto;
-                        flex: 1 0 auto;
+                flex: 1 0 auto;
+                
+                display: flex;
+                flex-direction: column;
             }
 
             #{&}__full-link,
@@ -272,8 +283,7 @@ $theme-only: false !default;
 
                 position: relative;
                 display: block;
-                // IE10
-                //display: -ms-flexbox;
+
                 min-height: 100%;
             }
 
@@ -301,7 +311,7 @@ $theme-only: false !default;
             position: relative;
 
             color: $card-main--text-color;
-            background: $card-main--background-color;
+            background-color: $card-main--background-color;
 
             margin-left: $card-body--margin-left;
             margin-right: $card-body--margin-right;
@@ -309,26 +319,16 @@ $theme-only: false !default;
             margin-bottom: $card-body--margin-bottom;
             padding: $card-body--padding;
 
-            -webkit-flex: 1 0 auto;
-                -ms-flex: 1 0 auto;
-                    flex: 1 0 auto;
+            flex: 1 0 auto;
 
-
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
-
-            -webkit-flex-direction: column;
-                -ms-flex-direction: column;
-                    flex-direction: column;
+            flex-direction: column;
 
             position: relative;
         }
 
             #{&}__title {
-                -webkit-flex: 0 0 auto;
-                    -ms-flex: 0 0 auto;
-                        flex: 0 0 auto;
+                flex: 0 0 auto;
 
                 font-size:   $card-title--font-size;
                 line-height: $card-title--line-height;
@@ -338,7 +338,7 @@ $theme-only: false !default;
 
                 a {
                     // Reset any inherited link effects:
-                    all: initial;
+                    //all: initial;
 
                     // Un-reset font settings:
                     font-size: inherit;
@@ -350,6 +350,10 @@ $theme-only: false !default;
                     cursor: pointer;
 
                 }
+                
+                &:only-child {
+                    margin-bottom: 0;
+                }
             }
 
             &#{&}--stub #{&}__title {
@@ -358,24 +362,15 @@ $theme-only: false !default;
             }
 
             #{&}__body {
-                -webkit-flex: 1 0 auto;
-                    -ms-flex: 1 0 auto;
-                        flex: 1 0 auto;
+                flex: 1 0 auto;
 
-                display: -webkit-flex;
-                display: -ms-flexbox;
                 display: flex;
-
-                -webkit-flex-direction: column;
-                    -ms-flex-direction: column;
-                        flex-direction: column;
+                flex-direction: column;
 
                 width: 100%;
 
                 & > * {
-                    -webkit-flex: 0 0 auto;
-                        -ms-flex: 0 0 auto;
-                            flex: 0 0 auto;
+                    flex: 0 0 auto;
                 }
 
                 & > :last-child {
@@ -384,34 +379,20 @@ $theme-only: false !default;
             }
 
                 #{&}__cta {
-                    -webkit-flex: 1 0 auto;
-                        -ms-flex: 1 0 auto;
-                            flex: 1 0 auto;
+                    flex: 1 0 auto;
 
-                    display: -webkit-flex;
-                    display: -ms-flexbox;
                     display: flex;
+                    justify-content: flex-end;
+                    align-content: flex-start;
 
-                    -webkit-justify-content: flex-end;
-                              -ms-flex-pack: end;
-                            justify-content: flex-end;
-
-                    -webkit-align-content: flex-start;
-                       -ms-flex-line-pack: start;
-                            align-content: flex-start;
-
-                     & > * {
-                        -webkit-align-self: flex-end;
-                       -ms-flex-item-align: end;
-                                align-self: flex-end;
+                     > * {
+                        align-self: flex-end;
                     }
                 }
 
 
             #{&}__footer {
-                -webkit-flex: 0 0 auto;
-                    -ms-flex: 0 0 auto;
-                        flex: 0 0 auto;
+                flex: 0 0 auto;
 
                 margin-left: $card-body--margin-left;
                 margin-right: $card-body--margin-right;
@@ -437,7 +418,7 @@ $theme-only: false !default;
                     margin-bottom: -($card-body--padding / 2);
                     margin-top: -($card-body--padding / 2);
                     border-top: 1px solid #999;
-                    padding-top: calc((#{$card-body--padding / 2} - 1px);
+                    padding-top: calc(#{$card-body--padding / 2} - 1px);
                 }
 
 
@@ -465,11 +446,11 @@ $theme-only: false !default;
         Chrome 39-50, Opera 26-37, Safari/iOS 9-10:
         1. iOS 9-10 collapses box if using height, so using min-height instead.
     */
-    _:-webkit-any-link, :root .#{$card-namespace}card.#{$card-namespace}card {
-        flex: 1 0 auto;
-        height: auto; /* [1] */
-        min-height: 100%; /* [1] */
-    }
+    //_:-webkit-any-link, :root .#{$card-namespace}card.#{$card-namespace}card {
+    //    flex: 1 0 auto;
+    //    height: auto; /* [1] */
+    //    min-height: 100%; /* [1] */
+    //}
 
     /*
     @include card-theme(
@@ -482,12 +463,20 @@ $theme-only: false !default;
     */
 }
 
-// IE10
-@if $card--border-or-outline == 'border' {
-    _:-ms-lang(x), .#{$card-namespace}card.#{$card-namespace}card {
-
-        margin-right: -#{$card--border-width + 1px}\9;
-        margin-left: -#{$card--border-width + 1px}\9;
-
+.#{$card-namespace}card--unpublished {
+    opacity: 0.5;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    
+    &::after {
+        content: "Unpublished";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 3px;
+        font-size: 0.75em;
+        color: #fff;
+        background-color: #000;
     }
 }

@@ -83,22 +83,6 @@ $featurette-button--background-color-alt: lighten($featurette--base-color, 20%) 
 $featurette-button--border-color: darken($featurette--base-color, 20%) !default;
 */
 
-/*
-    IE11 needs this wrapper to behave properly.
-    If you're not supporting IE11, you don't this this CSS or the HTML that goes with it.
-*/
-.#{$featurette-namespace}featurette-wrap {
-    display: -ms-flexbox;
-    display: flex;
-    
-    height: 100%;
-
-    & > .#{$featurette-namespace}featurette {
-        -ms-flex-preferred-size: 100%;
-        flex-basis: 100%;
-    }
-}
-
 $theme-only: false !default;
 
 // Themes mixin:
@@ -110,7 +94,7 @@ $theme-only: false !default;
     }
 
     .#{$featurette-namespace}featurette#{$theme-class},
-    .#{$featurette-namespace}featurette#{$theme-class} a {
+    .#{$featurette-namespace}featurette#{$theme-class} * {
         background-color: map-get($theme, background-color);
         
         
@@ -124,51 +108,23 @@ $theme-only: false !default;
 
 // We don't need this if we're only themeing the pattern:
 @if $theme-only == false {
-
+    
     /*
-        IE11 needs this wrapper to behave properly.
-        If you're not supporting IE11, you don't this this CSS or the HTML that goes with it.
+        1. This is a hack for IE11, otherwise the container goes as wide as the children in a row.
     */
-    .#{$featurette-namespace}featurette-wrap {
-        &#{&} {
-            display: flex;
-            display: -ms-flexbox;
-
-            width: 100%;
-        }
-
-        & > .#{$featurette-namespace}featurette {
-            flex-basis: 100%;
-            -ms-flex-preferred-size: 100%;
-        }
-    }
-
     .#{$featurette-namespace}featurette {
-
         &#{&} {
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
-
-            -webkit-flex-direction: row;
-                -ms-flex-direction: row;
-                    flex-direction: row;
-
-            -webkit-flex-wrap: wrap;
-                -ms-flex-wrap: wrap;
-                    flex-wrap: wrap;
-
-
-            -webkit-align-items: center;
-                 -ms-flex-align: center;
-                    align-items: center;
-
-            -webkit-justify-content: center;
-                      -ms-flex-pack: center;
-                    justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
 
             //height: 100%;
             //width: 100%;
+            
+            width: 0; /* [1] */
+            min-width: 100%; /* [1] */
 
             color: $featurette--text-color;
             background: $featurette--background-color;
@@ -196,9 +152,7 @@ $theme-only: false !default;
         }
 
         & > * {
-            -webkit-flex: 1 0 auto;
-                -ms-flex: 1 0 auto;
-                    flex: 1 0 auto;
+            flex: 1 0 auto;
 
             width: 100%;
         }
@@ -208,11 +162,7 @@ $theme-only: false !default;
             position: relative;
             text-align: center;
             max-width: 13em;
-             -webkit-order: -1;
-            -ms-flex-order: -1;
-                     order: -1;
-
-
+            order: -1;
 
             & img {
                 width: 100%;
@@ -248,9 +198,9 @@ $theme-only: false !default;
 
         // IE10 - doesn't take padding into account (in this case 5% each side), so reducing the
         // flex basis here by 16% fixes the problem).
-        _:-ms-lang(x), .#{$featurette-namespace}featurette.#{$featurette-namespace}featurette {
+        /*_:-ms-lang(x), .#{$featurette-namespace}featurette.#{$featurette-namespace}featurette {
             -ms-flex-preferred-size: 84%;
-        }
+        }*/
 
 
         .#{$featurette-namespace}featurette {

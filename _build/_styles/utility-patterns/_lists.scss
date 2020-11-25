@@ -51,12 +51,8 @@ $lists-namespace: u- !default;
 
 
 .#{$lists-namespace}list--inline {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
+    flex-wrap: wrap;
             
     list-style: none;
 

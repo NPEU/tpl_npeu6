@@ -32,18 +32,18 @@ $patterns: (
 // Set defaults:
 $theme: map-merge(
     (
-        background-color           : map-get($theme, primary-color),
-        band-color                 : map-get($theme, primary-color),
-        border-color               : map-get($theme, primary-color),
-        card-background-color      : darken(map-get($theme, primary-color), 7%),
-        card-main-background-color : map-get($theme, primary-color),
-        card-border-color          : darken(map-get($theme, primary-color), 20%),
-        card-text-color            : #fff,
-        cta-text-color             : #333,
-        cta-background-color       : map-get($theme, primary-color),
-        page-header-color          : map-get($theme, primary-color),
-        signs-background-color     : map-get($theme, primary-color),
-        text-color                 : #333
+        background-color            : map-get($theme, primary-color),
+        band-color                  : map-get($theme, primary-color),
+        border-color                : map-get($theme, primary-color),
+        card-background-color       : darken(map-get($theme, primary-color), 7%),
+        card-main-background-color  : map-get($theme, primary-color),
+        card-border-color           : darken(map-get($theme, primary-color), 20%),
+        card-text-color             : #fff,
+        cta-text-color              : #333,
+        cta-background-color        : map-get($theme, primary-color),
+        page-header-color           : map-get($theme, primary-color),
+        signs-background-color      : map-get($theme, primary-color),
+        text-color                  : #333
     )
     , $theme
 );
@@ -62,6 +62,7 @@ $theme: map-merge(
     );
 }
 */
+//@debug $theme-name;
 //@debug $theme;
 
 @include background-theme($theme-name, $theme);
@@ -89,6 +90,8 @@ $theme: map-merge(
 .#{$theme-namespace}#{$theme-name} button:not(.over-panel__overlay)[aria-expanded=true] {
 */
 button.#{$theme-namespace}#{$theme-name}:not(.over-panel__overlay):not(.dropdown__button),
+a[href].button.#{$theme-namespace}#{$theme-name}:not(.over-panel__overlay):not(.dropdown__button),
+a[href].c-cta.#{$theme-namespace}#{$theme-name}:not(.over-panel__overlay):not(.dropdown__button),
 .cookie_notice__action button {
     border-color: map-get($theme, border-color) !important;
     color: map-get($theme, cta-text-color) !important;
@@ -148,28 +151,32 @@ table.#{$theme-namespace}#{$theme-name} tr:nth-child(odd) > th,
 
 // Navbar:
 .#{$theme-namespace}#{$theme-name}.nav-bar {
-    @include sloped-background(map-get($theme, primary-color));
+    //@include sloped-background(map-get($theme, primary-color));
+    background: map-get($theme, primary-color);
 }
 
 .#{$theme-namespace}#{$theme-name}.subnav__items {
-    background-color: map-get($theme, background-color);
+    background-color: map-get($theme, primary-color);
 }
-
 
 
 // Overpanel:
 .#{$theme-namespace}#{$theme-name}.over-panel__contents {
-    @include sloped-background(map-get($theme, primary-color));
+    //@include sloped-background(map-get($theme, primary-color));
+    //background: map-get($theme, primary-color);
+    background-color: darken(map-get($theme, primary-color), 5%);
+    //padding-left: 1.2rem;
 }
 
 
 
 // Search form
-/*
+
 .#{$theme-namespace}#{$theme-name}.search-form {
-    background-color: map-get($theme, background-color);
+    //background-color: map-get($theme, background-color);
+    padding-left: 1.2rem;
 }
-*/
+
 
 
 // Search form button:
@@ -254,7 +261,7 @@ table.#{$theme-namespace}#{$theme-name} tr:nth-child(odd) > th,
 
 
 
-/* - Don't do this, it's too generic and results in equal specifivity that's resolved in source
+/* - Don't do this, it's too generic and results in equal specificity that's resolved in source
     order, thus later themes win out, causing problems.
 .#{$theme-namespace}#{$theme-name} a[href] {
 
@@ -270,7 +277,7 @@ table.#{$theme-namespace}#{$theme-name} tr:nth-child(odd) > th,
 }
 */
 /*
-:not(.overpanel) .#{$theme-namespace}#{$theme-name} a[href].cta {
+:not(.overpanel) .#{$theme-namespace}#{$theme-name} a[href].c-cta {
 
     border-color: map-get($theme, border-color);
     color: #fff;
@@ -332,11 +339,13 @@ $theme: map-merge(
         background-color      : lighten(map-get($theme, primary-color), 45%),
         cta-text-color        : #333,
         cta-background-color  : lighten(map-get($theme, primary-color), 45%),
-        text-color            : #333
+        text-color            : #333,
+        card-text-color       : #333
     )
 );
 $theme--very-light: $theme;
 @include panel-theme($theme-name, $theme, --very-light);
+@include card-theme($theme-name, $theme, --very-light);
 
 
 // Light theme:
@@ -352,6 +361,7 @@ $theme: map-merge(
 );
 $theme--light: $theme;
 @include panel-theme($theme-name, $theme, --light);
+@include card-theme($theme-name, $theme, --light);
 
 
 // Dark theme:
@@ -389,16 +399,17 @@ $theme--very-dark: $theme;
 // User Content:
 .#{$theme-namespace}#{$theme-name} {
 
-    img[src*="/img/avatars/"] {
+    img[src*="/img/avatars/"],
+    [data-contains~="portrait"] img {
         border-color: map-get($theme, primary-color) !important;
     }
 
     div[data-display-as="themed-box"] {
 		background: map-get($theme--normal, primary-color);
        
-        a[href].cta:hover,
-        a[href].cta:active,
-        a[href].cta:focus {
+        a[href].c-cta:hover,
+        a[href].c-cta:active,
+        a[href].c-cta:focus {
             @if f__color_light_or_dark(map-get($theme, primary-color)) == 'light' {
                 background-color: rgba(0,0,0,0.1);
             } @else {
@@ -413,5 +424,28 @@ $theme--very-dark: $theme;
         } @else {
             outline: 2px solid rgba(255,255,255,0.5);
         }
+    }
+}
+
+
+// This next bit is an experiment with a different approach. If successful, migrate the above to this
+// format (and possibly other stuff too)
+// The idea is that we want to declare a brand colour for stuff to inherit, but avoiding custom
+// properties (for now).`inhert` or `currentColor` are the only options for this, really, but this
+// affects more than we'd really like (we can't specify to inherit from somewhere else), so we need
+// reset text colour etc. NEED TO BE VERY CAREFUL!
+[data-brand="#{$theme-name}"] {
+
+    [data-display-as~="themed-box--background"],
+    [data-display-as~="themed-box--border"] {
+        color: map-get($theme, primary-color);
+    }
+
+    [data-display-as~="themed-box--background"] > * {
+        color: #fff;
+    }
+
+    [data-display-as~="themed-box--border"] > * {
+        color: $f__base-text-color;
     }
 }

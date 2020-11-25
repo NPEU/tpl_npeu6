@@ -40,15 +40,9 @@ $proportional-container--wide: 45em !default;
             bottom: 0;
             right: 0;
 
-            display: -webkit-flex;
-            display: -ms-flexbox;
             display: flex;
-            -webkit-justify-content: center;
-                      -ms-flex-pack: center;
-                    justify-content: center;
-            -webkit-align-items: center;
-                 -ms-flex-align: center;
-                    align-items: center;
+            justify-content: center;
+            align-items: center;
         }
 
         #{&}__content svg {

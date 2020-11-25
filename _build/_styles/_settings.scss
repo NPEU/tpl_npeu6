@@ -8,7 +8,9 @@ $f__root-font-size: 10px;
 
 $f__base-ui-color: #614776;
 //$f__breakpoint--enhanced: 42.5625em;
-$f__breakpoint--enhanced: 51.875em;
+//$f__breakpoint--enhanced: 51.875em;
+//$f__breakpoint--enhanced: 58em;
+$f__body-max-width: 0;
 
 @import '../bower_components/Fall-Back-Start-CSS/scss/_start_settings.scss';
 
@@ -25,7 +27,7 @@ $hover-effect-width: $f__base-rem-space-unit / 4;
 
 /* --| FUNCTIONS AND MIXINS |-------------------------------------------------------------------- */
 
-@mixin bottom-space-fix () {
+@mixin bottom-space-fix ($size: $f__base-rem-space-unit) {
 
 	padding-bottom: 0 !important;
 
@@ -33,15 +35,16 @@ $hover-effect-width: $f__base-rem-space-unit / 4;
 		content: "";
 		display: block;
 		height: 1px;
-        margin-top: calc(#{$f__base-rem-space-unit} - 1px);
+        margin-top: calc(#{$size} - 1px);
+        clear: both;
 	}
 
 }
 
 @mixin sloped-background ($color) {
-    background: -moz-linear-gradient(45deg, darken($color, 5%) 0%, darken($color, 4%) 50%, darken($color, 2%) 50%,darken($color, 3%) 100%) !important;
-    background: -webkit-linear-gradient(45deg, darken($color, 5%) 0%,darken($color, 4%) 50%,darken($color, 2%) 50%,darken($color, 3%) 100%) !important;
-    background: linear-gradient(45deg, darken($color, 5%) 0%,darken($color, 4%) 50%,darken($color, 2%) 50%,darken($color, 3%) 100%) !important;
+    background: -moz-linear-gradient(45deg, darken($color, 7%) 0%, darken($color, 5%) 50%, darken($color, 3%) 50%,darken($color, 5%) 100%) !important;
+    background: -webkit-linear-gradient(45deg, darken($color, 7%) 0%,darken($color, 5%) 50%,darken($color, 3%) 50%,darken($color, 5%) 100%) !important;
+    background: linear-gradient(45deg, darken($color, 7%) 0%,darken($color, 5%) 50%,darken($color, 3%) 50%,darken($color, 5%) 100%) !important;
 
 }
 
@@ -76,3 +79,4 @@ $hover-effect-width: $f__base-rem-space-unit / 4;
         }
     }
 }
+

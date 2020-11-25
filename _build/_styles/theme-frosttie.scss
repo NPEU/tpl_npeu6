@@ -1,5 +1,5 @@
 /*
-    NeoCLEAR Theme
+    FROSTTIE Theme
     Note this theme file needs to be loaded *in addition* to the base 'style' file.
 */
 
@@ -15,12 +15,28 @@ $theme: (
     page-header-color    : #ffffff
 );
 
+
+$f__breakpoint--enhanced: 60em;
+
+$theme-copy: $theme;
+$theme-name-copy: $theme-name;
+@import "_style";
+
+
+
 $theme-only: true;
 @import "_themeable-patterns.scss";
 
 
 //$theme: map_get($themes, $theme-name);
-
+$theme: $theme-copy;
+$theme-name: $theme-name-copy;
 @import "_theme";
+
+/* ---------------------------------------------------------------------------------------------- */
+
+/* --| SHAME |----------------------------------------------------------------------------------- */
+
+@import "_shame";
 
 /* ---------------------------------------------------------------------------------------------- */

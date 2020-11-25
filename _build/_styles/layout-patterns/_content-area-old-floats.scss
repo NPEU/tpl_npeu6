@@ -32,13 +32,8 @@ $content-area-pull-out-side-space: 0 $content-area-spacing-unit 0 0 !default;
 .#{$content-area-namespace}content-area {
 
     &#{&} {
-        display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
-
-        -webkit-flex-wrap: wrap;
-            -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
+        flex-wrap: wrap;
 
         margin: 0;
         padding: 0 $content-area-spacing-unit;

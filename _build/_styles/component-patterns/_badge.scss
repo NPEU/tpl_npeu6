@@ -6,6 +6,8 @@ $badge-namespace: c- !default;
 
 $theme-only: false !default;
 
+$content-breakpoint: 60em !default;
+
 // Note - no theme yet!
 
 // We don't need this if we're only themeing the pattern:
@@ -13,9 +15,16 @@ $theme-only: false !default;
 
     .#{$badge-namespace}badge {
 
+        /*
+            1. For positioned pseudo elements, e.g. External indicator.
+            2. For IE11
+        */
         &#{&} {
             display: inline-block;
             vertical-align: middle;
+            
+            position: relative; /* [1] */
+            max-width: 100%; /* [2] */
         }
 
             svg {
@@ -33,20 +42,52 @@ $theme-only: false !default;
 
                 display: block; /* [2] */
 
-                height: auto;
+                //height: fit-content;
                 width: auto;
 
                 max-width: 100%;
-                max-height: 8rem;
-
 
                 border-style: none;
+                
+                background-color: transparent;
 
                 margin: 0 auto; /* [3] */
 
             }
 
-        &#{&}--small{
+        &#{&}--limit-height,
+        &#{&}--limit-height--8 {
+            img {
+                max-height: 8rem;
+            }
+        }
+        
+        &#{&}--limit-height--4 {
+            img {
+                max-height: 4rem;
+            }
+        }
+        
+        &#{&}--limit-height--6 {
+            img {
+                max-height: 6rem;
+            }
+        }
+        
+        &#{&}--limit-height--10 {
+            img {
+                max-height: 10rem;
+            }
+        }
+        
+        &#{&}--limit-height--12 {
+            img {
+                max-height: 12rem;
+            }
+        }
+        
+
+        &#{&}--small {
             height: 2em;
             width: 2em;
 
@@ -66,11 +107,57 @@ $theme-only: false !default;
             overflow: hidden;
         }
         */
+
+        &#{&}--decorated {
+
+            // Currently setting colour via inline style, so can't lighten it. Fake this by using a
+            // pseudo element for the background:
+            // Also href borders mess with these border settings, so use pseudo element for that
+            // too.
+            position: relative;
+
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                left: -1em;
+                top: -1em;
+                right: -1em;
+                bottom: -1em;
+
+                opacity: 0.05;
+                background-color: currentColor;
+            }
+
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                left: -1em;
+                top: -1em;
+                right: -1em;
+                bottom: -1em;
+
+                border-width: 4px;
+                border-style: solid;
+                border-color: currentColor;
+            }
+        }
+        
+        &#{&}--page-brand img {
+            display: block;
+            margin: 0 auto;
+            max-height: 18rem;
+        }
     }
 
     a[href].#{$badge-namespace}badge {
         border: 0;
         padding: 0;
+        margin: 0;
+        //width: 100%;
+        //height: 100%;
+        //flex: 1 0px;
 
         &:hover,
         &:active,
@@ -80,17 +167,66 @@ $theme-only: false !default;
         }
     }
 
+    a[href][rel=external].#{$badge-namespace}badge::after {
+        position: absolute;
+        right: -1em;
+        top: -1em;
+        width: 1.25em;
+        height: 1.25em;
+        display: block;
+    }
+
     /*
         IE10-11
 
         1. IE11- seems to need this.
+        ... Or, maybe not!?!?! Weird. 03/09/2020 - taken this out.
+        UGGGGH - needs it in the banner badges, but not badge list badges.
     */
 
-    @media only all and (-ms-high-contrast: none), only all and (-ms-high-contrast: active) {
+    @media #{$f__ie10-11} {
 
-        .#{$badge-namespace}badge img {
-            height: 100%; /* [1] */
+        .#{$badge-namespace}badge {
+            img {
+                height: auto; /* [1] */
+            }
+        
+            
+            /*
+                For some reason flex images size differently in IE1, so we need to multiply these
+                values by 1.666 !!! but only in the header. Footer logos behave properly.
+                I can't figure out what's causing the difference, so scoping to the header for now.
+            */
+            .c-page-header__affiliate_logos &#{&}--limit-height,
+            .c-page-header__affiliate_logos &#{&}--limit-height--8 {
+                img {
+                    max-height: 8rem * 1.666;
+                }
+            }
+            
+            .c-page-header__affiliate_logos &#{&}--limit-height--4 {
+                img {
+                    max-height: 4rem * 1.666;
+                }
+            }
+            
+            .c-page-header__affiliate_logos &#{&}--limit-height--6 {
+                img {
+                    max-height: 6rem * 1.666;
+                }
+            }
+            
+            .c-page-header__affiliate_logos &#{&}--limit-height--10 {
+                img {
+                    max-height: 10rem * 1.666;
+                }
+            }
+            
+            .c-page-header__affiliate_logos &#{&}--limit-height--12 {
+                img {
+                    max-height: 12rem * 1.666;
+                }
+            }
         }
-
     }
 }

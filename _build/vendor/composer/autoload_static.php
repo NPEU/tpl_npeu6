@@ -4,139 +4,45 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfc9f3eb47b9518638d3389749b1fe346
+class ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5
 {
-    public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Polyfill\\Ctype\\' => 23,
-            'Symfony\\Component\\Process\\' => 26,
-            'Symfony\\Component\\Finder\\' => 25,
-            'Symfony\\Component\\Filesystem\\' => 29,
-            'Symfony\\Component\\EventDispatcher\\' => 34,
-            'Symfony\\Component\\Debug\\' => 24,
-            'Symfony\\Component\\Console\\' => 26,
+            'ScssPhp\\Server\\' => 15,
+            'ScssPhp\\ScssPhp\\' => 16,
         ),
-        'P' => 
+        'M' => 
         array (
-            'Psr\\Log\\' => 8,
-            'PackageVersions\\' => 16,
-        ),
-        'L' => 
-        array (
-            'Leafo\\ScssPhp\\' => 14,
-        ),
-        'G' => 
-        array (
-            'Github\\' => 7,
-        ),
-        'B' => 
-        array (
-            'Bowerphp\\' => 9,
+            'Michelf\\' => 8,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'ScssPhp\\Server\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+            0 => __DIR__ . '/..' . '/scssphp/server/src',
         ),
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'ScssPhp\\ScssPhp\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+            0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
         ),
-        'Symfony\\Component\\Process\\' => 
+        'Michelf\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/process',
-        ),
-        'Symfony\\Component\\Finder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/finder',
-        ),
-        'Symfony\\Component\\Filesystem\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/filesystem',
-        ),
-        'Symfony\\Component\\EventDispatcher\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
-        ),
-        'Symfony\\Component\\Debug\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/debug',
-        ),
-        'Symfony\\Component\\Console\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/console',
-        ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
-        'PackageVersions\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/samsonasik/package-versions/src/PackageVersions',
-        ),
-        'Leafo\\ScssPhp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/leafo/scssphp/src',
-        ),
-        'Github\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/knplabs/github-api/lib/Github',
-        ),
-        'Bowerphp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/beelab/bowerphp/src/Bowerphp',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'v' => 
-        array (
-            'vierbergenlars\\SemVer\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/vierbergenlars/php-semver/src',
-            ),
-            'vierbergenlars\\LibJs\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/vierbergenlars/php-semver/src',
-            ),
-        ),
-        'G' => 
-        array (
-            'Guzzle\\Tests' => 
-            array (
-                0 => __DIR__ . '/..' . '/guzzle/guzzle/tests',
-            ),
-            'Guzzle' => 
-            array (
-                0 => __DIR__ . '/..' . '/guzzle/guzzle/src',
-            ),
+            0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
         ),
     );
 
     public static $classMap = array (
-        'vierbergenlars\\SemVer\\Internal\\Comparator' => __DIR__ . '/..' . '/vierbergenlars/php-semver/src/vierbergenlars/SemVer/internal.php',
-        'vierbergenlars\\SemVer\\Internal\\Exports' => __DIR__ . '/..' . '/vierbergenlars/php-semver/src/vierbergenlars/SemVer/internal.php',
-        'vierbergenlars\\SemVer\\Internal\\G' => __DIR__ . '/..' . '/vierbergenlars/php-semver/src/vierbergenlars/SemVer/internal.php',
-        'vierbergenlars\\SemVer\\Internal\\Range' => __DIR__ . '/..' . '/vierbergenlars/php-semver/src/vierbergenlars/SemVer/internal.php',
-        'vierbergenlars\\SemVer\\Internal\\SemVer' => __DIR__ . '/..' . '/vierbergenlars/php-semver/src/vierbergenlars/SemVer/internal.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfc9f3eb47b9518638d3389749b1fe346::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfc9f3eb47b9518638d3389749b1fe346::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitfc9f3eb47b9518638d3389749b1fe346::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitfc9f3eb47b9518638d3389749b1fe346::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5::$classMap;
 
         }, null, ClassLoader::class);
     }

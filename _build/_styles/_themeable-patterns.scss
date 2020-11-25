@@ -67,15 +67,22 @@ $featurette-spacing-unit: $f__base-rem-space-unit;
     )
 );
 
+@include featurette-theme("featurette--light", (
+    background-color: lighten($f__base-ui-color, 30%),
+    text-color: $f__base-ui-color
+    )
+);
+
+
 
 //@import "patterns/_funder-logo.scss";
-// Not sure why glimpse ever needs a max-wdith.
+// Not sure why glimpse ever needs a max-width.
 $glimpse--max-width: none;
 $glimpse-spacing-unit: $f__base-rem-space-unit;
 @import "component-patterns/_glimpse.scss";
 
-$hero-max-message-breakpoint: 100rem;
-$hero-max-message-size: 32px !default;
+//$hero-max-message-breakpoint: 100rem;
+//$hero-max-message-size: 32px !default;
 @import "component-patterns/_hero.scss";
 
 @import "component-patterns/_info-overlay.scss";
@@ -107,7 +114,8 @@ $signs--base-color: $f__base-ui-color;
 
 @import "component-patterns/_thumbnail.scss";
 
-//@import "component-patterns/_tool-form.scss";
+$tool-form--spacing-unit: $f__base-rem-space-unit;
+@import "component-patterns/_tool-form.scss";
 
 @import "component-patterns/_utilitext.scss";
 
