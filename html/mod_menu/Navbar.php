@@ -153,8 +153,8 @@ foreach ($new_list as $i => &$item) {
 
     // The next item is deeper.
     if ($next_item && $next_level > $level) {
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 2) . '<div class="dropdown dropdown--only-wide js-dropdown">';
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<button id="' . $item->alias . '-sub-menu" class="dropdown__button  t-' . $brand->alias . '" data-js="dropdown__button" hidden="" aria-label="' . $item->title . ' sub-menu" aria-expanded="false"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 2) . '<div class="dropdown  dropdown--only-wide" data-js="dropdown">';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<button id="' . $item->alias . '-sub-menu" class="dropdown__control  t-' . $brand->alias . '" data-js="dropdown__control" hidden="" aria-label="' . $item->title . ' sub-menu" aria-expanded="false"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>';
         $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<div class="dropdown__area" id="' . $item->alias . '-sub-menu--target">';
         $nav_item .= "\n" . TplNPEU6Helper::tab($level + 4) . '<ul class="subnav__items  subnav__items--stacked  t-' . $brand->alias . '">';
     }

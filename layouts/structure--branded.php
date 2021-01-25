@@ -92,22 +92,22 @@
             </div>
 
             <?php if($page_has_navbar) : ?>
-            <div class="nav-bar  u-padding--sides--s  t-<?php echo $page_brand->alias; ?>">
+            <div class="nav-bar  u-padding--sides--s  t-<?php echo $page_brand->alias; ?>" data-js="cmr">
 
                 <div class="nav-bar__start" data-area="navbar-controls">
                     <?php if ($modules__header_nav_bar != '') : ?>
                     <div class="nav-bar__item">
-                        <button class="over-panel-control t-<?php echo $page_brand->alias; ?> js-over-panel-control" hidden="" aria-controls="menu-panel" aria-label="Main menu" aria-expanded="false" data-js="overpanel__control"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-menu"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
+                        <button class="over-panel-control  t-<?php echo $page_brand->alias; ?>" hidden="" aria-controls="menu-panel" aria-label="Main menu" aria-expanded="false" data-js="overpanel__control"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-menu"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
                     </div>
                     <?php endif; ?>
                     <div class="nav-bar__item">
-                        <button class="over-panel-control t-<?php echo $page_brand->alias; ?> js-over-panel-control" hidden="" aria-controls="search-panel" aria-label="Search" aria-expanded="false" data-js="overpanel__control"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-search"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
+                        <button class="over-panel-control  t-<?php echo $page_brand->alias; ?>" hidden="" aria-controls="search-panel" aria-label="Search" aria-expanded="false" data-js="overpanel__control"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-search"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
                     </div>
                 </div>
 
                 <nav class="nav-bar__main" id="primary-nav" aria-label="Primary" data-area="main-nav">
 
-                    <div class="over-panel over-panel--fade js-over-panel" id="menu-panel" data-js="over-panel">
+                    <div class="over-panel  over-panel--fade" id="menu-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
                             <?php echo $modules__header_nav_bar; /*<jdoc:include type="modules" name="2-header-nav-bar" style="basic" />*/?>
@@ -116,8 +116,8 @@
 
                 </nav>
 
-                <div class="nav-bar__end" data-area="search-form">
-                    <div class="over-panel over-panel--fade js-over-panel" id="search-panel" data-js="over-panel">
+                <div class="nav-bar__end" data-area="search-form" data-min-width="250">
+                    <div class="over-panel  over-panel--fade" id="search-panel" data-js="over-panel">
                         <button class="over-panel__overlay  t-<?php echo $page_brand->alias; ?>" hidden aria-hidden="true" tabindex="-1" data-js="over-panel__overlay"></button>
                         <div class="over-panel__contents  t-<?php echo $page_brand->alias; ?>" data-js="over-panel__contents">
                             <form action="<?php echo ($page_brand->alias != 'npeu') ? '/' . $page_brand->alias : ''; ?>/search" id="searchform" class="search-form  search-form---restrict-width  t-<?php echo $page_brand->alias; ?>  u-space--left--auto" method="GET">
