@@ -16,6 +16,7 @@ use \Michelf\Markdown;
 $hx       = $params->get('header_tag', 'h2');
 $images   = $params->get('images', array());
 $n_images = is_object($images) ? count(get_object_vars($images)) : 0;
+$cover    = $params->get('cover', 1);
 
 if ($n_images == 0) {
     return;
@@ -28,6 +29,29 @@ if (!empty($images->images0->caption) || !empty($images->images0->credit)) {
     $wrapper = 'figure';
 }
 
+$container_classes = '';
+$inner_classes = 'u-image-natural';
+$image_classes = 'u-image-natural__image';
+
+if ($cover == 1) {
+    $container_classes = 'u-image-cover  u-image-cover--min-30  js-image-cover';
+    $inner_classes = 'u-image-cover__inner';
+    $image_classes = 'u-image-cover__image';
+}
+
+if (!empty($container_classes)) {
+    $container_classes = ' class="' . $container_classes . '"';
+}
+
+if (!empty($inner_classes)) {
+    $inner_classes = ' class="' . $inner_classes . '"';
+}
+
+if (!empty($image_classes)) {
+    $image_classes = ' class="' . $image_classes . '"';
+}
+
+
 ?>
 <?php if ($module->showtitle): ?>
 <<?php echo $hx; ?>><?php echo $module->title; ?></<?php echo $hx; ?>>
@@ -35,10 +59,10 @@ if (!empty($images->images0->caption) || !empty($images->images0->credit)) {
 <?php if($n_images > 1) : ?>
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>
-<<?php echo $wrapper; ?> class="u-image-cover  u-image-cover--min-30  js-image-cover">
-    <div class="u-image-cover__inner">
-        <img class="u-image-cover__image" src="<?php echo JURI::base() . $images->images0->image; ?>" width="600" alt="<?php echo $images->images0->alt; ?>">
-    </div>
+<<?php echo $wrapper; echo $container_classes; ?>>
+    <?php if (isset($images->images0->url)): ?><a href="<?php echo $images->images0->url; ?>"<?php if (strpos($images->images0->url, $_SERVER['SERVER_NAME']) === false): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>    
+        <img<?php echo $image_classes; ?> src="<?php echo JURI::base() . $images->images0->image; ?>" width="600" alt="<?php echo $images->images0->alt; ?>">
+    <?php if (isset($images->images0->url)): ?></a><?php else: ?></div><?php endif; ?>
     <?php if ($has_details): ?>
     <figcaption class="c-longform-content  c-user-content  c-panel  c-panel--very-dark" style="
         position: absolute;
