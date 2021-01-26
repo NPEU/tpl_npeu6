@@ -61,11 +61,11 @@
 
                 <div class="l-distribute">
                     <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[0]; ?>  u-text-align--leftX  c-page-header__logo  u-padding--top--s  u-padding--sides--s">*/ ?>
-                    <div class="c-page-header__logo  u-padding--top--s  u-padding--sides--s">
+                    <p class="c-page-header__logo  u-padding--top--s  u-padding--sides--s">
                         <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
                             <?php echo $page_brand->logo_svg_with_fallback; ?>
                         </a>
-                    </div>
+                    </p>
                     <?php if ($page_display_cta) : ?>
                     <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">*/ ?>
                     <div class="l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
@@ -431,7 +431,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="u-padding--s  l-center">
-                    <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
+                    <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" target="_blank">
                         <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
                     </a>
                 </div>
