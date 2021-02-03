@@ -18,7 +18,7 @@ $min_h_count = 3;
     
 // ToC requires id's on headers, so add them if not already present.
 // Note this is a back-up, ideally the editor will create them so they're saved into the article.
-preg_match_all('#<h2[^>]*>([^<]+)</h2>#', $doc->article->text, $matches, PREG_SET_ORDER);
+preg_match_all('#<h2[^>]*>([^<]+)</h2>#', $doc->article->fulltext, $matches, PREG_SET_ORDER);
 
 if (count($matches) < $min_h_count) {
     return;
@@ -37,9 +37,9 @@ if (count($matches) < $min_h_count) {
                     $h2_id = TplNPEU6Helper::html_id($match[1]);
                     $new_h2 = str_replace('<h2', '<h2 id="' . $h2_id . '"', $match[0]);
                     
-                    $doc->article->text      = str_replace($match[0], $new_h2, $doc->article->text);
+                    #$doc->article->text      = str_replace($match[0], $new_h2, $doc->article->text);
                     $doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
-                    $doc->article->introtext = str_replace($match[0], $new_h2, $doc->article->introtext);
+                    #$doc->article->introtext = str_replace($match[0], $new_h2, $doc->article->introtext);
                 } else {
                     $h2_id = $id_match[1];
                 } ?>
