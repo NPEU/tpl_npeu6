@@ -52,10 +52,13 @@ if (!empty($image_classes)) {
 }
 
 
-?>
+/*
+Module styles should handle the titles, or they can end up appearing twice.
 <?php if ($module->showtitle): ?>
 <<?php echo $hx; ?>><?php echo $module->title; ?></<?php echo $hx; ?>>
 <?php endif; ?>
+*/
+?>
 <?php if($n_images > 1) : ?>
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>

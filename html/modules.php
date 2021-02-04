@@ -37,7 +37,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
 
     $wrapper_classname = '';
-    $header_classname  = '';
+    $header_classname  = $params->get('header_class', '');;
     $wrapper_class = '';
     $header_class = '';
     $wrapper_theme_class = '';
@@ -53,6 +53,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     #echo '<pre>'; var_dump($module); echo '</pre>'; #exit;
     #echo '<pre>'; var_dump($module_wrapper); echo '</pre>'; #exit;
     #echo '<pre>'; var_dump($module_wrapper_theme); echo '</pre>'; #exit;
+    #echo '<pre>'; var_dump($module->title); echo '</pre>'; #exit;
     if (!empty($wrapper_classname)) {
         $wrapper_class = ' class="' . $wrapper_classname . '"';
     }
