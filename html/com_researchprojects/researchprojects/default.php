@@ -73,9 +73,9 @@ endif; ?>
         <form class="c-tool-form  c-panel  d-bands  u-space--below">
             <label for="filter">Filter projects:</label>
             <span class="c-composite">
-                 <input id="filter" filterable_input> <button filterable_submit>Filter</button>
+                <input id="filter" filterable_input> <button filterable_submit>Filter</button>
             </span>
-            <a class="c-cta" href="/research/projects">Clear</a>
+            <input type="reset" value="Clear" filterable_reset>
             <fieldset class="c-tool-form__fieldset">
                 <div>
                     <legend>Filter by:</legend>
