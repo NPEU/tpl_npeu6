@@ -33,6 +33,14 @@ $manual_markers = $params->get('manual_markers', false);
 $remote_markers = $params->get('remote_markers_url', false);
 $json_format    = $params->get('remote_markers_json_format', false);
 
+// Allow for relative data src URLs:
+if (strpos($remote_markers, 'http') !== 0) {
+    $s        = empty($_SERVER['SERVER_PORT']) ? '' : ($_SERVER['SERVER_PORT'] == '443' ? 's' : '');
+    $protocol = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
+    $domain   = $protocol.'://'.$_SERVER['SERVER_NAME'];
+    $remote_markers = $domain . '/' . trim($remote_markers, '/');
+}
+
 // Handle any manual markers:
 if ($manual_markers) {
 
@@ -44,6 +52,7 @@ if ($manual_markers) {
     }
 }
 
+#echo 'Markers<pre>'; var_dump($remote_markers); echo '</pre>'; exit;
 // Then add any remote markers:
 if ($remote_markers) {
 
