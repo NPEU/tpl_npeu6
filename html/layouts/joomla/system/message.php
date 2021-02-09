@@ -16,7 +16,8 @@ $msgList = $displayData['msgList'];
 <?php if (is_array($msgList) && !empty($msgList)) : ?>
 <div id="system-messages">
     <?php foreach ($msgList as $type => $msgs) : ?>
-    <div class="c-system-message  t-<?php echo $type == 'message' ? 'success' : $type; ?>">
+    <?php $dismiss = ($type == 'message' || $type == 'notice') ? ' data-js="close-button"' : ''; ?>
+    <div class="c-system-message  t-<?php echo $type == 'message' ? 'success' : $type; ?>"<?php echo $dismiss; ?>>
         <?php // This requires JS so we should add it trough JS. Progressive enhancement and stuff. ?>
         <?php /*<a class="close" data-dismiss="alert">×</a>*/?>
         <p><strong><?php echo JText::_($type); ?></strong></p>

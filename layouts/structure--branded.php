@@ -168,7 +168,7 @@
                     <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
                     <div class="c-hero__message<?php echo (!empty($page_hero->heading)) ? '  c-hero__message--wide' : ''; ?>"<?php echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; ?>>
                         <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
-                        <h1 class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_hero->heading; ?></h1>
+                        <h1 class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_hero->heading; ?></h1>
                         <?php endif; ?>
                         <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
                         <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
@@ -195,7 +195,7 @@
                         <div class="c-panel">
                             <?php if (isset($doc->header_cta) || $is_blog) : ?>
                             <header class="u-text-group  u-text-group--push-apart">
-                                <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
+                                <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
                                 <p>
                                     <?php if (isset($doc->header_cta)) : ?>
                                     <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
@@ -206,7 +206,7 @@
                                 </p>
                             </header>
                             <?php else : ?>
-                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
+                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
                             <?php endif; ?>
                         </div>
                         <?php endif; ?>
@@ -232,7 +232,7 @@
                                 <div class="c-panel">
                                     <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                     <header class="u-text-group  u-text-group--push-apart">
-                                        <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
+                                        <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
                                         <p>
                                             <?php if (isset($doc->header_cta)) : ?>
                                             <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
@@ -243,7 +243,7 @@
                                         </p>
                                     </header>
                                     <?php else : ?>
-                                    <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>"><?php echo $page_heading; ?></h1>
+                                    <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
                                     <?php endif; ?>
                                     <?php echo TplNPEU6Helper::get_messages(); ?>
                                     <?php if ($page_has_article) : ?>
