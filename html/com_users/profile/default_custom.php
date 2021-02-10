@@ -26,6 +26,7 @@ if (isset($fieldsets['freetext'])) {
 }
 
 #echo '<pre>'; var_dump($fieldsets); echo '</pre>';exit;
+$staff_data_uri = 'https://' . $_SERVER['HTTP_HOST'] . '/data/staff?id=';
 
 foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldsets
 	$fields = $this->form->getFieldset($group);
@@ -65,15 +66,21 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
         <?php elseif($field->type == 'Staff'): ?>
         <?php
         if (is_array($field->value)) {
-            $data_uri = 'https://' . $_SERVER['HTTP_HOST'] . '/data/staff?id=';
+            
                 
             foreach($field->value as $member_id) {
-                $member = json_decode(file_get_contents($data_uri . $member_id), true);
+                $member = json_decode(file_get_contents($staff_data_uri . $member_id . '&basic=1'), true);
                 echo '<p><a href="/people/' . $member[0]['alias'] . '"><span>' . $member[0]['firstname'] . ' ' . $member[0]['lastname'] . '</a></p>';
             }
         } else {
+            if (is_numeric($field->value)) {
+                $pa_data = json_decode(file_get_contents($staff_data_uri . $field->value . '&basic=1'), true);
+                if (is_array($pa_data)) {#
+                    echo '<p><a href="/people/' . $pa_data[0]['alias'] . '"><span>' . $pa_data[0]['firstname'] . ' ' . $pa_data[0]['lastname'] . '</a></p>';
+                    continue;
+                }
+            }
             echo JTEXT::_('COM_USERS_PROFILE_VALUE_NOT_FOUND');
-            
         }
         ?>
         <?php elseif($field->type == 'Projects'): ?>

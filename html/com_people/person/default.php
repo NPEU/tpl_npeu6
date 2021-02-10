@@ -13,6 +13,10 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helpe
 
 $person = $this->person;
 
+if ($person['pa'] && $person['pa_details_only'] == 'Yes') {
+    unset($person['email']);
+}
+
 function svg_info($img_src, $fallback_width = 180) {
     if (file_exists($img_src)) {
         $svg = file_get_contents($img_src);
@@ -126,6 +130,16 @@ function get_custom($custom_title, $custom) {
                 <?php endif; ?>
                 <?php if(!empty($person['email'])): ?>
                 <a href="mailto:<?php echo $person['email']; ?>"><?php echo $person['email']; ?></a>
+                <?php endif; ?>
+            </p>
+            <?php endif; ?>
+            <?php if(!empty($person['pa_details'])): ?>
+            <p class="u-text-group  u-text-group--wide-space">
+                <span>
+                    <b>PA:</b> <?php echo $person['pa_details']['name']; ?>
+                </span>
+                <?php if(!empty($person['pa_details']['email'])): ?>
+                <a href="mailto:<?php echo $person['pa_details']['email']; ?>"><?php echo $person['pa_details']['email']; ?></a>
                 <?php endif; ?>
             </p>
             <?php endif; ?>
