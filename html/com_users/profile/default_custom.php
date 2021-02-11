@@ -38,6 +38,7 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
 <div class="l-col-to-row--flush-edge-gutters  u-space--below">
 	<dl class="l-col-to-row">
         <?php foreach ($fields as $field): ?>
+        <?php #echo '<pre>'; var_dump($field); echo '</pre>'; ?>
         <?php if (!$field->hidden): ?>
 		<dt class="ff-width-100--25--25 l-col-to-row__item"><?php echo preg_replace('/<br>.*/', '', $field->title); ?></dt>
 		<dd class="ff-width-100--25--75 l-col-to-row__item  u-last-child--space--below--none">
@@ -110,6 +111,8 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
             
         }
         ?>
+        <?php elseif (strpos($field->getAttribute('prefix', ''), 'http') !== false) : ?>
+            <span style="padding-bottom: 1px;"><a href="<?php echo $field->getAttribute('prefix') . $field->value; ?>" target="_blank"><?php echo $field->value; ?></a></span>
         <?php else: ?>
         <?php echo JHtml::_('users.value', $field->value); ?>
         <?php endif; ?>

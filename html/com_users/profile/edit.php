@@ -130,6 +130,7 @@ $doc->include_joomla_scripts = true;
         <div class="l-col-to-row">
             <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
             <?php #echo '<pre>'; var_dump($field->type); echo '</pre>'; ?>
+            <?php $prefix = $field->getAttribute('prefix', false); ?>
             <?php if ($field->type == 'EditHelp'): ?>
             <div class="u-fill-width">
                 <?php $help .= $field->input . "\n"; ?>
@@ -159,7 +160,9 @@ $doc->include_joomla_scripts = true;
                 <?php echo str_replace('autocomplete="off"', 'autocomplete="new-password"', $field->input); ?>
                 <?php else: ?>
                 <?php #echo in_array($field->type, array('Email', 'Text')) ? add_class($field->input, 'text-input') : $field->input; ?>
+                <?php if ($prefix): ?><span class="c-composite"><span><?php echo $prefix; ?></span><?php endif; ?>
                 <?php echo $field->input; ?>
+                <?php if ($prefix): ?></span><?php endif; ?>
                 <?php endif; ?>
             </div>
             <?php endif; ?>
