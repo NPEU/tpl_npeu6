@@ -9,19 +9,31 @@
 
 defined('_JEXEC') or die;
 
+//load user_profile plugin language
+$lang = JFactory::getLanguage();
+$lang->load( 'plg_user_profile', JPATH_ADMINISTRATOR );
+
+$doc = JFactory::getDocument();
+
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 
+// For now, jQuery is required by CKEditor Footnotes, WYM, and ...
+#$jquery = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__)))) . '/js/jquery-3.5.1.min.js';
+#$doc->addScript($jquery);
+
+
+
 JHtml::_('behavior.keepalive');
+
 #JHtml::_('behavior.tooltip');
 #JHtml::_('behavior.formvalidation');
 JHtml::_('formbehavior.chosen', 'select');
 #JHtml::_('behavior.noframes');
 #return;
 JHTML::_('behavior.modal');
-//load user_profile plugin language
-$lang = JFactory::getLanguage();
-$lang->load( 'plg_user_profile', JPATH_ADMINISTRATOR );
 
+JHtml::_('jquery.ui', array('core', 'sortable'));
+JHtml::_('script', 'system/subform-repeatable.js', array('version' => 'auto', 'relative' => true));
 
 /*
 $doc = JFactory::getDocument();
@@ -34,7 +46,7 @@ $doc->addScript('/media/system/js/modal.js');
 
 $doc->addStyleSheet('/media/system/css/modal.css');*/
 
-$doc = JFactory::getDocument();
+
 
 
 
@@ -85,16 +97,17 @@ if ($j_config->get('editor') == 'ckeditorbasic' || $user_editor == 'ckeditorbasi
     $doc->addScriptDeclaration($str);
 }
 
-$script = array();
-$script[] = "jQuery(function() {";
-$script[] = "    window.setTimeout(function(){jQuery('[type=\"password\"]').val('')}, 10)";
-$script[] = "});";
+#$script = array();
+#$script[] = "jQuery(function() {";
+#$script[] = "    window.setTimeout(function(){jQuery('[type=\"password\"]').val('')}, 10)";
+#$script[] = "});";
+#
+#$str = implode("\n", $script);
+#$doc->addScriptDeclaration($str);
 
-$str = implode("\n", $script);
-$doc->addScriptDeclaration($str);
-#$doc->addScript('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js');
 
-#$doc->addStyleSheet('/media/system/css/modal.css');
+
+$doc->addStyleSheet('/media/system/css/modal.css');
 $doc->addStyleSheet('/media/jui/css/chosen.css');
 
 
@@ -113,9 +126,93 @@ $doc->include_joomla_scripts = true;
     
     <?php  /*<p><strong>Tip:</strong> hover your mouse over each field label to show more information on how to complete that field.</p>*/ ?>
     <?php $i = 0; foreach ($this->form->getFieldsets() as $group => $fieldset):// Iterate through the form fieldsets and display each one.?>
+    <?php #echo '<pre>'; var_dump($fieldset); echo '</pre>'; ?>
     <?php if ($group == 'params') { continue; } ?>
     <?php $fields = $this->form->getFieldset($group); $hidden = ''; $help = ''; ?>
     <?php if (count($fields)) : ?>
+    
+    <?php if ($fieldset->name == 'whatson-prefs') : $keys = array_keys($fields); ?>
+    <?php #echo '<pre>'; var_dump($fields); echo '</pre>'; ?>
+    <fieldset id="fieldset<?php echo $i; ?>">
+        <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
+        <legend><h2><?php echo JText::_($fieldset->label); ?></h2></legend>
+        <p class="u-text-align--right  u-space--below--none">
+            <button <?php /*id="profile_save"*/ ?> type="submit" class=""><span><?php echo JText::_('JSAVE'); ?></span></button>
+            <span><?php echo JText::_('COM_USERS_OR'); ?>
+                <a class="" href="<?php echo JRoute::_('/user-profile'); ?>" title="<?php echo JText::_('JCANCEL'); ?>"><?php echo JText::_('JCANCEL'); ?></a>
+            </span>
+        </p>
+        <?php endif; ?>
+        <div class="l-col-to-row">
+            <div class="l-col-to-row__item  ff-width-100--30--20">
+                <div class="u-padding--xs">
+                    <?php echo $fields[$keys[0]]->label; ?><br>
+                    <?php echo $fields[$keys[0]]->input . "\n"; ?>
+                </div>
+            </div>
+            <div class="l-col-to-row__item  ff-width-100--30--20">
+                <div class="u-padding--xs">
+                    <?php echo $fields[$keys[1]]->label; ?><br>
+                    <?php echo $fields[$keys[1]]->input . "\n"; ?>
+                </div>
+            </div>
+            <div class="l-col-to-row__item  ff-width-100--30--20">
+                <div class="u-padding--xs">
+                    <?php echo $fields[$keys[2]]->label; ?><br>
+                    <?php echo $fields[$keys[2]]->input . "\n"; ?>
+                </div>
+            </div>
+            <div class="l-col-to-row__item  ff-width-100--30--20">
+                <div class="u-padding--xs">
+                    <?php echo $fields[$keys[3]]->label; ?><br>
+                    <?php echo $fields[$keys[3]]->input . "\n"; ?>
+                </div>
+            </div>
+            <div class="l-col-to-row__item  ff-width-100--30--20">
+                <div class="u-padding--xs">
+                    <?php echo $fields[$keys[4]]->label; ?><br>
+                    <?php echo $fields[$keys[4]]->input . "\n"; ?>
+                </div>
+            </div>
+        </div>
+        <details class="sh-naked-details">
+            <summary><?php echo JText::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_LABEL'); ?></summary>
+            <p><?php echo JText::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_DESC'); ?></p>
+            <div class="l-col-to-row">
+                <div class="l-col-to-row__item  ff-width-100--30--20">
+                    <div class="u-padding--xs">
+                        <?php echo $fields[$keys[5]]->label; ?><br>
+                        <?php echo $fields[$keys[5]]->input . "\n"; ?>
+                    </div>
+                </div>
+                <div class="l-col-to-row__item  ff-width-100--30--20">
+                    <div class="u-padding--xs">
+                        <?php echo $fields[$keys[6]]->label; ?><br>
+                        <?php echo $fields[$keys[6]]->input . "\n"; ?>
+                    </div>
+                </div>
+                <div class="l-col-to-row__item  ff-width-100--30--20">
+                    <div class="u-padding--xs">
+                        <?php echo $fields[$keys[7]]->label; ?><br>
+                        <?php echo $fields[$keys[7]]->input . "\n"; ?>
+                    </div>
+                </div>
+                <div class="l-col-to-row__item  ff-width-100--30--20">
+                    <div class="u-padding--xs">
+                        <?php echo $fields[$keys[8]]->label; ?><br>
+                        <?php echo $fields[$keys[8]]->input . "\n"; ?>
+                    </div>
+                </div>
+                <div class="l-col-to-row__item  ff-width-100--30--20">
+                    <div class="u-padding--xs">
+                        <?php echo $fields[$keys[9]]->label; ?><br>
+                        <?php echo $fields[$keys[9]]->input . "\n"; ?>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </fieldset>
+    <?php else : ?>
     
     <fieldset id="fieldset<?php echo $i; ?>">
         <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
@@ -127,6 +224,7 @@ $doc->include_joomla_scripts = true;
             </span>
         </p>
         <?php endif; ?>
+        
         <div class="l-col-to-row">
             <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
             <?php #echo '<pre>'; var_dump($field->type); echo '</pre>'; ?>
@@ -176,6 +274,7 @@ $doc->include_joomla_scripts = true;
         <?php endif; ?>
 
     </fieldset>
+    <?php endif; ?>
     <?php endif; ?>
     <?php $i++; endforeach; ?>
     
