@@ -378,15 +378,21 @@ $doc->joomla_scripts = array();
 $page_scripts     = TplNPEU6Helper::remove_joomla_scripts($page_head_data['scripts'], $doc);
 // This is problematic as it's not easy to remove Joomla/jQuery stuff so just bypass for now:
 if (!empty($doc->include_script)) {
-    $page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : array();
+    $page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : '';
 } else {
     $page_script      = '';
 }
-
+/*
+if ($page_script !== '') {
+    
+    $page_script = preg_replace('/\t/', '    ', $page_script);
+    $page_script = preg_replace('/^    /m', '', $page_script);
+}
+*/
 #echo '<pre>'; var_dump($page_stylesheets); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_styles); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_scripts); echo '</pre>'; exit;
-#echo '<pre>'; var_dump($page_script); echo '</pre>'; exit;
+#echo '<pre>'; print_r($page_script); echo '</pre>'; exit;
 
 
 // Main Call to action:

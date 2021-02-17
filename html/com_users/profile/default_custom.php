@@ -36,7 +36,7 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
 <h2><?php echo JText::_($fieldset->label); ?></h2>
 <?php endif; ?>
 <div class="l-col-to-row--flush-edge-gutters  u-space--below">
-	<dl class="l-col-to-row">
+	<dl class="l-col-to-row  user-profile">
         <?php foreach ($fields as $field): ?>
         <?php #echo '<pre>'; var_dump($field); echo '</pre>'; ?>
         <?php if (!$field->hidden): ?>
@@ -61,7 +61,7 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
         <?php endif; ?>
         <?php else: ?>
         <?php if($field->type == 'Editor'): ?>
-        <?php $val = $field->value; echo !empty($val) ? $val : JTEXT::_('COM_USERS_PROFILE_VALUE_NOT_FOUND'); ?>
+        <?php echo (empty($field->value) ? JText::_('COM_USERS_PROFILE_VALUE_NOT_FOUND') : $field->value); ?>
         <?php elseif($field->type == 'Checkboxdefault'): ?>
         <?php echo str_replace(array('0', '1'), array('No', 'Yes'), $field->value); ?>
         <?php elseif($field->type == 'Staff'): ?>
@@ -71,17 +71,17 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
                 
             foreach($field->value as $member_id) {
                 $member = json_decode(file_get_contents($staff_data_uri . $member_id . '&basic=1'), true);
-                echo '<p><a href="/people/' . $member[0]['alias'] . '"><span>' . $member[0]['firstname'] . ' ' . $member[0]['lastname'] . '</a></p>';
+                echo '<div><a href="/people/' . $member[0]['alias'] . '"><span>' . $member[0]['firstname'] . ' ' . $member[0]['lastname'] . '</a></div>';
             }
         } else {
             if (is_numeric($field->value)) {
                 $pa_data = json_decode(file_get_contents($staff_data_uri . $field->value . '&basic=1'), true);
                 if (is_array($pa_data)) {#
-                    echo '<p><a href="/people/' . $pa_data[0]['alias'] . '"><span>' . $pa_data[0]['firstname'] . ' ' . $pa_data[0]['lastname'] . '</a></p>';
+                    echo '<div><a href="/people/' . $pa_data[0]['alias'] . '"><span>' . $pa_data[0]['firstname'] . ' ' . $pa_data[0]['lastname'] . '</a></div>';
                     continue;
                 }
             }
-            echo JTEXT::_('COM_USERS_PROFILE_VALUE_NOT_FOUND');
+            echo JText::_('COM_USERS_PROFILE_VALUE_NOT_FOUND');
         }
         ?>
         <?php elseif($field->type == 'Projects'): ?>
