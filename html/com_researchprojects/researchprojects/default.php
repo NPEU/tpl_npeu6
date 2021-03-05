@@ -95,7 +95,7 @@ endif; ?>
     <script type="text/template" filterable_empty_list_template>
         <p filterable_empty_list_message hidden>No matches found.</p>
     </script>
-    <ul class="u-list--plain  u-fill-width">
+    <ul class="u-list--plain  u-fill-width" filterable_list>
     <?php foreach ($this->items as $i => $row) :
         #$view_link = JRoute::_('index.php?option=com_researchprojects&task=researchproject.view&id=' . $row->id);
         $view_link = JRoute::_('index.php?option=com_researchprojects&task=researchproject.view');
