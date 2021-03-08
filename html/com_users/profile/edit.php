@@ -13,7 +13,9 @@ defined('_JEXEC') or die;
 $lang = JFactory::getLanguage();
 $lang->load( 'plg_user_profile', JPATH_ADMINISTRATOR );
 
+
 $doc = JFactory::getDocument();
+$doc->include_avatar_modal = true;
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 
@@ -23,17 +25,17 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helpe
 
 
 
-JHtml::_('behavior.keepalive');
+### //JHtml::_('behavior.keepalive');
 
 #JHtml::_('behavior.tooltip');
 #JHtml::_('behavior.formvalidation');
 ####JHtml::_('formbehavior.chosen', 'select');
 #JHtml::_('behavior.noframes');
 #return;
-JHTML::_('behavior.modal');
+### //JHTML::_('behavior.modal');
 
-JHtml::_('jquery.ui', array('core', 'sortable'));
-JHtml::_('script', 'system/subform-repeatable.js', array('version' => 'auto', 'relative' => true));
+###  JHtml::_('jquery.ui', array('core', 'sortable'));
+###  JHtml::_('script', 'system/subform-repeatable.js', array('version' => 'auto', 'relative' => true));
 
 /*
 $doc = JFactory::getDocument();
@@ -51,7 +53,7 @@ $doc->addStyleSheet('/media/system/css/modal.css');*/
 
 
 
-
+/*
 $style = array();
 $style[] = '#sbox-overlay[aria-hidden="false"] {';
 $style[] = '    background-color: #000000;';
@@ -72,13 +74,14 @@ $style[] = '}';
 $str = implode("\n", $style);
 
 $doc->addStyleDeclaration($str);
-
+*/
 
 $user        = JFactory::getUser();
 #echo '<pre>'; var_dump($user); echo '</pre>';
 $user_editor = $user->getParam('editor', false);
 $j_config    = JFactory::getConfig();
 #echo '<pre>'; var_dump($j_config); echo '</pre>'; exit;
+/*
 if ($j_config->get('editor') == 'ckeditorbasic' || $user_editor == 'ckeditorbasic') {
     $script = array();
 
@@ -94,9 +97,9 @@ if ($j_config->get('editor') == 'ckeditorbasic' || $user_editor == 'ckeditorbasi
     $script[] = "});";
     
     $str = implode("\n", $script);
-    $doc->addScriptDeclaration($str);
+    ### //$doc->addScriptDeclaration($str);
 }
-
+*/
 #$script = array();
 #$script[] = "jQuery(function() {";
 #$script[] = "    window.setTimeout(function(){jQuery('[type=\"password\"]').val('')}, 10)";
@@ -107,17 +110,17 @@ if ($j_config->get('editor') == 'ckeditorbasic' || $user_editor == 'ckeditorbasi
 
 
 
-$doc->addStyleSheet('/media/system/css/modal.css');
 ###$doc->addStyleSheet('/media/jui/css/chosen.css');
 
 
 $page_head_data = $doc->getHeadData();
 
 $doc->include_script = true;
-$doc->include_joomla_scripts = true;
+#$doc->include_joomla_scripts = true;
 #echo '<pre>'; var_dump($page_head_data); echo '</pre>'; exit;
 #exit;
 include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-slimselect.php');
+include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php');
 
 ?>
 <?php #echo TplNPEU6Helper::get_messages(); ?>

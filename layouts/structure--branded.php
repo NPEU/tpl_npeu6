@@ -461,3 +461,16 @@
         </footer>
 
     </div>
+    <?php if (!empty($doc->include_avatar_modal)): ?>
+    <div class="dialog" id="avatar-dialog" aria-hidden="true" data-a11y-dialog="#top">
+        <div class="dialog-overlay" tabindex="-1" data-a11y-dialog-hide></div>
+        <div role="alertdialog" class="dialog-content" aria-label="Avatar image upload and edit dialog">
+            <button data-a11y-dialog-hide class="dialog-close  close-button" aria-label="Close this dialog window"><svg focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
+            <div role="document">
+                  <iframe id="avatar-image-editor" frameborder="0" width="756" height="720"></iframe>
+            </div>
+            <button data-a11y-dialog-hide class="dialog-close  close-button" aria-label="Close this dialog window"><svg focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></button>
+        </div>
+    </div>
+
+    <?php endif; ?>

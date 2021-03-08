@@ -60,11 +60,11 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
         <?php echo JHtml::_('users.'.$field->type, $field->value); ?>
         <?php endif; ?>
         <?php else: ?>
-        <?php if($field->type == 'Editor'): ?>
-        <?php echo (empty($field->value) ? JText::_('COM_USERS_PROFILE_VALUE_NOT_FOUND') : $field->value); ?>
-        <?php elseif($field->type == 'Checkboxdefault'): ?>
+        <?php if ($field->type == 'Editor'): ?>
+        <?php echo (strlen($field->value) == 0 ? JText::_('COM_USERS_PROFILE_VALUE_NOT_FOUND') : $field->value); ?>
+        <?php elseif ($field->type == 'Checkboxdefault'): ?>
         <?php echo str_replace(array('0', '1'), array('No', 'Yes'), $field->value); ?>
-        <?php elseif($field->type == 'Staff'): ?>
+        <?php elseif ($field->type == 'Staff'): ?>
         <?php
         if (is_array($field->value)) {
             
