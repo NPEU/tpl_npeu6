@@ -5,6 +5,11 @@ $doc = JFactory::getDocument();
 
 $doc->addStyleSheet('/templates/npeu6/css/slimselect.min.css');
 $doc->addScript('/templates/npeu6/js/slimselect.min.js');
+
+##$doc->addScript('/templates/npeu6/js/tmp/slimselect-core.js');
+###$doc->addScript('/templates/npeu6/js/tmp/slimselect.js');
+
+
 /*
 $script = array();
 
