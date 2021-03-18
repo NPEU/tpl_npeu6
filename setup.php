@@ -433,15 +433,15 @@ $search_field_hint = !empty($page_template_params->search_hint) ? $page_template
 
 
 // Hero image / Carousel:
-$page_hero         = (array) $menu_item->params->get('hero_image');
-#echo '<pre>'; var_dump($page_hero); echo '</pre>'; exit;
+$page_heroes         = (array) $menu_item->params->get('hero_image');
+#echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
 
-$page_has_hero     = !empty($page_hero['hero_image0']->image);
-$page_has_carousel = $page_has_hero && count($page_hero) > 1;
+$page_has_hero     = !empty($page_heroes['hero_image0']->image);
+$page_has_carousel = $page_has_hero && count($page_heroes) > 1;
 
 // Extract meta for ease of use:
 if ($page_has_hero) {
-    foreach ($page_hero as $key => $image) {
+    foreach ($page_heroes as $key => $image) {
         $image_meta = array();
         $image_meta_response = json_decode(file_get_contents(
             'https://' . $_SERVER['HTTP_HOST'] . '/plugins/system/imagemeta/ajax/image-meta.php?image=' . base64_encode($image->image)
@@ -463,12 +463,12 @@ if ($page_has_hero) {
     }
 }
 
-#echo '<pre>'; var_dump($page_hero); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
 
-$page_hero         = ($page_has_hero && !$page_has_carousel) ? $page_hero['hero_image0'] : false;
-$page_carousel     = ($page_has_hero && $page_has_carousel)  ? $page_hero : false;
+#page_hero         = ($page_has_hero && !$page_has_carousel) ? $page_heroes['hero_image0'] : false;
+#$page_carousel     = ($page_has_hero && $page_has_carousel)  ? $page_heroes : false;
 
-#echo '<pre>'; var_dump($page_hero); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
 
 // Headline image:
 $show_headline_image = $menu_item->params->get('show_headline_image', 1);

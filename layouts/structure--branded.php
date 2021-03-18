@@ -149,42 +149,65 @@
 
         <div class="sticky-footer-expand">
             <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>">
+
                 <?php if($page_has_hero) : ?>
-                    <?php if($page_has_carousel) : ?>
-                <!-- @TOTO -->
-                    <?php else : /* @TODO - need to think about credit lines. */?>
-                <div id="hero" class="c-hero<?php echo (isset($page_hero->text_position) && $page_hero->text_position == 1) ? '' : '  c-hero--reversed'; ?>  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
-                    <div class="c-hero__image">
-                        <div class="l-proportional-container  l-proportional-container--3-1  l-proportional-container--5-1--wide">
-                            <div class="l-proportional-container__content">
-                                <div class="u-image-cover  js-image-cover">
-                                    <div class="u-image-cover__inner">
-                                        <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
+                <?php if($page_has_carousel) : ?>
+                <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel">
+                    <div>
+                        <nav class="c-hero-carousel__nav" aria-label="banner slides">
+                            <p align="center" role="list">
+                                <?php $i = 0; foreach ($page_heroes as $key => $page_hero) : $i++; ?>
+                                <span role="listitem">
+                                    &ensp;<a href="#banner-slide-<?php echo $i; ?>">Slide <?php echo $i; ?></a>&ensp;
+                                </span>
+                                <?php endforeach; ?>
+                            </p>
+                        </nav>
+                        <div align="center" tabindex="0" class="c-hero-carousel__scroll-area" role="list">
+                <?php else : ?>
+                <fieldset role="presentation" class="c-hero-wrap">
+                    <div>
+                        <div align="center">
+                    <?php endif; /* @TODO - need to think about credit lines. */ ?>
+                        <?php $i = 0; foreach ($page_heroes as $key => $page_hero) : $i++; ?>
+                            <?php if($page_has_carousel) : ?>
+                            <hr noShade size="1">
+                            <?php endif; ?>
+                            <div id="banner<?php if($page_has_carousel) : ?>-slide-<?php echo $i; ?><?php endif; ?>"<?php if($page_has_carousel) : ?>role="listitem"<?php endif; ?> class="c-hero<?php echo (isset($page_hero->text_position) && $page_hero->text_position == 1) ? '' : '  c-hero--reversed'; ?>  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
+                                <div class="c-hero__image">
+                                    <div class="l-proportional-container  l-proportional-container--3-1  l-proportional-container--5-1--wide">
+                                        <div class="l-proportional-container__content">
+                                            <div class="u-image-cover  js-image-cover">
+                                                <div class="u-image-cover__inner">
+                                                    <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
+                                <div class="c-hero__message<?php echo (!empty($page_hero->heading)) ? '  c-hero__message--wide' : ''; ?>"<?php echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; ?>>
+                                    <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
+                                    <h1 class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_hero->heading; ?></h1>
+                                    <?php endif; ?>
+                                    <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
+                                    <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
+                                    <p class="u-space--left--auto"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta  c-cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                                    <?php endif; ?>
+                                </div>
+                                <?php endif; ?>
+                                <?php if ($page_hero->credit): ?>
+                                <details class="c-info-overlay  c-info-overlay--half-width">
+                                    <summary><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-info"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></summary>
+                                    <div><?php echo $page_hero->credit; ?></div>
+                                </details>
+                                <?php endif; ?>   
                             </div>
+                        <?php endforeach; ?>
                         </div>
                     </div>
-                    <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
-                    <div class="c-hero__message<?php echo (!empty($page_hero->heading)) ? '  c-hero__message--wide' : ''; ?>"<?php echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; ?>>
-                        <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
-                        <h1 class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_hero->heading; ?></h1>
-                        <?php endif; ?>
-                        <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
-                        <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
-                        <p class="u-space--left--auto"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta  c-cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
-                        <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                    <?php if ($page_hero->credit): ?>
-                    <details class="c-info-overlay  c-info-overlay--half-width">
-                        <summary><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-info"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></summary>
-                        <div><?php echo $page_hero->credit; ?></div>
-                    </details>
-                    <?php endif; ?>
-                </div>
-                    <?php endif; ?>
-                <?php endif; ?>
+                </fieldset>
+                <?php endif; /* End Hero */ ?>
 
 
                 <br id="highlighter-start" />
