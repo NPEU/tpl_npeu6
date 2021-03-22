@@ -89,7 +89,7 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
                 <span class="c-composite">
                      <input id="filter_title" filterable_input> <button filterable_submit>Filter</button>
                 </span>
-                <a class="c-cta" href="/research/publications">Clear</a>
+                <input type="reset" value="Clear" filterable_reset>
             </div>
             <div>
                 <label for="include_1">Include Journal Articles:</label> <input type="checkbox" name="include_1" id="include_1" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^(Journal Article)$"><br>
