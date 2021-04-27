@@ -221,7 +221,7 @@
 
     <?php echo $page_svg_icons; ?>
 
-    <div class="no-style-notice  no-css-only">
+    <div data-css-only="true">
         <fieldset role="presentation">
             <p>
                 <b>Notice:</b> You are viewing an unstyled version of this page. Are you using a very old browser? If so, <a href="https://browsehappy.com/?locale=en">please consider upgrading</a>.
