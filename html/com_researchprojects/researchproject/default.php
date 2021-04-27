@@ -94,7 +94,7 @@ $doc->component__sidebar_top = ob_get_contents();
 ob_end_clean();
 ?>
 
-<div class="c-user-content">
+<div class="c-user-content  u-space--below">
     <h2>Summary</h2>
     <?php echo $this->item->content; ?>
     <?php if (!empty($this->item->publications)) : ?>
