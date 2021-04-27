@@ -1,7 +1,7 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_people
+ * @package     Joomla.Site
+ * @subpackage  com_people
  *
  * @copyright   Copyright (C) NPEU 2019.
  * @license     MIT License; see LICENSE.md
@@ -13,17 +13,19 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helpe
 
 $person = $this->person;
 
-if ($person['pa'] && $person['pa_details_only'] == 'Yes') {
+if (isset($person['pa']) && (isset($person['pa_details_only']) && $person['pa_details_only'] == 'Yes')) {
     unset($person['email']);
 }
 
 function svg_info($img_src, $fallback_width = 180) {
-    if (file_exists($img_src)) {
-        $svg = file_get_contents($img_src);
+
+    $path = JPATH_ROOT . $img_src;
+    if (file_exists($path)) {
+        $svg = file_get_contents($path);
         preg_match('/viewBox="([^"]+)"/', $svg, $matches);
         #echo '<pre>'; var_dump($matches); echo '</pre>';
         $viewbox = isset($matches[1]) ? $matches[1] : '';
-        
+
         $values = explode(' ', $viewbox);
         $w = $values[2];
         $h = $values[3];
@@ -32,14 +34,14 @@ function svg_info($img_src, $fallback_width = 180) {
 
         $values[2] = $fallback_width;
         $values[3] = $fallback_height;
-        
+
         $return = array(
             0 => $fallback_width,
             1 => $fallback_height,
             'viewbox' => 'viewBox="' . implode(' ', $values) . '"',
             'dimensions' => 'width="' . $fallback_width . '" height="' . $fallback_height . '"'
         );
-        
+
         return $return;
     }
 }
@@ -66,7 +68,7 @@ function get_team($team) {
                                 </div>
                             </div>
                             <div class="c-glimpse__content">
-                                <h3 class="c-glimpse__heading"><span filterable_index filterable_index_name="first_name"><?php echo $member['firstname']; ?></span></span> <span filterable_index filterable_index_name="last_name"><?php echo $member['lastname']; ?></span></h3>         
+                                <h3 class="c-glimpse__heading"><span filterable_index filterable_index_name="first_name"><?php echo $member['firstname']; ?></span></span> <span filterable_index filterable_index_name="last_name"><?php echo $member['lastname']; ?></span></h3>
                                 <?php if(!empty($member['role'])): ?>
                                 <p><?php echo $member['role']; ?></p>
                                 <?php endif; ?>
@@ -76,7 +78,7 @@ function get_team($team) {
                 </li>
                 <?php endforeach; ?>
             </ul>
-            
+
         </section>
 <?php
 }
@@ -86,7 +88,7 @@ function get_projects($projects) {
         <section class="person__projects">
             <h2>Projects</h2>
             <ul class="l-distribute  l-distribute--basis-25  l-distribute--gutter--s  u-padding--s">
-            
+
                 <?php foreach($projects as $project):
                     $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
                     $png_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.png';
@@ -94,13 +96,13 @@ function get_projects($projects) {
                 ?>
                 <li class="l-center  u-padding--s">
                     <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height--8">
-         
-                        <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?> height="80">
+
+                        <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
                     </a>
                 </li>
                 <?php endforeach; ?>
             </ul>
-            
+
         </section>
 <?php
 }
@@ -116,13 +118,13 @@ function get_custom($custom_title, $custom) {
 ?>
 
 <div class="l-primary-content  l-primary-content--has-pull-outs">
-                            
+
 
     <div class="l-primary-content__header">
 
         <div class="c-panel">
             <h1 id="<?php echo TplNPEU6Helper::html_id($person['name']); ?>"><?php if(!empty($person['title'])): ?><?php echo $person['title']; ?> <?php endif; ?><?php echo $person['name']; ?><?php if(!empty($person['qualifications'])): ?> <small><?php echo $person['qualifications']; ?></small><?php endif; ?></h1>
-            
+
             <?php if(!empty($person['role']) || !empty($person['email'])): ?>
             <p class="u-text-group  u-text-group--wide-space">
                 <?php if(!empty($person['role'])): ?>
@@ -145,7 +147,7 @@ function get_custom($custom_title, $custom) {
             <?php endif; ?>
         </div>
     </div>
-    
+
     <?php /*if (!true) : ?>
     <div class="l-primary-content__pull-out  l-primary-content__pull-out--super  u-space--above  c-user-content">
         <div class="l-primary-content__pull-out__padded--@small">
@@ -184,14 +186,14 @@ function get_custom($custom_title, $custom) {
                         <?php echo $person['biography']; ?>
                     </section>
                 <?php endif; ?>
-                
+
                 <?php if(!empty($person['custom_title']) && !empty($person['custom']) && $person['custom_placement'] == "Main area"): ?>
                     <div class="c-user-content">
                     <?php echo get_custom($person['custom_title'], $person['custom']); ?>
                     </div>
                 <?php endif; ?>
-                
-                <?php if(!empty($person['publications_data']) || !empty($person['publications_manual'])): ?>
+
+                <?php if(!empty($person['publications_data']) || !empty(trim($person['publications_manual']))): ?>
                 <section>
                     <h2>Publications</h2>
                     <?php if(!empty($person['publications_data'])): /* Publications data present */?>
@@ -222,17 +224,17 @@ function get_custom($custom_title, $custom) {
                     <?php endforeach; ?>
                     <?php endif; ?>
                     <?php endif; ?>
-                    
-                    <?php if(!empty($person['publications_manual'])): ?>
+
+                    <?php if(!empty(trim($person['publications_manual']))): ?>
                     <?php echo $person['publications_manual']; ?>
                     <?php endif; ?>
                 </section>
                 <?php endif; ?>
-                
+
                 <?php if(!empty($person['team']) && $person['team_placement'] == "Main area"): ?>
                 <?php echo get_team($person['team']); ?>
                 <?php endif; ?>
-                
+
                 <?php if(!empty($person['projects']) && $person['projects_placement'] == "Main area"): ?>
                 <?php echo get_projects($person['projects']); ?>
                 <?php endif; ?>
@@ -251,11 +253,11 @@ function get_custom($custom_title, $custom) {
             <?php if(!empty($person['team']) && $person['team_placement'] == "Sidebar"): ?>
             <?php echo get_team($person['team']); ?>
             <?php endif; ?>
-            
+
             <?php if(!empty($person['projects']) && $person['projects_placement'] == "Sidebar"): ?>
             <?php echo get_projects($person['projects']); ?>
             <?php endif; ?>
-            
+
             <?php if(!empty($person['custom_title']) && !empty($person['custom']) && $person['custom_placement'] == "Sidebar"): ?>
             <?php echo get_custom($person['custom_title'], $person['custom']); ?>
             <?php endif; ?>
@@ -274,7 +276,7 @@ function get_custom($custom_title, $custom) {
 
                 <?php /*<h1 class="person__name   [ flr_main-page-heading  flr_main-page-heading--flush  flr_main-page-heading--npeu ]"><?php if(!empty($person['title'])): ?><?php echo $person['title']; ?> <?php endif; ?><?php echo $person['name']; ?><?php if(!empty($person['qualifications'])): ?> <small><?php echo $person['qualifications']; ?></small><?php endif; ?></h1> */?>
                 <h1 class="person__name"><?php if(!empty($person['title'])): ?><?php echo $person['title']; ?> <?php endif; ?><?php echo $person['name']; ?><?php if(!empty($person['qualifications'])): ?> <small><?php echo $person['qualifications']; ?></small><?php endif; ?></h1>
-                <?php /*<div class="person__image">      
+                <?php /*<div class="person__image">
                     <img src="<?php echo $person['profile_img_src']; echo strpos($person['profile_img_src'], '?') === false ? '?' : '&'; ?>s=200" alt="" />
                 </div>*/ ?>
                 <div aria-hidden="true" class="user-insert user-insert--left user-insert--one-quarter user-insert--portrait" data-display-is="width-one-quarter  pulled-left">
@@ -304,11 +306,11 @@ function get_custom($custom_title, $custom) {
                         <?php echo $person['biography']; ?>
                     </section>
                     <?php endif; ?>
-                    
+
                     <?php if(!empty($person['custom_title']) && !empty($person['custom']) && $person['custom_placement'] == "Main area"): ?>
                     <?php echo get_custom($person['custom_title'], $person['custom']); ?>
                     <?php endif; ?>
-                    
+
                     <?php if(!empty($person['publications_data']) || !empty($person['publications_manual'])): ?>
                     <section class="person__publications">
                         <h2>Publications</h2>
@@ -340,17 +342,17 @@ function get_custom($custom_title, $custom) {
                         <?php endforeach; ?>
                         <?php endif; ?>
                         <?php endif; ?>
-                        
+
                         <?php if(!empty($person['publications_manual'])): ?>
                         <?php echo $person['publications_manual']; ?>
                         <?php endif; ?>
                     </section>
                     <?php endif; ?>
-                    
+
                     <?php if(!empty($person['team']) && $person['team_placement'] == "Main area"): ?>
                     <?php echo get_team($person['team']); ?>
                     <?php endif; ?>
-                    
+
                     <?php if(!empty($person['projects']) && $person['projects_placement'] == "Main area"): ?>
                     <?php echo get_projects($person['projects']); ?>
                     <?php endif; ?>
@@ -359,11 +361,11 @@ function get_custom($custom_title, $custom) {
                     <?php if(!empty($person['team']) && $person['team_placement'] == "Sidebar"): ?>
                     <?php echo get_team($person['team']); ?>
                     <?php endif; ?>
-                    
+
                     <?php if(!empty($person['projects']) && $person['projects_placement'] == "Sidebar"): ?>
                     <?php echo get_projects($person['projects']); ?>
                     <?php endif; ?>
-                    
+
                     <?php if(!empty($person['custom_title']) && !empty($person['custom']) && $person['custom_placement'] == "Sidebar"): ?>
                     <?php echo get_custom($person['custom_title'], $person['custom']); ?>
                     <?php endif; ?>
