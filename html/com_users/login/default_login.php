@@ -12,9 +12,19 @@ defined('_JEXEC') or die;
 JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 use Joomla\CMS\Factory;
 $session = JFactory::getSession();
+$registry = $session->get('registry');
 $jinput = Factory::getApplication()->input;
 
-#echo '<pre>'; var_dump($input->get('return', '/user-profile')); echo '</pre>'; exit;
+$return = $registry->get('users.login.form.data.return', false);
+if (!$return) {
+    $return = '/user-profile';
+} else {
+    $return = base64_encode($return);
+}
+#echo '<pre>'; var_dump($return); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($jinput->get('return', '/user-profile')); echo '</pre>'; exit;
+$return = $jinput->get('return', $return);
+
 ?>
 <?php #echo TplNPEU6Helper::get_messages(); ?>
 
@@ -79,7 +89,7 @@ $jinput = Factory::getApplication()->input;
                     <?php endif; ?>
 
                     <button type="submit"><?php echo JText::_('JLOGIN'); ?></button>
-                    <input type="hidden" name="return" value="<?php echo $jinput->get('return', '/user-profile'); ?>" />
+                    <input type="hidden" name="return" value="<?php echo $return; ?>" />
                     <?php echo JHtml::_('form.token'); ?>
 
                     <p class="u-text-group  u-text-group--wide-space">
