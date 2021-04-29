@@ -102,6 +102,7 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
 
 
 ?>
+
 <figure class="u-fill-height">
     <div class="c-map  c-map--<?php echo $height; ?>  u-fill-height" id="<?php echo $map_id; ?>">
         <p class="u-text-align--center">
@@ -114,9 +115,8 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
         <?php echo $legend; ?>
     </figcaption>
     <?php endif; ?>
+    
+    <script>
+    leafletMapInitialize('<?php echo $map_id; ?>', <?php echo json_encode($map_data); ?>, <?php echo $markers_json; ?>);
+    </script>
 </figure>
-
-
-<script>
-leafletMapInitialize('<?php echo $map_id; ?>', <?php echo json_encode($map_data); ?>, <?php echo $markers_json; ?>);
-</script>
