@@ -27,7 +27,7 @@ $ff_widths = array(
 
 $ff_width = $ff_widths[$c];
 ?>
-<div class="l-col-to-row--flush-edge-gutters u-space--below">
+<div class="l-col-to-row--flush-edge-gutters u-space--belowX">
 <div class="l-col-to-row l-col-to-row--gutter--m">
 
 <?php foreach ($params->get('cards') as $card) :

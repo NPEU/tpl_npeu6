@@ -70,6 +70,15 @@ unset($this->people['*']);
 if (!is_array($this->people) || empty($this->people)) {
     return;
 }
+
+$people = [];
+
+foreach ($this->people as $group_heading => $data) {
+    if ($data['length'] > 0) {
+        $people[$group_heading] = $data;
+    }
+}
+$l = count($people);
 ?>
 <div class="l-blockrow">
     <div class="c-panel  u-padding--sides--l">
@@ -97,10 +106,9 @@ if (!is_array($this->people) || empty($this->people)) {
             </script>
 
 
-            <?php $i = 0; foreach($this->people as $group_heading => $data): ?>
+            <?php $i = 1; foreach($people as $group_heading => $data): ?>
             <?php $html_id = trim(str_replace(' ', '-', preg_replace("/[^a-zA-Z0-9]/", '-', $group_heading))); ?>
-            <?php if($data['length'] > 0): ?>
-            <div id="group-<?php echo $data['alias']; ?>" class="u-space--below">
+            <div id="group-<?php echo $data['alias']; ?>"<?php echo ($i < $l) ? ' class="u-space--below"' : ''; ?>>
                 <h2 class="" id="<?php echo $html_id; ?>"><?php echo $group_heading; ?></h2>
                 <ul id="people-<?php echo $data['alias']; ?>" class="l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-15" filterable_list>
 
@@ -132,7 +140,6 @@ if (!is_array($this->people) || empty($this->people)) {
 
                 </ul>
             </div>
-            <?php endif; ?>
             <?php $i++; endforeach; ?>
         </div>
     </div>

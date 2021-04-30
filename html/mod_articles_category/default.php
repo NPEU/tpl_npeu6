@@ -34,7 +34,7 @@ if ($count >= 2 && $count < 5) {
     }
     $item_class  = 'l-col-to-row__item  ff-width-100--50--' . $portion;
 } else {
-    $wrap_class   = 'u-space--below';
+    $wrap_class   = 'u-space--belowX';
     $outer_class  = 'l-distribute--flush-edge-gutters';
     $inner_class  = 'l-distribute  l-distribute--gutter  l-distribute--balance-top  l-distribute--basis-25'; 
     $item_class   = '';
