@@ -36,6 +36,7 @@ $input = JFactory::getApplication()->input;
 $db    = JFactory::getDBO();
 $user  = JFactory::getUser();
 $uri   = JUri::getInstance();
+$menu  = $app->getMenu();
 
 #echo '<pre>'; var_dump($app); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
@@ -44,6 +45,7 @@ $uri   = JUri::getInstance();
 #echo '<pre>'; var_dump($user->getAuthorisedGroups()); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($uri); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($uri->getPath()); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($menu); echo '</pre>'; exit;
 
 // If the user has the staff group id (10) in their auth groups array, they are a member of staff,
 // so provide a short cut:
@@ -65,6 +67,20 @@ $menu_root = explode('/', $menu_item->route)[0];
 if (!isset($menu_id)) {
     $menu_id = TplNPEU6Helper::get_menu_id();
 }
+
+
+// Look to see if this menu item has an 'add article' form as a child, so we can display a link if so.
+$has_add_form_child = false;
+$add_form_child_url = '';
+$menu_item_children = $menu->getItems('parent_id', $menu_item->id);
+foreach ($menu_item_children as $child) {
+    if ($child->link == 'index.php?option=com_content&view=form&layout=edit') {
+        $has_add_form_child = true;
+        $add_form_child_url = $child->route;
+        break;
+    }
+}
+#echo '<pre>'; var_dump($add_form_child_url); echo '</pre>'; exit;
 
 #echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->alias); echo '</pre>'; exit;
@@ -137,6 +153,7 @@ if ($page_brand->alias != 'npeu') {
 // May be better to check the brand that's applied as that's less likely to change
 // (can't easily check template style unfortunately)
 $page_is_landing = $menu_item->params->get('is_landing', 'auto');
+
 if ($page_is_landing == 'auto') {
     $page_is_landing = $page_brand->alias == 'npeu' && $menu_item->level == 0; //? Needs checking
     $page_is_landing = $page_brand->alias != 'npeu' && $menu_item->level == 1;
@@ -149,6 +166,11 @@ if ($page_is_subroute) {
     $page_is_landing = (bool) $menu_item->params->get('subroute_is_landing', '1');
 }
 
+// Override special case of page being an 'add/edit' form:
+if ($has_add_form_child) {
+    $page_is_landing = false;
+}
+#echo '<pre>'; var_dump($page_is_landing ); echo '</pre>'; exit;
 // Head data:
 $page_head_data = $doc->getHeadData();
 #echo '<pre>'; var_dump($page_head_data); echo '</pre>'; exit;

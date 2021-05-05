@@ -223,8 +223,11 @@
                                     <?php if (isset($doc->header_cta)) : ?>
                                     <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                     <?php endif; ?>
-                                    <?php if ($is_blog && $page_is_subroute == false) : ?>
+                                    <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : ?>
                                     <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-rss"></use></svg></a>
+                                    <?php endif; ?>
+                                    <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
+                                    <a href="<?php echo $add_form_child_url; ?>" class="c-cta  c-cta--has-icon">Add new &nbsp;<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
                                     <?php endif; ?>
                                 </p>
                             </header>
@@ -255,13 +258,16 @@
                                 <div class="c-panel">
                                     <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                     <header class="u-text-group  u-text-group--push-apart">
-                                        <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                                        <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1> 
                                         <p>
                                             <?php if (isset($doc->header_cta)) : ?>
                                             <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                             <?php endif; ?>
-                                            <?php if ($is_blog && $page_is_subroute == false) : ?>
+                                            <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : ?>
                                             <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-rss"></use></svg></a>
+                                            <?php endif; ?>
+                                            <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
+                                            <a href="<?php echo $add_form_child_url; ?>" class="c-cta  c-cta--has-icon">Add new &nbsp;<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
                                             <?php endif; ?>
                                         </p>
                                     </header>
@@ -372,7 +378,7 @@
                                         <?php else : ?>
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                         <?php endif; ?>
-                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=<?php echo $doc->article->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
+                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . ' target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
                                     </p>
                                 </footer>
                                 <?php endif; ?>

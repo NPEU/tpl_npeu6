@@ -9,13 +9,93 @@
 
 defined('_JEXEC') or die;
 
-#JHtml::_('behavior.tabstate');
-#JHtml::_('behavior.keepalive');
-#JHtml::_('behavior.formvalidator');
-#JHtml::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0));
-#JHtml::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
-#JHtml::_('formbehavior.chosen', 'select');
-#$this->tab_name = 'com-content-form';
+$app  = JFactory::getApplication();
+
+// Include the template helper:
+#JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+
+$lang = JFactory::getLanguage();
+$lang->load( 'com_content', JPATH_ADMINISTRATOR );
+
+$doc = JFactory::getDocument();
+$doc->include_script = true;
+$doc->_script['text/javascript'] = '';
+#echo '<pre>'; var_dump($doc); echo '</pre>'; exit;
+
+
+$this->form->setFieldAttribute('title', 'class', false);
+$this->form->setFieldAttribute('title', 'hint', false);
+
+$this->form->setFieldAttribute('articletext', 'label', JText::_('COM_CONTENT_FIELD_ARTICLETEXT_LABEL'));
+$this->form->setFieldAttribute('articletext', 'class', false);
+$this->form->setFieldAttribute('articletext', 'hint', false);
+$this->form->setFieldAttribute('articletext', 'buttons', false);
+
+$this->form->setFieldAttribute('catid', 'type', 'hidden');
+
+
+
+
+$is_new = true;
+$title = false;
+if ($this->item->id) {
+    $is_new = false;
+    $title = $this->form->getValue('title');
+}
+
+$menu = JFactory::getApplication()->getMenu();
+if ($is_new) {
+    $menu_item = $menu->getItem($menu->getActive()->parent_id);
+} else {
+    $menu_item = $menu->getActive();
+}
+
+$return_uri = JURI::root() . $menu_item->route;
+$return = base64_encode($return_uri);
+
+#echo '<pre>'; var_dump($return_uri); echo '</pre>'; #exit;
+?>
+<?php if ($title) : ?>
+<h2>Editing: <?php echo $title; ?></h2>
+<?php endif; ?>
+<form action="<?php echo JRoute::_('index.php?option=com_content&a_id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
+
+    <p>
+        <?php echo preg_replace('# (title|class)="([^"])*"#', '', $this->form->getLabel('title')); ?>
+        <br>
+        <?php echo $this->form->getInput('title'); ?>
+    </p>
+
+    <div>
+        <?php echo preg_replace('# (title|class)="([^"])*"#', '', $this->form->getLabel('articletext')); ?>
+    <br>
+        <?php echo $this->form->getInput('articletext'); ?>
+    </div>
+    <p class="u-space--above">
+        <button type="submit" name="task" value="article.save"><?php echo JText::_('JSAVE') ?></button>
+        <?php if ($is_new) : ?>
+        <a href="<?php echo $return_uri;?>" class="c-cta"><?php echo JText::_('JCANCEL') ?></a>
+        <?php else: ?>
+        <button type="submit" name="task" value="article.cancel" class="c-cta"><?php echo JText::_('JCANCEL') ?></button>
+        <?php endif; ?> 
+    </p>
+    <?php echo $this->form->getInput('catid'); ?>
+    <input type="hidden" name="jform[state]" value="1" />
+    <input type="hidden" name="return" value="<?php echo $return; ?>" />
+    <?php echo JHtml::_('form.token'); ?>
+</form>
+<?php
+
+
+return;
+
+JHtml::_('behavior.tabstate');
+JHtml::_('behavior.keepalive');
+JHtml::_('behavior.formvalidator');
+JHtml::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0));
+JHtml::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
+JHtml::_('formbehavior.chosen', 'select');
+$this->tab_name = 'com-content-form';
 $this->ignore_fieldsets = array('image-intro', 'image-full', 'jmetadata', 'item_associations');
 
 // Create shortcut to parameters.
@@ -28,7 +108,7 @@ if (!$editoroptions)
 {
 	$params->show_urls_images_frontend = '0';
 }
-/*
+
 JFactory::getDocument()->addScriptDeclaration("
 	Joomla.submitbutton = function(task)
 	{
@@ -38,7 +118,7 @@ JFactory::getDocument()->addScriptDeclaration("
 			Joomla.submitform(task);
 		}
 	}
-");*/
+");
 ?>
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($params->get('show_page_heading')) : ?>
@@ -51,24 +131,23 @@ JFactory::getDocument()->addScriptDeclaration("
 
 	<form action="<?php echo JRoute::_('index.php?option=com_content&a_id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
 		<fieldset>
-			<?php #echo JHtml::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
+			<?php echo JHtml::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
 
-			<?php #echo JHtml::_('bootstrap.addTab', $this->tab_name, 'editor', JText::_('COM_CONTENT_ARTICLE_CONTENT')); ?>
-				<?php #echo $this->form->renderField('title'); ?>
-				<?php echo $this->form->getInput('title'); ?>
+			<?php echo JHtml::_('bootstrap.addTab', $this->tab_name, 'editor', JText::_('COM_CONTENT_ARTICLE_CONTENT')); ?>
+				<?php echo $this->form->renderField('title'); ?>
 
-				<?php /*if (is_null($this->item->id)) : ?>
+				<?php if (is_null($this->item->id)) : ?>
 					<?php echo $this->form->renderField('alias'); ?>
-				<?php endif;*/ ?>
+				<?php endif; ?>
 
 				<?php echo $this->form->getInput('articletext'); ?>
 
-				<?php /*if ($this->captchaEnabled) : ?>
+				<?php if ($this->captchaEnabled) : ?>
 					<?php echo $this->form->renderField('captcha'); ?>
-				<?php endif; */?>
-			<?php #echo JHtml::_('bootstrap.endTab'); ?>
+				<?php endif; ?>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-			<?php /*if ($params->get('show_urls_images_frontend')) : ?>
+			<?php if ($params->get('show_urls_images_frontend')) : ?>
 			<?php echo JHtml::_('bootstrap.addTab', $this->tab_name, 'images', JText::_('COM_CONTENT_IMAGES_AND_URLS')); ?>
 				<?php echo $this->form->renderField('image_intro', 'images'); ?>
 				<?php echo $this->form->renderField('image_intro_alt', 'images'); ?>
@@ -100,11 +179,11 @@ JFactory::getDocument()->addScriptDeclaration("
 					</div>
 				</div>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
-			<?php endif; */?>
+			<?php endif; ?>
 
-			<?php #echo JLayoutHelper::render('joomla.edit.params', $this); ?>
+			<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
 
-			<?php /*echo JHtml::_('bootstrap.addTab', $this->tab_name, 'publishing', JText::_('COM_CONTENT_PUBLISHING')); ?>
+			<?php echo JHtml::_('bootstrap.addTab', $this->tab_name, 'publishing', JText::_('COM_CONTENT_PUBLISHING')); ?>
 				<?php echo $this->form->renderField('catid'); ?>
 				<?php echo $this->form->renderField('tags'); ?>
 				<?php echo $this->form->renderField('note'); ?>
@@ -132,20 +211,20 @@ JFactory::getDocument()->addScriptDeclaration("
 						</div>
 					</div>
 				<?php endif; ?>
-			<?php echo JHtml::_('bootstrap.endTab'); */?>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-			<?php /*echo JHtml::_('bootstrap.addTab', $this->tab_name, 'language', JText::_('JFIELD_LANGUAGE_LABEL')); ?>
+			<?php echo JHtml::_('bootstrap.addTab', $this->tab_name, 'language', JText::_('JFIELD_LANGUAGE_LABEL')); ?>
 				<?php echo $this->form->renderField('language'); ?>
-			<?php echo JHtml::_('bootstrap.endTab'); */?>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-			<?php /*if ($params->get('show_publishing_options', 1) == 1) : ?>
+			<?php if ($params->get('show_publishing_options', 1) == 1) : ?>
 				<?php echo JHtml::_('bootstrap.addTab', $this->tab_name, 'metadata', JText::_('COM_CONTENT_METADATA')); ?>
 					<?php echo $this->form->renderField('metadesc'); ?>
 					<?php echo $this->form->renderField('metakey'); ?>
 				<?php echo JHtml::_('bootstrap.endTab'); ?>
-			<?php endif; */?>
+			<?php endif; ?>
 
-			<?php #echo JHtml::_('bootstrap.endTabSet'); ?>
+			<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
