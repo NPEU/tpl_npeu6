@@ -378,7 +378,7 @@
                                         <?php else : ?>
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                         <?php endif; ?>
-                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . ' target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
+                                        <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . '" target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
                                     </p>
                                 </footer>
                                 <?php endif; ?>
