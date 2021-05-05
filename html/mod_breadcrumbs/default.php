@@ -8,7 +8,7 @@
  */
 
 defined('_JEXEC') or die;
-
+#echo '<pre>'; var_dump($list); echo '</pre>'; exit;
 // Get rid of duplicated entries on trail including home page when using multilanguage
 for ($i = 0; $i < $count; $i++)
 {
@@ -18,6 +18,15 @@ for ($i = 0; $i < $count; $i++)
         $count--;
     }
 }
+
+
+// I can't remember exactly why I need to do the above, but it doesn't remove duplicates for
+// 'Add New' pages for Staff Area, so removing that seperately.:
+if ((isset($list[2]) && isset($list[3])) && $list[2]->name == $list[3]->name) {
+    $list[2]->link == '';
+    unset($list[3]);
+}
+
 $show_last = $params->get('showLast', 1);
 
 if ($count > 0) :
