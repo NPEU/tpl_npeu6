@@ -374,6 +374,9 @@
 
                                     <p class="c-utilitext  u-text-group  u-text-group--push-apart">
                                         <?php if ($is_blog && !empty($doc->article->publish_up)) : ?>
+                                        <?php if ($doc->article->params->get('show_author')) : ?>
+                                        <span>Posted by: <?php echo $doc->article->author; ?></span>
+                                        <?php endif; ?>
                                         <span>Published on <?php echo JHtml::_('date', $doc->article->publish_up, JText::_('DATE_FORMAT_LC1')); ?></span>
                                         <?php else : ?>
                                         <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
