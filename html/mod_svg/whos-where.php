@@ -129,7 +129,7 @@ foreach ($rooms as $room => $keys) {
 <?php if ($module->showtitle): ?>
 <<?php echo $params->get('header_tag'); ?>><?php echo $module->title; ?></<?php echo $params->get('header_tag'); ?>>
 <?php endif; ?>
-<figure<?php if ($border) : ?> class="d-bands  t-neutral"<?php endif; ?>">
+<figure class="u-space--below"<?php if ($border) : ?>  d-bands  t-neutral<?php endif; ?>">
     <?php echo $svg; ?>
 </figure>
 
@@ -161,17 +161,17 @@ foreach ($rooms as $room => $keys) {
                     </div>
                 </div>
                 <div class="c-utilitext" style="position: absolute; left: 100px; top: 10px;">
-                    <a href="/about/people/<?php echo $staff['alias']; ?>"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a><br>
-                    <a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?><br>
-                    <a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?>
+                    <a href="/about/people/<?php echo $staff['alias']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a><br>
+                    <a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?><br>
+                    <a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?>
                 </div>
             </div>
             <div class="c-glimpse__content">
                 <h3 class="c-glimpse__heading">
                     <span><?php echo $staff['first_name']; ?></span> <span><?php echo $staff['last_name']; ?></span></h3>
-                <p class="c-utilitext"><a href="mailto:<?php echo $staff['email']; ?>"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-email"></use></svg> <span><?php echo $staff['email']; ?></span></a></p>
+                <p class="c-utilitext"><a href="mailto:<?php echo $staff['email']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-email"></use></svg> <span><?php echo $staff['email']; ?></span></a></p>
                 <?php if (!empty($staff['tel'])) : ?>
-                <p class="c-utilitext"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> <span><?php echo $staff['tel']; ?></span></p>
+                <p class="c-utilitext"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> <span><?php echo $staff['tel']; ?></span></p>
                 <?php endif; ?>
             </div>
 
