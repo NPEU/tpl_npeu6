@@ -16,7 +16,7 @@ $db    = JFactory::getDbo();
 $query = $db->getQuery(true);
 
 // Create the select statement.
-$q  = 'SELECT u.id, u.name, up1.profile_value AS first_name, up2.profile_value AS last_name, up3.profile_value AS tel, up4.profile_value AS room, up5.profile_value AS alias, up6.profile_value AS avatar , up7.profile_value AS role ';
+$q  = 'SELECT u.id, u.name, u.email, up1.profile_value AS first_name, up2.profile_value AS last_name, up3.profile_value AS tel, up4.profile_value AS room, up5.profile_value AS alias, up6.profile_value AS avatar , up7.profile_value AS role ';
 $q .= 'FROM `#__users` u ';
 $q .= 'JOIN `#__user_usergroup_map` ugm ON u.id = ugm.user_id ';
 $q .= 'JOIN `#__usergroups` ug ON ugm.group_id = ug.id ';
@@ -144,7 +144,7 @@ foreach ($rooms as $room => $keys) {
 
 <h2>Staff member details</h2>
 
-<ul class="l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-15">
+<ul class="l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-20">
     <?php foreach ($staff_members as $k => $staff) : ?>
     
     <li class="u-fill-height">
@@ -169,7 +169,10 @@ foreach ($rooms as $room => $keys) {
             <div class="c-glimpse__content">
                 <h3 class="c-glimpse__heading">
                     <span><?php echo $staff['first_name']; ?></span> <span><?php echo $staff['last_name']; ?></span></h3>
-                <p><?php echo $staff['role']; ?></p>
+                <p class="c-utilitext"><a href="mailto:<?php echo $staff['email']; ?>"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-email"></use></svg> <span><?php echo $staff['email']; ?></span></a></p>
+                <?php if (!empty($staff['tel'])) : ?>
+                <p class="c-utilitext"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> <span><?php echo $staff['tel']; ?></span></p>
+                <?php endif; ?>
             </div>
 
         </article>
