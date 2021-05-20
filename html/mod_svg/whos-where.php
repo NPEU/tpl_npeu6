@@ -168,7 +168,9 @@ foreach ($rooms as $room => $keys) {
             </div>
             <div class="c-glimpse__content">
                 <h3 class="c-glimpse__heading">
-                    <span><?php echo $staff['first_name']; ?></span> <span><?php echo $staff['last_name']; ?></span></h3>
+                    <span><?php echo $staff['first_name']; ?></span> <span><?php echo $staff['last_name']; ?></span>
+                </h3>
+                <p class="c-utilitext"><?php echo $staff['role']; ?></p>
                 <p class="c-utilitext"><a href="mailto:<?php echo $staff['email']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-email"></use></svg> <span><?php echo $staff['email']; ?></span></a></p>
                 <?php if (!empty($staff['tel'])) : ?>
                 <p class="c-utilitext"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> <span><?php echo $staff['tel']; ?></span></p>
