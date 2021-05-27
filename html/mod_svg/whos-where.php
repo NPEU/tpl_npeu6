@@ -162,7 +162,7 @@ foreach ($rooms as $room => $keys) {
                 </div>
                 <div class="c-utilitext" style="position: absolute; left: 100px; top: 10px;">
                     <a href="/about/people/<?php echo $staff['alias']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a><br>
-                    <a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?><br>
+                    <a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?><br>
                     <a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?>
                 </div>
             </div>
