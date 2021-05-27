@@ -136,7 +136,7 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
     <?php $fields = $this->form->getFieldset($group); $hidden = ''; $help = ''; ?>
     <?php if (count($fields)) : ?>
     
-    <?php if ($fieldset->name == 'whatson-prefs') : $keys = array_keys($fields); ?>
+    <?php if ($fieldset->name == 'whatson-prefs_fields') : $keys = array_keys($fields); ?>
     <?php #echo '<pre>'; var_dump($fields); echo '</pre>'; ?>
     <fieldset id="fieldset<?php echo $i; ?>">
         <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
