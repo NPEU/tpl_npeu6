@@ -38,6 +38,14 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
 <div class="l-col-to-row--flush-edge-gutters  u-space--below">
 	<dl class="l-col-to-row  user-profile">
         <?php foreach ($fields as $field): ?>
+        
+        <?php
+        if ($field->fieldname == 'room') {
+            $room = $field->value;
+            $room_url = strtolower(str_replace('/', '-', $room));
+        }
+        ?>
+        
         <?php #echo '<pre>'; var_dump($field); echo '</pre>'; ?>
         <?php if (!$field->hidden): ?>
 		<dt class="ff-width-100--25--25 l-col-to-row__item"><?php echo preg_replace('/<br>.*/', '', $field->title); ?></dt>
@@ -124,3 +132,12 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
 </div>
 <?php endif;?>
 <?php endforeach;?>
+<div>
+    <h2>Individual Printable Resources</h2>
+
+    <?php if (!empty($room)) : ?>
+    <p>
+        <a href="/printables/office-cards?room=<?php echo $room_url; ?>" target="_blank">Your Office Card (<?php echo $room; ?>)</a>
+    </p>
+    <?php endif; ?>
+</div>
