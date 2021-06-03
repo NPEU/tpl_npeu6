@@ -18,7 +18,8 @@ if (!$pg_title = base64_decode($_GET['title'])) {
 
 $piwik_url = 'https://' . $_SERVER['HTTP_HOST'] . '/administrator/components/com_piwik/piwik/';
 
-require_once '../../../administrator/components/com_piwik/PiwikTracker.php';
+//require_once '../../../administrator/components/com_piwik/PiwikTracker.php';
+require_once '../../../administrator/components/com_piwik/piwik/matomo.php';
 
 PiwikTracker::$URL = $piwik_url;
 
@@ -27,9 +28,9 @@ $pg_url = 'https://' . $_SERVER['HTTP_HOST'] . $pg_url;
 $piwikTracker = new PiwikTracker(1);
 $piwikTracker->disableCookieSupport();
 $piwikTracker->setUrl($pg_url);
-$piwikTracker->setCustomVariable(1, 'no-js', 'true');
+$piwikTracker->setCustomVariable(2, 'print', 'true');
 $piwikTracker->doTrackPageView($pg_title);
 
-echo 'No-JS page view logged';
+echo 'Print page view logged';
 exit;
 ?>

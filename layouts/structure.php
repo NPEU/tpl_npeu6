@@ -178,8 +178,23 @@
 
     <!-- Matamo -->
     <script type="text/javascript">
+        var user_font_size = window.getComputedStyle(document.documentElement).fontSize;
+    
         var _paq = _paq || [];
         // tracker methods like "setCustomDimension" should be called before "trackPageView"
+        
+        _paq.push(['setCustomVariable',
+            // Index, the number from 1 to 5 where this custom variable name is stored
+            3,
+            // Name, the name of the variable, for example: Gender, VisitorType
+            "user-font-size",
+            // Value, for example: "Male", "Female" or "new", "engaged", "customer"
+            user_font_size,
+            // Scope of the custom variable, "visit" means the custom variable applies to the current visit
+            "visit"
+        ]);
+
+        
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
@@ -206,19 +221,18 @@
 </head>
 <body id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
+    <!-- Matamo no-js tracking: -->
     <noscript>
-        <!-- Matamo no-js tracking: -->
-        <img src="/templates/npeu6/endpoints/piwik-no-js.php<?php echo $piwik_url; ?>" style="display:none;" alt="" />
+        <img src="/templates/npeu6/endpoints/matamo-no-js.php<?php echo $piwik_url; ?>" style="display:none;" alt="" />
     </noscript>
+    <!-- Matamo print tracking: -->
     <style>
     @media print {
-        /* Matamo print tracking: */
         html::after {
-            content: url("/templates/npeu6/endpoints/piwik-print.php<?php echo $piwik_url; ?>");
+            content: url("/templates/npeu6/endpoints/matamo-print.php<?php echo $piwik_url; ?>");
         }
     }
     </style>
-
     <?php echo $page_svg_icons; ?>
 
     <div data-css-only="true">
