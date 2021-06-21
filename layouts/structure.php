@@ -36,7 +36,7 @@
     -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
-    <!--
+    <!-- https://github.com/Fall-Back/CSS-Mustard-Cut#tng-cut-the-next-generation
         Print, Edge 12? - 18
         Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
         FF 47+
