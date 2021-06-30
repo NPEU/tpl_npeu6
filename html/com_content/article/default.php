@@ -90,9 +90,15 @@ if (isset($image_meta['copyright'])) {
 $this->item->headline_image = $headline_image;
 
 // If it's a news item:
-if ($this->item->catid == 63) {
+if ($this->item->catid == 63) {#
+    $twitter_url  = 'https://twitter.com/intent/tweet';
+    #$twitter_url .= '?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . trim($this->item->readmore_link, '/'));
+    $twitter_url .= '?text='. $this->escape($this->item->title);
+    $twitter_url .= '&url=' . 'https://www.npeu.ox.ac.uk/' . trim($this->item->readmore_link, '/');
+    $twitter_url .= '&via=NPEU_Oxford';
+
     $twitter  = '<p class="c-utilitext">';
-    $twitter .= '    <a href="https://twitter.com/intent/tweet?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . $this->item->readmore_link) . '&url=' . $this->item->readmore_link . '&via=NPEU_Oxford" class="twitter-share-button"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-twitter"></use></svg> <span>Tweet</span></a>';
+    $twitter .= '    <a href="' . $twitter_url  . '" class="twitter-share-button"><svg display="none" focusable="false" class="icon  u-space--left--xs" aria-hidden="true"><use xlink:href="#icon-twitter"></use></svg> <span>Tweet</span></a>';
     $twitter .= '</p>';
 
     if (!empty($this->item->fulltext)) {
