@@ -30,13 +30,14 @@
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
         .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top 0;left:0;width:100%;height:100%;}
     </style>
-   <!--
+
+    <!--
         Accessible font loading. FOUT is a lesser evil than FOIT.
         (https://keithclark.co.uk/articles/loading-css-without-blocking-render/)
     -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
-    <!-- https://github.com/Fall-Back/CSS-Mustard-Cut#tng-cut-the-next-generation
+    <!--
         Print, Edge 12? - 18
         Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
         FF 47+
@@ -179,10 +180,10 @@
     <!-- Matamo -->
     <script type="text/javascript">
         var user_font_size = window.getComputedStyle(document.documentElement).fontSize;
-    
+
         var _paq = _paq || [];
         // tracker methods like "setCustomDimension" should be called before "trackPageView"
-        
+
         _paq.push(['setCustomVariable',
             // Index, the number from 1 to 5 where this custom variable name is stored
             3,
@@ -194,7 +195,7 @@
             "visit"
         ]);
 
-        
+
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {

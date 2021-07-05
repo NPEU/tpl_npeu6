@@ -168,7 +168,7 @@
                 <fieldset role="presentation" class="c-hero-wrap">
                     <div>
                         <div align="center">
-                    <?php endif; /* @TODO - need to think about credit lines. */ ?>
+                <?php endif; /* @TODO - need to think about credit lines. */ ?>
                         <?php $i = 0; foreach ($page_heroes as $key => $page_hero) : $i++; ?>
                             <?php if($page_has_carousel) : ?>
                             <hr noShade size="1">
@@ -201,32 +201,34 @@
                                     <summary><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-info"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></summary>
                                     <div><?php echo $page_hero->credit; ?></div>
                                 </details>
-                                <?php endif; ?>   
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                         </div>
                     </div>
                 </fieldset>
-                <?php endif; /* End Hero */ ?>
+                <?php endif; /* End $page_has_hero */ ?>
 
 
                 <br id="highlighter-start" />
                 <div class="l-blockrow">
                     <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                         <?php if ($page_is_landing) : ?>
-                        <?php if ($show_page_heading) : ?>
-                        <div class="c-panel">
+                        <!-- Page is landing -->
+                        <?php if ($show_page_heading) : /* E.g. /news */?>
+                        <!-- Page Heading -->
+                        <div class="c-panel  n--page-is-landing">
                             <?php if (isset($doc->header_cta) || $is_blog) : ?>
-                            <header class="u-text-group  u-text-group--push-apart">
-                                <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                            <header>
+                                <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
                                 <p>
-                                    <?php if (isset($doc->header_cta)) : ?>
+                                    <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
                                     <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                     <?php endif; ?>
-                                    <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : ?>
+                                    <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : /* E.g. What's New */ ?>
                                     <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-rss"></use></svg></a>
                                     <?php endif; ?>
-                                    <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
+                                    <?php if ($has_add_form_child && $page_is_subroute == false) : /* E.g. Staff Notices */ ?>
                                     <a href="<?php echo $add_form_child_url; ?>" class="c-cta  c-cta--has-icon">Add new &nbsp;<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
                                     <?php endif; ?>
                                 </p>
@@ -240,8 +242,8 @@
 
                         <jdoc:include type="component" format="raw" />
                         <?php else : ?>
-
-                        <div class="l-primary-content<?php if ($page_has_pull_outs) : ?>  l-primary-content--has-pull-outs<?php endif; ?>">
+                        <!-- Page is NOT landing -->
+                        <div class="l-primary-content<?php if ($page_has_pull_outs) : ?>  l-primary-content--has-pull-outs<?php endif; ?>   n--page-not-landing">
 
                             <?php if ($page_has_sidebar_super) : ?>
                             <?php if ($page_badge) : ?>
@@ -257,8 +259,8 @@
 
                                 <div class="c-panel">
                                     <?php if (isset($doc->header_cta) || $is_blog) : ?>
-                                    <header class="u-text-group  u-text-group--push-apart">
-                                        <h1 class="u-space--below--none" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1> 
+                                    <header>
+                                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
                                         <p>
                                             <?php if (isset($doc->header_cta)) : ?>
                                             <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a>
