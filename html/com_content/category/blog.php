@@ -60,7 +60,7 @@ $has_items = !empty($this->intro_items);
 */
 ?>
 <div class="l-blockrow">
-    <div class="c-panel  u-space--none  u-fill-height">
+    <div class="c-panel  u-fill-height">
         <section class="c-panel__module">
             <?php if (!empty($this->intro_items)) : ?>
             <div class="u-space--below">

@@ -66,7 +66,7 @@ if ($count >= 2 && $count < 5) {
 <?php endif; ?>
 
 <?php /*
-<div class="s-updates  c-panel  c-panel--dark  u-space--none  <?php echo $theme; ?>">
+<div class="s-updates  c-panel  c-panel--dark <?php echo $theme; ?>">
     <section class="c-panel__module">
         <header class="u-text-group  u-text-group--push-apart  u-space--below">
             <h2>Trial Updates</h2>

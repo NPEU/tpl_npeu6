@@ -19,7 +19,7 @@ unset($this->people['*']);
 
         <div class="l-col-to-row">
             <div class="ff-width-100--40--50">
-                <div class="c-panel  u-padding--sides--l  t-white  u-space--none  u-fill-height">
+                <div class="c-panel  u-padding--sides--l  t-white  u-fill-height">
                     <div class="c-longform-content  c-user-content">
                         <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
                     </div>
@@ -37,7 +37,7 @@ unset($this->people['*']);
 <?php $director = $this->people['Director']['people'][0]; unset($this->people['Director']); ?>
 <div class="l-blockrow">
     <div class="d-bands--bottom  t-npeu">
-        <div class="c-panel  c-panel--dark  t-npeu  u-space--none  u-fill-height  u-padding--top--none">
+        <div class="c-panel  c-panel--dark  t-npeu  u-fill-height  u-padding--top--none">
 
             <div id="group-director" class="">
 
@@ -114,7 +114,7 @@ $l = count($people);
 
                     <?php foreach($data['people'] as $person): ?>
                     <li filterable_item>
-                        <article class="c-glimpse  u-space--none">
+                        <article class="c-glimpse">
                             <a href="/about/people/<?php echo $person['alias']; ?>" aria-describedby="<?php echo $html_id; ?>" class="c-glimpse__link">
                                 <div class="c-glimpse__image  c-glimpse__image--rounded">
                                     <div class="l-proportional-container  l-proportional-container--1-1">

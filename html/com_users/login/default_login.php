@@ -110,7 +110,7 @@ $return = $jinput->get('return', $return);
         <div class="ff-width-100--45--66-666 l-col-to-row__item  u-text-align--center">
 
             <div class="u-fill-height">
-                <div class="l-col-to-row  u-padding-top--none">
+                <div class="l-col-to-row">
                     <div class="ff-width-100--35--50 l-col-to-row__item">
                         <h2>Randomisation</h2>
                         <p class="u-padding--s">

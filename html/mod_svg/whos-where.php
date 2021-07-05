@@ -148,7 +148,7 @@ foreach ($rooms as $room => $keys) {
     <?php foreach ($staff_members as $k => $staff) : ?>
     
     <li class="u-fill-height">
-        <article class="c-glimpse  u-space--none  d-background--light  u-padding--s" id="<?php echo $staff['alias']; ?>">
+        <article class="c-glimpse  d-background--light  u-padding--s" id="<?php echo $staff['alias']; ?>">
 
             <div class="c-glimpse__image  c-glimpse__image--rounded">
                 <div class="l-proportional-container  l-proportional-container--1-1">
