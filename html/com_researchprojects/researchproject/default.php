@@ -82,9 +82,9 @@ ob_start();
             } ?></dd>
         <?php endif; ?>
         <dt>Start year</dt>
-        <dd><?php echo $this->item->end_year; ?></dd>
-        <dt>End year</dt>
         <dd><?php echo $this->item->start_year; ?></dd>
+        <dt>End year</dt>
+        <dd><?php echo $this->item->end_year; ?></dd>
         <dt>NPEU Contact</dt>
         <dd><?php echo $this->item->owner_details->name; ?></dd>
     </dl>
