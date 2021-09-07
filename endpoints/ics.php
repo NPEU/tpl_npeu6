@@ -13,7 +13,9 @@ $end_stamp   = (!(string) (int) $data->end === $data->end)
              : $data->end;
 
 $alias       = $data->alias;
-$description = htmlspecialchars_decode(str_replace("\n", '\n', $data->description));
+#echo '<pre>'; var_dump($data->description); echo '</pre>'; exit;
+//$description = htmlspecialchars(strip_tags(htmlspecialchars_decode(str_replace("\n", '\n', $data->description))));
+$description = htmlspecialchars(strip_tags(htmlspecialchars_decode($data->description)));
 $start       = date('Ymd\THis', $start_stamp);
 $end         = date('Ymd\THis', $end_stamp);
 $location    = $data->location;
