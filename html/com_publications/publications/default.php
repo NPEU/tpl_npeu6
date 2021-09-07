@@ -27,7 +27,7 @@ ob_start(); ?>
                 <legend>Search publications</legend>
                 <label class="" for="filter_keywords" id="filter_keywords-lbl">Search publications</label>
                 <span class="c-composite">
-                    <input type="text" value="<?php echo $jinput->getString('keywords', ''); ?>" id="filter_keywords" name="keywords">
+                    <input type="text" value="<?php echo htmlentities($jinput->getString('keywords', '')); ?>" id="filter_keywords" name="keywords">
                     <button type="submit">Search</button>
                     <a class="c-cta" href="/research/publications">Clear</a>
                 </span>
@@ -44,7 +44,7 @@ ob_end_clean(); ?>
 <p>There are no publications to display.</p>
 <?php else: ?>
 <?php if ($this->is_filtered): ?>
-<p>Found <strong><?php echo $this->publications_total; ?></strong> publications matching <em><?php echo $jinput->getString('keywords', ''); ?></em></p>
+<p>Found <strong><?php echo $this->publications_total; ?></strong> publications matching <em><?php echo htmlentities($jinput->getString('keywords', '')); ?></em></p>
 <?php endif; ?>
 
 <?php
