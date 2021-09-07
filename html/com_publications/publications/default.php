@@ -22,16 +22,15 @@ ob_start(); ?>
 <div class="c-panel  c-panel--white  c-panel--framed">
     <div class="c-panel__module">
 
-        <form id="pubsForm" name="pubsForm" method="get" action="/research/publications">
-            <fieldset>
-                <legend>Search publications</legend>
-                <label class="" for="filter_keywords" id="filter_keywords-lbl">Search publications</label>
+        <form class="c-tool-form  c-panel  d-bands  u-space--below" id="pubsForm" name="pubsForm" method="get" action="/research/publications">
+            <div>
+                <label class="" for="filter_keywords" id="filter_keywords-lbl">Search publications:</label>
                 <span class="c-composite">
                     <input type="text" value="<?php echo htmlentities($jinput->getString('keywords', '')); ?>" id="filter_keywords" name="keywords">
                     <button type="submit">Search</button>
                     <a class="c-cta" href="/research/publications">Clear</a>
                 </span>
-            </fieldset>
+            </div>
         </form>
 
     </div>
