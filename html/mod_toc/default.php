@@ -15,14 +15,18 @@ $min_h_count = (int) $params->get('min_heading_count', '3');
 $doc         = JFactory::getDocument();
 
 $min_h_count = 3;
-    
+
+// Since we're ignoring headings in intro text, we need to check there is BOTH intro text and fulltext.
+// otherwise there's ONLY intro text, so lots of articles would get missed out otherwise:
+$tmp_content = empty($doc->article->fulltext) ? $doc->article->introtext : $doc->article->fulltext;
 // ToC requires id's on headers, so add them if not already present.
 // Note this is a back-up, ideally the editor will create them so they're saved into the article.
-preg_match_all('#<h2[^>]*>([^<]+)</h2>#', $doc->article->fulltext, $matches, PREG_SET_ORDER);
+preg_match_all('#<h2[^>]*>([^<]+)</h2>#', $tmp_content, $matches, PREG_SET_ORDER);
 
 if (count($matches) < $min_h_count) {
     return;
 }
+
 ?>
 <div class="c-panel  c-panel--very-light  t-neutral  u-space--below">
     <nav class="c-panel__module" aria-label="table of contents">
