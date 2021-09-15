@@ -42,8 +42,13 @@ if (count($matches) < $min_h_count) {
                     $new_h2 = str_replace('<h2', '<h2 id="' . $h2_id . '"', $match[0]);
                     
                     #$doc->article->text      = str_replace($match[0], $new_h2, $doc->article->text);
-                    $doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
+                    #$doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
                     #$doc->article->introtext = str_replace($match[0], $new_h2, $doc->article->introtext);
+                    if (empty($doc->article->fulltext)) {
+                        $doc->article->introtext  = str_replace($match[0], $new_h2, $doc->article->introtext);
+                    } else {
+                        $doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
+                    }
                 } else {
                     $h2_id = $id_match[1];
                 } ?>
