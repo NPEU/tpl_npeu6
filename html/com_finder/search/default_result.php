@@ -62,9 +62,14 @@ if (!empty($this->query->highlight)
 	$route .= 'highlight=' . base64_encode(json_encode($this->query->highlight));
 }
 
+if ($this->params->get('highlight_terms', 1) && JPluginHelper::isEnabled('system', 'highlight')) {
+    
+    $description = preg_replace('/' . $this->query->input . '/', '<mark>' . $this->query->input . '</mark>', $description);
+}
+
 ?>
 <li class="n-search-results__result  u-space--below">
-	<h2 class="n-search-results__heading">
+	<h2 class="n-search-results__heading  u-space--below">
 		<a href="<?php echo JRoute::_($route); ?>">
 			<?php echo $this->result->title; ?>
 		</a>
@@ -73,5 +78,6 @@ if (!empty($this->query->highlight)
     <p class="n-search-results__description">
         <?php echo $description; ?>
     </p>
+    <hr>
 	<?php endif; ?>
 </li>
