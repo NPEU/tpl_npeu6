@@ -55,7 +55,7 @@ defined('_JEXEC') or die;
 <br id="highlighter-end" />
 <?php // Display the pagination ?>
 <div class="search-pagination">
-    <div class="n-pagination">
+    <div class="n-pagination  u-space--below">
         <?php echo $this->pagination->getPagesLinks(); ?>
     </div>
     <div class="u-text-align--center">
