@@ -63,14 +63,14 @@ if (!empty($this->query->highlight)
 }
 
 ?>
-<li class="n-search-results__result">
+<li class="n-search-results__result  u-space--below">
 	<h2 class="n-search-results__heading">
 		<a href="<?php echo JRoute::_($route); ?>">
 			<?php echo $this->result->title; ?>
 		</a>
 	</h2>
 	<?php if ($show_description && $description !== '') : ?>
-    <p class="n-search-results_description">
+    <p class="n-search-results__description">
         <?php echo $description; ?>
     </p>
 	<?php endif; ?>

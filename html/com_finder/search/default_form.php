@@ -81,7 +81,7 @@ jQuery(function() {";
 }
 
 ?>
-<form id="finder-search" action="<?php echo JRoute::_($this->query->toUri()); ?>" method="get" class="form-inline">
+<form id="finder-search" action="<?php echo JRoute::_($this->query->toUri()); ?>" method="get" class="form-inline  u-space--below">
     <?php if ($page_search_area != ''): ?>
     <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
     <?php endif; ?>
