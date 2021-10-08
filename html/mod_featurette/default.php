@@ -15,6 +15,19 @@ $doc = JFactory::getDocument();
 
 $hx        = $params->get('header_tag', 'h2');
 $has_image = !empty($params->get('image', false));
+$img_path  = $params->get('image');
+$img_src   = $params->get('image');
+$svg_src   = false;
+
+// Check if there's an SVG version of this images available:
+$img_path_info = pathinfo($img_path);
+if ($img_path_info['extension'] != 'svg') {
+    $svg_path = str_replace($img_path_info['extension'], 'svg', $img_path);
+
+    if (file_exists($svg_path)) {
+        $svg_src = $svg_path;
+    }
+}
 
 $theme_class  = !empty($params->get('theme', false)) ? '  t-featurette--' . $params->get('theme') : '';
 $border_class = $params->get('border', 'none') == 'none' ? '' : '  d-bands';
@@ -39,7 +52,11 @@ $fit_class    = $params->get('fit', 'cover') == 'cover' ? 'u-image-cover  js-ima
             <div class="l-proportional-container__content">
                 <div class="<?php echo $fit_class; ?>">
                     <div<?php echo empty($fit_class) ? '' : ' class="u-image-cover__inner"'; ?>>
-                        <img src="<?php echo $params->get('image'); ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="200">
+                        <?php if ($svg_src) : ?>
+                        <img src="<?php echo $svg_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="200" onerror="this.src='<?php echo $img_src; ?>'; this.onerror=null;">
+                        <?php else: ?>
+                        <img src="<?php echo $img_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="200">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
