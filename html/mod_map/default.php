@@ -34,7 +34,7 @@ $remote_markers = $params->get('remote_markers_url', false);
 $json_format    = $params->get('remote_markers_json_format', false);
 
 // Allow for relative data src URLs:
-if (strpos($remote_markers, 'http') !== 0) {
+if ($remote_markers && strpos($remote_markers, 'http') !== 0) {
     $s        = empty($_SERVER['SERVER_PORT']) ? '' : ($_SERVER['SERVER_PORT'] == '443' ? 's' : '');
     $protocol = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
     $domain   = $protocol.'://'.$_SERVER['SERVER_NAME'];
@@ -52,9 +52,9 @@ if ($manual_markers) {
     }
 }
 
-#echo 'Markers<pre>'; var_dump($remote_markers); echo '</pre>'; exit;
+//echo 'Markers<pre>'; var_dump($remote_markers); echo '</pre>'; exit;
 // Then add any remote markers:
-if ($remote_markers) {
+if ($remote_markers && file_exists($remote_markers)) {
 
     // Treat markers as CSV.
     $remote_markers_data = file_get_contents($remote_markers);
@@ -103,7 +103,7 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
 
 ?>
 
-<figure class="u-fill-height">
+<figure class="u-fill-height  u-space--above  u-space--below">
     <div class="c-map  c-map--<?php echo $height; ?>  u-fill-height" id="<?php echo $map_id; ?>">
         <p class="u-text-align--center">
             <img class="c-map__static" src="<?php echo $static_map_src; ?>" alt="<?php echo $static_map_alt; ?>">
