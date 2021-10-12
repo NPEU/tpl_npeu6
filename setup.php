@@ -80,6 +80,10 @@ foreach ($menu_item_children as $child) {
         break;
     }
 }
+
+$menu_root_id = $menu_item->tree[0];
+$menu_root_item = JFactory::getApplication()->getMenu()->getItem($menu_root_id);
+
 #echo '<pre>'; var_dump($add_form_child_url); echo '</pre>'; exit;
 
 #echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
@@ -108,7 +112,7 @@ $page_brand        = TplNPEU6Helper::get_brand();
 $page_brand_folder = $page_brand->alias . '/';
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
 
-// Modules sometimes need to add scripts and styles ot the $doc but if we wait to use <jdoc> they're
+// Modules sometimes need to add scripts and styles to the $doc but if we wait to use <jdoc> they're
 // processed too late and get missed.
 // Pre-rendering all modules here to avoid that. Not sure if there will be other consequences.
 jimport('joomla.application.module.helper');
@@ -189,7 +193,7 @@ $page_heading = isset($doc->article)
 if (isset($doc->page_heading_additional)) {
     $page_heading .= $doc->page_heading_additional;
 }
-$page_title   = $page_heading;
+$page_title = $page_heading;
 
 // Menu Items can override the heading / title in 'Page Display' tab:
 if (!empty($menu_item->params->get('page_heading', false))) {
@@ -203,10 +207,12 @@ if (!empty($menu_item->params->get('page_title', false))) {
 $show_page_heading = $menu_item->params->get('show_page_heading', false);
 
 
-
-
 if ($page_heading != $page_template_params->site_title) {
    $page_title .= ' | ' . $page_template_params->site_title;
+}
+
+if ($page_template_params->site_title != 'NPEU') {
+    $page_title .= ' | NPEU';
 }
 
 $page_has_article = !empty($doc->article);
@@ -269,6 +275,11 @@ if ($doc->countModules('3-main-badge') > 0) {
 
     if (!empty($page_badge)) {
         $page_has_sidebar_super++;
+        
+        if ($menu_root_item->title != $menu_item->title) {
+            $page_title .= ' > ' . $menu_root_item->title;
+        }
+
     }
 }
 
