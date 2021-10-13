@@ -24,56 +24,22 @@
             <?php endif; ?>
 
             <div class="u-padding--bottom--s">
-                <?php /*
-                <div class="l-col-to-row">
-                    <div class="l-col-to-row__item  ff-width-100--50--<?php echo $header_balance[0]; ?>  u-text-align--left  c-page-header__first  u-padding--top--s  u-padding--sides--s">
-                        <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
-                            <?php echo $page_brand->logo_svg_with_fallback; ?>
-                        </a>
-                    </div>
-
-                    <?php if ($page_display_cta || $page_unit == 'npeu') : ?>
-                    <div class="l-col-to-row__item  ff-width-100--50--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">
-                        <?php if ($page_display_cta) : ?>
-                        <span>
-                            <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><?php echo $page_cta_text; ?></a>
-                        </span>
-                        <?php endif; ?>
-                        <?php if ($page_unit == 'npeu') : ?>
-                        <div class="l-distribute  l-distribute--end  l-distribute--gutter--s  l-distribute--limit-20">
-                            <div class="u-padding--xs  l-center">
-                                <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                                    <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="60">
-                                </a>
-                            </div>
-
-                            <div class="u-padding--xs  l-center">
-                                <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                                    <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
-                                </a>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                */ ?>
 
                 <div class="l-distribute">
-                    <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[0]; ?>  u-text-align--leftX  c-page-header__logo  u-padding--top--s  u-padding--sides--s">*/ ?>
                     <p class="c-page-header__logo  u-padding--top--s  u-padding--sides--s">
-                        <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo">
+                        <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo  u-space--left  u-space--right">
                             <?php echo $page_brand->logo_svg_with_fallback; ?>
                         </a>
                     </p>
+
                     <?php if ($page_display_cta) : ?>
-                    <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">*/ ?>
+
                     <div class="l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
                         <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><span><?php echo $page_cta_text; ?><span></a>
                     </div>
                     <?php endif; ?>
                     <?php if ($page_unit == 'npeu') : ?>
-                    <?php /*<div class="Xff-width-100--45--<?php echo $header_balance[1]; ?>  l-center  u-padding--top--s  u-padding--sides--s">*/ ?>
+                    <?php /* KEEP FOR NOW
                     <div class="l-center  u-padding--top--s  u-padding--sides--s  c-page-header__affiliate_logos">
                         <div class="u-padding--s  l-center">
                             <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height--6" rel="external noopener noreferrer" target="_blank">
@@ -86,6 +52,17 @@
                                 <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
                             </a>
                         </div>
+                    </div>
+                    */ ?>
+                    <div class="u-padding--s  l-center">
+                        <a href="http://www.npeu.ox.ac.uk/" class="c-badge  c-badge--primary-logo  u-space--above  u-space--left  u-space--right">
+                            <?php
+                            // Note this may come form the template project setting somehow, so the device could change depending if it's CTU or SHEER for example. Not sure yet.
+                            $device_brand_id = 122;
+                            $device_brand = TplNPEU6Helper::get_brand($device_brand_id);
+                            echo str_replace('height="80"', 'height="114"', $device_brand->logo_svg_with_fallback);
+                            ?>
+                        </a>
                     </div>
                     <?php endif; ?>
                 </div>
