@@ -38,7 +38,8 @@
                         <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><span><?php echo $page_cta_text; ?><span></a>
                     </div>
                     <?php endif; ?>
-                    <?php if ($page_unit == 'npeu') : ?>
+                    <?php #if ($page_unit == 'npeu') : ?>
+                    <?php if ($page_brand->alias == 'npeu') : ?>
                     <?php /* KEEP FOR NOW
                     <div class="l-center  u-padding--top--s  u-padding--sides--s  c-page-header__affiliate_logos">
                         <div class="u-padding--s  l-center">
@@ -421,13 +422,18 @@
             </div>
             <?php endif; ?>
 
-            <?php if ($page_unit != 'npeu') : ?>
+            <?php #if ($page_unit != 'npeu') : ?>
+            <?php if ($page_unit != $page_brand->alias) : ?>
             <div class="l-distribute  l-distribute--gutter--s  l-distribute--balance-top  l-distribute--basis-20">
                 <div class="u-padding--s  l-center">
                     <?php /* Note the following should be made DRYer using brands info */ ?>
-                    <?php if ($page_unit == 'pru-mnhc') : ?>
+                    <?php if ($page_unit == 'npeu') : ?>
                     <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
                         <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
+                    </a>
+                    <?php elseif ($page_unit == 'pru-mnhc') : ?>
+                    <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
+                        <img src="/assets/images/brand-logos/unit/pru-mnhc-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/pru-mnhc-logo.png'; this.onerror=null;" alt="Logo: PRU-MNHC" height="80">
                     </a>
                     <?php elseif ($page_unit == 'npeu_ctu') : ?>
                     <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  l-center">
