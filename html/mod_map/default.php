@@ -103,7 +103,7 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
 
 ?>
 
-<figure class="u-fill-height  u-space--above  u-space--below">
+<figure class="u-fill-height">
     <div class="c-map  c-map--<?php echo $height; ?>  u-fill-height" id="<?php echo $map_id; ?>">
         <p class="u-text-align--center">
             <img class="c-map__static" src="<?php echo $static_map_src; ?>" alt="<?php echo $static_map_alt; ?>">
