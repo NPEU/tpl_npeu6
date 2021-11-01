@@ -44,22 +44,21 @@ if ($remote_markers && strpos($remote_markers, 'http') !== 0) {
 // Handle any manual markers:
 if ($manual_markers) {
 
-
     // Treat markers as CSV.
     $manual_markers_data = ModMapHelper::csvArray($manual_markers);
     foreach ($manual_markers_data as $row) {
         $markers[] = array_combine(array('lat', 'lng', 'color', 'popup'), $row);
     }
+
 }
 
-//echo 'Markers<pre>'; var_dump($remote_markers); echo '</pre>'; exit;
 // Then add any remote markers:
-if ($remote_markers && file_exists($remote_markers)) {
+if ($remote_markers && $remote_markers_data = file_get_contents($remote_markers)) {
 
     // Treat markers as CSV.
-    $remote_markers_data = file_get_contents($remote_markers);
     // Let's see if we an decode it:
     if ($remote_markers_json = json_decode($remote_markers_data, true)) {
+
         if (!empty($json_format)) {
             $twig_data = $remote_markers_json;
 
@@ -82,6 +81,7 @@ if ($remote_markers && file_exists($remote_markers)) {
         }
 
         $markers = array_merge($markers, $remote_markers);
+
     }
 }
 
@@ -115,7 +115,7 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
         <?php echo $legend; ?>
     </figcaption>
     <?php endif; ?>
-    
+
     <script>
     leafletMapInitialize('<?php echo $map_id; ?>', <?php echo json_encode($map_data); ?>, <?php echo $markers_json; ?>);
     </script>
