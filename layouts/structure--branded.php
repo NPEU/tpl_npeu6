@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         */ ?>
-                    
+
                         <a href="http://www.npeu.ox.ac.uk/" class="c-badge  c-badge--primary-logo  u-space--above  u-space--left  u-space--right">
                             <?php
                             // Note this may come form the template project setting somehow, so the device could change depending if it's CTU or SHEER for example. Not sure yet.
@@ -65,7 +65,7 @@
                             echo str_replace('height="80"', 'height="114"', $device_brand->logo_svg_with_fallback);
                             ?>
                         </a>
-                    
+
                         <?php else: ?>
                         <?php /* Note the following should be made DRYer using brands info */ ?>
                         <?php if ($page_unit == 'npeu' && $page_brand->alias != 'pru-mnhc') : ?>
@@ -76,7 +76,7 @@
                         <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
                             <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
                         </a>
-                        <?php /* elseif ($page_unit == 'sheer') : ?>
+                        <?php  elseif ($page_unit == 'sheer') : ?>
                         <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
                             <img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
                         </a>
@@ -84,7 +84,7 @@
                         <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
                             <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
                         </a>
-                        <?php */ endif; ?>
+                        <?php  endif; ?>
 
                     <?php endif; ?>
                     </div>
