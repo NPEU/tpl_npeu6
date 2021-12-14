@@ -5,7 +5,7 @@
         <description>Joomla! tpl_npeu6 template</description>
         <element>npeu6</element>
         <type>template</type>
-        <version>1.177.0</version>
+        <version>1.178.0</version>
         <client>site</client>
         <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v1.177.0</infourl>
         <downloads>
