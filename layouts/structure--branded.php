@@ -429,23 +429,30 @@
 
             <?php if ($page_has_footer_mid_left || $page_has_footer_mid_right): ?>
             <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
-                <div class="l-col-to-row">
-                    <?php if ($page_has_footer_mid_left): ?>
-                    <div class="l-col-to-row__item  ff-width-100--40--50" data-position="6-footer-mid-left">
-                        <?php echo $modules__footer_mid_left; ?>
+                <div class="l-layout l-row">
+                    <div class="l-layout__inner">
+                        <?php if ($page_has_footer_mid_left): ?>
+                        <div class="l-box  ff-width-100--40--50" data-position="6-footer-mid-left">
+                            <?php echo $modules__footer_mid_left; ?>
+                        </div>
+                        <?php endif; ?>
+                        <?php if ($page_has_footer_mid_right): ?>
+                        <div class="l-box  ff-width-100--40--50" data-position="6-footer-mid-right">
+                            <div class="l-layout l-row  l-row--start">
+                                <div class="l-layout__inner">
+                                    <?php echo $modules__footer_mid_right; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
-                    <?php endif; ?>
-                    <?php if ($page_has_footer_mid_right): ?>
-                    <div class="l-col-to-row__item  ff-width-100--40--50" data-position="6-footer-mid-right">
-                        <?php echo $modules__footer_mid_right; ?>
-                    </div>
-                    <?php endif; ?>
                 </div>
             </div>
             <?php endif; ?>
 
             <?php #if ($page_unit != 'npeu') : ?>
-            <?php if ($page_unit != $page_brand->alias) : ?>
+            <?php #if ($page_unit != $page_brand->alias) : ?>
+            <?php if (true) : ?>
             <div class="l-distribute  l-distribute--gutter--s  l-distribute--balance-top  l-distribute--basis-20">
                 <div class="u-padding--s  l-center">
                     <?php /* Note the following should be made DRYer using brands info */ ?>
