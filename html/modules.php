@@ -6,7 +6,7 @@
  * @copyright   Copyright (C) NPEU 2019.
  * @license     MIT License; see LICENSE.md
  */
- 
+
 // Include the template helper:
 JLoader::register('TplNPEU6Helper', dirname(__DIR__) . '/helper.php');
 
@@ -27,7 +27,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     #echo  '<pre>'; var_dump($template); echo '</pre>';
 
-    
+
 
     $brand = TplNPEU6Helper::get_brand();
 
@@ -123,9 +123,9 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     $wrapper_class = '';
     $header_class = '';
     $wrapper_theme_class = '  c-panel--very-light';
-    
+
     $theme_name = $module_wrapper_color == 'brand' ? $brand->alias : 'neutral';
-    
+
     // @ASSUMPTION: If there's a menu in the sidebar, it's a section menu.
     if ($module->module == 'mod_menu') {
         $wrapper_classname = 'n-section-menu';
@@ -210,9 +210,27 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 }
 
 function modChrome_block($module, &$params, &$attribs) {
-
     if (!empty($module->content)): ?>
     <div class="l-blockrow">
+        <?php echo $module->content; ?>
+    </div>
+    <?php endif;
+}
+
+function modChrome_block_fill_width($module, &$params, &$attribs) {
+    if (!empty($module->content)): ?>
+    <div class="l-blockrow  u-fill-width">
+        <?php echo $module->content; ?>
+    </div>
+    <?php endif;
+}
+
+function modChrome_layout_box($module, &$params, &$attribs) {
+    //echo 'params<pre>'; var_dump($params); echo '</pre>'; #exit;
+    //echo 'attribs<pre>'; var_dump($attribs); echo '</pre>'; #exit;
+
+    if (!empty($module->content)): ?>
+    <div class="l-box">
         <?php echo $module->content; ?>
     </div>
     <?php endif;
