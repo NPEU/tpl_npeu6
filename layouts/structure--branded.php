@@ -449,6 +449,8 @@
                 </div>
             </div>
             <?php endif; ?>
+            
+            <?php echo $modules__footer_mid_bottom; ?>
 
             <?php #if ($page_unit != 'npeu') : ?>
             <?php #if ($page_unit != $page_brand->alias) : ?>

@@ -115,6 +115,8 @@ $page_brand_folder = $page_brand->alias . '/';
 // Modules sometimes need to add scripts and styles to the $doc but if we wait to use <jdoc> they're
 // processed too late and get missed.
 // Pre-rendering all modules here to avoid that. Not sure if there will be other consequences.
+// NOTE - defining module styles (chrome) here is unreliable because the module renderer overrides
+// it if the module itself specifies it (which they often do)
 jimport('joomla.application.module.helper');
 $modules__top                  = trim(JHtml::_('content.prepare', '{loadposition 1-top,basic}'));
 $modules__header_nav_bar       = trim(JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}'));
@@ -127,13 +129,15 @@ $modules__main_lower           = trim(JHtml::_('content.prepare', '{loadposition
 $modules__bottom               = trim(JHtml::_('content.prepare', '{loadposition 5-bottom,block}'));
 $modules__footer_top           = trim(JHtml::_('content.prepare', '{loadposition 6-footer-top,block}'));
 $modules__footer_mid_left      = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}'));
-$modules__footer_mid_right     = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,block}'));
+$modules__footer_mid_right     = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,bespoke layout_box}'));
+$modules__footer_mid_bottom    = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-bottom}'));
 $modules__footer_bottom        = trim(JHtml::_('content.prepare', '{loadposition 6-footer-bottom,block}'));
 
 
 $modules__log_in_out_button    = trim(JHtml::_('content.prepare', '{loadposition log-in-out-button,basic}'));
 
 #echo '<pre>'; var_dump($modules__sidebar_bottom); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($modules__footer_mid_right); echo '</pre>'; exit;
 
 // Branded search pages need an extra query string parameter to limit the search to just that part
 // of the site. This may not be the best place to establish this, so keep that in mind.
@@ -261,9 +265,10 @@ if (!(
 
 #echo '<pre>'; var_dump($page_has_sidebar_bottom); echo '</pre>'; exit;
 
-$page_has_footer_top           = empty($modules__footer_top)       ? 0 : $doc->countModules('6-footer-top');
-$page_has_footer_mid_left      = empty($modules__footer_mid_left)  ? 0 : $doc->countModules('6-footer-mid-left');
-$page_has_footer_mid_right     = empty($modules__footer_mid_right) ? 0 : $doc->countModules('6-footer-mid-right');
+$page_has_footer_top           = empty($modules__footer_top)        ? 0 : $doc->countModules('6-footer-top');
+$page_has_footer_mid_left      = empty($modules__footer_mid_left)   ? 0 : $doc->countModules('6-footer-mid-left');
+$page_has_footer_mid_right     = empty($modules__footer_mid_right)  ? 0 : $doc->countModules('6-footer-mid-right');
+$page_has_footer_mid_bottom    = empty($modules__footer_mid_bottom) ? 0 : $doc->countModules('6-footer-mid-bottom');
 #echo '<pre>'; var_dump($doc->countModules('4-sidebar-bottom')); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($page_has_footer_mid_left); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($page_has_footer_mid_right); echo '</pre>'; exit;
@@ -275,7 +280,7 @@ if ($doc->countModules('3-main-badge') > 0) {
 
     if (!empty($page_badge)) {
         $page_has_sidebar_super++;
-        
+
         if ($menu_root_item->title != $menu_item->title) {
             $page_title .= ' > ' . $menu_root_item->title;
         }
@@ -420,7 +425,7 @@ if (!empty($doc->include_script)) {
 }
 /*
 if ($page_script !== '') {
-    
+
     $page_script = preg_replace('/\t/', '    ', $page_script);
     $page_script = preg_replace('/^    /m', '', $page_script);
 }
@@ -531,7 +536,7 @@ if ($page_has_article) {
             $page_article_brand = TplNPEU6Helper::get_brand($brand_id);
         }
     }
-    
+
 }
 
 // Social Media:
