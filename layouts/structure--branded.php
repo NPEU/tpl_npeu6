@@ -449,20 +449,23 @@
                 </div>
             </div>
             <?php endif; ?>
-            
+
             <?php echo $modules__footer_mid_bottom; ?>
 
             <?php #if ($page_unit != 'npeu') : ?>
             <?php #if ($page_unit != $page_brand->alias) : ?>
             <?php if (true) : ?>
             <div class="l-distribute  l-distribute--gutter--s  l-distribute--balance-top  l-distribute--basis-20">
+                <?php
+                $page_units = array('pru-mnhc', 'npeu_ctu', 'sheer', 'he');
+                if (in_array($page_unit, $page_units)) : ?>
                 <div class="u-padding--s  l-center">
                     <?php /* Note the following should be made DRYer using brands info */ ?>
-                    <?php if ($page_unit == 'npeu') : ?>
+                    <?php /*if ($page_unit == 'npeu') : ?>
                     <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
                         <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                     </a>
-                    <?php elseif ($page_unit == 'pru-mnhc') : ?>
+                    <?php else*/ if ($page_unit == 'pru-mnhc') : ?>
                     <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
                         <img src="/assets/images/brand-logos/unit/pru-mnhc-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/pru-mnhc-logo.png'; this.onerror=null;" alt="Logo: PRU-MNHC" height="80">
                     </a>
@@ -480,9 +483,17 @@
                     </a>
                     <?php endif; ?>
                 </div>
-                <div class="u-padding--s  l-center">
+                <?php endif; ?>
+
+                <?php /* <div class="u-padding--s  l-center">
                     <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" target="_blank">
                         <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
+                    </a>
+                </div>*/ ?>
+
+                <div class="u-padding--s  l-center">
+                    <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
+                        <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                     </a>
                 </div>
 
@@ -502,10 +513,34 @@
 
             <?php echo $modules__footer_bottom; ?>
 
-            <div class="c-page-footer  u-text-align--center"><?php /* @TODO: sort out footer from form input. */ ?>
-                <p class="c-utilitext">
-                    <?php echo $page_footer_text; ?>
-                </p>
+            <div class="c-page-footer  u-text-align--center  d-background--dark  t-<?php echo $page_brand->alias; ?>"><?php /* @TODO: sort out footer from form input. */ ?>
+    
+                <div class="l-layout  l-row l-gutter">
+                    <div class="l-layout__inner">
+                        <div class="l-box">
+                            <p class="c-utilitext  c-utilitext--spaced  u-space--below">
+                                <?php echo $page_footer_text; ?>
+                            </p>
+                            <p class="c-utilitext  c-utilitext--spaced  u-space--below">
+                                <a href="https://www.npeu.ox.ac.uk"><span>NPEU Main Site</span></a> | <a href="https://www.npeu.ox.ac.uk/ctu"><span>NPEU CTU Site</span></a> | <a href="https://www.npeu.ox.ac.uk/pru-mnhc"><span>PRU-MNHC Site</span></a> | <a href="https://www.npeu.ox.ac.uk/sheer"><span>NPEU SHEER Site</span></a>
+                            </p>
+                            <p class="c-utilitext">
+                                © NPEU 2021
+                            </p>
+                        </div>
+                        <div class="l-box">
+                            <div class="u-padding--s  l-center">
+                                <div class="d-bands  t-<?php echo $page_brand->alias; ?>">
+                                    <div class="d-background  t-white  u-padding">
+                                        <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" target="_blank">
+                                            <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </footer>
