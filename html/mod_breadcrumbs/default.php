@@ -31,7 +31,7 @@ $show_last = $params->get('showLast', 1);
 
 if ($count > 0) :
 ?>
-<nav aria-label="Breadcrumbs">
+<nav aria-label="Breadcrumbs" class="mod_breadcrumbs">
     <dl class="n-breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
         <dt class="n-breadcrumbs__title"><?php echo JText::_('MOD_BREADCRUMBS_HERE'); ?></dt>
 

@@ -57,7 +57,7 @@ if (!$result) {
 #$svg_path = str_replace('.' . $pathinfo['extension'], '.svg', JURI::base() . $images->images0->image);
 #echo '<pre>'; var_dump(file_exists(JPATH_BASE . '/' . $svg_file)); echo '</pre>'; return;
 ?>
-<<?php echo $wrapper; ?> class="l-primary-content__pull-out__padded--@small">
+<<?php echo $wrapper; ?> class="l-primary-content__pull-out__padded--@small  mod_image">
     
     <<?php echo $alias ? 'a href="https://www.npeu.ox.ac.uk/' . $alias . '"' : 'span'; ?> class="c-badge  c-badge--page-brand">
         <?php if (file_exists(JPATH_BASE . '/' . $svg_file)) : ?>

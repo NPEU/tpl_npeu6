@@ -38,7 +38,7 @@ $j = 0;
 $item = array_shift($items);
 $count--;
 ?>
-<div class="l-col-to-row--flush-edge-gutters  u-space--belowX">
+<div class="l-col-to-row--flush-edge-gutters  u-space--belowX  mod_articles_latest">
     <div class="l-col-to-row  l-col-to-row--gutter--m">
         <div class="ff-width-100--55--50">
             <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>

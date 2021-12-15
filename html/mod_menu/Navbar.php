@@ -174,7 +174,7 @@ foreach ($new_list as $i => &$item) {
 }
 ?>
 <?php if(!empty($nav)): ?>
-<ul class="nav-bar__items">
+<ul class="nav-bar__items  mod_menu">
     <?php echo $nav; ?>
     
 <?php echo TplNPEU6Helper::tab(2); ?></ul>

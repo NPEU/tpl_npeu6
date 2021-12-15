@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.keepalive');
 ?>
 <?php if(!$user->get('guest')): ?>
-<form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure', 0)); ?>" method="post" id="login-form" class="c-single-link-form">
+<form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure', 0)); ?>" method="post" id="login-form" class="c-single-link-form  mod_login">
     <a href="/user-profile"><span><strong><?php echo $user->username; ?></strong></span></a>
     (
     <button name="Submit"><span><?php echo JText::_('JLOGOUT'); ?></span></button>

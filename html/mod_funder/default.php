@@ -33,7 +33,7 @@ $logo_image = @SVG::fromString($brand->logo_svg);
 $logo_svg_doc = $logo_image->getDocument();
 $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
 ?>
-<div class="d-bands--bottom  <?php echo $theme; ?>">
+<div class="d-bands--bottom  <?php echo $theme; ?>  mod_funder">
     <div class="l-col-to-row">            
         <?php if (!empty($params->get('image'))): ?>
         <div class="ff-width-100--40--50">

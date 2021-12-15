@@ -34,7 +34,7 @@ $border_class = $params->get('border', 'none') == 'none' ? '' : '  d-bands';
 $shape_class  = $params->get('shape', 'square') == 'square' ? '' : '  c-featurette__image--' . $params->get('shape');
 $fit_class    = $params->get('fit', 'cover') == 'cover' ? 'u-image-cover  js-image-cover' : '';
 ?>
-<div class="c-featurette<?php echo $has_image ? '  c-featurette--pull-image  u-space--above--none' : ''; ?><?php echo $theme_class; ?>">
+<div class="c-featurette<?php echo $has_image ? '  c-featurette--pull-image  u-space--above--none' : ''; ?><?php echo $theme_class; ?> mod_featurette">
     <div class="c-featurette__body  c-featurette__body--80">
         <?php if ($module->showtitle): ?>
         <<?php echo $hx; ?>><?php echo $module->title; ?></<?php echo $hx; ?>>

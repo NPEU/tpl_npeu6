@@ -29,12 +29,12 @@ if (!empty($images->images0->caption) || !empty($images->images0->credit)) {
     $wrapper = 'figure';
 }
 
-$container_classes = '';
+$container_classes = 'mod_image';
 $inner_classes = 'u-image-natural';
 $image_classes = 'u-image-natural__image';
 
 if ($cover == 1) {
-    $container_classes = 'u-image-cover  u-image-cover--min-30  js-image-cover';
+    $container_classes .= ' u-image-cover  u-image-cover--min-30  js-image-cover';
     $inner_classes = 'u-image-cover__inner';
     $image_classes = 'u-image-cover__image';
 }

@@ -160,7 +160,7 @@ foreach ($new_list as $i => &$item) {
 }
 ?>
 <?php if(!empty($nav)): ?>
-<ul class="n-section-menu__list  u-fill-width">
+<ul class="n-section-menu__list  u-fill-width  mod_menu">
     <?php echo $nav; ?>
 </ul>
 <?php endif; ?>

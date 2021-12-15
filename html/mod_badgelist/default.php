@@ -30,7 +30,7 @@ if (!empty($params->get('list_basis'))) {
 }
 
 ?>
-<div class="<?php echo implode("  ", $layout_classes); ?>">
+<div class="<?php echo implode("  ", $layout_classes); ?>  mod_badgelist">
     <div class="l-layout__inner">
     <?php foreach ($badges as $badge) : ?>
         <p class="l-box">
