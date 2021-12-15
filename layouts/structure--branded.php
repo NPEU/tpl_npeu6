@@ -525,7 +525,7 @@
                                 <a href="https://www.npeu.ox.ac.uk"><span>NPEU Main Site</span></a> | <a href="https://www.npeu.ox.ac.uk/ctu"><span>NPEU CTU Site</span></a> | <a href="https://www.npeu.ox.ac.uk/pru-mnhc"><span>PRU-MNHC Site</span></a> | <a href="https://www.npeu.ox.ac.uk/sheer"><span>NPEU SHEER Site</span></a>
                             </p>
                             <p class="c-utilitext">
-                                © NPEU 2021
+                                © NPEU <?php echo date('Y'); ?>
                             </p>
                         </div>
                         <div class="l-box">
