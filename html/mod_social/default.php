@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 $doc = JFactory::getDocument();
 
-$layout_classes = ['l-layout', 'l-row'];
+$layout_classes = ['l-layout', 'l-row  l-row--start'];
 
 
 $layout_classes[] = 'l-gutter--m';
