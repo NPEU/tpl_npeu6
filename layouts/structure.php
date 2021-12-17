@@ -180,7 +180,7 @@
     </style>
     <?php endif; ?>
 
-    <?php if ($env == 'testing' || $env = 'development') : ?>
+    <?php if ($env == 'testing' || $env == 'development') : ?>
     <style>
 
      .env_container {

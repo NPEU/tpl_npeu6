@@ -1,6 +1,6 @@
     <div class="sticky-footer-wrap  c-page-wrap"  data-brand="<?php echo $page_brand->alias; ?>">
 
-        <?php if ($env == 'testing' || $env = 'development') : ?>
+        <?php if ($env == 'testing' || $env == 'development') : ?>
         <div class="env_container">
             <fieldset role="presentation">
                 <p>
@@ -9,7 +9,7 @@
                 <button aria-label="Close this notice"><svg focusable="false" class="icon  icon--is-open" onclick="this.parentNode.parentNode.parentNode.style.display='none'"><use xlink:href="#icon-cross"></use></svg></button>
             </fieldset>
         </div>
-        <?php endif;?>
+        <?php endif; ?>
 
         <header class="c-page-header<?php if (!$page_display_cta) : ?>  c-page-header--no-cta<?php endif; ?>  t-<?php echo $page_brand->alias; ?>" aria-label="Page">
 
