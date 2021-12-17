@@ -16,19 +16,32 @@
     <link href="<?php echo $uri->getPath() ?>?format=feed&type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0">
     <?php endif; ?>
 
+    <!-- Ultra-light fallback styles for ancient browsers: -->
     <style>
-        /* Tiny Fall-Back Styles (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md) */
-        body{font-family:sans-serif;line-height:1.2;padding:1em;margin:0 auto;max-width:50em;}
-        img{max-width:100%;-ms-interpolation-mode:bicubic;}
-        [hidden]{display:none;}
-        main{display:block;}
-        hr{border-top:1px solid;border-bottom:0 none;height:0px;}
-        fieldset{border:1px solid;}
-        pre{overflow-x:scroll;overflow-y:auto;}
-        button,input,select,textarea{vertical-align:middle;}
+        /*
+            Tiny Fall-Back Styles (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md)
 
+            The following styles provide a better visual experience in cases where linked
+            stylesheets aren't loaded for any reason. It's recommended that any styles that won't
+            be used by the elements on the page be removed to make this as lean as possible, and
+            the run through a minifier (e.g. https://cssminifier.com) to compress it as much a
+            possible, since this is sent on each request and not cached.
+            Note there's a section that uses attributes to apply styles to specific element. This
+            is so as not to pollute the class space and help authors make distinctions.
+            There's a much long essay on this brewing and I'll add the link when it's done.
+        */
+        body{font:1em/1.2 sans-serif;padding:1em;margin:0 auto;max-width:50em}details,dialog,main,summary{display:block}@supports (list-style-type:disclosure-closed){summary{display:list-item}}mark{background:#ff0;color:# 000}[hidden],template{display:none}fieldset{border:1px solid;border-color:#777;margin:1em 0;padding:1em}image,img,svg{max-width:100%;-ms-interpolation-mode:bicubic;vertical-align:middle;/*height:auto;*/border:0}figure{max-width:100%;overflow-x:auto}_:-o-prefocus,:root figure{max-width:initial;overflow-x:visible}hr{border-style:solid;border-width:0 0 1px 0;margin:1em 0;color:#777}pre{width:100%;overflow-x:scroll;overflow-y:auto}video{max-width:100%;height:auto}button,input,label,select,textarea{vertical-align:middle;vertical-align:middle;min-height:2.2em;margin:.2em 0}button,input[type=checkbox],input[type=radio],label,select,textarea{cursor:pointer}button,input,textarea{padding:0 .5em;line-height:1.5}table{width:100%;border:1px solid #777;border-collapse:collapse}table[role=presentation]{border:0;table-layout:fixed}table[role=presentation] td{border:0}th{background:#eee}caption,td,th{padding:.5em}
+    
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
-        .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top 0;left:0;width:100%;height:100%;}
+        .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top:0;left:0;width:100%;height:100%;}
+    </style>
+
+    <!-- From here we're cutting off IE9- to stop all kinds of JS and CSS fails. -->
+    <!--[if !IE]><!-->
+
+    <style>
+        /* Tiny Fall-Back Styles continued ... */
+        [data-fs-text~=right]{text-align:right}[data-fs-text~=center]{text-align:center}[data-fs-text~=larger]{font-size:larger}[data-fs-text~=nowrap]{white-space:nowrap}[data-fs-block~=background]{background:#eee}[data-fs-block~=border]{border:1px solid;margin:1em 0;padding:1em}[data-fs-block~=padding]{padding:1em}[data-fs-block~=table]{display:table;width:100%;table-layout:fixed}[data-fs-block~=table]>*{display:table-cell;padding:.5em}[data-fs-block~=flex]{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}[data-fs-block~=flex]>*{-webkit-box-flex:1;-webkit-flex:1 0 auto;-moz-box-flex:1;-ms-flex:1 0 auto;flex:1 0 auto}[data-fs-block=video]{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%}[data-fs-block=video] embed,[data-fs-block=video] iframe,[data-fs-block=video] object{position:absolute;top:0;left:0;width:100%;height:100%}[data-fs-hr=larger]{border-top-width:10px}
     </style>
 
     <!--
@@ -166,7 +179,53 @@
     <?php endforeach; ?>
     </style>
     <?php endif; ?>
+
+    <?php if ($env == 'testing' || $env = 'development') : ?>
+    <style>
+
+     .env_container {
+         padding: 1.2rem 0.6rem;
+         text-align: center;
+         position: sticky;
+         top: 0;
+         z-index: 9999;
+         background: #cc6289;
+         color: #fff;
+         box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
+     }
+     
+     .env-testing .env_container,
+     .env-sandbox .env_container {
+         background: #ffc77c;
+         color: #222;
+     }
+     
+     .env_container * {
+         margin: 0;
+         padding: 0;
+         border: 0;
+     }
+     
+     .env_container button {
+         position: absolute;
+         right: 1.2rem;
+         top: 1rem;
+         background-color: rgba(0,0,0,0.1);
+         padding: 0 0.6rem;
+         color: inherit;
+     }
+     
+     .env_container button:hover,
+     .env_container button:active,
+     .env_container button:focus {
+         background-color: rgba(0,0,0,0.3);
+     }
+
+    </style>
+    <?php endif; ?>
     
+    <!--<![endif]-->
+
     <link rel="apple-touch-icon" sizes="180x180" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>favicon-16x16.png">
@@ -236,7 +295,7 @@
     </style>
     <?php echo $page_svg_icons; ?>
 
-    <div data-css-only="true">
+    <div data-css-only="true" data-fs-text="center">
         <fieldset role="presentation">
             <p>
                 <b>Notice:</b> You are viewing an unstyled version of this page. Are you using a very old browser? If so, <a href="https://browsehappy.com/?locale=en">please consider upgrading</a>.

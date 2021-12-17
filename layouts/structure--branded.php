@@ -1,5 +1,16 @@
     <div class="sticky-footer-wrap  c-page-wrap"  data-brand="<?php echo $page_brand->alias; ?>">
 
+        <?php if ($env == 'testing' || $env = 'development') : ?>
+        <div class="env_container">
+            <fieldset role="presentation">
+                <p>
+                    <?php echo strtoupper($env); ?>
+                </p>
+                <button aria-label="Close this notice"><svg focusable="false" class="icon  icon--is-open" onclick="this.parentNode.parentNode.parentNode.style.display='none'"><use xlink:href="#icon-cross"></use></svg></button>
+            </fieldset>
+        </div>
+        <?php endif;?>
+
         <header class="c-page-header<?php if (!$page_display_cta) : ?>  c-page-header--no-cta<?php endif; ?>  t-<?php echo $page_brand->alias; ?>" aria-label="Page">
 
             <div class="u-text-group  u-text-group--push-apart  u-padding--sides--s  u-space--below--s">
@@ -76,7 +87,7 @@
                         <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
                             <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
                         </a>
-                        <?php  elseif ($page_unit == 'sheer') : ?>
+                        <?php elseif ($page_unit == 'sheer') : ?>
                         <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
                             <img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
                         </a>
@@ -84,7 +95,16 @@
                         <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
                             <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
                         </a>
-                        <?php  endif; ?>
+                        <?php endif; ?>
+                        <?php /*
+                        
+                        <?php elseif ($page_unit == 'pru-mnhc') : ?>
+                        <a href="https://www.nihr.ac.uk/funding-and-support/funding-for-research-studies/funding-programmes/health-technology-assessment/" class="c-badge  c-badge--limit-height  u-space--left  u-space--right" rel="external noopener noreferrer" target="_blank">
+                            <img src="/assets/images/brand-logos/funder/nihr-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/nihr-logo.png'; this.onerror=null;" alt="Logo: Funded by NIHR - National Institute for Health Research" height="80">
+                        </a>
+                        <?php endif; ?>
+                        
+                        */ ?>
 
                     <?php endif; ?>
                     </div>
@@ -438,7 +458,7 @@
                         <?php endif; ?>
                         <?php if ($page_has_footer_mid_right): ?>
                         <div class="l-box  ff-width-100--40--50" data-position="6-footer-mid-right">
-                            <div class="l-layout l-row  l-row--start">
+                            <div class="l-layout l-row">
                                 <div class="l-layout__inner">
                                     <?php echo $modules__footer_mid_right; ?>
                                 </div>
