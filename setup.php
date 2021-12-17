@@ -25,6 +25,9 @@ switch ($_SERVER['SERVER_NAME']) {
     case 'test.npeu.ox.ac.uk':
         $env = 'testing';
         break;
+    case 'sandbox.npeu.ox.ac.uk':
+        $env = 'sandbox';
+        break;
     default:
         $env = 'production';
 }
