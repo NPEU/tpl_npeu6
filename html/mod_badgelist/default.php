@@ -29,11 +29,16 @@ if (!empty($params->get('list_basis'))) {
     $layout_classes[] = 'l-basis-' . $params->get('list_basis');
 }
 
+$box_classes = ['l-box'];
+if (!empty($params->get('badge_align'))) {
+    $box_classes[] = 'l-' . $params->get('badge_align');
+}
+
 ?>
 <div class="<?php echo implode("  ", $layout_classes); ?>  mod_badgelist">
     <div class="l-layout__inner">
     <?php foreach ($badges as $badge) : ?>
-        <p class="l-box">
+        <p class="<?php echo implode("  ", $box_classes); ?>">
             <a href="<?php echo $badge->params->logo_url; ?>" class="c-badge c-badge--limit-height--<?php echo $badge->params->limit_height; ?>" rel="external noopener noreferrer" target="_blank">
                 <img alt="Logo: <?php echo $badge->alt; ?>" height="<?php echo $badge->params->limit_height; ?>0" onerror="this.src='<?php echo $badge->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $badge->logo_svg_path; ?>">
             </a>
