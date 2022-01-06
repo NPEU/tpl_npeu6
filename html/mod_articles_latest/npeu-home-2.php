@@ -38,13 +38,13 @@ $j = 0;
 $item = array_shift($items);
 $count--;
 ?>
-<div class="l-col-to-row--flush-edge-gutters  u-space--belowX  mod_articles_latest">
-    <div class="l-col-to-row  l-col-to-row--gutter--m">
-        <div class="ff-width-100--55--50">
+<div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_articles_latest">
+    <div class="l-layout__inner">
+        <div class="l-box  ff-width-100--55--50">
             <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
         </div>
 
-        <div class="ff-width-100--55--50">
+        <div class="l-box  ff-width-100--55--50">
         <?php
         // Have a go at providing useful classes:
         $i = 0;
@@ -75,7 +75,7 @@ $count--;
                     }
                     
                     ?>
-                    <div>
+                    <div class="l-box">
                         <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
                     </div>
                     <?php endforeach; ?>

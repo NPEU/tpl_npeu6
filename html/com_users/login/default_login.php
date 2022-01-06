@@ -49,38 +49,42 @@ $return = $jinput->get('return', $return);
 </div>
 <?php endif; ?>
 
-<div class="l-col-to-row--flush-edge-gutters  u-space--below">
-    <div class="l-col-to-row  l-col-to-row--gutter">
-        <div class="ff-width-100--45--33-333 l-col-to-row__item">
+<div class="l-layout  l-row  l-gutter  l-flush-edge-gutter">
+    <div class="l-layout__inner">
+
+        <div class="l-box  ff-width-100--45--33-333">
 
             <h2>NPEU Website</h2>
             <form action="<?php echo JRoute::_('index.php?option=com_users&task=user.login'); ?>" method="post" class="u-space--below--none">
                 <fieldset class="u-space--below--none">
-                    <div class="l-col-to-row">
 
-                        <?php foreach ($this->form->getFieldset('credentials') as $field): ?>
-                        <?php if (!$field->hidden): ?>
+                    <?php foreach ($this->form->getFieldset('credentials') as $field): ?>
+                    <?php if (!$field->hidden): ?>
+                    <div class="l-layout  l-row">
+                        <div class="l-layout__inner">
 
-                        <?php
-                        #$label = add_classes($field->label, '');
-                        $label = $field->label;
-                        #$input = add_classes(preg_replace('#\s?size="\d+"#', '', $field->input), '');
-                        $input = $field->input;
-                        if ($session->get('plgSystemFormErrors.password', false)) {
-                            #$label = add_class($label, 'error');
-                            #$input = add_class($input, 'error');
-                        }
-                        ?>
-                        <div class="ff-width-100--25--25 l-col-to-row__item">
-                        <?php echo $label; ?>
+                            <?php
+                            #$label = add_classes($field->label, '');
+                            $label = $field->label;
+                            #$input = add_classes(preg_replace('#\s?size="\d+"#', '', $field->input), '');
+                            $input = $field->input;
+                            if ($session->get('plgSystemFormErrors.password', false)) {
+                                #$label = add_class($label, 'error');
+                                #$input = add_class($input, 'error');
+                            }
+                            ?>
+                            <div class="l-box  ff-width-100--25--25">
+                            <?php echo $label; ?>
+                            </div>
+                            <div class="l-box  ff-width-100--25--75">
+                            <?php echo $input; ?>
+                            </div>
+
                         </div>
-                        <div class="ff-width-100--25--75 l-col-to-row__item">
-                        <?php echo $input; ?>
-                        </div>
-                        <?php endif; ?>
-                        <?php endforeach; ?>
-
                     </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+
                     <?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>
                     <div>
                         <input id="remember" type="checkbox" name="remember" value="yes" />
@@ -107,25 +111,27 @@ $return = $jinput->get('return', $return);
             </form>
 
         </div>
-        <div class="ff-width-100--45--66-666 l-col-to-row__item  u-text-align--center">
+        <div class="l-box  ff-width-100--45--66-666  u-text-align--center">
 
             <div class="u-fill-height">
-                <div class="l-col-to-row">
-                    <div class="ff-width-100--35--50 l-col-to-row__item">
-                        <h2>Randomisation</h2>
-                        <p class="u-padding--s">
-                            <a href="https://rct.npeu.ox.ac.uk" rel="external" class="c-badge  c-badge--limit-height">
-                                <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
-                            </a>
-                        </p>
-                    </div>
-                    <div class="ff-width-100--35--50 l-col-to-row__item">
-                        <h2>MBRRACE-UK</h2>
-                        <p class="u-padding--s">
-                            <a href="https://www.mbrrace.ox.ac.uk/" rel="external" class="c-badge  c-badge--limit-height">
-                                <img src="/assets/images/brand-logos/unit/mbrrace-uk-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/mbrrace-uk-logo.png'; this.onerror=null;" alt="Logo: MBRRACE-UK" height="80">
-                            </a>
-                        </p>
+                <div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_cardlist">
+                    <div class="l-layout__inner">
+                        <div class="l-box  ff-width-100--35--50">
+                            <h2>Randomisation</h2>
+                            <p class="u-padding--s">
+                                <a href="https://rct.npeu.ox.ac.uk" rel="external" class="c-badge  c-badge--limit-height">
+                                    <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
+                                </a>
+                            </p>
+                        </div>
+                        <div class="l-box  ff-width-100--35--50">
+                            <h2>MBRRACE-UK</h2>
+                            <p class="u-padding--s">
+                                <a href="https://www.mbrrace.ox.ac.uk/" rel="external" class="c-badge  c-badge--limit-height">
+                                    <img src="/assets/images/brand-logos/unit/mbrrace-uk-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/mbrrace-uk-logo.png'; this.onerror=null;" alt="Logo: MBRRACE-UK" height="80">
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

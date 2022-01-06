@@ -17,17 +17,19 @@ unset($this->people['*']);
 <div class="l-blockrow">
     <div class="d-bands--bottom  t-npeu">
 
-        <div class="l-col-to-row">
-            <div class="ff-width-100--40--50">
-                <div class="c-panel  u-padding--sides--l  t-white  u-fill-height">
-                    <div class="c-longform-content  c-user-content">
-                        <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
+        <div class="l-layout  l-row">
+            <div class="l-layout__inner">
+                <div class="l-box  ff-width-100--40--50">
+                    <div class="c-panel  u-padding--sides--l  t-white  u-fill-height">
+                        <div class="c-longform-content  c-user-content">
+                            <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="ff-width-100--40--50">
-                <?php echo JHtml::_('content.prepare', '{loadposition people_image}'); ?>
+                <div class="l-box  ff-width-100--40--50">
+                    <?php echo JHtml::_('content.prepare', '{loadposition people_image}'); ?>
+                </div>
             </div>
         </div>
 

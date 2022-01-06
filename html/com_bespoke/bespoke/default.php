@@ -51,15 +51,17 @@ $block_classes .= '  ' . $block_theme;
             $l_ff_class = 'ff-width-100--' . $block['breakpoint'] . '--' . $l_balance;
             $r_ff_class = 'ff-width-100--' . $block['breakpoint'] . '--' . $r_balance;
         ?>
-        <div class="l-col-to-row">
-            <div class="l-col-to-row__item  <?php echo $l_ff_class; ?><?php if (!empty($block['left_pane_classes'])) { echo '  ' . $block['left_pane_classes']; } ?>">
-                <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['leftpane'] . '}'); ?>
-            </div>
+        <div class="l-layout  l-row">
+            <div class="l-layout__inner">
+                <div class="l-box  <?php echo $l_ff_class; ?><?php if (!empty($block['left_pane_classes'])) { echo '  ' . $block['left_pane_classes']; } ?>">
+                    <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['leftpane'] . '}'); ?>
+                </div>
+                
+                <div class="l-box  <?php echo $r_ff_class; ?><?php if (!empty($block['right_pane_classes'])) { echo '  ' . $block['right_pane_classes']; } ?>">
+                    <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['rightpane'] . '}'); ?>
+                </div>
             
-            <div class="l-col-to-row__item  <?php echo $r_ff_class; ?><?php if (!empty($block['right_pane_classes'])) { echo '  ' . $block['right_pane_classes']; } ?>">
-                <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['rightpane'] . '}'); ?>
             </div>
-            
         </div>
         <?php else: ?>
             <?php echo JHtml::_('content.prepare', '{loadmoduleid ' . $block['leftpane'] . '}'); ?>

@@ -31,9 +31,9 @@ $count = $params->get('count');
 // Have a go at providing useful classes:
 
 if ($count >= 2 && $count < 5) {
-    $wrap_class  = '';
-    $outer_class = 'l-col-to-row--flush-edge-gutters';
-    $inner_class = 'l-col-to-row  l-col-to-row--gutter--m';
+    $wrap_class  = 'mod_articles_latest';
+    $outer_class = 'l-layout  l-row  l-gutter  l-flush-edge-gutter';
+    $inner_class = 'l-layout__inner';
     $portion ='50';
     if ($count == 3) {
         $portion = '33-333';
@@ -41,12 +41,12 @@ if ($count >= 2 && $count < 5) {
     if ($count == 4) {
         $portion = '25';
     }
-    $item_class  = 'l-col-to-row__item  ff-width-100--50--' . $portion;
+    $item_class  = 'l-box  ff-width-100--50--' . $portion;
 } else {
-    $wrap_class   = 'u-space--below';
+    $wrap_class   = 'u-space--below  mod_articles_latest';
     $outer_class  = 'l-distribute--flush-edge-gutters';
     $inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20'; 
-    $item_class   = '';
+    $item_class   = 'l-box';
 }
 
 ?>

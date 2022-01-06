@@ -35,8 +35,8 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
 <?php if (isset($fieldset->label)): // If the fieldset has a label set, display it as the legend. ?>
 <h2><?php echo JText::_($fieldset->label); ?></h2>
 <?php endif; ?>
-<div class="l-col-to-row--flush-edge-gutters  u-space--below">
-	<dl class="l-col-to-row  user-profile">
+<div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  u-space--below ">
+    <dl class="l-layout__inner  user-profile">
         <?php foreach ($fields as $field): ?>
         
         <?php
@@ -48,8 +48,8 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
         
         <?php #echo '<pre>'; var_dump($field); echo '</pre>'; ?>
         <?php if (!$field->hidden): ?>
-		<dt class="ff-width-100--25--25 l-col-to-row__item"><?php echo preg_replace('/<br>.*/', '', $field->title); ?></dt>
-		<dd class="ff-width-100--25--75 l-col-to-row__item  u-last-child--space--below--none">
+		<dt class="ff-width-100--25--25  l-box"><?php echo preg_replace('/<br>.*/', '', $field->title); ?></dt>
+		<dd class="ff-width-100--25--75  l-box  u-last-child--space--below--none">
 		<?php if (JHtml::isRegistered('users.'.$field->id)): ?>
         <?php echo JHtml::_('users.'.$field->id, $field->value); ?>
 		<?php elseif (JHtml::isRegistered('users.'.$field->fieldname)): ?>
