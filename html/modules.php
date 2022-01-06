@@ -39,6 +39,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     $wrapper_classname = '';
     $header_classname  = $params->get('header_class', '');
     $wrapper_class = '';
+    $header_classes = ['modstyle_bespoke--heading'];
     $header_class = '';
     $wrapper_theme_class = '';
     $hx = $params->get('header_tag', 'h2');
@@ -59,9 +60,9 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     }
 
     if (!empty($header_classname)) {
-        $header_class = ' class="' . $header_classname . '"';
+        $header_classes[] = $header_classname;
     }
-
+    $header_class = ' class="' . implode('  ', $header_classes) . '"';
 
     if (!empty($module_wrapper_theme)) {
         $wrapper_theme_class = '  c-panel--' . $module_wrapper_theme;
@@ -78,12 +79,12 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?>">
+    <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?>  modstyle_bespoke--wrapper">
         <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content  c-user-content' : 'c-panel__module'; ?>">
             <div<?php echo $wrapper_class; ?>>
     <?php endif; ?>
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
-                <header class="u-text-group  u-text-group--push-apart  u-space--below">
+                <header class="u-text-group  u-text-group--push-apart  u-space--below  modstyle_bespoke--header">
                     <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
                     <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 </header>
@@ -161,7 +162,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-<?php echo $theme_name; ?>  u-space--below">
+    <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-<?php echo $theme_name; ?>  u-space--below  modstyle_sidebar  modstyle_sidebar--wrapper">
         <?php if ($has_headline_image): ?>
         <div class="c-panel__banner">
             <div class="l-proportional-container  l-proportional-container--2-1  l-proportional-container--4-1--wide">
@@ -175,7 +176,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
             </div>
         </div>
         <?php endif; ?>
-        <<?php echo $outer_el; ?> class="c-panel__module"<?php echo $aria_labelledby; ?>>
+        <<?php echo $outer_el; ?> class="c-panel__module  modstyle_sidebar  modstyle_sidebar--outer<?php if ($module_wrapper != 'panel'): ?>  modstyle_sidebar--no-wrapper<?php endif; ?>"<?php echo $aria_labelledby; ?>>
             <div<?php echo $wrapper_class; ?>>
     <?php endif; ?>
                 <?php /*if ($has_headline_image): ?>
@@ -211,7 +212,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
 function modChrome_block($module, &$params, &$attribs) {
     if (!empty($module->content)): ?>
-    <div class="l-blockrow">
+    <div class="l-blockrow  modstyle_blook">
         <?php echo $module->content; ?>
     </div>
     <?php endif;
@@ -219,7 +220,7 @@ function modChrome_block($module, &$params, &$attribs) {
 
 function modChrome_block_fill_width($module, &$params, &$attribs) {
     if (!empty($module->content)): ?>
-    <div class="l-blockrow  u-fill-width">
+    <div class="l-blockrow  u-fill-width  modstyle_fill-width">
         <?php echo $module->content; ?>
     </div>
     <?php endif;
@@ -230,9 +231,159 @@ function modChrome_layout_box($module, &$params, &$attribs) {
     //echo 'attribs<pre>'; var_dump($attribs); echo '</pre>'; #exit;
 
     if (!empty($module->content)): ?>
-    <div class="l-box">
+    <div class="l-box  modstyle_layout-box">
         <?php echo $module->content; ?>
     </div>
     <?php endif;
 }
+
+
+
+
+
+
+
+
+
+
+
+function modChrome_magic($module, &$params, &$attribs) {
+
+    $app = JFactory::getApplication();
+    $template = $app->getTemplate(true);
+
+
+    #echo  '<pre>'; var_dump($template); echo '</pre>';
+
+
+
+    $brand = TplNPEU6Helper::get_brand();
+
+    #echo  '<pre>'; var_dump($brand); echo '</pre>';
+
+    $module_wrapper               = $params->get('wrapper', '');
+    $module_wrapper_theme         = $params->get('theme', '');
+    $module_wrapper_color         = $params->get('color', 'neutral');
+    $module_wrapper_bottom_border = $params->get('bottom_border', '');
+
+    $module_wrapper_width         = $params->get('width', '');
+    $module_wrapper_align         = $params->get('align', '');
+
+    $wrapper_classname = '';
+    $header_classname  = $params->get('header_class', '');
+    //$inner_wrapper_class = '';
+    $header_classes = ['modstyle_magic--heading'];
+    $header_class = '';
+    $wrapper_theme_class = '';
+    $hx = $params->get('header_tag', 'h2');
+
+    $theme_name = $brand->alias;
+
+    // Handle special case for 'WHITE' This probably needs a re-think in the next version of the template
+    if ($module_wrapper_theme == 'white') {
+        $theme_name = 'white';
+        $module_wrapper_theme = '';
+    }
+    #echo '<pre>'; var_dump($module); echo '</pre>'; #exit;
+    #echo '<pre>'; var_dump($module_wrapper); echo '</pre>'; #exit;
+    #echo '<pre>'; var_dump($module_wrapper_theme); echo '</pre>'; #exit;
+    #echo '<pre>'; var_dump($module->title); echo '</pre>'; #exit;
+    /*if (!empty($wrapper_classname)) {
+        $inner_wrapper_class = ' class="' . $wrapper_classname . '"';
+    }*/
+
+    if (!empty($header_classname)) {
+        $header_classes[] = $header_classname;
+    }
+    $header_class = ' class="' . implode('  ', $header_classes) . '"';
+
+    /*if (!empty($module_wrapper_theme)) {
+        $wrapper_theme_class = '  c-panel--' . $module_wrapper_theme;
+    }*/
+
+    // If we're showing a title, we want to use section, otherwise div:
+    $outer_el = 'div';
+    if ($module->showtitle) {
+        $outer_el = 'section';
+    }
+
+    $has_cta      = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
+    $cta_position = $params->get('cta_position');
+
+
+
+
+
+
+    $outer_wrapper_classes = ['modstyle_magic--wrapper  t-' . $brand->alias . '  l-box'];
+
+
+    if (!empty($module_wrapper_bottom_border)) {
+       // $wrapper_classes[] = 'ff-width--' . $module_wrapper_width;
+        $outer_wrapper_classes[] = 'd-bands--bottom';
+    }
+
+    if (!empty($module_wrapper_width)) {
+        // $wrapper_classes[] = 'ff-width--' . $module_wrapper_width;
+        if ($module_wrapper_width == '100') {
+            $outer_wrapper_classes[] = 'l-box--expand';
+        } else {
+            // Note that the breakpoint should ideall be an option.
+            $outer_wrapper_classes[] = 'ff-width-100--40--' . $module_wrapper_width;
+        }
+    }
+
+    $wrapper_classes = ['t-' . $theme_name];
+
+    //
+    /* This is meant to control SElF within multi-module in same position scenarios, but not sure
+       if the CSS is in place in the NEW template yet.
+
+    if (!empty($module_wrapper_align)) {
+        $wrapper_classes[] = 'l-' . $module_wrapper_align;
+    }
+
+    */
+
+    if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform') {
+        $wrapper_classes[] = 'c-panel';
+        if (!empty($module_wrapper_theme)) {
+            $wrapper_classes[] = 'c-panel--' .  $module_wrapper_theme;
+        }
+    }
+
+    if ($module_wrapper == 'panel_longform') {
+        $wrapper_classes[] = 'u-padding--sides--l';
+    }
+
+
+
+
+    if (!empty($module->content)): ?>
+
+    <div class="u-fill-height  <?php echo implode('  ', $outer_wrapper_classes); ?>">
+        <div class="u-fill-height  <?php echo implode('  ', $wrapper_classes); ?>">
+            <<?php echo $outer_el; ?> class="u-fill-height  <?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content  c-user-content' : 'c-panel__module'; ?>">
+
+
+                <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
+                <header class="u-text-group  u-text-group--push-apart  u-space--below  modstyle_magic--header">
+                    <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                    <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                </header>
+                <?php elseif ($module->showtitle): ?>
+                <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                <?php endif; ?>
+                <?php echo $module->content; ?>
+                <?php if ($has_cta && $cta_position == 'bottom'): ?>
+                <p class="u-space--above"><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <?php endif; ?>
+
+            </<?php echo $outer_el; ?>>
+        </div>
+    </div>
+    <?php endif;
+}
+
+
 ?>
