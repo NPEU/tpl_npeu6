@@ -6,7 +6,7 @@
                 <p>
                     <?php echo strtoupper($env); ?>
                 </p>
-                <button aria-label="Close this notice"><svg focusable="false" class="icon  icon--is-open" onclick="this.parentNode.parentNode.parentNode.style.display='none'"><use xlink:href="#icon-cross"></use></svg></button>
+                <button aria-label="Close this notice" id="env-msg-close"><svg focusable="false" width="20" height="20" class="icon  icon--is-open" onclick="this.parentNode.parentNode.parentNode.style.display='none'"><use xlink:href="#icon-cross"></use></svg></button>
             </fieldset>
         </div>
         <?php endif; ?>
@@ -444,9 +444,21 @@
         </div>
 
         <footer class="sticky-footer" id="page-footer" aria-label="Page">
+            
+            <?php if ($page_has_footer_top): ?>
+            <?php /*<div data-position="6-footer-top">
+                <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />* /?>
+            </div>*/ ?>
+            
 
-            <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />*/?>
-
+            <div class="l-layout  l-row" data-position="6-footer-top">
+                <div class="l-layout__inner">
+                    <?php echo $modules__footer_top; ?>
+                </div>
+            </div>
+            
+            <?php endif; ?>
+            
             <?php if ($page_has_footer_mid_left || $page_has_footer_mid_right): ?>
             <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                 <div class="l-layout l-row">
@@ -479,7 +491,7 @@
                 <?php
                 $page_units = array('pru-mnhc', 'npeu_ctu', 'sheer', 'he');
                 if (in_array($page_unit, $page_units)) : ?>
-                <div class="u-padding--s  l-center">
+                <p class="u-padding--s  l-center">
                     <?php /* Note the following should be made DRYer using brands info */ ?>
                     <?php /*if ($page_unit == 'npeu') : ?>
                     <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
@@ -502,7 +514,7 @@
                         <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
                     </a>
                     <?php endif; ?>
-                </div>
+                </p>
                 <?php endif; ?>
 
                 <?php /* <div class="u-padding--s  l-center">
@@ -511,23 +523,23 @@
                     </a>
                 </div>*/ ?>
 
-                <div class="u-padding--s  l-center">
+                <p class="u-padding--s  l-center">
                     <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
                         <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                     </a>
-                </div>
+                </p>
 
-                <div class="u-padding--s  l-center">
+                <p class="u-padding--s  l-center">
                     <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
                         <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
                     </a>
-                </div>
+                </p>
 
-                <div class="u-padding--s  l-center">
+                <p class="u-padding--s  l-center">
                     <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
                         <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
                     </a>
-                </div>
+                </p>
             </div>
             <?php endif; ?>
 
@@ -551,11 +563,11 @@
                         <div class="l-box">
                             <div class="u-padding--s  l-center">
                                 <div class="d-bands  t-<?php echo $page_brand->alias; ?>">
-                                    <div class="d-background  t-white  u-padding">
+                                    <p class="d-background  t-white  u-padding">
                                         <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" target="_blank">
                                             <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
                                         </a>
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
