@@ -36,77 +36,79 @@
 
             <div class="u-padding--bottom--s">
 
-                <div class="l-distribute">
-                    <p class="c-page-header__logo  u-padding--top--s  u-padding--sides--s">
-                        <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo  u-space--left  u-space--right">
-                            <?php echo $page_brand->logo_svg_with_fallback; ?>
-                        </a>
-                    </p>
+                <div class="l-layout  l-distribute">
+                    <div class="l-layout__inner">
+                        <p class="l-box  c-page-header__logo  u-padding--top--s  u-padding--sides--s">
+                            <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo  u-space--left  u-space--right">
+                                <?php echo $page_brand->logo_svg_with_fallback; ?>
+                            </a>
+                        </p>
 
-                    <?php if ($page_display_cta) : ?>
+                        <?php if ($page_display_cta) : ?>
 
-                    <div class="l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
-                        <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><span><?php echo $page_cta_text; ?><span></a>
-                    </div>
-                    <?php endif; ?>
-                    <div class="u-padding--s  l-center">
-                    <?php #if ($page_unit == 'npeu') : ?>
-                        <?php if ($page_brand->alias == 'npeu') : ?>
-                        <?php /* KEEP FOR NOW
-                        <div class="l-center  u-padding--top--s  u-padding--sides--s  c-page-header__affiliate_logos">
-                            <div class="u-padding--s  l-center">
-                                <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height--6" rel="external noopener noreferrer" target="_blank">
-                                    <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="60">
-                                </a>
-                            </div>
-
-                            <div class="u-padding--s  l-center">
-                                <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height--6" rel="external noopener noreferrer" target="_blank">
-                                    <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
-                                </a>
-                            </div>
+                        <div class="l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
+                            <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><span><?php echo $page_cta_text; ?><span></a>
                         </div>
-                        */ ?>
-
-                        <a href="http://www.npeu.ox.ac.uk/" class="c-badge  c-badge--primary-logo  u-space--above  u-space--left  u-space--right">
-                            <?php
-                            // Note this may come form the template project setting somehow, so the device could change depending if it's CTU or SHEER for example. Not sure yet.
-                            $device_brand_id = 122;
-                            $device_brand = TplNPEU6Helper::get_brand($device_brand_id);
-                            echo str_replace('height="80"', 'height="114"', $device_brand->logo_svg_with_fallback);
-                            ?>
-                        </a>
-
-                        <?php else: ?>
-                        <?php /* Note the following should be made DRYer using brands info */ ?>
-                        <?php if ($page_unit == 'npeu' && $page_brand->alias != 'pru-mnhc') : ?>
-                        <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
-                            <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
-                        </a>
-                        <?php elseif ($page_unit == 'npeu_ctu') : ?>
-                        <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
-                            <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
-                        </a>
-                        <?php elseif ($page_unit == 'sheer') : ?>
-                        <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
-                            <img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
-                        </a>
-                        <?php elseif ($page_unit == 'he') : ?>
-                        <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
-                            <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
-                        </a>
                         <?php endif; ?>
-                        <?php /*
-                        
-                        <?php elseif ($page_unit == 'pru-mnhc') : ?>
-                        <a href="https://www.nihr.ac.uk/funding-and-support/funding-for-research-studies/funding-programmes/health-technology-assessment/" class="c-badge  c-badge--limit-height  u-space--left  u-space--right" rel="external noopener noreferrer" target="_blank">
-                            <img src="/assets/images/brand-logos/funder/nihr-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/nihr-logo.png'; this.onerror=null;" alt="Logo: Funded by NIHR - National Institute for Health Research" height="80">
-                        </a>
-                        <?php endif; ?>
-                        
-                        */ ?>
+                        <div class="u-padding--s  l-center">
+                        <?php #if ($page_unit == 'npeu') : ?>
+                            <?php if ($page_brand->alias == 'npeu') : ?>
+                            <?php /* KEEP FOR NOW
+                            <div class="l-center  u-padding--top--s  u-padding--sides--s  c-page-header__affiliate_logos">
+                                <div class="u-padding--s  l-center">
+                                    <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height--6" rel="external noopener noreferrer" target="_blank">
+                                        <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="60">
+                                    </a>
+                                </div>
 
-                    <?php endif; ?>
+                                <div class="u-padding--s  l-center">
+                                    <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height--6" rel="external noopener noreferrer" target="_blank">
+                                        <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
+                                    </a>
+                                </div>
+                            </div>
+                            */ ?>
+
+                            <a href="http://www.npeu.ox.ac.uk/" class="c-badge  c-badge--primary-logo  u-space--above  u-space--left  u-space--right">
+                                <?php
+                                // Note this may come form the template project setting somehow, so the device could change depending if it's CTU or SHEER for example. Not sure yet.
+                                $device_brand_id = 122;
+                                $device_brand = TplNPEU6Helper::get_brand($device_brand_id);
+                                echo str_replace('height="80"', 'height="114"', $device_brand->logo_svg_with_fallback);
+                                ?>
+                            </a>
+
+                            <?php else: ?>
+                            <?php /* Note the following should be made DRYer using brands info */ ?>
+                            <?php if ($page_unit == 'npeu' && $page_brand->alias != 'pru-mnhc') : ?>
+                            <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
+                                <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
+                            </a>
+                            <?php elseif ($page_unit == 'npeu_ctu') : ?>
+                            <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
+                                <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
+                            </a>
+                            <?php elseif ($page_unit == 'sheer') : ?>
+                            <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
+                                <img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
+                            </a>
+                            <?php elseif ($page_unit == 'he') : ?>
+                            <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
+                                <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
+                            </a>
+                            <?php endif; ?>
+                            <?php /*
+                            
+                            <?php elseif ($page_unit == 'pru-mnhc') : ?>
+                            <a href="https://www.nihr.ac.uk/funding-and-support/funding-for-research-studies/funding-programmes/health-technology-assessment/" class="c-badge  c-badge--limit-height  u-space--left  u-space--right" rel="external noopener noreferrer" target="_blank">
+                                <img src="/assets/images/brand-logos/funder/nihr-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/nihr-logo.png'; this.onerror=null;" alt="Logo: Funded by NIHR - National Institute for Health Research" height="80">
+                            </a>
+                            <?php endif; ?>
+                            
+                            */ ?>
+
+                        <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -487,59 +489,61 @@
             <?php #if ($page_unit != 'npeu') : ?>
             <?php #if ($page_unit != $page_brand->alias) : ?>
             <?php if (true) : ?>
-            <div class="l-distribute  l-distribute--gutter--s  l-distribute--balance-top  l-distribute--basis-20">
-                <?php
-                $page_units = array('pru-mnhc', 'npeu_ctu', 'sheer', 'he');
-                if (in_array($page_unit, $page_units)) : ?>
-                <p class="u-padding--s  l-center">
-                    <?php /* Note the following should be made DRYer using brands info */ ?>
-                    <?php /*if ($page_unit == 'npeu') : ?>
-                    <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
-                        <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
-                    </a>
-                    <?php else*/ if ($page_unit == 'pru-mnhc') : ?>
-                    <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
-                        <img src="/assets/images/brand-logos/unit/pru-mnhc-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/pru-mnhc-logo.png'; this.onerror=null;" alt="Logo: PRU-MNHC" height="80">
-                    </a>
-                    <?php elseif ($page_unit == 'npeu_ctu') : ?>
-                    <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  l-center">
-                        <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
-                    </a>
-                    <?php elseif ($page_unit == 'sheer') : ?>
-                    <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center">
-                        <img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
-                    </a>
-                    <?php elseif ($page_unit == 'he') : ?>
-                    <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center">
-                        <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
-                    </a>
+            <div class="l-layout  l-distribute  l-distribute--balance-top  l-gutter--s  l--basis-20">
+                <div class="l-layout__inner">
+                    <?php
+                    $page_units = array('pru-mnhc', 'npeu_ctu', 'sheer', 'he');
+                    if (in_array($page_unit, $page_units)) : ?>
+                    <p class="l-box  u-padding--xs  l-center">
+                        <?php /* Note the following should be made DRYer using brands info */ ?>
+                        <?php /*if ($page_unit == 'npeu') : ?>
+                        <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
+                            <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
+                        </a>
+                        <?php else*/ if ($page_unit == 'pru-mnhc') : ?>
+                        <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
+                            <img src="/assets/images/brand-logos/unit/pru-mnhc-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/pru-mnhc-logo.png'; this.onerror=null;" alt="Logo: PRU-MNHC" height="80">
+                        </a>
+                        <?php elseif ($page_unit == 'npeu_ctu') : ?>
+                        <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  l-center">
+                            <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80">
+                        </a>
+                        <?php elseif ($page_unit == 'sheer') : ?>
+                        <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center">
+                            <img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80">
+                        </a>
+                        <?php elseif ($page_unit == 'he') : ?>
+                        <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center">
+                            <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
+                        </a>
+                        <?php endif; ?>
+                    </p>
                     <?php endif; ?>
-                </p>
-                <?php endif; ?>
 
-                <?php /* <div class="u-padding--s  l-center">
-                    <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" target="_blank">
-                        <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
-                    </a>
-                </div>*/ ?>
+                    <?php /* <div class="u-padding--s  l-center">
+                        <a href="https://www.npeu.ox.ac.uk/about/athena-swan" class="c-badge  c-badge--limit-height  l-center" target="_blank">
+                            <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="70">
+                        </a>
+                    </div>*/ ?>
 
-                <p class="u-padding--s  l-center">
-                    <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
-                        <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
-                    </a>
-                </p>
+                    <p class="l-box  u-padding--xs  l-center">
+                        <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
+                            <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
+                        </a>
+                    </p>
 
-                <p class="u-padding--s  l-center">
-                    <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
-                        <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
-                    </a>
-                </p>
+                    <p class="l-box  u-padding--xs  l-center">
+                        <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
+                            <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="50">
+                        </a>
+                    </p>
 
-                <p class="u-padding--s  l-center">
-                    <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
-                        <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
-                    </a>
-                </p>
+                    <p class="l-box  u-padding--xs  l-center">
+                        <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
+                            <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="60">
+                        </a>
+                    </p>
+                </div>
             </div>
             <?php endif; ?>
 

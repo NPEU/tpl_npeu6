@@ -23,8 +23,10 @@ $count = $params->get('count');
 
 if ($count >= 2 && $count < 5) {
     $wrap_class  = '';
-    $outer_class = 'l-col-to-row--flush-edge-gutters';
-    $inner_class = 'l-col-to-row  l-col-to-row--gutter';
+    //$outer_class = 'l-col-to-row--flush-edge-gutters';
+    $outer_class = 'l-layout  l-gutter  l-flush-edge-gutter';
+    $inner_class = 'l-layout__inner';
+    //$inner_class = 'l-col-to-row  l-col-to-row--gutter';
     $portion ='50';
     if ($count == 3) {
         $portion = '33-333';
@@ -35,8 +37,8 @@ if ($count >= 2 && $count < 5) {
     $item_class  = 'l-col-to-row__item  ff-width-100--50--' . $portion;
 } else {
     $wrap_class   = 'u-space--belowX';
-    $outer_class  = 'l-distribute--flush-edge-gutters';
-    $inner_class  = 'l-distribute  l-distribute--gutter  l-distribute--balance-top  l-distribute--basis-25'; 
+    $outer_class  = 'l-layout  l-gutter  l-flush-edge-gutter  l-basis--25  l-distribute  l-distribute--balance-top';
+    $inner_class  = 'l-layout__inner'; 
     $item_class   = '';
 }
 
@@ -46,7 +48,7 @@ if ($count >= 2 && $count < 5) {
     <div class="<?php echo $outer_class; ?>">
         <ul class="<?php echo $inner_class; ?>">
             <?php foreach ($items as $item): ?>
-            <li class="<?php echo $item_class; ?>">
+            <li class="l-box  <?php echo $item_class; ?>">
                 <?php
                 $fields = FieldsHelper::getFields('com_content.article', $item, true);
 

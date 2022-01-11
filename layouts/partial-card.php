@@ -24,8 +24,9 @@ defined('_JEXEC') or die;
 
 */
 
-
-$wrapper_classes = array();
+if (!isset($wrapper_classes) || !is_array($wrapper_classes)) {
+    $wrapper_classes = [];
+}
 if ($card_data['state'] != 1) {
     $wrapper_classes[] = 'c-card--unpublished';
 }

@@ -44,8 +44,10 @@ if ($count >= 2 && $count < 5) {
     $item_class  = 'l-box  ff-width-100--50--' . $portion;
 } else {
     $wrap_class   = 'u-space--below  mod_articles_latest';
-    $outer_class  = 'l-distribute--flush-edge-gutters';
-    $inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20'; 
+    //$outer_class  = 'l-distribute--flush-edge-gutters';
+    $outer_class  = 'l-layout  l-distribute  l-gutter  l-basis--20';
+    $inner_class  = 'l-layout__inner'; 
+    //$inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20'; 
     $item_class   = 'l-box';
 }
 

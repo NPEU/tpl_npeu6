@@ -61,8 +61,10 @@ $count--;
             }
             $item_class  = 'l-col-to-row__item  ff-width-100--45--' . $portion;
         } else {*/
-            $outer_class  = 'l-distribute--flush-edge-gutters  u-fill-height';
-            $inner_class  = 'l-distribute  l-distribute--balance-top  l-distribute--gutter--m  l-distribute--basis-25'; 
+            ///$outer_class  = 'l-distribute--flush-edge-gutters  u-fill-height';
+            $outer_class  = 'l-layout  l-distribute  l-distribute--balance-top  l-gutter  l-basis--25  l-flush-edge-gutter  u-fill-height';
+            $inner_class  = 'l-layout__inner'; 
+            ///$inner_class  = 'l-distribute  l-distribute--balance-top  l-distribute--gutter--m  l-distribute--basis-25'; 
         /*}*/
         ?>
             <div class="<?php echo $outer_class; ?>">

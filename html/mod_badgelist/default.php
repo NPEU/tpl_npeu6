@@ -26,7 +26,7 @@ if (!empty($params->get('flush_gutter'))) {
 }
 
 if (!empty($params->get('list_basis'))) {
-    $layout_classes[] = 'l-basis-' . $params->get('list_basis');
+    $layout_classes[] = 'l-basis--' . $params->get('list_basis');
 }
 
 $box_classes = ['l-box'];

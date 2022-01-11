@@ -87,22 +87,22 @@ function get_projects($projects) {
 ?>
         <section class="person__projects">
             <h2>Projects</h2>
-            <ul class="l-distribute  l-distribute--basis-25  l-distribute--gutter--s  u-padding--s">
+            <div class="l-layout  l-basis--25  l-gutter--s  l-distribute  u-padding--s">
+                <ul class="l-layout__inner">
+                    <?php foreach($projects as $project):
+                        $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
+                        $png_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.png';
+                        $svg_info = svg_info($svg_path);
+                    ?>
+                    <li class="l-box  l-center  u-padding--s">
+                        <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height--8">
 
-                <?php foreach($projects as $project):
-                    $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
-                    $png_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.png';
-                    $svg_info = svg_info($svg_path);
-                ?>
-                <li class="l-center  u-padding--s">
-                    <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height--8">
-
-                        <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
-                    </a>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-
+                            <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </section>
 <?php
 }

@@ -116,6 +116,9 @@ $card_data['publish_date'] = $this->item->publish_up;
 $card_data['date_format']  = $date_format;
 $card_data['state']        = (int) $this->item->state;
 
+
+$wrapper_classes = ['l-box'];
+
 include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
 
 ?>

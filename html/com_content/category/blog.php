@@ -33,7 +33,7 @@ $afterDisplayContent = trim(implode("\n", $results));
 /*
 
 - Hmmm... this isn't necessary because the model DOES handle this - it just looks like it doesn't if
-logged in a Super User (maybe others?). If that's the case then it includes unpublished items 
+logged in a Super User (maybe others?). If that's the case then it includes unpublished items
 regarless. I don't think there's a way to change this behaviour, so I'll just distinguish them
 visually for now.
 
@@ -64,14 +64,16 @@ $has_items = !empty($this->intro_items);
         <section class="c-panel__module">
             <?php if (!empty($this->intro_items)) : ?>
             <div class="u-space--below">
-                <div class="l-distribute--flush-edge-gutters">
-                    <div class="l-distribute  l-distribute--gutter  l-distribute--balance-top  l-distribute--basis-30">
-                        <?php foreach ($this->intro_items as $key => &$item) : ?>
-                            <?php
-                                $this->item = &$item;
-                                echo $this->loadTemplate('item');
-                            ?>
-                        <?php endforeach; ?>
+                <div class="">
+                    <div class="l-layout  l-gutter  l-flush-edge-gutter  l-basis--30  l-limit--60  l-distribute  l-distribute--balance-top">
+                        <div class="l-layout__inner">
+                            <?php foreach ($this->intro_items as $key => &$item) : ?>
+                                <?php
+                                    $this->item = &$item;
+                                    echo $this->loadTemplate('item');
+                                ?>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             </div>

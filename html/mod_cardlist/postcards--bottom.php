@@ -22,12 +22,12 @@ $basis = $params->get('card_basis', '25');
 <?php if (!empty($params->get('cards'))) : ?>
 
 <div class="u-space--belowX  mod_cardlist">
-    <div class="l-distribute--flush-edge-gutters">
-        <ul class="l-distribute  l-distribute--gutter  l-distribute--balance-bottom  l-distribute--basis-<?php echo $basis; ?>">
+    <div class="l-layout  l-gutter  l-basis--<?php echo $basis; ?>  l-flush-edge-gutter  l-distribute  l-distribute--balance-bottom">
+        <ul class="l-layout__inner">
         <?php foreach ($params->get('cards') as $card) :
 
         if (!empty($card->link && !empty($card->link_text))) {
-            $card->body .= '<p class="c-card__cta"><a href="' . $card->link .'" class="c-cta  c-cta--has-icon">' . $card->link_text . '<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>';
+            $card->body .= '<p class="l-box  c-card__cta"><a href="' . $card->link .'" class="c-cta  c-cta--has-icon">' . $card->link_text . '<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>';
         }
 
         $full_link = false;
@@ -38,7 +38,7 @@ $basis = $params->get('card_basis', '25');
         
         $theme_classes = empty($card->theme_classes) ? '' : '  ' . $card->theme_classes;
         ?>
-            <li>
+            <li class="l-box">
                 <div class="c-card<?php echo $theme_classes; ?>">
                     <?php echo $full_link ? '<a href="' . $card->link .'" class="c-card__full-link  u-fill-height--column">' : ''; ?>
 
