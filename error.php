@@ -56,9 +56,9 @@ ob_start();
 
                     <div class="c-panel">
                     
-                        <div class="l-col-to-row--flush-edge-gutters">
-                            <div class="l-col-to-row  l-col-to-row--gutter--l">
-                                <div class="ff-width-100--40--50">
+                        <div class="l-layout  l-row  l-gutter--l  l-flush-edge-gutter">
+                            <div class="l-layout__inner">
+                                <div class="l-box  ff-width-100--40--50">
                                     <p>You could try searching:</p>
 
                                     <form action="/search" id="searchform" class="" method="GET">
@@ -71,7 +71,7 @@ ob_start();
                                     </form>
                         
                                 </div>
-                                <div class="ff-width-100--40--50">
+                                <div class="l-box  ff-width-100--40--50">
 
                                     <p>Or one of these links:</p>
                                     <ul>
@@ -102,26 +102,27 @@ ob_start();
     <?php endif; ?>
     <footer class="sticky-footer" role="contentinfo" id="page-footer">
 
-        <div class="l-distribute  l-distribute--gutter--s  l-distribute--limit-25">
+        <div class="l-layout  l-gutter--s  l-basis--25  l-distribute">
+            <div class="l-layout__inner">
+                <div class="l-box  u-padding--s  l-center">
+                    <a href="https://www.npeu.ox.ac.uk/athena-swan" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
+                        <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="80">
+                    </a>
+                </div>
 
-            <div class="u-padding--s  l-center">
-                <a href="https://www.npeu.ox.ac.uk/athena-swan" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                    <img src="/assets/images/brand-logos/accolade/athena-swan-silver-logo.svg" onerror="this.src='/assets/images/brand-logos/accolade/athena-swan-silver-logo.png'; this.onerror=null;" alt="Logo: Athena Swan Silver Award" height="80">
-                </a>
+                <div class="l-box  u-padding--s  l-center">
+                    <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
+                        <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="80">
+                    </a>
+                </div>
+
+                <div class="l-box  u-padding--s  l-center">
+                    <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
+                        <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="80">
+                    </a>
+                </div>
+
             </div>
-
-            <div class="u-padding--s  l-center">
-                <a href="http://www.ndph.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                    <img src="/assets/images/brand-logos/affiliate/ndph-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ndph-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Population Health" height="80">
-                </a>
-            </div>
-
-            <div class="u-padding--s  l-center">
-                <a href="http://www.ox.ac.uk/" class="c-badge  c-badge--limit-height" rel="external noopener noreferrer" target="_blank">
-                    <img src="/assets/images/brand-logos/affiliate/ou-logo-rect.svg" onerror="this.src='/assets/images/brand-logos/affiliate/ou-logo-rect.png'; this.onerror=null;" alt="Logo: University of Oxford" height="80">
-                </a>
-            </div>
-
         </div>
 
         <div class="c-page-footer  u-text-align--center">
