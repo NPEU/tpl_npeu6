@@ -60,7 +60,7 @@ $ff_width = $ff_widths[$c];
                     </div>
                 </div>
                 <?php endif; ?>
-                <div class="c-card__main">
+                <div class="c-card__main  u-fill-height--column__expand">
                     <<?php echo $hx; ?> class="c-card__title"><?php echo $card->title; ?></<?php echo $hx; ?>>
                     <?php if (!empty($card->body)) : ?>
                     <div class="c-card__body">
