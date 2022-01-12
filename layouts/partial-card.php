@@ -35,7 +35,7 @@ if (!empty($card_data['wrapper_classes'])) {
     $wrapper_classes = array_merge($wrapper_classes, $card_data['wrapper_classes']);
 }
 ?>
-<div<?php if (!empty($wrapper_classes)): ?> class="<?php echo implode('  ', $wrapper_classes); ?>"<?php endif; ?>>
+<div<?php if (!empty($wrapper_classes)): ?> class="<?php echo implode('  ', array_unique($wrapper_classes)); ?>"<?php endif; ?>>
     <article class="c-card  <?php echo $card_data['theme']; ?>">
         <?php if (!empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>" class="c-card__full-link  <?php echo $card_data['theme']; ?>  u-fill-height--column"><?php endif; ?>
             <?php if (!empty($card_data['image'])) : ?>
@@ -52,7 +52,7 @@ if (!empty($card_data['wrapper_classes'])) {
                 </div>
             </div>
             <?php endif; ?>
-            <div class="c-card__main">
+            <div class="c-card__main  u-fill-height--column__expand">
                 <h2 class="c-card__title">
                 <?php if (empty($card_data['full_link'])) : ?><a href="<?php echo $card_data['link']; ?>"><?php endif; ?>
                 <?php echo $card_data['title']; ?>
