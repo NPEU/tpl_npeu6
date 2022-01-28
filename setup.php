@@ -268,6 +268,7 @@ if (!(
 
 #echo '<pre>'; var_dump($page_has_sidebar_bottom); echo '</pre>'; exit;
 
+$page_footer_top_count         = $doc->countModules('6-footer-top');
 $page_has_footer_top           = empty($modules__footer_top)        ? 0 : $doc->countModules('6-footer-top');
 $page_has_footer_mid_left      = empty($modules__footer_mid_left)   ? 0 : $doc->countModules('6-footer-mid-left');
 $page_has_footer_mid_right     = empty($modules__footer_mid_right)  ? 0 : $doc->countModules('6-footer-mid-right');

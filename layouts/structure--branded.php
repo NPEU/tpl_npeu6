@@ -164,7 +164,7 @@
             <?php else: ?>
             <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>"></div>
             <?php endif; ?>
-            <?php if(!empty($modules__main_breadcumbs) && $menu_item->alias != $page_brand->alias) : ?>
+            <?php if(!empty($modules__main_breadcumbs)) : ?>
             <div class="u-padding--sides  u-padding--bottom--xs  u-padding--top--xs  d-background--dark  t-<?php echo $page_brand->alias; ?>" data-area="breadcrumbs">
                 <?php echo $modules__main_breadcumbs; /*<jdoc:include type="modules" name="3-main-breadcrumbs" style="basic" />*/?>
             </div>
@@ -453,7 +453,7 @@
             </div>*/ ?>
             
 
-            <div class="l-layout  l-row" data-position="6-footer-top">
+            <div class="l-layout  l-row  m-footer-top-count--<?php echo $page_footer_top_count; ?>" data-position="6-footer-top">
                 <div class="l-layout__inner">
                     <?php echo $modules__footer_top; ?>
                 </div>

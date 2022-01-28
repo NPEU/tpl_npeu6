@@ -41,9 +41,11 @@ $ff_width = $ff_widths[$c];
     if (!empty($card->link) && (bool) $params->get('link_full')) {
         $full_link = true;
     }
+    
+    $card->footer = trim($card->footer);
     ?>
         <div class="ff-width-100--45--<?php echo $ff_width; ?>  l-box">
-            <div class="c-card">
+            <div class="c-card  u-fill-height">
                 <?php echo $full_link ? '<a href="' . $card->link .'" class="c-card__full-link  u-fill-height--column">' : ''; ?>
                 <?php if (!empty($card->header_image)) : ?>
 

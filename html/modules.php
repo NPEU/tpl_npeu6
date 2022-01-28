@@ -212,7 +212,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
 function modChrome_block($module, &$params, &$attribs) {
     if (!empty($module->content)): ?>
-    <div class="l-blockrow  modstyle_blook">
+    <div class="l-blockrow  modstyle_block">
         <?php echo $module->content; ?>
     </div>
     <?php endif;
@@ -361,8 +361,8 @@ function modChrome_magic($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
 
-    <div class="u-fill-height  <?php echo implode('  ', $outer_wrapper_classes); ?>">
-        <div class="u-fill-height  <?php echo implode('  ', $wrapper_classes); ?>">
+    <div class="u-fill-heightX  <?php echo implode('  ', $outer_wrapper_classes); ?>">
+        <div class="u-fill-heightX  <?php echo implode('  ', $wrapper_classes); ?>">
             <<?php echo $outer_el; ?> class="u-fill-height  <?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content  c-user-content' : 'c-panel__module'; ?>">
 
 

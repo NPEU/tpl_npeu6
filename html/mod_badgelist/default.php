@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 $doc = JFactory::getDocument();
 
-$layout_classes = ['l-layout', 'l-row'];
+$layout_classes = ['l-layout'];
 if (!empty($params->get('list_layout'))) {
     $layout_classes[] = 'l-' . $params->get('list_layout');
 }
@@ -32,6 +32,12 @@ if (!empty($params->get('list_basis'))) {
 $box_classes = ['l-box'];
 if (!empty($params->get('badge_align'))) {
     $box_classes[] = 'l-' . $params->get('badge_align');
+}
+
+if (in_array('l-distribute--balance-bottom', $layout_classes) || in_array('l-distribute--balance-top', $layout_classes)) {
+    $layout_classes[] = 'l-distribute';
+} else {
+    $layout_classes[] = 'l-row';
 }
 
 ?>
