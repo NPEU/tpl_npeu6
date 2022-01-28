@@ -18,7 +18,7 @@ $list = $displayData['list'];
         <?php if ($page['active']): ?>
 		<?php echo '<li class="n-pagination__item">' . $page['data'] . '</li>'; ?>
         <?php else: ?>
-		<?php echo '<li class="n-pagination__item  n-pagination__item--active"">' . $page['data'] . '</li>'; ?>
+		<?php echo '<li class="n-pagination__item  n-pagination__item--active">' . $page['data'] . '</li>'; ?>
         <?php endif; ?>
 	<?php endforeach; ?>
 	<li class="n-pagination__item"><?php echo $list['next']['data']; ?></li>
