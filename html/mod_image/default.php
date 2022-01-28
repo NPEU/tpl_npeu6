@@ -58,13 +58,33 @@ Module styles should handle the titles, or they can end up appearing twice.
 <<?php echo $hx; ?>><?php echo $module->title; ?></<?php echo $hx; ?>>
 <?php endif; ?>
 */
+
+// Image size:
+// Construct the protocol (http|https):
+$s                 = empty($_SERVER['SERVER_PORT']) ? '' : (($_SERVER['SERVER_PORT'] == '443') ? 's' : '');
+$protocol          = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
+
+// Construct the domain url:
+$domain            = $protocol.'://'.$_SERVER['SERVER_NAME'];
+
+// Construct the public root path: (note: this is the SERVER path, not a URL)
+$public_root_path  = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
+
+$image_path = $public_root_path . $images->images0->image;
+
+$image_info = getimagesize($image_path);
+$ratio = $image_info[0] / $image_info[1];
+
+$fallback_width  = 600;
+$fallback_height = round($fallback_width / $ratio, 2);
+
 ?>
 <?php if($n_images > 1) : ?>
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>
 <<?php echo $wrapper; echo $container_classes; ?>>
     <?php if (isset($images->images0->url)): ?><a href="<?php echo $images->images0->url; ?>"<?php if (strpos($images->images0->url, $_SERVER['SERVER_NAME']) === false): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>    
-        <img<?php echo $image_classes; ?> src="<?php echo JURI::base() . $images->images0->image; ?>" width="600" alt="<?php echo $images->images0->alt; ?>">
+        <img<?php echo $image_classes; ?> src="<?php echo JURI::base() . $images->images0->image; ?>" width="<?php echo $fallback_width; ?>" height="<?php echo $fallback_height; ?>" alt="<?php echo $images->images0->alt; ?>">
     <?php if (isset($images->images0->url)): ?></a><?php else: ?></div><?php endif; ?>
     <?php if ($has_details): ?>
     <figcaption class="c-longform-content  c-user-content  c-panel  c-panel--very-dark" style="
