@@ -19,7 +19,7 @@ $hx = 'h' . $hx;
 
 <?php if (!empty($params->get('cards'))) : ?>
 
-<div class="u-space--below  mod_cardlist">
+<div class="u-space--below  mod_cardlist  modlayout_default">
     <div class="l-distribute--flush-edge-gutters">
         <ul class="l-distribute  l-distribute--gutter--m  l-distribute--limit-20">
         <?php foreach ($params->get('cards') as $card) :

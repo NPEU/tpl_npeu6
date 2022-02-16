@@ -21,7 +21,7 @@ $basis = $params->get('card_basis', '25');
 
 <?php if (!empty($params->get('cards'))) : ?>
 
-<div class="u-space--belowX  p-cards-postcards  mod_cardlist">
+<div class="u-space--belowX  p-cards-postcards  mod_cardlist  modlayout_postcards">
     <div class="l-layout  l-gutter  l-basis--<?php echo $basis; ?>  l-flush-edge-gutter  l-distribute  l-distribute--balance-top">
         <ul class="l-layout__inner">
         <?php foreach ($params->get('cards') as $card) :
