@@ -1,18 +1,74 @@
 {
     "packages": [
         {
-            "name": "michelf/php-markdown",
-            "version": "1.9.0",
-            "version_normalized": "1.9.0.0",
+            "name": "mexitek/phpcolors",
+            "version": "v1.0.4",
+            "version_normalized": "1.0.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "c83178d49e372ca967d1a8c77ae4e051b3a3c75c"
+                "url": "https://github.com/mexitek/phpColors.git",
+                "reference": "4043974240ca7dc3c2bec3c158588148b605b206"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/c83178d49e372ca967d1a8c77ae4e051b3a3c75c",
-                "reference": "c83178d49e372ca967d1a8c77ae4e051b3a3c75c",
+                "url": "https://api.github.com/repos/mexitek/phpColors/zipball/4043974240ca7dc3c2bec3c158588148b605b206",
+                "reference": "4043974240ca7dc3c2bec3c158588148b605b206",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "nette/tester": "^2.3",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "time": "2021-11-26T13:19:08+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arlo Carreon",
+                    "homepage": "http://arlocarreon.com",
+                    "role": "creator"
+                }
+            ],
+            "description": "A series of methods that let you manipulate colors. Just incase you ever need different shades of one color on the fly.",
+            "homepage": "http://mexitek.github.com/phpColors/",
+            "keywords": [
+                "color",
+                "css",
+                "design",
+                "frontend",
+                "ui"
+            ],
+            "support": {
+                "issues": "https://github.com/mexitek/phpColors/issues",
+                "source": "https://github.com/mexitek/phpColors"
+            },
+            "install-path": "../mexitek/phpcolors"
+        },
+        {
+            "name": "michelf/php-markdown",
+            "version": "1.9.1",
+            "version_normalized": "1.9.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelf/php-markdown.git",
+                "reference": "5024d623c1a057dcd2d076d25b7d270a1d0d55f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/5024d623c1a057dcd2d076d25b7d270a1d0d55f3",
+                "reference": "5024d623c1a057dcd2d076d25b7d270a1d0d55f3",
                 "shasum": ""
             },
             "require": {
@@ -21,7 +77,7 @@
             "require-dev": {
                 "phpunit/phpunit": ">=4.3 <5.8"
             },
-            "time": "2019-12-02T02:32:27+00:00",
+            "time": "2021-11-24T02:52:38+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -50,21 +106,25 @@
             "keywords": [
                 "markdown"
             ],
+            "support": {
+                "issues": "https://github.com/michelf/php-markdown/issues",
+                "source": "https://github.com/michelf/php-markdown/tree/1.9.1"
+            },
             "install-path": "../michelf/php-markdown"
         },
         {
             "name": "scssphp/scssphp",
-            "version": "v1.4.1",
-            "version_normalized": "1.4.1.0",
+            "version": "v1.10.1",
+            "version_normalized": "1.10.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "ba86c963b94ec7ebd6e19d90cdab90d89667dbf7"
+                "reference": "8256fbaf02b06bf8ea6dbf2331ca5382296d4027"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/ba86c963b94ec7ebd6e19d90cdab90d89667dbf7",
-                "reference": "ba86c963b94ec7ebd6e19d90cdab90d89667dbf7",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/8256fbaf02b06bf8ea6dbf2331ca5382296d4027",
+                "reference": "8256fbaf02b06bf8ea6dbf2331ca5382296d4027",
                 "shasum": ""
             },
             "require": {
@@ -73,14 +133,21 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
                 "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3 || ^9.4",
-                "sass/sass-spec": "2020.12.29",
+                "sass/sass-spec": "*",
                 "squizlabs/php_codesniffer": "~3.5",
                 "symfony/phpunit-bridge": "^5.1",
-                "twbs/bootstrap": "~4.3",
+                "thoughtbot/bourbon": "^7.0",
+                "twbs/bootstrap": "~5.0",
+                "twbs/bootstrap4": "4.6.1",
                 "zurb/foundation": "~6.5"
             },
-            "time": "2021-01-04T13:23:23+00:00",
+            "suggest": {
+                "ext-iconv": "Can be used as fallback when ext-mbstring is not available",
+                "ext-mbstring": "For best performance, mbstring should be installed as it is faster than ext-iconv"
+            },
+            "time": "2022-02-28T09:21:56+00:00",
             "bin": [
                 "bin/pscss"
             ],
@@ -118,34 +185,34 @@
             ],
             "support": {
                 "issues": "https://github.com/scssphp/scssphp/issues",
-                "source": "https://github.com/scssphp/scssphp/tree/v1.4.1"
+                "source": "https://github.com/scssphp/scssphp/tree/v1.10.1"
             },
             "install-path": "../scssphp/scssphp"
         },
         {
             "name": "scssphp/server",
-            "version": "1.0.9",
-            "version_normalized": "1.0.9.0",
+            "version": "1.10.0",
+            "version_normalized": "1.10.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/server.git",
-                "reference": "8539d9fce1b840f42972800f88c1de9505db0c70"
+                "reference": "37a8f66643df4585c4bc13a6107abe603f1af303"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/server/zipball/8539d9fce1b840f42972800f88c1de9505db0c70",
-                "reference": "8539d9fce1b840f42972800f88c1de9505db0c70",
+                "url": "https://api.github.com/repos/scssphp/server/zipball/37a8f66643df4585c4bc13a6107abe603f1af303",
+                "reference": "37a8f66643df4585c4bc13a6107abe603f1af303",
                 "shasum": ""
             },
             "require": {
-                "scssphp/scssphp": "^1.0"
+                "scssphp/scssphp": "^1.10"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3",
                 "squizlabs/php_codesniffer": "~2.5"
             },
-            "time": "2020-04-06T11:56:56+00:00",
-            "type": "libary",
+            "time": "2022-02-03T17:05:34+00:00",
+            "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
@@ -159,7 +226,7 @@
             "description": "Server for on-the-fly .scss compilation",
             "support": {
                 "issues": "https://github.com/scssphp/server/issues",
-                "source": "https://github.com/scssphp/server/tree/master"
+                "source": "https://github.com/scssphp/server/tree/1.10.0"
             },
             "install-path": "../scssphp/server"
         }

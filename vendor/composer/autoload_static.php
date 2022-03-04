@@ -35,6 +35,7 @@ class ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Mexitek\\PHPColors\\Color' => __DIR__ . '/..' . '/mexitek/phpcolors/src/Mexitek/PHPColors/Color.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

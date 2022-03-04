@@ -1,51 +1,59 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => '1.0.0',
-    'version' => '1.0.0.0',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => '1.0.0',
+        'version' => '1.0.0.0',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => NULL,
+        'name' => 'npeu/npeu6_template',
+        'dev' => true,
     ),
-    'reference' => NULL,
-    'name' => 'npeu/npeu6_template',
-  ),
-  'versions' => 
-  array (
-    'michelf/php-markdown' => 
-    array (
-      'pretty_version' => '1.9.0',
-      'version' => '1.9.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'c83178d49e372ca967d1a8c77ae4e051b3a3c75c',
+    'versions' => array(
+        'mexitek/phpcolors' => array(
+            'pretty_version' => 'v1.0.4',
+            'version' => '1.0.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mexitek/phpcolors',
+            'aliases' => array(),
+            'reference' => '4043974240ca7dc3c2bec3c158588148b605b206',
+            'dev_requirement' => false,
+        ),
+        'michelf/php-markdown' => array(
+            'pretty_version' => '1.9.1',
+            'version' => '1.9.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../michelf/php-markdown',
+            'aliases' => array(),
+            'reference' => '5024d623c1a057dcd2d076d25b7d270a1d0d55f3',
+            'dev_requirement' => false,
+        ),
+        'npeu/npeu6_template' => array(
+            'pretty_version' => '1.0.0',
+            'version' => '1.0.0.0',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => NULL,
+            'dev_requirement' => false,
+        ),
+        'scssphp/scssphp' => array(
+            'pretty_version' => 'v1.10.1',
+            'version' => '1.10.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../scssphp/scssphp',
+            'aliases' => array(),
+            'reference' => '8256fbaf02b06bf8ea6dbf2331ca5382296d4027',
+            'dev_requirement' => false,
+        ),
+        'scssphp/server' => array(
+            'pretty_version' => '1.10.0',
+            'version' => '1.10.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../scssphp/server',
+            'aliases' => array(),
+            'reference' => '37a8f66643df4585c4bc13a6107abe603f1af303',
+            'dev_requirement' => false,
+        ),
     ),
-    'npeu/npeu6_template' => 
-    array (
-      'pretty_version' => '1.0.0',
-      'version' => '1.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => NULL,
-    ),
-    'scssphp/scssphp' => 
-    array (
-      'pretty_version' => 'v1.4.1',
-      'version' => '1.4.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'ba86c963b94ec7ebd6e19d90cdab90d89667dbf7',
-    ),
-    'scssphp/server' => 
-    array (
-      'pretty_version' => '1.0.9',
-      'version' => '1.0.9.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8539d9fce1b840f42972800f88c1de9505db0c70',
-    ),
-  ),
 );
