@@ -12,11 +12,13 @@ defined('_JEXEC') or die;
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 
 $page_brand = TplNPEU6Helper::get_brand();
-
+/*
 $theme = '';
 if ($page_brand) {
     $theme = 't-' . $page_brand->alias;
-}
+}*/
+
+$theme = 'd-background';
 
 // @TODO - maybe make this configurable somewhere, but I don't want it to be per-instance so not
 // sure where to put it.
@@ -40,11 +42,11 @@ $count--;
 ?>
 <div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_articles_latest">
     <div class="l-layout__inner">
-        <div class="l-box  ff-width-100--55--50">
+        <div class="l-box  ff-width-100--55--40">
             <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
         </div>
 
-        <div class="l-box  ff-width-100--55--50">
+        <div class="l-box  ff-width-100--55--60">
         <?php
         // Have a go at providing useful classes:
         $i = 0;
@@ -63,7 +65,7 @@ $count--;
         } else {*/
             ///$outer_class  = 'l-distribute--flush-edge-gutters  u-fill-height';
             //$outer_class  = 'l-layout  l-distribute  l-distribute--balance-top  l-gutter  l-basis--30  l-flush-edge-gutter  u-fill-height';
-            $outer_class  = 'l-layout  l-row  l-gutter  l-basis--30  l-flush-edge-gutter  u-fill-height';
+            $outer_class  = 'l-layout l-distribute l-distribute--balance-top l-gutter l-basis--25 l-flush-edge-gutter u-fill-height';
             $inner_class  = 'l-layout__inner'; 
             ///$inner_class  = 'l-distribute  l-distribute--balance-top  l-distribute--gutter--m  l-distribute--basis-25'; 
         /*}*/
