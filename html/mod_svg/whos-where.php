@@ -78,7 +78,7 @@ foreach ($staff_members as $k => $staff) {
     }
     $friendly_names[$friendly_name]++;
     $staff_members[$k]['friendly_name'] = $friendly_name;
-    
+
     // Check the avatar while we're here:
     if (empty($staff['avatar'])) {
         $staff_members[$k]['avatar'] = '/assets/images/avatars/_none.jpg';
@@ -95,6 +95,7 @@ foreach ($staff_members as $k => $staff) {
 }
 #echo '<pre>'; var_dump($staff_members); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($room_to_names); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($rooms); echo '</pre>'; exit;
 // 2nd pass to add the <tspan> elements to the svg:
 
 foreach ($rooms as $room => $keys) {
@@ -106,7 +107,7 @@ foreach ($rooms as $room => $keys) {
         $name = trim($staff_member['first_name']);
 
         if ($first_names[$name] > 1) {
-            
+
             $name = $staff_member['friendly_name'];
             if ($friendly_names[$name] > 1) {
                 $name = trim($staff_member['name']);
@@ -116,8 +117,8 @@ foreach ($rooms as $room => $keys) {
         $s .= '<a href="#' . $staff_member['alias'] . '"><tspan x="0" y="' . $y . '" class="st12 st5 st13">' . $name . '</tspan></a>';
         $y += 7.8;
     }
-    
-    $svg = str_replace($room, $s, $svg);
+
+    $svg = str_replace('{' . $room . '}', $s, $svg);
 }
 
 // <tspan x="0" y="0" class="st13 st4 st14">DAVE M </tspan><tspan x="0" y="7.8" class="st13 st4 st14">AAA </tspan><tspan x="0" y="15.6" class="st13 st4 st14">BBB </tspan>
@@ -129,7 +130,7 @@ foreach ($rooms as $room => $keys) {
 <?php if ($module->showtitle): ?>
 <<?php echo $params->get('header_tag'); ?>><?php echo $module->title; ?></<?php echo $params->get('header_tag'); ?>>
 <?php endif; ?>
-<figure class="u-space--below"<?php if ($border) : ?>  d-bands  t-neutral<?php endif; ?>  mod_svg">
+<figure class="u-space--below<?php if ($border) : ?>  d-bands  t-neutral<?php endif; ?>  mod_svg">
     <?php echo $svg; ?>
 </figure>
 
@@ -146,7 +147,7 @@ foreach ($rooms as $room => $keys) {
 
 <ul class="l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-20">
     <?php foreach ($staff_members as $k => $staff) : ?>
-    
+
     <li class="u-fill-height">
         <article class="c-glimpse  d-background--light  u-padding--s" id="<?php echo $staff['alias']; ?>">
 
@@ -161,9 +162,9 @@ foreach ($rooms as $room => $keys) {
                     </div>
                 </div>
                 <div class="c-utilitext" style="position: absolute; left: 100px; top: 10px;">
-                    <a href="/about/people/<?php echo $staff['alias']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a><br>
-                    <a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?><br>
-                    <a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?>
+                    <a href="/about/people/<?php echo $staff['alias']; ?>" class="u-space--right--xs"><svg height="20" width="20" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a><br>
+                    <a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>" class="u-space--right--xs"><svg height="20" width="20" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?><br>
+                    <a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>" class="u-space--right--xs"><svg height="20" width="20" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?>
                 </div>
             </div>
             <div class="c-glimpse__content">
@@ -179,6 +180,6 @@ foreach ($rooms as $room => $keys) {
 
         </article>
     </li>
-    
+
     <?php endforeach; ?>
 </ul>
