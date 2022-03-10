@@ -10,6 +10,6 @@
 defined('_JEXEC') or die;
 ?>
 
-<div class="user-content  mod_text" <?php if ($params->get('backgroundimage')) : ?> style="background-image:url(<?php echo $params->get('backgroundimage'); ?>)"<?php endif; ?> >
+<div class="user-content  longform-content  mod_text" <?php if ($params->get('backgroundimage')) : ?> style="background-image:url(<?php echo $params->get('backgroundimage'); ?>)"<?php endif; ?> >
 	<?php echo $module->content; ?>
 </div>

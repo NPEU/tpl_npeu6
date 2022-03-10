@@ -109,7 +109,7 @@ foreach ($new_list as $i => &$item) {
         $class = ' class="' . trim($class) . '"';
     }
 
-    if ($level == 1) {
+    if ($level == $start_level) {
         $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<li'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
     } else {
         $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<span role="listitem"'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
@@ -165,7 +165,7 @@ foreach ($new_list as $i => &$item) {
     }
     // The next item is on the same level.
     else {
-        if ($level == 1) {
+        if ($level == $start_level) {
             $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '</li>';
         } else {
             $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '</span>';

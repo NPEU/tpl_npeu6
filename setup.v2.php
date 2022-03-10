@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  tpl_npeu6
@@ -532,7 +527,7 @@ $page_unit        = $page_template_params->unit;
 // Page footer links need to have their link text wrapped in spans, as per the Utilitext pattern.
 $page_footer_text = TplNPEU6Helper::tweak_markdown_output(
     Markdown::defaultTransform(str_replace('{{ YEAR }}', date('Y'), htmlentities($page_template_params->footer_text))),
-    array('trim_paragraph' => true, 'add_link_spans' => true)
+    array('trim_paragraph' => true, 'add_link_spans' => true, 'split_to_list' => ' | ')
 );
 
 // Article Brand (only for NPEU News category items)

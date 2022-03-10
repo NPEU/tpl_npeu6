@@ -36,9 +36,9 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     $module_wrapper = $params->get('wrapper') ? $params->get('wrapper') : '';
     $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
 
-    $wrapper_classname = '';
+    //$wrapper_classname = '';
     $header_classname  = $params->get('header_class', '');
-    $wrapper_class = '';
+    //$wrapper_class = '';
     $header_classes = ['modstyle_bespoke--heading'];
     $header_class = '';
     $wrapper_theme_class = '';
@@ -55,9 +55,9 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     #echo '<pre>'; var_dump($module_wrapper); echo '</pre>'; #exit;
     #echo '<pre>'; var_dump($module_wrapper_theme); echo '</pre>'; #exit;
     #echo '<pre>'; var_dump($module->title); echo '</pre>'; #exit;
-    if (!empty($wrapper_classname)) {
-        $wrapper_class = ' class="' . $wrapper_classname . '"';
-    }
+    //if (!empty($wrapper_classname)) {
+    //    $wrapper_class = ' class="' . $wrapper_classname . '"';
+    //}
 
     if (!empty($header_classname)) {
         $header_classes[] = $header_classname;
@@ -80,8 +80,8 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
     <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  modstyle_bespoke--wrapper">
-        <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'longform-content  user-content' : 'c-panel__module'; ?>">
-            <div<?php echo $wrapper_class; ?>>
+        <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
+            <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
     <?php endif; ?>
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
                 <header class="c-panel__header  modstyle_bespoke--header">
@@ -91,14 +91,16 @@ function modChrome_bespoke($module, &$params, &$attribs) {
                     </div>
                 </header>
                 <?php elseif ($module->showtitle): ?>
-                <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                <header class="c-panel__header">
+                    <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                </header>
                 <?php endif; ?>
                 <?php echo $module->content; ?>
                 <?php if ($has_cta && $cta_position == 'bottom'): ?>
                 <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 <?php endif; ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-            </div>
+            <?php /* </div> */ ?>
         </<?php echo $outer_el; ?>>
     </div>
     <?php endif; ?>
@@ -113,10 +115,14 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     $template = $app->getTemplate(true);
 
 
-    #echo  '<pre>'; var_dump($template); echo '</pre>';
+    #echo  '<pre>'; var_dump($module); echo '</pre>';
+    #echo  '<pre>'; var_dump($params); echo '</pre>';
+    #echo  '<pre>'; var_dump($attribs); echo '</pre>';
+    #echo  '<pre>'; var_dump($template); echo '</pre>;
 
     $page_brand = TplNPEU6Helper::get_brand();
 
+    $module_tag     = $params->get('module_tag') ? $params->get('module_tag') : 'div';
     $module_wrapper = $params->get('wrapper') ? $params->get('wrapper') : '';
     $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
     $module_wrapper_color = $params->get('color') ? $params->get('color') : 'neutral';
@@ -125,14 +131,15 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     $header_classname  = '';
     $wrapper_class = '';
     $header_class = '';
-    $wrapper_theme_class = '  c-panel--very-light';
+    $wrapper_theme_class = '  d-background--very-light  t-neutral';
 
     $theme_name = $module_wrapper_color == 'brand' ? $page_brand->alias : 'neutral';
 
     // @ASSUMPTION: If there's a menu in the sidebar, it's a section menu.
     if ($module->module == 'mod_menu') {
-        $wrapper_classname = 'n-section-menu';
-        $header_classname  = 'n-section-menu__title';
+        $wrapper_classname = 'n-menu';
+        $header_classname  = 'n-menu__title';
+        $module_tag = 'nav';
     }
 
     if (!empty($wrapper_classname)) {
@@ -145,7 +152,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
 
     if (!empty($module_wrapper_theme)) {
-        $wrapper_theme_class = '  c-panel--' . $module_wrapper_theme;
+        $wrapper_theme_class = '  d-background--' . $module_wrapper_theme . '  t-neutral';
     }
 
     // If we're showing a title, we want to use an aside for the sidebar, otherwise div:
@@ -164,16 +171,12 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; ?>  t-<?php echo $theme_name; ?>  u-space--below  modstyle_sidebar  modstyle_sidebar--wrapper">
+    <<?php echo $module_tag; ?> class="c-panel<?php echo $wrapper_theme_class; ?>  u-space--below  modstyle_sidebar  modstyle_sidebar--wrapper">
         <?php if ($has_headline_image): ?>
         <div class="c-panel__banner">
-            <div class="l-proportional-container  l-proportional-container--2-1  l-proportional-container--4-1--wide">
-                <div class="l-proportional-container__content">
-                    <div class="u-image-cover  js-image-cover">
-                        <div class="u-image-cover__inner">
-                            <img class="u-image-cover__image" src="<?php echo $params->get('headline_image'); ?>" alt="" width="600">
-                        </div>
-                    </div>
+            <div class="u-image-cover  js-image-cover  u-image-cover--min-50  u-image-cover--min-25--wide">
+                <div class="u-image-cover__inner">
+                    <img class="u-image-cover__image" src="<?php echo $params->get('headline_image'); ?>" alt="" width="600">
                 </div>
             </div>
         </div>
@@ -193,12 +196,16 @@ function modChrome_sidebar($module, &$params, &$attribs) {
                 </div>
                 <?php endif;*/ ?>
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
-                <header class="u-text-group  u-text-group--push-apart  u-space--below"<?php echo $aria_labelledby; ?>>
-                    <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
-                    <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <header class="c-panel__header"<?php echo $aria_labelledby; ?>>
+                    <div>
+                        <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
+                        <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                    </div>
                 </header>
                 <?php elseif ($module->showtitle): ?>
-                <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
+                <header class="c-panel__header"<?php echo $aria_labelledby; ?>>
+                    <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
+                </header>
                 <?php endif; ?>
                 <?php echo $module->content; ?>
                 <?php if ($has_cta && $cta_position == 'bottom'): ?>
@@ -207,7 +214,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     <?php if ($module_wrapper == 'panel'): ?>
             </div>
         </<?php echo $outer_el; ?>>
-    </div>
+    </<?php echo $module_tag; ?>>
     <?php endif; ?>
     <?php endif;
 }
@@ -374,7 +381,9 @@ function modChrome_magic($module, &$params, &$attribs) {
                     <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 </header>
                 <?php elseif ($module->showtitle): ?>
-                <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                <header class="u-text-group  u-text-group--push-apart  u-space--below  modstyle_magic--header">
+                    <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                </header>
                 <?php endif; ?>
                 <?php echo $module->content; ?>
                 <?php if ($has_cta && $cta_position == 'bottom'): ?>

@@ -1,4 +1,9 @@
 <?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><?php if (empty($_SERVER['JTV2'])) {
 /**
  * @package     Joomla.Administrator
  * @subpackage  tpl_npeu6
@@ -385,5 +390,5 @@ function modChrome_magic($module, &$params, &$attribs) {
     <?php endif;
 }
 
-
+}
 ?>

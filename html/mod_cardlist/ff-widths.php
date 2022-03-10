@@ -1,4 +1,9 @@
 <?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_cardlist
@@ -27,7 +32,7 @@ $ff_widths = array(
 
 $ff_width = $ff_widths[$c];
 ?>
-<div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_cardlist">
+<div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_cardlist  modlayout_ff-widths">
     <div class="l-layout__inner">
 
     <?php foreach ($params->get('cards') as $card) :

@@ -24,11 +24,13 @@ $img_info = getimagesize($img_path);
 $img_ratio = $img_info[0] / $img_info[1];
 $img_info['width'] = 200;
 
-if ($img_info[0] > $img_info[1]) {
-    $img_info['height'] = $img_info['width'] / $img_ratio;
-} else {
-    $img_info['height'] = $img_info['width'] * $img_ratio;
-}
+$img_info['height'] = round($img_info['width'] / $img_ratio);
+
+//if ($img_info[0] > $img_info[1]) {
+//    $img_info['height'] = $img_info['width'] / $img_ratio;
+//} else {
+//    $img_info['height'] = $img_info['width'] * $img_ratio;
+//}
 
 // Check if there's an SVG version of this images available:
 $img_path_info = pathinfo($img_path);

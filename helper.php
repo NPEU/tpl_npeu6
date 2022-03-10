@@ -9,13 +9,17 @@
 
 defined('_JEXEC') or die;
 
+require_once __DIR__ . '/vendor/autoload.php';
 
+use \Mexitek\PHPColors\Color;
 
 /**
  * Helper for tpl_npeu6
  */
 class TplNPEU6Helper
 {
+
+
     /**
 	 * Global brand object
 	 *
@@ -94,14 +98,13 @@ class TplNPEU6Helper
     public static function get_brand($brand_id = false)
     {
         $get_page_brand = !$brand_id;
-        
 
         // If we haven't got a brand id supplied, we're looking for the page brand.
         // If we have that, return it.
         if ($get_page_brand && self::$brand) {
             return self::$brand;
         }
-        
+
         // So we haven't returned a page brand yet, are we looking for that?
         // If so get the brand id.
         if ($get_page_brand) {
@@ -116,7 +119,7 @@ class TplNPEU6Helper
                 return false;
             }
         }
-        
+
         // We have a valid brand id now, so let's get the brand data:
         if ($brand_id) {
             $db = JFactory::getDBO();
@@ -127,11 +130,29 @@ class TplNPEU6Helper
             $query->where('id = ' . $brand_id);
             $db->setQuery($query);
             $brand = $db->loadObject();
-            
+
+            // Lets add some useful stuff not stored in the db:
+            preg_match('/viewBox="(.+?)\s(.+?)\s(.+?)\s(.+?)"/', $brand->logo_svg, $matches);
+            $brand->svg_width        = $matches[3];
+            $brand->svg_height       = $matches[4];
+            $brand->svg_aspect_ratio = $matches[3] / $matches[4];
+            $brand->svg_width_at_height_80  = round(80 * $brand->svg_aspect_ratio);
+            $brand->svg_width_at_height_100 = round(100 * $brand->svg_aspect_ratio);
+
+
+            // Include the colour values:
+            $primary_color = new Color($brand->primary_colour);
+
+            $brand->primary_colour_is_light = $primary_color->isLight();
+            $brand->primary_colour_hsl      = $primary_color->getHsl();
+            $brand->primary_colour_hsl['H'] = round($brand->primary_colour_hsl['H']);
+            $brand->primary_colour_hsl['S'] = round($brand->primary_colour_hsl['S'] * 100) . '%';
+            $brand->primary_colour_hsl['L'] = round($brand->primary_colour_hsl['L'] * 100) . '%';
+
             if ($get_page_brand) {
                 self::$brand = $brand;
             }
-            
+
             return $brand;
         }
 
@@ -175,9 +196,9 @@ class TplNPEU6Helper
     {
         if (!self::$menu_item) {
             $menu_item = JFactory::getApplication()->getMenu()->getActive();
-            
+
             if (is_null($menu_item)) {
-                
+
                 $menu_item = JFactory::getApplication()->getMenu()->getItem(120);
             }
             self::$menu_item = $menu_item;
@@ -196,7 +217,7 @@ class TplNPEU6Helper
             if (isset($doc->mesages_renderered) && $doc->mesages_renderered == true) {
                 return '';
             }
-            
+
             $messages = new JDocumentRendererMessage($doc);
             $doc->mesages_renderered = true;
             return $messages->render(NULL);
@@ -241,7 +262,7 @@ class TplNPEU6Helper
         }
 		return $scripts;
     }
-    
+
     /**
      * Remove unwanted stylesheets added by Joomla.
      *
@@ -312,7 +333,7 @@ class TplNPEU6Helper
         if (!$root_path) {
             $root_path = $_SERVER['DOCUMENT_ROOT'];
         }
-        
+
         // Don't stamp filenames of 3rd Party or System files:
         if (strpos($filename, '/templates/npeu6/') !== 0) {
             return $filename;
@@ -393,6 +414,12 @@ class TplNPEU6Helper
         if (!empty($options['add_link_spans'])) {
             $html = preg_replace('/(<a[^>]+>)/', '$1<span>', $html);
             $html = preg_replace('/<\/a>/', '</span></a>', $html);
+        }
+        
+        if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
+            $s = $options['split_to_list'];
+            $a = explode($s, $html);
+            $html = '<span role="listitem" class="l-box">' . implode('</span> <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span> <span role="listitem" class="l-box">', $a) . '</span>';
         }
 
         return $html;

@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 // No direct access
 defined('_JEXEC') or die;
 
@@ -64,32 +59,31 @@ $nav = '';
 // First pass to remove items we want to skip.
 // Needs to be done this way as otherwise there's no way (I think) to determine if an item really
 // has children or not without 'lookahead' loops.
-// For the Section Menu, we only want to show items on the current level, but the module doesn't
-// allow for this option, so sort that out here too.
-$menu_item = TplNPEU6Helper::get_menu_item();
-$menu_level = (int) $menu_item->level;
-#echo '<pre>'; var_dump($menu_level); echo '</pre>';
-
 $new_list = array();
-foreach ($list as $i => &$item)
-{
+foreach ($list as $i => &$item) {
     $skip_item  = false;
-
-    $item_level = (int) $item->level;
-
-    if ($menu_level == 2 && $item->level <= $menu_level) {
-        $skip_item = true;
-    }
-    if ($menu_level == 3 && $item->level < $menu_level) {
-        $skip_item = true;
-    }
-
     // Don't show hidden menu items:
     if ($is_sitemap && $item->access == $hidden_from_menus_and_sitemap) {
         $skip_item = true;
     }
     if (!$is_sitemap && ($item->access == $hidden_from_menus_and_sitemap || $item->access == $hidden_from_menus)) {
         $skip_item = true;
+    }
+    
+    #echo '<pre>'; var_dump($item); echo '</pre>';
+    // If the menu item is for a news blog and there are no news items in that category, then we 
+    // don't want to show the link, as it'll effectively be to a blank page:
+    // (Note checking the alias isn't great, as it's implicit on naming convention, but there's 
+    // currently no explicit way of distinguishing a 'news' blog to any other type on blog).
+    if (
+        $item->alias == 'news'
+     && $item->query['option'] == 'com_content'
+     && $item->query['view'] == 'category'
+     && $item->query['layout'] == 'blog'
+    ) {
+        if (!TplNPEU6Helper::check_category_empty($item->query['id'])) {
+            $skip_item = true;
+        }
     }
 
     if (!$skip_item) {
@@ -102,9 +96,10 @@ foreach ($list as $i => &$item)
 foreach ($new_list as $i => &$item) {
     $level = (int) $item->level;
 
-    $item_class         = 'n-section-menu__item';
-    $item_current_class = 'n-section-menu__item--active';
-    $item_link_class    = 'n-section-menu__link';
+    $item_class         = '';
+    $item_current_class = 'd-background--light  t-neutral';
+    $item_link_class    = '';
+    $item_attribs = '';
 
     $nav_item = '';
 
@@ -120,6 +115,7 @@ foreach ($new_list as $i => &$item) {
         // menu's URL will not be correct:
         if ($active->route == $current_url_path) {
             $current = true;
+            $item_attribs = ' aria-current="page"';
         }
     }
 
@@ -127,7 +123,7 @@ foreach ($new_list as $i => &$item) {
         $class = ' class="' . trim($class) . '"';
     }
 
-    $nav_item .= str_repeat("\t", $level) . '<li'.$class.'>';
+    $nav_item .= str_repeat("\t", $level) . '<li' . $class . $item_attribs . '>';
 
     $item->anchor_css = $item_link_class;
 
@@ -166,7 +162,7 @@ foreach ($new_list as $i => &$item) {
 }
 ?>
 <?php if(!empty($nav)): ?>
-<ul class="n-section-menu__list  u-fill-width  mod_menu">
+<ul class="n-menu__links  mod_menu">
     <?php echo $nav; ?>
 </ul>
 <?php endif; ?>

@@ -1,4 +1,9 @@
-<!doctype html>
+<?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><!doctype html>
 <html lang="en-gb" class="env-<?php echo $env; ?>">
 <head>
     <meta charset="utf-8">

@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_map
@@ -108,8 +103,8 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
 
 ?>
 
-<figure class="u-fill-height  mod_map">
-    <div class="c-map  c-map--<?php echo $height; ?>  u-fill-height" id="<?php echo $map_id; ?>">
+<figure class="c-map  c-map--<?php echo $height; ?>  u-fill-height  mod_map">
+    <div id="<?php echo $map_id; ?>">
         <p class="u-text-align--center">
             <img class="c-map__static" src="<?php echo $static_map_src; ?>" alt="<?php echo $static_map_alt; ?>">
         </p>
