@@ -46,7 +46,7 @@ $ff_width = $ff_widths[$c];
     if (!empty($card->link) && (bool) $params->get('link_full')) {
         $full_link = true;
     }
-    
+
     $card->footer = trim($card->footer);
     ?>
         <div class="ff-width-100--45--<?php echo $ff_width; ?>  l-box">
@@ -88,13 +88,27 @@ $ff_width = $ff_widths[$c];
                     <?php endif; ?>
 
                 </div>
-                <?php if (!empty($card->footer_image)) : ?>
+                <?php if (!empty($card->footer_image)) :
+                // Check for an SVG:
+                $pathinfo = pathinfo($card->footer_image);
+                $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card->footer_image);
+
+                if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
+                    $card->footer_image_svg = $footer_image_svg_file;
+                }
+
+                ?>
                 <div class="c-card__footer_image">
-                    <div class="l-proportional-container  l-proportional-container--5-1">
+                    <div class="l-proportional-container  l-proportional-container--4-1">
                         <div class="l-proportional-container__content">
-                            <div class="u-image-cover  js-image-cover">
-                                <div class="u-image-cover__inner">
+                            <div class="u-image-cover<?php if (!empty($card->footer_logo)): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover">
+                                <div class="u-image-cover__inner<?php if (!empty($card->footer_logo)): ?>  u-padding--s  d-background  t-white<?php endif; ?>">
+                                    <?php if (!empty($card->footer_image_svg)): ?>
+                                    <img src="<?php echo $card->footer_image_svg; ?>" onerror="this.src='<?php $card->footer_image; ?>'; this.onerror=null;" alt="<?php echo $card->footer_image_alt; ?>" class="u-image-cover__image" width="200">
+                                    <?php else: ?>
                                     <img src="<?php echo $card->footer_image; ?>?s=300" sizes="100vw" srcset="<?php echo $card->footer_image; ?>?s=1600 1600w, <?php echo $card->footer_image; ?>?s=900 900w, <?php echo $card->footer_image; ?>?s=300 300w" alt="<?php echo $card->footer_image_alt; ?>" class="u-image-cover__image" width="200">
+                                    <?php endif; ?>
+
                                 </div>
                             </div>
                         </div>
