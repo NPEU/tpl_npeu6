@@ -1,7 +1,7 @@
     <div class="sticky-footer-wrap  c-page-wrap"  data-brand="<?php echo $page_brand->alias; ?>">
 
         <?php if ($env == 'testing' || $env == 'development') : ?>
-        <div class="env_container">
+        <div class="env_container" id="env-container">
             <fieldset role="presentation">
                 <p>
                     <?php echo strtoupper($env); ?>
@@ -176,7 +176,7 @@
 
                 <?php if($page_has_hero) : ?>
                 <?php if($page_has_carousel) : ?>
-                <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel">
+                <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel  js-c-carousel  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                     <div>
                         <nav class="c-hero-carousel__nav" aria-label="banner slides">
                             <p align="center" role="list">
@@ -189,7 +189,7 @@
                         </nav>
                         <div align="center" tabindex="0" class="c-hero-carousel__scroll-area" role="list">
                 <?php else : ?>
-                <fieldset role="presentation" class="c-hero-wrap">
+                <fieldset role="presentation" class="c-hero-wrap  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                     <div>
                         <div align="center">
                 <?php endif; /* @TODO - need to think about credit lines. */ ?>
@@ -197,9 +197,9 @@
                             <?php if($page_has_carousel) : ?>
                             <hr noShade size="1">
                             <?php endif; ?>
-                            <div id="banner<?php if($page_has_carousel) : ?>-slide-<?php echo $i; ?><?php endif; ?>"<?php if($page_has_carousel) : ?>role="listitem"<?php endif; ?> class="c-hero<?php echo (isset($page_hero->text_position) && $page_hero->text_position == 1) ? '' : '  c-hero--reversed'; ?>  d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
+                            <div id="banner<?php if($page_has_carousel) : ?>-slide-<?php echo $i; ?><?php endif; ?>"<?php if($page_has_carousel) : ?>role="listitem"<?php endif; ?> class="c-hero<?php if (isset($page_hero->text_position)) {echo '  c-hero--' . $page_hero->text_position;} ?>">
                                 <div class="c-hero__image">
-                                    <div class="l-proportional-container  l-proportional-container--3-1  l-proportional-container--5-1--wide">
+                                    <div class="l-proportional-container  l-proportional-container--3-1<?php if(!$page_has_carousel) : ?>  l-proportional-container--5-1--wide<?php endif; ?>">
                                         <div class="l-proportional-container__content">
                                             <div class="u-image-cover  js-image-cover">
                                                 <div class="u-image-cover__inner">
@@ -210,13 +210,13 @@
                                     </div>
                                 </div>
                                 <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
-                                <div class="c-hero__message<?php echo (!empty($page_hero->heading)) ? '  c-hero__message--wide' : ''; ?>"<?php echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; ?>>
+                                <div class="c-hero__message<?php echo (!empty($page_hero->heading) || $page_has_carousel) ? '  c-hero__message--wide' : ''; ?>"<?php echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; ?>>
                                     <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
                                     <h1 class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_hero->heading; ?></h1>
                                     <?php endif; ?>
                                     <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
                                     <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
-                                    <p class="u-space--left--auto"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta  c-cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                                    <p class="u-space--above--s  u-space--below--none"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta  c-cta--has-icon"><?php echo $page_hero->cta_text; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                                     <?php endif; ?>
                                 </div>
                                 <?php endif; ?>
