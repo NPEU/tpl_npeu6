@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-#ini_set('display_errors', 'On');
+ini_set('display_errors', 'On');
 
 if (!isset($this->error)) {
 	$this->error = JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
@@ -22,7 +22,7 @@ $error_code = $this->error->getCode();
 ob_start();
 ?>
     <?php if ($error_code == 404) : ?>
-    <div id="hero" class="c-hero  c-hero--reversed  d-bands--top  d-bands--bottom">
+    <div id="hero" class="c-hero  c-hero--right  d-bands--top  d-bands--bottom">
         <div class="c-hero__image">
             <div class="l-proportional-container  l-proportional-container--3-1  l-proportional-container--4-1--wide  hero-image">
                 <div class="l-proportional-container__content">
@@ -96,7 +96,8 @@ ob_start();
     <div class="sticky-footer-expand">
         <main id="main" role="main">
             <h1>Error <?php echo $error_code; ?></h1>
-            <p><?php $error_message = $this->error->getMessage(); ?></p>
+            <p><?php echo $this->error->getMessage(); ?></p>
+            <p><?php echo str_replace("\n", "<br>\n", $this->error->getTraceAsString()); ?></p>
         </main>
     </div>
     <?php endif; ?>
