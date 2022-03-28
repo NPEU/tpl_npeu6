@@ -104,11 +104,10 @@ $ff_width = $ff_widths[$c];
                             <div class="u-image-cover<?php if (!empty($card->footer_logo)): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover">
                                 <div class="u-image-cover__inner<?php if (!empty($card->footer_logo)): ?>  u-padding--s  d-background  t-white<?php endif; ?>">
                                     <?php if (!empty($card->footer_image_svg)): ?>
-                                    <img src="<?php echo $card->footer_image_svg; ?>" onerror="this.src='<?php $card->footer_image; ?>'; this.onerror=null;" alt="<?php echo $card->footer_image_alt; ?>" class="u-image-cover__image" width="200">
+                                    <img src="<?php echo $card->footer_image_svg; ?>" onerror="this.src='<?php echo $card->footer_image; ?>'; this.onerror=null;" alt="<?php echo $card->footer_image_alt; ?>" class="u-image-cover__image" width="200">
                                     <?php else: ?>
                                     <img src="<?php echo $card->footer_image; ?>?s=300" sizes="100vw" srcset="<?php echo $card->footer_image; ?>?s=1600 1600w, <?php echo $card->footer_image; ?>?s=900 900w, <?php echo $card->footer_image; ?>?s=300 300w" alt="<?php echo $card->footer_image_alt; ?>" class="u-image-cover__image" width="200">
                                     <?php endif; ?>
-
                                 </div>
                             </div>
                         </div>
