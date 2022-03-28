@@ -285,6 +285,36 @@
     <?php endif;?>
 
     <!-- End Social Media -->
+    
+    <style>
+        :root {
+
+            --t-primary-color: <?php echo $page_brand->primary_colour; ?>;
+            --t-primary-color-h: <?php echo $page_brand->primary_colour_hsl['H']; ?>;
+            --t-primary-color-s: <?php echo $page_brand->primary_colour_hsl['S']; ?>;
+            --t-primary-color-l: <?php echo $page_brand->primary_colour_hsl['L']; ?>;
+            --t-primary-color-l-copy: <?php echo $page_brand->primary_colour_hsl['L']; ?>;
+
+            --t-secondary-color: <?php echo $page_brand->secondary_colour; ?>;
+            --t-secondary-color-h: 353;
+            --t-secondary-color-s: 77%;
+            --t-secondary-color-l: 60%;
+            --t-secondary-color-l-copy: 60%;
+
+
+            --t-primary-color-l--very-light: 95%;
+            --t-primary-color-l--light: 81%;
+            --t-primary-color-l--dark: 26%;
+            --t-primary-color-l--very-dark: 18%;
+            --t-primary-fore-text-color: var(--t-text-color-inverse);
+
+            --t-secondary-color-l--very-light: 96%;
+            --t-secondary-color-l--light: 86%;
+            --t-secondary-color-l--dark: 37%;
+            --t-secondary-color-l--very-dark: 27%;
+            --t-secondary-fore-text-color: var(--t-text-color-inverse);
+        }
+    </style>
 </head>
 <body  id="top" role="document" class="" data-layout="default"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 

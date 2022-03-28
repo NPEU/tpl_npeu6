@@ -79,19 +79,21 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  modstyle_bespoke--wrapper">
+    <div class="c-panel<?php echo $wrapper_theme_class; ?>"  modstyle_bespoke--wrapper">
         <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
             <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
+    <?php else: ?>
+    <div class="modstyle_bespoke--wrapper">
     <?php endif; ?>
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
-                <header class="c-panel__header  modstyle_bespoke--header">
+                <header class="c-panel__header  modstyle_bespoke--header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">
                     <div>
                         <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
                         <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                     </div>
                 </header>
                 <?php elseif ($module->showtitle): ?>
-                <header class="c-panel__header">
+                <header class="c-panel__header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">
                     <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
                 </header>
                 <?php endif; ?>
@@ -102,8 +104,9 @@ function modChrome_bespoke($module, &$params, &$attribs) {
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
             <?php /* </div> */ ?>
         </<?php echo $outer_el; ?>>
-    </div>
     <?php endif; ?>
+    </div>
+    
     <?php endif;
 }
 
@@ -171,7 +174,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel'): ?>
-    <<?php echo $module_tag; ?> class="c-panel<?php echo $wrapper_theme_class; ?>  u-space--below  modstyle_sidebar  modstyle_sidebar--wrapper">
+    <<?php echo $module_tag; ?> class="c-panel  c-panel--rounded<?php echo $wrapper_theme_class; ?>  u-space--below  modstyle_sidebar  modstyle_sidebar--wrapper">
         <?php if ($has_headline_image): ?>
         <div class="c-panel__banner">
             <div class="u-image-cover  js-image-cover  u-image-cover--min-50  u-image-cover--min-25--wide">

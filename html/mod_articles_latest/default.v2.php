@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_articles_latest
@@ -30,7 +25,7 @@ $count = $params->get('count');
 // to $count in some way?
 ?>
 <?php if ($count == 1): ?>
-<?php $item = $items[0]; ?>
+<?php $wrapper_classes = ['  mod_articles_latest  d-background  d-border']; $item = $items[0]; ?>
 <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
 <?php else: 
 // Have a go at providing useful classes:

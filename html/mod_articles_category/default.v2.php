@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_articles_latest
@@ -41,7 +36,7 @@ if ($count >= 2 && $count < 5) {
     }
     $item_class  = 'l-col-to-row__item  ff-width-100--50--' . $portion;
 } else {
-    $wrap_class   = 'u-space--belowX';
+    $wrap_class   = '';
     $outer_class  = 'l-layout  l-gutter  l-flush-edge-gutter  l-basis--25  l-distribute  l-distribute--balance-top';
     $inner_class  = 'l-layout__inner'; 
     $item_class   = '';
@@ -58,16 +53,12 @@ if ($count >= 2 && $count < 5) {
                 $fields = FieldsHelper::getFields('com_content.article', $item, true);
 
                 $card_data = array();
+                $card_data['wrapper_classes']  = array($moduleclass_sfx);              
+                $card_data['link']             = $item->link;
+                $card_data['header_image']     = !empty($item->skip_image) ? false : $fields[0]->rawvalue;
+                $card_data['header_image_alt'] = $fields[1]->rawvalue;
+                $card_data['title']            = $item->title;
 
-                $card_data['theme']           = $theme;
-                $card_data['full_link']       = true;
-                $card_data['link']            = $item->link;
-                $card_data['image']           = $fields[0]->rawvalue;
-                $card_data['image_alt']       = $fields[1]->rawvalue;
-                $card_data['title']           = $item->title;
-                $card_data['state']           = (int) $item->state;
-                $card_data['wrapper_classes'] = array('u-fill-height');
-                #$card_data['date_format']  = $date_format;
 
                 include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
 

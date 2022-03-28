@@ -35,7 +35,7 @@ if ($count > 0) :
     <div class="l-layout__inner  c-utilitext">
         <p class="l-box"><?php echo JText::_('MOD_BREADCRUMBS_HERE'); ?> </p>
         <p role="list" class="l-box" itemscope="" itemtype="https://schema.org/BreadcrumbList">
-            <span class="l-layout  l-row  l-row--start  l-gutter--s  l-flush-edge-gutter">
+            <span class="l-layout  l-row  l-row--start  l-gutter--xs  l-flush-edge-gutter">
                 <span class="l-layout__inner">
                 
                     <?php
@@ -53,13 +53,14 @@ if ($count > 0) :
                     // Render all but last item - along with separator ?>
                     <span role="listitem" class="l-box" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
                         <?php if (!empty($item->link)): ?>
-                        <a itemprop="item" href="<?php echo preg_replace('/\?.*/', '', $item->link); ?>"><span itemprop="name"><?php echo $item->name; ?></span></a><span class="l-box__separator">&nbsp;/&nbsp;</span>
+                        <a itemprop="item" href="<?php echo preg_replace('/\?.*/', '', $item->link); ?>"><span itemprop="name"><?php echo $item->name; ?></span></a>
                         <?php else: ?>
                         <a class="n-breadcrumbs__link" itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
-                        <a itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a><span class="l-box__separator">&nbsp;/&nbsp;</span>
+                        <a itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
                         <?php endif; ?>
                         <meta itemprop="position" content="<?php echo $key + 1; ?>">
                     </span>
+                    <span class="l-box__separator">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
                     <?php elseif ($show_last):
                     // Render last item if reqd. ?>
                     <span role="listitem" class="l-box" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">

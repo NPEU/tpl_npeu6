@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_funder
@@ -38,11 +33,11 @@ $logo_image = @SVG::fromString($brand->logo_svg);
 $logo_svg_doc = $logo_image->getDocument();
 $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
 ?>
-<div class="u-fill-heightX  d-bands--bottomX  <?php echo $theme; ?>  mod_funder">
-    <div class="u-fill-heightX  l-layout  l-row">
+<div class="d-border--bottom--thick  mod_funder">
+    <div class="l-layout  l-row">
         <div class="l-layout__inner">
             <?php if (!empty($params->get('image'))): ?>
-            <div class="l-box  ff-width-100--40--50  u-fill-heightX">
+            <div class="l-box  ff-width-100--40--50">
                 <div class="u-image-cover  u-image-cover--min-20  js-image-cover">
                     <div class="u-image-cover__inner">
                         <img class="u-image-cover__image" src="<?php echo $params->get('image'); ?>" width="150" alt="">
