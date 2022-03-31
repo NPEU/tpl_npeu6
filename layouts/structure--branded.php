@@ -199,7 +199,7 @@
                             <?php endif; ?>
                             <div id="banner<?php if($page_has_carousel) : ?>-slide-<?php echo $i; ?><?php endif; ?>"<?php if($page_has_carousel) : ?>role="listitem"<?php endif; ?> class="c-hero<?php if (isset($page_hero->text_position)) {echo '  c-hero--' . $page_hero->text_position;} ?>">
                                 <div class="c-hero__image">
-                                    <div class="l-proportional-container  l-proportional-container--3-1<?php if(!$page_has_carousel) : ?>  l-proportional-container--5-1--wide<?php endif; ?>">
+                                    <div class="l-proportional-container  l-proportional-container--3-1<?php /*if(!$page_has_carousel) : ?>  l-proportional-container--5-1--wide<?php endif; ?>*/">
                                         <div class="l-proportional-container__content">
                                             <div class="u-image-cover  js-image-cover">
                                                 <div class="u-image-cover__inner">
@@ -210,7 +210,7 @@
                                     </div>
                                 </div>
                                 <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
-                                <div class="c-hero__message<?php echo (!empty($page_hero->heading) || $page_has_carousel) ? '  c-hero__message--wide' : ''; ?>"<?php echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; ?>>
+                                <div class="c-hero__message<?php echo (!empty($page_hero->heading) || $page_has_carousel || strlen($page_hero->text) > 185) ? '  c-hero__message--wide' : ''; ?><?php if (!empty($page_hero->text_width)){echo '  c-hero-message--tweaked';} ?>"<?php /*echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; */ ?>>
                                     <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
                                     <h1 class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_hero->heading; ?></h1>
                                     <?php endif; ?>

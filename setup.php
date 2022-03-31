@@ -482,10 +482,23 @@ $search_field_hint = !empty($page_template_params->search_hint) ? $page_template
 
 
 // Hero image / Carousel:
-$page_heroes         = (array) $menu_item->params->get('hero_image');
+$page_heroes_data = (array) $menu_item->params->get('hero_image');
+$page_heroes      = [];
 #echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
 
-$page_has_hero     = !empty($page_heroes['hero_image0']->image);
+// Remove any disabled images:
+if (!empty($page_heroes_data)) {
+    foreach ($page_heroes_data as $key => $image) {
+        if (!isset($image->enabled)) {
+            $image->enabled = true;
+        }
+        if ($image->enabled && !empty($image->image)) {
+            $page_heroes[$key] = $image;
+        }
+    }
+}
+//$page_has_hero     = !empty($page_heroes['hero_image0']->image);
+$page_has_hero     = !empty($page_heroes);
 $page_has_carousel = $page_has_hero && count($page_heroes) > 1;
 
 // Extract meta for ease of use:
