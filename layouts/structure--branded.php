@@ -199,7 +199,7 @@
                             <?php endif; ?>
                             <div id="banner<?php if($page_has_carousel) : ?>-slide-<?php echo $i; ?><?php endif; ?>"<?php if($page_has_carousel) : ?>role="listitem"<?php endif; ?> class="c-hero<?php if (isset($page_hero->text_position)) {echo '  c-hero--' . $page_hero->text_position;} ?>">
                                 <div class="c-hero__image">
-                                    <div class="l-proportional-container  l-proportional-container--3-1<?php /*if(!$page_has_carousel) : ?>  l-proportional-container--5-1--wide<?php endif; ?>*/">
+                                    <div class="l-proportional-container  l-proportional-container--3-1">
                                         <div class="l-proportional-container__content">
                                             <div class="u-image-cover  js-image-cover">
                                                 <div class="u-image-cover__inner">
