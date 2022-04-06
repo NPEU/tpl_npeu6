@@ -49,6 +49,7 @@
                         <div class="l-center  c-page-header__cta  u-padding--top--s  u-padding--sides--s">
                             <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  t-<?php echo $page_brand->alias; ?>"><span><?php echo $page_cta_text; ?><span></a>
                         </div>
+
                         <?php endif; ?>
                         <div class="u-padding--s  l-center">
                         <?php #if ($page_unit == 'npeu') : ?>
@@ -96,16 +97,11 @@
                             <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  u-space--left  u-space--right">
                                 <img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80">
                             </a>
-                            <?php endif; ?>
-                            <?php /*
-                            
-                            <?php elseif ($page_unit == 'pru-mnhc') : ?>
+                            <?php elseif ($page_brand->alias == 'pru-mnhc') : ?>
                             <a href="https://www.nihr.ac.uk/funding-and-support/funding-for-research-studies/funding-programmes/health-technology-assessment/" class="c-badge  c-badge--limit-height  u-space--left  u-space--right" rel="external noopener noreferrer" target="_blank">
                                 <img src="/assets/images/brand-logos/funder/nihr-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/nihr-logo.png'; this.onerror=null;" alt="Logo: Funded by NIHR - National Institute for Health Research" height="80">
                             </a>
                             <?php endif; ?>
-                            
-                            */ ?>
 
                         <?php endif; ?>
                         </div>
@@ -446,21 +442,21 @@
         </div>
 
         <footer class="sticky-footer" id="page-footer" aria-label="Page">
-            
+
             <?php if ($page_has_footer_top): ?>
             <?php /*<div data-position="6-footer-top">
                 <?php echo $modules__footer_top; /*<jdoc:include type="modules" name="6-footer-top" style="block" />* /?>
             </div>*/ ?>
-            
+
 
             <div class="l-layout  l-row  m-footer-top-count--<?php echo $page_footer_top_count; ?>" data-position="6-footer-top">
                 <div class="l-layout__inner">
                     <?php echo $modules__footer_top; ?>
                 </div>
             </div>
-            
+
             <?php endif; ?>
-            
+
             <?php if ($page_has_footer_mid_left || $page_has_footer_mid_right): ?>
             <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                 <div class="l-layout l-row">
@@ -550,7 +546,7 @@
             <?php echo $modules__footer_bottom; ?>
 
             <div class="c-page-footer  u-text-align--center  d-background--dark  t-<?php echo $page_brand->alias; ?>"><?php /* @TODO: sort out footer from form input. */ ?>
-    
+
                 <div class="l-layout  l-row l-gutter">
                     <div class="l-layout__inner">
                         <div class="l-box">
