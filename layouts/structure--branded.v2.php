@@ -1,7 +1,7 @@
     <div class="l-layout  page-wrap" data-brand="<?php echo $page_brand->alias; ?>">
         <div class="l-layout__inner">
 
-            <?php if ($env == 'testing' || $env == 'development') : ?>
+            <?php if ($env != 'production') : ?>
             <div class="env_container" id="env-container">
                 <div>
                     <fieldset role="presentation">
@@ -186,15 +186,7 @@
 
                     <?php if($page_has_hero) : ?>
                     <?php if($page_has_carousel) : ?>
-                    <?php
-                        $needs_wide = false;
-                        foreach ($page_heroes as $key => $page_hero) {
-                            if (!empty($page_hero->heading)) {
-                                $needs_wide = true;
-                            }
-                        }
-                    ?>
-                    <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel<?php echo $needs_wide ? '  c-hero__message--wide' : ''; ?>  d-border--bottom--thick">
+                    <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel  c-hero--message-wide  js-c-carousel  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-slide-name="banner-slide">
                         <div>
                             <nav class="c-hero-carousel__nav" aria-label="banner slides">
                                 <p data-fs-text="center" role="list">
@@ -207,45 +199,43 @@
                             </nav>
                             <div tabindex="0" class="c-hero-carousel__scroll-area" role="list">
                     <?php else : ?>
-                    <fieldset role="presentation" class="c-hero-wrap<?php echo !empty($page_heroes['hero_image0']->heading) ? '  c-hero--wide-message' : ''; ?>  d-border--top--thick  d-border--bottom--thick" data-fs-text="center">
+                    <fieldset role="presentation" class="c-hero-wrap<?php echo !empty($page_heroes['hero_image0']->heading) ? '  c-hero--message-wide' : ''; ?>  d-border--top--thick  d-border--bottom--thick" data-fs-text="center">
                     <?php endif; /* @TODO - need to think about credit lines. */ ?>
                             <?php $i = 0; foreach ($page_heroes as $key => $page_hero) : $i++; ?>
                                 <?php if($page_has_carousel) : ?>
                                 <hr noShade size="1">
                                 <?php endif; ?>
-                                <div<?php if($page_has_carousel) : ?><?php echo 'id="banner-slide-' . $i . '" role="listitem"'; ?><?php endif; ?> class="c-hero  c-info-overlay-wrap<?php echo (isset($page_hero->text_position) && $page_hero->text_position == 1) ? '' : '  c-hero--reversed'; ?>">
-                                    <div data-fs-block="border">
-                                        <div class="c-hero__image">
-                                            <div class="u-image-cover  js-image-cover  u-image-cover--min-40  u-image-cover--min-25--wide">
-                                                <div class="u-image-cover__inner">
-                                                    <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
-                                                </div>
+                                <div<?php if($page_has_carousel) : ?><?php echo 'id="banner-slide-' . $i . '" role="listitem"'; ?><?php endif; ?> class="c-hero  c-hero--<?php echo $page_hero->text_position; ?>  c-info-overlay-wrap">
+                                    
+                                    <div class="c-hero__image">
+                                        <div class="u-image-cover  js-image-cover  u-image-cover--min-33-33">
+                                            <div class="u-image-cover__inner">
+                                                <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
                                             </div>
                                         </div>
-
-                                        <?php if ($page_hero->credit): ?>
-                                        <details class="c-info-overlay  c-info-overlay--half-width">
-                                            <summary><span>Details</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  icon--is-closed"><use xlink:href="#icon-info"></use></svg><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></summary>
-                                            <div><?php echo $page_hero->credit; ?></div>
-                                        </details>
-                                        <?php endif; ?>
-
-                                        <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
-                                        <div class="c-hero__message"<?php echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; ?>>
-                                            <?php if (!empty($page_hero->heading)) :
-                                                $h = $i > 0 ? '2' : '1';
-                                            ?>
-                                            <h<?php echo $h; ?> class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" <?php /* not 100% sure this is needed: tabindex="-1"*/ ?>><?php echo $page_hero->heading; ?></h<?php echo $h; ?>>
-                                            <?php endif; ?>
-                                            <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
-                                            <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
-                                            <p class="c-hero__cta"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta"><?php echo $page_hero->cta_text; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
-                                            <?php endif; ?>
-                                        </div>
-
-                                        <?php endif; ?>
-
                                     </div>
+
+                                    <?php if ($page_hero->credit): ?>
+                                    <details class="c-info-overlay  c-info-overlay--half-width">
+                                        <summary><span>Details</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  icon--is-closed"><use xlink:href="#icon-info"></use></svg><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  icon--is-open"><use xlink:href="#icon-cross"></use></svg></summary>
+                                        <div><?php echo $page_hero->credit; ?></div>
+                                    </details>
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
+                                    <div class="c-hero__message">
+                                        <?php if (!empty($page_hero->heading)) :
+                                            $h = $i > 0 ? '2' : '1';
+                                        ?>
+                                        <h<?php echo $h; ?> class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" <?php /* not 100% sure this is needed: tabindex="-1"*/ ?>><?php echo $page_hero->heading; ?></h<?php echo $h; ?>>
+                                        <?php endif; ?>
+                                        <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
+                                        <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
+                                        <p class="c-hero__cta"><a href="<?php echo $page_hero->cta_link; ?>" class="c-cta"><?php echo $page_hero->cta_text; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <?php endif; ?>
                                 </div>
                             <?php endforeach; ?>
 

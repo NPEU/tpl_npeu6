@@ -181,7 +181,7 @@
     </style>
     <?php endif; ?>
 
-    <?php if ($env == 'testing' || $env == 'development') : ?>
+    <?php if ($env != 'production') : ?>
     <style>
 
      .env_container {
