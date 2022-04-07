@@ -1,6 +1,6 @@
     <div class="sticky-footer-wrap  c-page-wrap"  data-brand="<?php echo $page_brand->alias; ?>">
 
-        <?php if ($env == 'testing' || $env == 'development') : ?>
+        <?php if ($env != 'production') : ?>
         <div class="env_container" id="env-container">
             <fieldset role="presentation">
                 <p>
