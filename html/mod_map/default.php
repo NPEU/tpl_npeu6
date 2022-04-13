@@ -26,7 +26,7 @@ $lng    = $params->get('lng');
 $zoom   = $params->get('zoom');
 $token  = $params->get('access_token');
 $height = $params->get('height');
-$legend = $params->get('legend');
+$legend = trim($params->get('legend'));
 
 // Add Leaflet assets:
 $doc->addStyleSheet($template_path . '/css/map.min.css');
