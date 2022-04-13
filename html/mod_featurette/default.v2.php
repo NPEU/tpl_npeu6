@@ -10,6 +10,14 @@
 defined('_JEXEC') or die;
 use Joomla\String\StringHelper;
 
+// So there's a bug in Joomla where the conten property of a module will sometimes contain the
+// already-rendered module as a whole, and then 'render' will be called again, leading to a wierd
+// nested/duplicated temlate thing. It doesn't look like this will be fixed, so I'm hacking around
+// it by checking if it's already rendered before proceeding:
+if (strpos($module->content, 'mod_featurette') !== false) {
+    echo $module->content;
+    return;
+}
 
 $doc = JFactory::getDocument();
 

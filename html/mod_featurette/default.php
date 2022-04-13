@@ -15,6 +15,15 @@ if (!empty($_SERVER['JTV2'])) {
 defined('_JEXEC') or die;
 use Joomla\String\StringHelper;
 
+// So there's a bug in Joomla where the conten property of a module will sometimes contain the
+// already-rendered module as a whole, and then 'render' will be called again, leading to a wierd
+// nested/duplicated temlate thing. It doesn't look like this will be fixed, so I'm hacking around
+// it by checking if it's already rendered before proceeding:
+if (strpos($module->content, 'mod_featurette') !== false) {
+    echo $module->content;
+    return;
+}
+
 
 $doc = JFactory::getDocument();
 
@@ -38,6 +47,10 @@ $theme_class  = !empty($params->get('theme', false)) ? '  t-featurette--' . $par
 $border_class = $params->get('border', 'none') == 'none' ? '' : '  d-bands';
 $shape_class  = $params->get('shape', 'square') == 'square' ? '' : '  c-featurette__image--' . $params->get('shape');
 $fit_class    = $params->get('fit', 'cover') == 'cover' ? 'u-image-cover  js-image-cover' : '';
+
+#echo '<pre>'; var_dump($module->content); echo '</pre>'; #exit;
+
+
 ?>
 <div class="c-featurette<?php echo $has_image ? '  c-featurette--pull-image  u-space--above--none' : ''; ?><?php echo $theme_class; ?> mod_featurette">
     <div class="c-featurette__body  c-featurette__body--80">
