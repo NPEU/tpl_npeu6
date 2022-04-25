@@ -21,7 +21,7 @@ $hx = (int) str_replace('h', '', $params->get('header_tag'));
 $hx = 'h' . $hx;
 
 $basis = $params->get('card_basis', '25');
-
+$header_class = $params->get('header_class', '3-1');
 ?>
 
 <?php if (!empty($params->get('cards'))) : ?>
@@ -40,7 +40,7 @@ $basis = $params->get('card_basis', '25');
         if (!empty($card->link) && (bool) $params->get('link_full')) {
             $full_link = true;
         }
-        
+
         $theme_classes = empty($card->theme_classes) ? '' : '  ' . $card->theme_classes;
         ?>
             <li class="l-box">
@@ -49,7 +49,7 @@ $basis = $params->get('card_basis', '25');
 
                     <?php if (!empty($card->header_image)) : ?>
                     <div class="c-card__image">
-                        <div class="l-proportional-container  l-proportional-container--3-1">
+                        <div class="l-proportional-container  l-proportional-container--<?php echo $header_class; ?>">
                             <div class="l-proportional-container__content">
                                 <div class="u-image-cover  js-image-cover">
                                     <div class="u-image-cover__inner">
