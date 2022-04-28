@@ -206,9 +206,17 @@
                                     </div>
                                 </div>
                                 <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
-                                <div class="c-hero__message<?php echo (!empty($page_hero->heading) || $page_has_carousel || strlen($page_hero->text) > 185) ? '  c-hero__message--wide' : ''; ?><?php if (!empty($page_hero->text_width)){echo '  c-hero-message--tweaked';} ?>"<?php /*echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; */ ?>>
-                                    <?php if (!empty($page_hero->heading)) : # @TODO change H1 for for 2nd of multiple items. ?>
-                                    <h1 class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_hero->heading; ?></h1>
+                                <?php if (!empty($page_hero->heading)) {
+                                    $el = 'p';
+                                    if ($page_is_landing && $show_page_heading) {
+                                        $el = 'h1';
+                                        $heading_shown = true;
+                                    }
+                                }
+                                ?>
+                                <div class="c-hero__message<?php echo ((!empty($page_hero->heading) && $el == 'h1') || $page_has_carousel || strlen($page_hero->text) > 185) ? '  c-hero__message--wide' : ''; ?><?php if (!empty($page_hero->text_width)){echo '  c-hero-message--tweaked';} ?>"<?php /*echo (!empty($page_hero->text_width)) ? ' style="width: calc(' . $page_hero->text_width . 'em + 20%);"' : ''; */ ?>>
+                                    <?php if (!empty($page_hero->heading)) : ?>
+                                    <<?php echo $el; ?> class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_hero->heading; ?></<?php echo $el; ?>>
                                     <?php endif; ?>
                                     <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
                                     <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
@@ -235,7 +243,7 @@
                     <div class="d-bands--bottom  t-<?php echo $page_brand->alias; ?>">
                         <?php if ($page_is_landing) : ?>
                         <!-- Page is landing -->
-                        <?php if ($show_page_heading) : /* E.g. /news */?>
+                        <?php if ($show_page_heading && !isset($heading_shown)) : /* E.g. /news */?>
                         <!-- Page Heading -->
                         <div class="c-panel  n--page-is-landing">
                             <?php if (isset($doc->header_cta) || $is_blog) : ?>
