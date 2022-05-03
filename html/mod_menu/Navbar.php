@@ -11,6 +11,17 @@ $doc         = JFactory::getDocument();
 $app         = JFactory::getApplication();
 $active_menu = $app->getMenu()->getActive();
 
+// Blogs show child pages whilst still being the same menu item, so a child page is still treated as
+// the same page, so teh CURRENT logic doesn't work and you end up with an unexpected navbar link,
+// so check for this case:
+//$is_blog = ($active_menu->query['view'] == 'category' && $active_menu->query['layout'] == 'blog');
+
+$uri   = JUri::getInstance();
+$menu_route = trim($active_menu->route, '/');
+$uri_route  = trim($uri->getPath(), '/');
+$page_is_subroute = ($menu_route == $uri_route) ? false : true;
+
+
 // Include the template helper:
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 
@@ -18,11 +29,11 @@ $brand = TplNPEU6Helper::get_brand();
 
 if (!isset($is_sitemap)) {
     $is_sitemap = false;
-    
+
     if ($active_menu->alias == 'sitemap2' || $active_menu->alias == 'sitemap') {
         $is_sitemap = true;
     }
-    
+
 }
 $start_level = (int) $params->get('startLevel');
 ?>
@@ -65,7 +76,7 @@ foreach ($list as $i => &$item) {
     }
 }
 
-// We're now using a new list. NOTE deeper/shallower no longer always accurate - DO NOT USE 
+// We're now using a new list. NOTE deeper/shallower no longer always accurate - DO NOT USE
 
 foreach ($new_list as $i => &$item) {
     $level = (int) $item->level;
@@ -74,38 +85,38 @@ foreach ($new_list as $i => &$item) {
 
     if (isset($new_list[$i + 1])) {
         $next_item = $new_list[$i + 1];
-        $next_level = (int) $next_item->level;      
+        $next_level = (int) $next_item->level;
     }
-    
+
     $params = Joomla\Registry\Registry::getInstance('');
     $params->loadObject($item->params);
-    
+
     if (isset($params->get('data')->aliasoptions)) {
         $ref_id = $params->get('data')->aliasoptions;
     } else {
         $ref_id = $item->id;
     }
-    
-    
+
+
     $item_class         = 'nav-bar__item  dropdown-container';
     $item_current_class = 'nav-bar__item--current';
     $item_link_class    = 'nav-bar__link';
-    
+
     $tab_multiplier = 1;
     if ($level == (1 + $start_level)) {
         $tab_multiplier = 2;
-        
+
         $item_class         = 'subnav__item';
         $item_current_class = 'subnav__item--current';
         $item_link_class    = 'subnav__link';
     }
-    
+
     $nav_item = '';
 
     // Construct the class:
     $class   = $item_class;
     $current = false;
-    if ($active_id == $ref_id) {
+    if ($active_id == $ref_id && !$page_is_subroute) {
         $class .= '  ' . $item_current_class;
         $current = true;
     }
@@ -115,7 +126,7 @@ foreach ($new_list as $i => &$item) {
     }
 
     $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<li'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
-    
+
     $item->anchor_css = $item_link_class;
 
     // Add spans for styling purposes:
@@ -138,15 +149,15 @@ foreach ($new_list as $i => &$item) {
     }
     $output = ob_get_contents();
     ob_end_clean();
-    
+
     // Reset title to prevent spans appearing on <title> tag:
     $item->title = str_replace(array('&lt;span&gt;', '&lt;/span&gt;'), '', $title);
-    
+
     if ($current) {
         $output = preg_replace('#href="[^"]+"#', 'href="#main"', $output);
     }
-    
-    
+
+
 /*
 <div class="dropdown dropdown--only-wide js-dropdown">
 
@@ -181,7 +192,7 @@ foreach ($new_list as $i => &$item) {
 <?php if(!empty($nav)): ?>
 <ul class="nav-bar__items  mod_menu">
     <?php echo $nav; ?>
-    
+
 <?php echo TplNPEU6Helper::tab(2); ?></ul>
 <?php endif; ?>
 <?php endif; ?>
