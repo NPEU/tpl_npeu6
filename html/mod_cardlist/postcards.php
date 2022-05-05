@@ -65,7 +65,7 @@ $basis = $params->get('card_basis', '25');
                         <<?php echo $hx; ?> class="c-card__title"><?php echo $card->title; ?></<?php echo $hx; ?>>
 
                         <?php if (!empty(trim($card->body))) : ?>
-                        <div class="c-card__body">
+                        <div class="c-card__body  c-user-content">
                             <?php echo $card->body; ?>
                         </div>
                         <?php endif; ?>

@@ -48,9 +48,11 @@ $ff_width = $ff_widths[$c];
     }
 
     $card->footer = trim($card->footer);
+    
+    $theme_classes = empty($card->theme_classes) ? '' : '  ' . $card->theme_classes;
     ?>
         <div class="ff-width-100--45--<?php echo $ff_width; ?>  l-box">
-            <div class="c-card  u-fill-height">
+            <div class="c-card<?php echo $theme_classes; ?>  u-fill-height">
                 <?php echo $full_link ? '<a href="' . $card->link .'" class="c-card__full-link  u-fill-height--column">' : ''; ?>
                 <?php if (!empty($card->header_image)) : ?>
 
@@ -70,7 +72,7 @@ $ff_width = $ff_widths[$c];
                 <div class="c-card__main  u-fill-height--column__expand">
                     <<?php echo $hx; ?> class="c-card__title"><?php echo $card->title; ?></<?php echo $hx; ?>>
                     <?php if (!empty($card->body)) : ?>
-                    <div class="c-card__body">
+                    <div class="c-card__body  c-user-content">
                         <?php echo $card->body; ?>
 
                     </div>
