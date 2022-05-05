@@ -64,7 +64,7 @@ if (!empty($card_data['wrapper_classes'])) {
                 <?php if (empty($card_data['full_link'])) : ?></a><?php endif; ?>
                 </h2>
                 <?php if (!empty($card_data['body'])) : ?>
-                <div class="c-card__body">
+                <div class="c-card__body  c-user-content">
                     <?php echo $card_data['body']; ?>
                     <?php if (empty($card_data['full_link'])) : ?>
                     <p class="u-text-align--right">
