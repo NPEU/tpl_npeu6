@@ -26,7 +26,7 @@ $header_class = $params->get('header_class', '3-1');
 
 <?php if (!empty($params->get('cards'))) : ?>
 
-<div class="u-space--below  mod_cardlist  modlayout_postcards-bottom">
+<div class="u-space--belowX  mod_cardlist  modlayout_postcards-bottom">
     <div class="l-layout  l-gutter  l-basis--<?php echo $basis; ?>  l-flush-edge-gutter  l-distribute  l-distribute--balance-bottom">
         <ul class="l-layout__inner">
         <?php foreach ($params->get('cards') as $card) :
