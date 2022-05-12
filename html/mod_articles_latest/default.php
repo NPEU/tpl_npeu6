@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 $doc   = JFactory::getDocument();
 $current_article_in_list = false;
 foreach($list as $k => $item) {
-    if ($item->id == $doc->article->id) {
+    if (isset($doc->article->id) && $item->id == $doc->article->id) {
         unset($list[$k]);
         $current_article_in_list = true;
     }
