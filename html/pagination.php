@@ -1,4 +1,9 @@
 <?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><?php
 /*
 function pagination_list_render($list)
 {
@@ -25,43 +30,46 @@ function pagination_list_render($list)
 	return $html;
 }
 */
-function pagination_item_active(&$item)
-{
-	return '<a href="' . $item->link . '" class="n-pagination__link"><span>' . $item->text . '</span></a>';
-    
-    /*$app = JFactory::getApplication();
-	if ($app->isAdmin())
-	{
-		if ($item->base > 0)
-		{
-			return "<a title=\"" . $item->text . "\" onclick=\"document.adminForm." . $this->prefix . "limitstart.value=" . $item->base
-				. "; Joomla.submitform();return false;\">" . $item->text . "</a>";
-		}
-		else
-		{
-			return "<a title=\"" . $item->text . "\" onclick=\"document.adminForm." . $this->prefix
-				. "limitstart.value=0; Joomla.submitform();return false;\">" . $item->text . "</a>";
-		}
-	}
-	else
-	{
-		return "<a title=\"" . $item->text . "\" href=\"" . $item->link . "\" class=\"pagenav\">" . switchSymbol($item->text) . "</a>";
-	}*/
+if (!function_exists('pagination_item_active')) {
+    function pagination_item_active(&$item)
+    {
+        return '<a href="' . $item->link . '" class="n-pagination__link"><span>' . $item->text . '</span></a>';
+        
+        /*$app = JFactory::getApplication();
+        if ($app->isAdmin())
+        {
+            if ($item->base > 0)
+            {
+                return "<a title=\"" . $item->text . "\" onclick=\"document.adminForm." . $this->prefix . "limitstart.value=" . $item->base
+                    . "; Joomla.submitform();return false;\">" . $item->text . "</a>";
+            }
+            else
+            {
+                return "<a title=\"" . $item->text . "\" onclick=\"document.adminForm." . $this->prefix
+                    . "limitstart.value=0; Joomla.submitform();return false;\">" . $item->text . "</a>";
+            }
+        }
+        else
+        {
+            return "<a title=\"" . $item->text . "\" href=\"" . $item->link . "\" class=\"pagenav\">" . switchSymbol($item->text) . "</a>";
+        }*/
+    }
 }
 
-
-function pagination_item_inactive(&$item)
-{
-    return '<span class="n-pagination__link"><span>' . $item->text . '</span></span>';
-	/*$app = JFactory::getApplication();
-	if ($app->isAdmin())
-	{
-		return "<span>" . $item->text . "</span>";
-	}
-	else
-	{
-		return "<span>" . switchSymbol($item->text) . "</span>";
-	}*/
+if (!function_exists('pagination_item_inactive')) {
+    function pagination_item_inactive(&$item)
+    {
+        return '<span class="n-pagination__link"><span>' . $item->text . '</span></span>';
+        /*$app = JFactory::getApplication();
+        if ($app->isAdmin())
+        {
+            return "<span>" . $item->text . "</span>";
+        }
+        else
+        {
+            return "<span>" . switchSymbol($item->text) . "</span>";
+        }*/
+    }
 }
 /*
 function switchSymbol($text)

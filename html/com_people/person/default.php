@@ -1,4 +1,9 @@
 <?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_people
@@ -17,103 +22,111 @@ if (isset($person['pa']) && (isset($person['pa_details_only']) && $person['pa_de
     unset($person['email']);
 }
 
-function svg_info($img_src, $fallback_width = 180) {
+if (!function_exists('svg_info')) {
+    function svg_info($img_src, $fallback_width = 180) {
 
-    $path = JPATH_ROOT . $img_src;
-    if (file_exists($path)) {
-        $svg = file_get_contents($path);
-        preg_match('/viewBox="([^"]+)"/', $svg, $matches);
-        #echo '<pre>'; var_dump($matches); echo '</pre>';
-        $viewbox = isset($matches[1]) ? $matches[1] : '';
+        $path = JPATH_ROOT . $img_src;
+        if (file_exists($path)) {
+            $svg = file_get_contents($path);
+            preg_match('/viewBox="([^"]+)"/', $svg, $matches);
+            #echo '<pre>'; var_dump($matches); echo '</pre>';
+            $viewbox = isset($matches[1]) ? $matches[1] : '';
 
-        $values = explode(' ', $viewbox);
-        $w = $values[2];
-        $h = $values[3];
-        $ratio = ($w < $h) ? ($w / $h) : ($h / $w);
-        $fallback_height = round($fallback_width * $ratio);
+            $values = explode(' ', $viewbox);
+            $w = $values[2];
+            $h = $values[3];
+            $ratio = ($w < $h) ? ($w / $h) : ($h / $w);
+            $fallback_height = round($fallback_width * $ratio);
 
-        $values[2] = $fallback_width;
-        $values[3] = $fallback_height;
+            $values[2] = $fallback_width;
+            $values[3] = $fallback_height;
 
-        $return = array(
-            0 => $fallback_width,
-            1 => $fallback_height,
-            'viewbox' => 'viewBox="' . implode(' ', $values) . '"',
-            'dimensions' => 'width="' . $fallback_width . '" height="' . $fallback_height . '"'
-        );
+            $return = array(
+                0 => $fallback_width,
+                1 => $fallback_height,
+                'viewbox' => 'viewBox="' . implode(' ', $values) . '"',
+                'dimensions' => 'width="' . $fallback_width . '" height="' . $fallback_height . '"'
+            );
 
-        return $return;
+            return $return;
+        }
     }
 }
 
-function get_team($team) {
-?>
-        <section class="person__team">
-            <h2>Team</h2>
-            <ul class="l-gallery-grid  l-gallery-grid--gutter--medium  l-gallery-grid--basis-20">
+if (!function_exists('get_team')) {
+    function get_team($team) {
+    ?>
+            <section class="person__team">
+                <h2>Team</h2>
+                <ul class="l-gallery-grid  l-gallery-grid--gutter--medium  l-gallery-grid--basis-20">
 
-                <?php foreach($team as $id => $member): ?>
-                <li class="l-gallery-grid__item" filterable_item>
-                    <article class="c-glimpse">
-                        <a href="/about/people/<?php echo $member['alias']; ?>" class="c-glimpse__link">
-                            <div class="c-glimpse__image  c-glimpse__image--rounded">
-                                <div class="l-proportional-container  l-proportional-container--1-1">
-                                    <div class="l-proportional-container__content">
-                                        <div class="u-image-cover  js-image-cover">
-                                            <div class="u-image-cover__inner">
-                                                <img src="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=140" alt="" width="70px" />
+                    <?php foreach($team as $id => $member): ?>
+                    <li class="l-gallery-grid__item" filterable_item>
+                        <article class="c-glimpse">
+                            <a href="/about/people/<?php echo $member['alias']; ?>" class="c-glimpse__link">
+                                <div class="c-glimpse__image  c-glimpse__image--rounded">
+                                    <div class="l-proportional-container  l-proportional-container--1-1">
+                                        <div class="l-proportional-container__content">
+                                            <div class="u-image-cover  js-image-cover">
+                                                <div class="u-image-cover__inner">
+                                                    <img src="<?php echo $member['profile_img_src']; echo strpos($member['profile_img_src'], '?') === false ? '?' : '&'; ?>s=140" alt="" width="70px" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="c-glimpse__content">
-                                <h3 class="c-glimpse__heading"><span filterable_index filterable_index_name="first_name"><?php echo $member['firstname']; ?></span></span> <span filterable_index filterable_index_name="last_name"><?php echo $member['lastname']; ?></span></h3>
-                                <?php if(!empty($member['role'])): ?>
-                                <p><?php echo $member['role']; ?></p>
-                                <?php endif; ?>
-                            </div>
-                        </a>
-                    </article>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-
-        </section>
-<?php
-}
-
-function get_projects($projects) {
-?>
-        <section class="person__projects">
-            <h2>Projects</h2>
-            <div class="l-layout  l-basis--25  l-gutter--s  l-distribute  u-padding--s">
-                <ul class="l-layout__inner">
-                    <?php foreach($projects as $project):
-                        $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
-                        $png_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.png';
-                        $svg_info = svg_info($svg_path);
-                    ?>
-                    <li class="l-box  l-center  u-padding--s">
-                        <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height--8">
-
-                            <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
-                        </a>
+                                <div class="c-glimpse__content">
+                                    <h3 class="c-glimpse__heading"><span filterable_index filterable_index_name="first_name"><?php echo $member['firstname']; ?></span></span> <span filterable_index filterable_index_name="last_name"><?php echo $member['lastname']; ?></span></h3>
+                                    <?php if(!empty($member['role'])): ?>
+                                    <p><?php echo $member['role']; ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        </article>
                     </li>
                     <?php endforeach; ?>
                 </ul>
-            </div>
-        </section>
-<?php
+
+            </section>
+    <?php
+    }
 }
 
-function get_custom($custom_title, $custom) {
-?>
-        <section class="person__custom">
-            <h2><?php echo $custom_title; ?></h2>
-            <?php echo $custom; ?>
-        </section>
-<?php
+if (!function_exists('get_projects')) {
+    function get_projects($projects) {
+    ?>
+            <section class="person__projects">
+                <h2>Projects</h2>
+                <div class="l-layout  l-basis--25  l-gutter--s  l-distribute  u-padding--s">
+                    <ul class="l-layout__inner">
+                        <?php foreach($projects as $project):
+                            $svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
+                            $png_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.png';
+                            $svg_info = svg_info($svg_path);
+                        ?>
+                        <li class="l-box  l-center  u-padding--s">
+                            <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--limit-height--8">
+
+                                <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </section>
+    <?php
+    }
+}
+
+if (!function_exists('get_custom')) {
+    function get_custom($custom_title, $custom) {
+    ?>
+            <section class="person__custom">
+                <h2><?php echo $custom_title; ?></h2>
+                <?php echo $custom; ?>
+            </section>
+    <?php
+}
 }
 ?>
 

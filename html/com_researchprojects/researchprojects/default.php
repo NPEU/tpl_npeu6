@@ -1,4 +1,9 @@
 <?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_researchprojects
@@ -38,11 +43,12 @@ jQuery(document).ready(function(){
 $doc->addScriptDeclaration($js);
 */
 
-function format_person($p) {
-    $pp = ResearchProjectsHelper::parseCollaborator($p);
-    return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
+if (!function_exists('format_person')) {
+    function format_person($p) {
+        $pp = ResearchProjectsHelper::parseCollaborator($p);
+        return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
+    }
 }
-
 ?>
 <?php if (!empty($this->topics)) :
 ob_start(); ?>

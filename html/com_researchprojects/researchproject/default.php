@@ -1,4 +1,9 @@
 <?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_researchprojects
@@ -24,11 +29,12 @@ $skip = array(
     'state'
 );
 
-function format_person($p) {
-    $pp = ResearchProjectsHelper::parseCollaborator($p);
-    return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
+if (!function_exists('format_person')) {
+    function format_person($p) {
+        $pp = ResearchProjectsHelper::parseCollaborator($p);
+        return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
+    }
 }
-
 
 
 $pi_s = empty($this->item->pi_2) ? '' : 's';
@@ -53,7 +59,7 @@ ob_start();
         <dd><?php echo format_person($this->item->pi_1) . (empty($this->item->pi_2) ? '' : ', ' . format_person($this->item->pi_2)); ?></dd>
         <?php if (!empty($this->item->collaborators)) : ?>
         <dt>Collaborators</dt>
-        <dd><?php 
+        <dd><?php
             $i = 0;
             $c = count($this->item->collaborators) - 1;
             foreach($this->item->collaborators as $collaborator) {
@@ -63,7 +69,7 @@ ob_start();
         ?></dd>
         <?php endif; ?>
         <dt>Topics</dt>
-        <dd><?php 
+        <dd><?php
             $i = 0;
             $topics = $this->item->topic_details;
             $c = count($topics) - 1;
