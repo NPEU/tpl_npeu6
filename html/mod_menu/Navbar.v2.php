@@ -6,6 +6,17 @@ $doc         = JFactory::getDocument();
 $app         = JFactory::getApplication();
 $active_menu = $app->getMenu()->getActive();
 
+// Blogs show child pages whilst still being the same menu item, so a child page is still treated as
+// the same page, so teh CURRENT logic doesn't work and you end up with an unexpected navbar link,
+// so check for this case:
+//$is_blog = ($active_menu->query['view'] == 'category' && $active_menu->query['layout'] == 'blog');
+
+$uri   = JUri::getInstance();
+$menu_route = trim($active_menu->route, '/');
+$uri_route  = trim($uri->getPath(), '/');
+$page_is_subroute = ($menu_route == $uri_route) ? false : true;
+
+
 // Include the template helper:
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 
@@ -100,7 +111,7 @@ foreach ($new_list as $i => &$item) {
     // Construct the class:
     $class   = $item_class;
     $current = false;
-    if ($active_id == $ref_id) {
+    if ($active_id == $ref_id && !$page_is_subroute) {
         $class .= '  ' . $item_current_class;
         $current = true;
     }

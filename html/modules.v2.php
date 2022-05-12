@@ -83,7 +83,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
         <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
             <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
     <?php else: ?>
-    <div class="modstyle_bespoke--wrapper">
+    <div class="modstyle_bespoke--wrapper  u-fill-height">
     <?php endif; ?>
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
                 <header class="c-panel__header  modstyle_bespoke--header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">
@@ -169,10 +169,12 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     }
 
     $has_cta            = !empty($params->get('cta_text')) && !empty($params->get('cta_url'));
+    $has_content        = !empty(trim($module->content));
     $cta_position       = $params->get('cta_position');
     $has_headline_image = !empty($params->get('headline_image'));
 
-    if (!empty($module->content)): ?>
+    if (!(!$has_cta && !$has_content)):
+    ?>
     <?php if ($module_wrapper == 'panel'): ?>
     <<?php echo $module_tag; ?> class="c-panel  c-panel--rounded<?php echo $wrapper_theme_class; ?>  u-space--below  modstyle_sidebar  modstyle_sidebar--wrapper">
         <?php if ($has_headline_image): ?>
@@ -371,7 +373,8 @@ function modChrome_magic($module, &$params, &$attribs) {
 
 
 
-    if (!empty($module->content)): ?>
+    //if (!empty($module->content)):
+    ?>
 
     <div class="u-fill-heightX  <?php echo implode('  ', $outer_wrapper_classes); ?>">
         <div class="u-fill-heightX  <?php echo implode('  ', $wrapper_classes); ?>">
@@ -396,7 +399,7 @@ function modChrome_magic($module, &$params, &$attribs) {
             </<?php echo $outer_el; ?>>
         </div>
     </div>
-    <?php endif;
+    <?php //endif;
 }
 
 

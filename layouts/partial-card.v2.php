@@ -26,6 +26,7 @@ $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
     header_image_alt
     header_image_width
     header_image_ratio
+    header_span_attr
     date_format
     publish_date
     state
@@ -41,7 +42,7 @@ if (!isset($wrapper_classes) || !is_array($wrapper_classes)) {
     $wrapper_classes = [];
 }
 
-if (!empty($card_data['state']) && $card_data['state'] != 1) {
+if (isset($card_data['state']) && $card_data['state'] != 1) {
     $wrapper_classes[] = 'c-card--unpublished';
 }
 
@@ -52,8 +53,6 @@ if (!empty($card_data['wrapper_classes'])) {
 if (empty($card_data['hx'])) {
     $card_data['hx'] = '3';
 }
-
-
 
 
 if (!empty($card_data['header_image'])) {
@@ -106,15 +105,19 @@ if (!empty($card_data['footer_image'])) {
     //}
 }
 
-
+if (empty($card_data['header_span_attr'])) {
+    $card_data['header_span_attr'] = '';
+} else {
+    $card_data['header_span_attr'] = ' ' . $card_data['header_span_attr'];
+}
 ?>
 
-<article class="c-card  js-c-card<?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>">
+<article class="c-card  js-c-card<?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo '  ' . implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>">
     <div data-fs-block="border">
         <header class="c-card__header">
             <h<?php echo $card_data['hx']; ?> class="c-card__title">
                 <a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>>
-                    <span><?php echo $card_data['title']; ?></span>
+                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo $card_data['title']; ?></span>
                 </a>
             </h<?php echo $card_data['hx']; ?>>
             <?php if (!empty($card_data['header_image'])) : ?>
@@ -132,9 +135,9 @@ if (!empty($card_data['footer_image'])) {
             </div>
             <?php endif; ?>
         </header>
-        <?php if (!empty($card_data['body'])) : ?>
-        <div class="c-card__body">
-            <?php echo $card_data['body']; ?>
+        <?php if (!empty($card_data['body']) && !empty(trim($card_data['body']))) : ?>
+        <div class="c-card__body  user-content">
+            <?php echo trim($card_data['body']); ?>
         </div>
         <?php endif; ?>
 
@@ -144,7 +147,7 @@ if (!empty($card_data['footer_image'])) {
             <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-edge-gutter">
                 <div class="l-layout__inner">
                     <?php if (!empty($card_data['footer_extra'])) : ?>
-                    <p class="l-box  l-box--center">
+                    <p class="l-box  l-box--center  user-content">
                         <?php echo $card_data['footer_extra']; ?>
                     </p>
                     <?php endif; ?>

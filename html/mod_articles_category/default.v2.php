@@ -53,6 +53,7 @@ if ($count >= 2 && $count < 5) {
                 $fields = FieldsHelper::getFields('com_content.article', $item, true);
 
                 $card_data = array();
+                $card_data['theme_classes'] = empty($card->theme_classes) ? 'd-background' : $card->theme_classes;
                 $card_data['wrapper_classes']  = array($moduleclass_sfx);              
                 $card_data['link']             = $item->link;
                 $card_data['header_image']     = !empty($item->skip_image) ? false : $fields[0]->rawvalue;

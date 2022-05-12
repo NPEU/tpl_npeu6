@@ -84,11 +84,14 @@
                                 <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  d-background  t-secondary"><?php echo $page_cta_text; ?></a>
                             </span>
                             <?php endif; ?>
-                            <?php if ($page_brand->alias != 'pru-mnhc') : /* Skip PRU as a special case */ ?>
                             <?php
                                 if ($page_brand->alias == 'npeu') {
                                     $second_brand_id = 122;
 
+                                } elseif ($page_brand->alias == 'pru-mnhc') {
+                                    $second_brand_id = 2;
+                                } elseif ($page_unit == 'npeu') {
+                                    $second_brand_id = 1;
                                 } else {
                                     $parent_brand_alias_id = [
                                         'pru-mnhc' => 28,
@@ -104,8 +107,11 @@
                                 $second_brand_url = 'https://www.npeu.ox.ac.uk';
                                 if ($page_brand->alias == 'npeu') {
                                     $second_brand_width = $second_brand->svg_width_at_height_100;
+                                } elseif ($page_brand->alias == 'pru-mnhc') {
+                                    $second_brand_url = $second_brand->params->logo_url;
+                                    $second_brand_width = $second_brand->svg_width_at_height_80;
                                 } else {
-                                    $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : $second_brand->alias);
+                                    $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : ($page_unit == 'npeu' ? '' : $second_brand->alias));
                                     $second_brand_width = $second_brand->svg_width_at_height_80;
                                 }
                             ?>
@@ -116,14 +122,13 @@
                                     <img src="<?php echo $second_brand->logo_svg_path; ?>" onerror="this.src='<?php echo $second_brand->logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $second_brand->name; ?>" height="80" width="<?php echo $second_brand_width; ?>">
                                     <?php endif; ?></a>
                             </span>
-                            <?php endif; ?>
                         </p>
                     </div>
 
 
                     <?php if($page_has_navbar) : ?>
                     <div class="d-background">
-                        <div class="nav-bar js-cmr--wideX" data-js="cmr" data-ie-safe-parent-level="1">
+                        <div class="nav-bar" data-js="cmr" data-ie-safe-parent-level="1">
 
                             <div class="nav-bar__start" data-area="navbar-controls">
                                 <?php if ($modules__header_nav_bar != '') : ?>
@@ -182,9 +187,16 @@
             </div>
             <div class="l-box  l-box--expand">
 
-                <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>">
+                <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" class="d-background--dark<?php if ($is_blog && $page_has_article) :?>  is-blog-article<?php endif; ?>">
 
                     <?php if($page_has_hero) : ?>
+                    <?php if (!empty($page_heroes['hero_image0']->heading)) {
+                        $h_el = 'p';
+                        if ($page_is_landing && $show_page_heading) {
+                            $h_el = 'h1';
+                            $heading_shown = true;
+                        }
+                    } ?>
                     <?php if($page_has_carousel) : ?>
                     <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel  c-hero--message-wide  js-c-carousel  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-slide-name="banner-slide">
                         <div>
@@ -199,16 +211,18 @@
                             </nav>
                             <div tabindex="0" class="c-hero-carousel__scroll-area" role="list">
                     <?php else : ?>
-                    <fieldset role="presentation" class="c-hero-wrap<?php echo !empty($page_heroes['hero_image0']->heading) ? '  c-hero--message-wide' : ''; ?>  d-border--top--thick  d-border--bottom--thick" data-fs-text="center">
+
+                    <div class="c-hero-wrap<?php echo ((!empty($page_heroes['hero_image0']->heading) && $h_el == 'h1') || strlen($page_heroes['hero_image0']->text) > 185) ? '  c-hero__message--wide' : ''; ?><?php echo !empty($page_heroes['hero_image0']->heading) ? '  c-hero--message-wide' : ''; ?>  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-fs-text="center">
                     <?php endif; /* @TODO - need to think about credit lines. */ ?>
                             <?php $i = 0; foreach ($page_heroes as $key => $page_hero) : $i++; ?>
-                                <?php if($page_has_carousel) : ?>
+                                <?php if ($i > 1) { $h_el = 'p'; } ?>
+                                <?php if ($page_has_carousel) : ?>
                                 <hr noShade size="1">
                                 <?php endif; ?>
-                                <div<?php if($page_has_carousel) : ?><?php echo 'id="banner-slide-' . $i . '" role="listitem"'; ?><?php endif; ?> class="c-hero  c-hero--<?php echo $page_hero->text_position; ?>  c-info-overlay-wrap">
-                                    
+                                <div<?php if($page_has_carousel) : ?><?php echo ' id="banner-slide-' . $i . '" role="listitem"'; ?><?php endif; ?> class="c-hero  c-hero--message-<?php echo $page_hero->text_position; ?>  c-info-overlay-wrapx" data-fs-text="center">
+
                                     <div class="c-hero__image">
-                                        <div class="u-image-cover  js-image-cover  u-image-cover--min-33-33">
+                                        <div class="u-image-cover  js-image-cover  <?php if ($is_blog && $page_has_article) :?>u-image-cover--min-50<?php else: ?>u-image-cover--min-33-33<?php endif; ?>">
                                             <div class="u-image-cover__inner">
                                                 <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
                                             </div>
@@ -224,10 +238,8 @@
 
                                     <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
                                     <div class="c-hero__message">
-                                        <?php if (!empty($page_hero->heading)) :
-                                            $h = $i > 0 ? '2' : '1';
-                                        ?>
-                                        <h<?php echo $h; ?> class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" <?php /* not 100% sure this is needed: tabindex="-1"*/ ?>><?php echo $page_hero->heading; ?></h<?php echo $h; ?>>
+                                        <?php if (!empty($page_hero->heading)) : ?>
+                                        <<?php echo $h_el; ?> class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" <?php /* not 100% sure this is needed: tabindex="-1"*/ ?>><?php echo ($h_el == 'p' ? '<b>' : ''); ?><?php echo $page_hero->heading; ?><?php echo ($h_el == 'p' ? '</b>' : ''); ?></<?php echo $h_el; ?>>
                                         <?php endif; ?>
                                         <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
                                         <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
@@ -243,7 +255,11 @@
                             </div>
                         </div>
                         <?php endif; ?>
+                    <?php if($page_has_carousel) : ?>
                     </fieldset>
+                    <?php else: ?>
+                    </div>
+                    <?php endif; ?>
                     <?php endif; /* End $page_has_hero */ ?>
 
 
@@ -252,24 +268,25 @@
                     <div class="d-border--bottom--thick">
                         <?php if ($page_is_landing) : ?>
                         <!-- Page is landing -->
-                        <?php if ($show_page_heading) : /* E.g. /news NOT DONE >>>> */?>
+                        <?php if ($show_page_heading && !isset($heading_shown)) : /* E.g. /news NOT DONE >>>> */?>
                         <!-- Page Heading -->
-                        <div class="c-panel  n--page-is-landing">
+                        <div class="c-panel  d-background--white  n--page-is-landing">
                             <header class="c-panel__header">
                                 <?php if (isset($doc->header_cta) || $is_blog) : ?>
-                                <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1">TO DO<?php echo $page_heading; ?></h1>
-                                <p>
-                                    <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
-                                    <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
-                                    <?php endif; ?>
-                                    <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : /* E.g. What's New */ ?>
-                                    <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
-                                    <?php endif; ?>
-                                    <?php if ($has_add_form_child && $page_is_subroute == false) : /* E.g. Staff Notices */ ?>
-                                    <a href="<?php echo $add_form_child_url; ?>" class="c-cta  c-cta--has-icon">Add new<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
-                                    <?php endif; ?>
-                                </p>
-
+                                <div>
+                                    <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                                    <p>
+                                        <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
+                                        <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                                        <?php endif; ?>
+                                        <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : /* E.g. What's New */ ?>
+                                        <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
+                                        <?php endif; ?>
+                                        <?php if ($has_add_form_child && $page_is_subroute == false) : /* E.g. Staff Notices */ ?>
+                                        <a href="<?php echo $add_form_child_url; ?>" class="c-cta">Add new<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg></a>
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
                                 <?php else : ?>
                                 <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
                                 <?php endif; ?>
@@ -283,7 +300,7 @@
 
                         <?php else : /* NOT DONE >>>> */ ?>
                         <!-- Page is NOT landing -->
-                        <div class="l-primary-content<?php if ($page_has_pull_outs) : ?>  l-primary-content--has-pull-outs<?php endif; ?>  n--page-not-landing">
+                        <div class="l-primary-content<?php if ($page_has_pull_outs) : ?>  l-primary-content--has-pull-outs<?php endif; ?><?php if (!($page_has_sidebar_super || $page_has_sidebar_top || $page_has_priority_content || $page_toc)) : ?>  l-primary-content--has-pull-outs--only-bottom<?php endif; ?>  n--page-not-landing  d-background--white">
 
                             <?php if ($page_has_sidebar_super) : ?>
                             <?php if ($page_badge) : ?>
@@ -300,18 +317,20 @@
                                 <div class="c-panel">
                                     <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                     <header class="c-panel__header">
-                                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
-                                        <p>
-                                            <?php if (isset($doc->header_cta)) : ?>
-                                            <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta  c-cta--has-icon"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
-                                            <?php endif; ?>
-                                            <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : ?>
-                                            <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta  c-cta--has-icon">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
-                                            <?php endif; ?>
-                                            <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
-                                            <a href="<?php echo $add_form_child_url; ?>" class="c-cta  c-cta--has-icon">Add new &nbsp;<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-edit"></use></svg></a>
-                                            <?php endif; ?>
-                                        </p>
+                                        <div>
+                                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                                            <p>
+                                                <?php if (isset($doc->header_cta)) : ?>
+                                                <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
+                                                <?php endif; ?>
+                                                <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : ?>
+                                                <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
+                                                <?php endif; ?>
+                                                <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
+                                                <a href="<?php echo $add_form_child_url; ?>" class="c-cta">Add new &nbsp;<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-edit"></use></svg></a>
+                                                <?php endif; ?>
+                                            </p>
+                                        </div>
                                     </header>
                                     <?php else : ?>
                                     <header class="c-panel__header">
@@ -377,24 +396,35 @@
 
                                 <?php if ($page_has_article) : ?>
                                 <div class="longform-content  user-content">
+
                                     <?php if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) : ?>
-                                    <div class="u-space--below">
-                                        <div class="l-proportional-container  l-proportional-container--2-1">
-                                            <div class="l-proportional-container__content">
-                                                <div class="u-image-cover  js-image-cover">
-                                                    <div class="u-image-cover__inner">
-                                                        <img class="u-image-cover__image" src="<?php echo $doc->article->headline_image['headline-image']; ?>?s=700" alt="<?php echo $doc->article->headline_image['headline-image-alt-text']; ?>" sizes="(max-width: 380px) 350px, 90vw" srcset="<?php echo $doc->article->headline_image['headline-image']; ?>?s=350 350w, <?php echo $doc->article->headline_image['headline-image']; ?>?s=700 700w" width="700">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php if (!empty($doc->article->headline_image['headline-image-credit-line'])) : ?>
-                                        <p class="c-utilitext  c-utilitext--smaller  c-utilitext--pale">
-                                            Credit: <?php echo $doc->article->headline_image['headline-image-credit-line']; ?>
-                                        </p>
-                                        <?php endif; ?>
-                                    </div>
+                                    <p class="u-image-cover  js-image-cover  u-image-cover--min-56-25">
+                                        <span class="u-image-cover__inner">
+                                            <img src="<?php echo $doc->article->headline_image['headline-image']; ?>?s=700" alt="<?php echo $doc->article->headline_image['headline-image-alt-text']; ?>" sizes="(max-width: 380px) 350px, 90vw" srcset="<?php echo $doc->article->headline_image['headline-image']; ?>?s=350 350w, <?php echo $doc->article->headline_image['headline-image']; ?>?s=700 700w" class="u-image-cover__image" width="700">
+                                        </span>
+                                    </p>
+
+                                    <?php if (!empty($doc->article->headline_image['headline-image-credit-line'])) : ?>
+                                    <p class="c-utilitext  c-utilitext--smaller  c-utilitext--pale">
+                                        Credit: <?php echo $doc->article->headline_image['headline-image-credit-line']; ?>
+                                    </p>
                                     <?php endif; ?>
+
+                                    <?php endif; ?>
+
+                                    <?php if ($is_blog && (!empty($doc->article->publish_up) || !empty($doc->article->twitter_url))) : ?>
+                                    <p class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-edge-gutter">
+                                        <span class="l-layout__inner">
+                                        <?php if (!empty($doc->article->publish_up)) : ?><span class="l-box  l-box--center"><span>Published on <?php echo JHtml::_('date', $doc->article->publish_up, JText::_('DATE_FORMAT_LC1')); ?></span></span><?php endif; ?>
+                                        <?php if (!empty($doc->article->twitter_url)) : ?><span class="l-box"><a href="<?php echo $doc->article->twitter_url; ?>" class="c-cta" target="_blank"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-twitter--inverted"></use></svg> <span>Tweet</span></a></span><?php endif; ?>
+                                        </span>
+                                    </p>
+                                    <?php endif; ?>
+
+                                    <?php if ($doc->article->params->get('show_author')) : ?>
+                                    <p>Posted by: <?php echo $doc->article->author; ?></p>
+                                    <?php endif; ?>
+
                                     <?php if ($page_has_priority_content) : ?>
                                     <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
                                     <?php else : ?>
@@ -402,40 +432,23 @@
                                     <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
                                     <?php endif; ?>
                                 </div>
+
                                 <?php else : ?>
-                                <div class="c-panel">
-                                    <jdoc:include type="component" format="raw" />
-                                </div>
+                                <jdoc:include type="component" format="raw" />
                                 <?php endif; ?>
 
                                 <?php if ($page_has_article) : ?>
-                                <?php if ($page_article_brand) : ?>
-                                <div class="longform-content__companion">
-                                    <p>
-                                        <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
-                                            <img alt="Logo: <?php echo $page_article_brand->name; ?>" height="60" onerror="this.src='<?php echo $page_article_brand->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $page_article_brand->logo_svg_path; ?>">
-                                        </a>
-                                    </p>
-                                </div>
-                                <?php endif; ?>
                                 <footer class="longform-content__companion  t-neutral  d-background--very-light">
                                     <div class="l-layout  l-row  l-row--push-apart  l-gutter--s">
                                         <p class="l-layout__inner  c-utilitext">
-                                            <?php if ($is_blog && !empty($doc->article->publish_up)) : ?>
-                                            <?php if ($doc->article->params->get('show_author')) : ?>
-                                            <span>Posted by: <?php echo $doc->article->author; ?></span>
-                                            <?php endif; ?>
-                                            <span>Published on <?php echo JHtml::_('date', $doc->article->publish_up, JText::_('DATE_FORMAT_LC1')); ?></span>
-                                            <?php else : ?>
                                             <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
-                                            <?php endif; ?>
-                                            <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)): ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . '" target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  u-space--left--xs"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
+                                            <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)) : ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . '" target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  u-space--left--xs"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
                                         </p><!-- End layout-inner -->
                                     </div>
                                 </footer>
                                 <?php endif; ?>
                                 <?php if (!empty($doc->article->pagination)) : ?>
-                                <div class="u-space--below">
+                                <div class="longform-content__companion">
                                     <?php echo $doc->article->pagination; ?>
                                 </div>
                                 <?php endif; ?>
@@ -446,9 +459,24 @@
                             // Not sure this is the best place for this? ?>
                             <?php echo $doc->article->event->afterDisplayContent; ?>
                             <?php endif; ?>
-
                             <?php if ($page_has_pull_outs && $page_has_sidebar_bottom) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--bottom  page-sidebar">
+
+                                <?php if ($page_article_brand) : ?>
+                                <div class="c-panel  c-panel--rounded  d-background--very-light  t-neutral  u-space--below">
+                                    <div class="c-panel__module">
+                                        <header class="c-panel__header" aria-labelledby="in-this-section">
+                                            <h2>More on <?php echo $page_article_brand->name; ?>:</h2>
+                                        </header>
+                                        <p class="u-text-align--center">
+                                            <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
+                                                <img alt="Logo: <?php echo $page_article_brand->name; ?>" height="60" onerror="this.src='<?php echo $page_article_brand->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $page_article_brand->logo_svg_path; ?>">
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
                                 <?php echo $component__sidebar_bottom; ?>
                                 <?php echo $modules__sidebar_bottom; /*<jdoc:include type="modules" name="4-sidebar-bottom" style="sidebar" />*/ ?>
                             </div>

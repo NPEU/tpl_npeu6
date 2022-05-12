@@ -33,7 +33,7 @@ function person_img_size($img_url, $size) {
 }
 ?>
 
-<div class="d-border--bottom--thick">
+<div class="d-border--bottom--thick  d-background--white">
 
     <div class="l-layout  l-row">
         <div class="l-layout__inner">
@@ -70,7 +70,7 @@ function person_img_size($img_url, $size) {
                                 <?php
                                 $img_info = get_person_image_info($director['profile_img_src']);
                                 ?>
-                                <img src="<?php echo $img_info['src']; ?>" sizes="100vw" srcset="<?php echo person_img_size($img_info['src'], 1600); ?> 1600w, <?php echo person_img_size($img_info['src'], 900); ?> 900w, <?php echo person_img_size($img_info['src'], 300); ?> 300w" alt="" class="u-image-cover__image" width="<?php echo $img_info['w']; ?>" height="<?php echo $img_info['h']; ?>">
+                                <img src="<?php echo $img_info['src']; ?>" sizes="100vw" srcset="<?php echo person_img_size($img_info['src'], 1600); ?> 1600w, <?php echo person_img_size($img_info['src'], 900); ?> 900w, <?php echo person_img_size($img_info['src'], 300); ?> 300w" alt="Portrait of <?php echo $director['name']; ?>" class="u-image-cover__image" width="<?php echo $img_info['w']; ?>" height="<?php echo $img_info['h']; ?>">
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@ foreach ($this->people as $group_heading => $data) {
 }
 $l = count($people);
 ?>
-<div class="c-panel  l-box--space--inline--l">
+<div class="c-panel  l-box--space--inline--l  d-background--white">
     <div filterable_group>
         <script type="text/template" filterable_form_template>
             <form class="tool-form">
@@ -145,7 +145,7 @@ $l = count($people);
                                             <?php
                                             $img_info = get_person_image_info($person['profile_img_src']);
                                             ?>
-                                            <img src="<?php echo $img_info['src']; ?>" sizes="100vw" srcset="<?php echo person_img_size($img_info['src'], 1600); ?> 1600w, <?php echo person_img_size($img_info['src'], 900); ?> 900w, <?php echo person_img_size($img_info['src'], 300); ?> 300w" alt="" class="u-image-cover__image" width="<?php echo $img_info['w']; ?>" height="<?php echo $img_info['h']; ?>">
+                                            <img src="<?php echo $img_info['src']; ?>" sizes="100vw" srcset="<?php echo person_img_size($img_info['src'], 1600); ?> 1600w, <?php echo person_img_size($img_info['src'], 900); ?> 900w, <?php echo person_img_size($img_info['src'], 300); ?> 300w" alt="Portrait of <?php echo $person['name']; ?>" class="u-image-cover__image" width="<?php echo $img_info['w']; ?>" height="<?php echo $img_info['h']; ?>">
                                         </div>
                                     </div>
                                 </div>

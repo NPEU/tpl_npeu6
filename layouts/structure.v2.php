@@ -17,6 +17,7 @@
     <?php endif; ?>
 
     <!-- Ultra-light fallback styles for ancient browsers: -->
+    <meta id="css_has_loaded">
     <style>
         /*
             Tiny Fall-Back Styles (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md)
@@ -34,8 +35,8 @@
 
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
         .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top:0;left:0;width:100%;height:100%;}
-    
-    
+
+
         /* IE needs SVG icons to NOT be auto height: */
         svg[height="1.25em"] {height: 1.25em;}
     </style>
@@ -285,7 +286,7 @@
     <?php endif;?>
 
     <!-- End Social Media -->
-    
+
     <style>
         :root {
 
@@ -296,10 +297,10 @@
             --t-primary-color-l-copy: <?php echo $page_brand->primary_colour_hsl['L']; ?>;
 
             --t-secondary-color: <?php echo $page_brand->secondary_colour; ?>;
-            --t-secondary-color-h: 353;
-            --t-secondary-color-s: 77%;
-            --t-secondary-color-l: 60%;
-            --t-secondary-color-l-copy: 60%;
+            --t-secondary-color-h: <?php echo $page_brand->secondary_colour_hsl['H']; ?>;
+            --t-secondary-color-s: <?php echo $page_brand->secondary_colour_hsl['S']; ?>;
+            --t-secondary-color-l: <?php echo $page_brand->secondary_colour_hsl['L']; ?>;
+            --t-secondary-color-l-copy: <?php echo $page_brand->secondary_colour_hsl['L']; ?>;
 
 
             --t-primary-color-l--very-light: 95%;

@@ -10,6 +10,32 @@
 defined('_JEXEC') or die;
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
+
+// Don't show a news article if that's the one that's loaded on the page:
+$doc   = JFactory::getDocument();
+$current_article_in_list = false;
+foreach($list as $k => $item) {
+    if ($item->id == $doc->article->id) {
+        unset($list[$k]);
+        $current_article_in_list = true;
+    }
+}
+
+if (empty($list)) {
+    return '';
+}
+
+// If we HAVEN'T removed an item, remove the last one so the number of items doesn't fluctuate:
+if (count($list) > 1 && !$current_article_in_list) {
+    array_pop($list);
+}
+
+if (empty($list)) {
+    return '';
+}
+
+
+
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
@@ -29,7 +55,7 @@ $count = $params->get('count');
 <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
 <?php else: 
 // Have a go at providing useful classes:
-
+$wrapper_classes = ['d-background  d-border'];
 if ($count >= 2 && $count < 5) {
     $wrap_class  = 'mod_articles_latest';
     $outer_class = 'l-layout  l-row  l-gutter  l-flush-edge-gutter';
