@@ -95,6 +95,28 @@ class TplNPEU6Helper
      *
      * @return object
      */
+    public static function get_brand_id_from_alias($brand_alias = false)
+    {
+        if (!is_string($brand_alias)) {
+            return false;
+        }
+
+        $db = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $query->select('id');
+        $query->from('#__brands');
+        $query->where('alias = "' . $brand_alias . '"');
+        $db->setQuery($query);
+        $brand_id = $db->loadResult();
+        return $brand_id;
+    }
+
+    /**
+     * Gets a brand - defaults to getting current menu item brand.
+     *
+     * @return object
+     */
     public static function get_brand($brand_id = false)
     {
         $get_page_brand = !$brand_id;
@@ -131,6 +153,8 @@ class TplNPEU6Helper
             $db->setQuery($query);
             $brand = $db->loadObject();
 
+            $brand->params = json_decode($brand->params);
+
             // Lets add some useful stuff not stored in the db:
             preg_match('/viewBox="(.+?)\s(.+?)\s(.+?)\s(.+?)"/', $brand->logo_svg, $matches);
             $brand->svg_width        = $matches[3];
@@ -148,6 +172,14 @@ class TplNPEU6Helper
             $brand->primary_colour_hsl['H'] = round($brand->primary_colour_hsl['H']);
             $brand->primary_colour_hsl['S'] = round($brand->primary_colour_hsl['S'] * 100) . '%';
             $brand->primary_colour_hsl['L'] = round($brand->primary_colour_hsl['L'] * 100) . '%';
+
+            $secondary_color = new Color($brand->secondary_colour);
+
+            $brand->secondary_colour_is_light = $secondary_color->isLight();
+            $brand->secondary_colour_hsl      = $secondary_color->getHsl();
+            $brand->secondary_colour_hsl['H'] = round($brand->secondary_colour_hsl['H']);
+            $brand->secondary_colour_hsl['S'] = round($brand->secondary_colour_hsl['S'] * 100) . '%';
+            $brand->secondary_colour_hsl['L'] = round($brand->secondary_colour_hsl['L'] * 100) . '%';
 
             if ($get_page_brand) {
                 self::$brand = $brand;
@@ -415,7 +447,7 @@ class TplNPEU6Helper
             $html = preg_replace('/(<a[^>]+>)/', '$1<span>', $html);
             $html = preg_replace('/<\/a>/', '</span></a>', $html);
         }
-        
+
         if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
             $s = $options['split_to_list'];
             $a = explode($s, $html);
