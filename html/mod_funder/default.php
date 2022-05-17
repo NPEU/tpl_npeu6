@@ -41,11 +41,26 @@ $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
 <div class="u-fill-heightX  d-bands--bottomX  <?php echo $theme; ?>  mod_funder">
     <div class="u-fill-heightX  l-layout  l-row">
         <div class="l-layout__inner">
-            <?php if (!empty($params->get('image'))): ?>
+            <?php if (!empty($params->get('image'))): /* this is the old single-image option, but keep untill all have been migrated. */ ?>
             <div class="l-box  ff-width-100--40--50  u-fill-heightX">
                 <div class="u-image-cover  u-image-cover--min-20  js-image-cover">
                     <div class="u-image-cover__inner">
                         <img class="u-image-cover__image" src="<?php echo $params->get('image'); ?>" width="150" alt="">
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if (!empty($params->get('images'))) :
+                $images = [];
+                foreach ((array) $params->get('images') as $image) {
+                    $images[] = $image->image;
+                }
+                shuffle($images);
+            ?>
+            <div class="l-box  ff-width-100--40--50  u-fill-heightX">
+                <div class="u-image-cover  u-image-cover--min-20  js-image-cover">
+                    <div class="u-image-cover__inner">
+                        <img class="u-image-cover__image" src="<?php echo $images[0]; ?>" width="150" alt="">
                     </div>
                 </div>
             </div>
