@@ -430,8 +430,10 @@
 
                             <?php if ($page_has_pull_outs && $page_has_sidebar_bottom) : ?>
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--bottom">
-                                <?php echo $component__sidebar_bottom; ?>
-                                <?php echo $modules__sidebar_bottom; /*<jdoc:include type="modules" name="4-sidebar-bottom" style="sidebar" />*/ ?>
+                                <div class="l-primary-content__pull-out__padded--@small  nb-pad-bottom">
+                                    <?php echo $component__sidebar_bottom; ?>
+                                    <?php echo $modules__sidebar_bottom; /*<jdoc:include type="modules" name="4-sidebar-bottom" style="sidebar" />*/ ?>
+                                </div>
                             </div>
                             <?php endif; ?>
 
