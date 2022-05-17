@@ -203,7 +203,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
                 <?php elseif ($module->showtitle): ?>
                 <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
                 <?php endif; ?>
-                <?php echo $module->content; ?>
+                <?php echo $module->content; ?> 
                 <?php if ($has_cta && $cta_position == 'bottom'): ?>
                 <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 <?php endif; ?>
@@ -218,6 +218,14 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 function modChrome_block($module, &$params, &$attribs) {
     if (!empty($module->content)): ?>
     <div class="l-blockrow  modstyle_block">
+        <?php echo $module->content; ?>
+    </div>
+    <?php endif;
+}
+
+function modChrome_block_space_below($module, &$params, &$attribs) {
+    if (!empty($module->content)): ?>
+    <div class="u-space--below  l-blockrow  modstyle_blockspace-below">
         <?php echo $module->content; ?>
     </div>
     <?php endif;
