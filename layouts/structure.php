@@ -64,7 +64,7 @@ if (!empty($_SERVER['JTV2'])) {
         only print, screen and (min-width: 1vm),
         only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
-    ">
+    ">  
     <!-- Load styles for IE11, UC -->
     <script>
     if (
@@ -74,6 +74,29 @@ if (!empty($_SERVER['JTV2'])) {
         var link  = document.createElement('link');
         link.rel  = 'stylesheet';
         link.href = '<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/theme-' . $page_brand->alias . '.min.css'); ?>';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    </script>
+    
+    <!--
+        Print, Edge 12? - 18
+        Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
+        FF 47+
+    -->
+    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/broken.min.css'); ?>" media="
+        only print, screen and (min-width: 1vm),
+        only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
+        only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
+    ">
+    <!-- Load styles for IE11, UC -->
+    <script>
+    if (
+        (!!window.MSInputMethodContext && !!document.documentMode)
+     || (navigator.userAgent.indexOf('UCBrowser') > -1)
+    ) {
+        var link  = document.createElement('link');
+        link.rel  = 'stylesheet';
+        link.href = '<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/broken.min.css'); ?>';
         document.getElementsByTagName('head')[0].appendChild(link);
     }
     </script>
@@ -229,6 +252,7 @@ if (!empty($_SERVER['JTV2'])) {
     </style>
     <?php endif; ?>
     
+
     <!--<![endif]-->
 
     <link rel="apple-touch-icon" sizes="180x180" href="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>apple-touch-icon.png">
