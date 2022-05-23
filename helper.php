@@ -163,9 +163,19 @@ class TplNPEU6Helper
             $brand->svg_width_at_height_80  = round(80 * $brand->svg_aspect_ratio);
             $brand->svg_width_at_height_100 = round(100 * $brand->svg_aspect_ratio);
 
+            // Force a valid colour so Color doesn't quit everything.
+            $colour_1 = $brand->primary_colour;
+            if (empty($colour_1)) {
+                $colour_1 = '#000000';
+            }
+
+            $colour_2 = $brand->secondary_colour;
+            if (empty($colour_2)) {
+                $colour_2 = '#000000';
+            }
 
             // Include the colour values:
-            $primary_color = new Color($brand->primary_colour);
+            $primary_color = new Color($colour_1);
 
             $brand->primary_colour_is_light = $primary_color->isLight();
             $brand->primary_colour_hsl      = $primary_color->getHsl();
@@ -173,7 +183,7 @@ class TplNPEU6Helper
             $brand->primary_colour_hsl['S'] = round($brand->primary_colour_hsl['S'] * 100) . '%';
             $brand->primary_colour_hsl['L'] = round($brand->primary_colour_hsl['L'] * 100) . '%';
 
-            $secondary_color = new Color($brand->secondary_colour);
+            $secondary_color = new Color($colour_2);
 
             $brand->secondary_colour_is_light = $secondary_color->isLight();
             $brand->secondary_colour_hsl      = $secondary_color->getHsl();
