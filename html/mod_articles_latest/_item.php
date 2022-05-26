@@ -48,24 +48,33 @@ if (!empty($urls)) {
 
                 if (!empty($customFieldValues[2])) {
                     $progenitor_headline_image['headline-image-alt-text'] = $customFieldValues[2];
+                } else {
+                    $progenitor_headline_image['headline-image-alt-text'] = false;
                 }
+
 
                 if (!empty($customFieldValues[3])) {
                     $progenitor_headline_image['headline-image-caption'] = $customFieldValues[3];
+                } else {
+                    $progenitor_headline_image['headline-image-caption'] = false;
                 }
 
                 if (!empty($customFieldValues[4])) {
                     $progenitor_headline_image['headline-image-credit-line'] = $customFieldValues[4];
+                } else {
+                    $progenitor_headline_image['headline-image-credit-line'] = false;
                 }
             }
         }
     }
 }
 
+
+
 $fields = FieldsHelper::getFields('com_content.article', $item, true);
 $image = false;
 $image_alt = false;
-if (!empty($item->skip_image)) {
+if (empty($item->skip_image)) {
     $image     = $fields[0]->rawvalue;
     $image_alt = $fields[1]->rawvalue;
     
@@ -75,9 +84,6 @@ if (!empty($item->skip_image)) {
     }
 }
 
-
-
-
 $i = isset($i) ? $i : 0;
 
 $card_data = array();
@@ -85,8 +91,8 @@ $card_data = array();
 $card_data['theme']           = $theme;
 $card_data['full_link']       = $i == 1 ? false : true;
 $card_data['link']            = $item->link;
-$card_data['image']           = !empty($item->skip_image) ? false : $fields[0]->rawvalue;
-$card_data['image_alt']       = $fields[1]->rawvalue;
+$card_data['image']           = $image;
+$card_data['image_alt']       = $image_alt;
 $card_data['title']           = $item->title;
 $card_data['body']            = $i == 1 ? $item->introtext : '';
 $card_data['publish_date']    = $item->publish_up;
