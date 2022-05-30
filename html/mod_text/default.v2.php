@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 ?>
 <?php if (!empty(trim($module->content))) : ?>
-<div class="user-content  longform-content  l-box--space--block-end--l  mod_text" <?php if ($params->get('backgroundimage')) : ?> style="background-image:url(<?php echo $params->get('backgroundimage'); ?>)"<?php endif; ?> >
+<div class="user-content  longform-content  mod_text" <?php if ($params->get('backgroundimage')) : ?> style="background-image:url(<?php echo $params->get('backgroundimage'); ?>)"<?php endif; ?> >
 	<?php echo trim($module->content); ?>
 </div>
 <?php endif; ?>

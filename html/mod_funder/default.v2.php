@@ -13,6 +13,7 @@ require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/administrator/compo
 
 use SVG\SVG;
 
+/*
 $db = JFactory::getDBO();
 
 $query = $db->getQuery(true);
@@ -21,6 +22,8 @@ $query->from('#__brands');
 $query->where('id = ' . $params->get('brand_id'));
 $db->setQuery($query);
 $brand = $db->loadObject();
+*/
+$brand = TplNPEU6Helper::get_brand($params->get('brand_id'));
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 $page_brand = TplNPEU6Helper::get_brand();
@@ -33,7 +36,7 @@ $logo_image = @SVG::fromString($brand->logo_svg);
 $logo_svg_doc = $logo_image->getDocument();
 $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
 ?>
-<div class="d-border--bottom--thick  mod_funder">
+<div class="d-border--bottom--thickX  mod_funder">
     <div class="l-layout  l-row">
         <div class="l-layout__inner">
             <?php if (!empty($params->get('image'))) : /* this is the old single-image option, but keep untill all have been migrated. */  ?>
@@ -67,7 +70,7 @@ $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
                     <div class="u-text-align--center u-fill-width u-space--below">
                         <div>
                             <a href="<?php echo $params->get('brand_url'); ?>" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
-                                <img src="/assets/images/brand-logos/funder/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80">
+                                <img src="/assets/images/brand-logos/funder/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80" width="<?php echo $brand->svg_width_at_height_80; ?>">
                             </a>
                         </div>
                     </div>

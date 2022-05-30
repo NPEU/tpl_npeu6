@@ -219,7 +219,7 @@
                                 <?php if ($page_has_carousel) : ?>
                                 <hr noShade size="1">
                                 <?php endif; ?>
-                                <div<?php if($page_has_carousel) : ?><?php echo ' id="banner-slide-' . $i . '" role="listitem"'; ?><?php endif; ?> class="c-hero  c-hero--message-<?php echo $page_hero->text_position; ?>  c-info-overlay-wrapx" data-fs-text="center">
+                                <div<?php if($page_has_carousel) : ?><?php echo ' id="banner-slide-' . $i . '" role="listitem"'; ?><?php endif; ?> class="c-hero<?php if (!empty($page_hero->text_position)) : echo '  c-hero--message-' . $page_hero->text_position; endif; ?>  c-info-overlay-wrapx" data-fs-text="center">
 
                                     <div class="c-hero__image">
                                         <div class="u-image-cover  js-image-cover  <?php if ($is_blog && $page_has_article) :?>u-image-cover--min-50<?php else: ?>u-image-cover--min-33-33<?php endif; ?>">
@@ -470,7 +470,20 @@
                                         </header>
                                         <p class="u-text-align--center">
                                             <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
-                                                <img alt="Logo: <?php echo $page_article_brand->name; ?>" height="60" onerror="this.src='<?php echo $page_article_brand->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $page_article_brand->logo_svg_path; ?>">
+                                                <?php
+                                                    $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
+                                                    $image_path       = $public_root_path . $page_article_brand->logo_png_path;
+                                                    $image_info       = getimagesize($image_path);
+                                                    $image_real_ratio = $image_info[0] / $image_info[1];
+
+                                                    $height = 80;
+                                                    if ($image_info[0] > $image_info[1]) {
+                                                        $width = round($height * $image_real_ratio);
+                                                    } else {
+                                                        $width = round($height / $image_real_ratio);
+                                                    }
+                                                ?>
+                                                <img alt="Logo: <?php echo $page_article_brand->name; ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" onerror="this.src='<?php echo $page_article_brand->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $page_article_brand->logo_svg_path; ?>">
                                             </a>
                                         </p>
                                     </div>
@@ -498,7 +511,7 @@
             </div>
 
             <div class="l-box">
-                <footer id="page-footer" aria-label="Page" data-fs-text="center">
+                <footer id="page-footer" aria-label="Page" data-fs-text="center" class="page-footer">
 
                     <?php if ($page_has_footer_top): ?>
                     <?php /*<div data-position="6-footer-top">
@@ -555,13 +568,13 @@
                                         <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                                     </a>
                                     <?php else*/ if ($page_unit == 'pru-mnhc') : ?>
-                                    <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/pru-mnhc-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/pru-mnhc-logo.png'; this.onerror=null;" alt="Logo: PRU-MNHC" height="80"></a>
+                                    <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/pru-mnhc-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/pru-mnhc-logo.png'; this.onerror=null;" alt="Logo: PRU-MNHC" height="80" width="236"></a>
                                     <?php elseif ($page_unit == 'npeu_ctu') : ?>
-                                    <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80"></a>
+                                    <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80" width="236"></a>
                                     <?php elseif ($page_unit == 'sheer') : ?>
-                                    <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80"></a>
+                                    <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80" width="236"></a>
                                     <?php elseif ($page_unit == 'he') : ?>
-                                    <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80"></a>
+                                    <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/he-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/he-logo.png'; this.onerror=null;" alt="Logo: Health Economics" height="80" width="236"></a>
                                     <?php endif; ?>
                                 </span>
                                 <?php endif; ?>

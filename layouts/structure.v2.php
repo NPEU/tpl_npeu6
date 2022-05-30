@@ -1,4 +1,7 @@
-<!doctype html>
+<?php
+$block_css_files = false;
+#$block_css_files = true;
+?><!doctype html>
 <html lang="en-gb" class="env-<?php echo $env; ?>">
 <head>
     <meta charset="utf-8">
@@ -39,6 +42,10 @@
 
         /* IE needs SVG icons to NOT be auto height: */
         svg[height="1.25em"] {height: 1.25em;}
+
+        .c-map {
+            height: 200px;
+        }
     </style>
 
     <!-- From here we're cutting off IE9- to stop all kinds of JS and CSS fails. -->
@@ -77,6 +84,7 @@
         only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">*/?>
+    <?php if (!$block_css_files) : ?>
     <!--
         Print (Edge doesn't apply to print otherwise)
         Edge 79+, Chrome 74+, Firefox 63+, Opera 64+, Safari 10.1+, iOS 10.3+, Android 81+
@@ -157,6 +165,8 @@
     }
     </script>
     <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php endif; ?>
 
     <!-- Template scripts -->
@@ -303,17 +313,18 @@
             --t-secondary-color-l-copy: <?php echo $page_brand->secondary_colour_hsl['L']; ?>;
 
 
-            --t-primary-color-l--very-light: 95%;
-            --t-primary-color-l--light: 81%;
-            --t-primary-color-l--dark: 26%;
-            --t-primary-color-l--very-dark: 18%;
+            --t-primary-color-l--very-light: <?php echo $page_brand->primary_colour_l['very-light']; ?>;
+            --t-primary-color-l--light: <?php echo $page_brand->primary_colour_l['light']; ?>;
+            --t-primary-color-l--dark: <?php echo $page_brand->primary_colour_l['dark']; ?>;
+            --t-primary-color-l--very-dark: <?php echo $page_brand->primary_colour_l['very-dark']; ?>;
             --t-primary-fore-text-color: var(--t-text-color-inverse);
 
-            --t-secondary-color-l--very-light: 96%;
-            --t-secondary-color-l--light: 86%;
-            --t-secondary-color-l--dark: 37%;
-            --t-secondary-color-l--very-dark: 27%;
+            --t-secondary-color-l--very-light: <?php echo $page_brand->secondary_colour_l['very-light']; ?>;
+            --t-secondary-color-l--light: <?php echo $page_brand->secondary_colour_l['light']; ?>;
+            --t-secondary-color-l--dark: <?php echo $page_brand->secondary_colour_l['dark']; ?>;
+            --t-secondary-color-l--very-dark: <?php echo $page_brand->secondary_colour_l['very-dark']; ?>;
             --t-secondary-fore-text-color: var(--t-text-color-inverse);
+
         }
     </style>
 </head>

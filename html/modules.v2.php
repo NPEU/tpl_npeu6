@@ -99,14 +99,14 @@ function modChrome_bespoke($module, &$params, &$attribs) {
                 <?php endif; ?>
                 <?php echo $module->content; ?>
                 <?php if ($has_cta && $cta_position == 'bottom'): ?>
-                <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <p<?php if ($module_wrapper == 'panel_longform') : ?> class="longform-content__companion"<?php endif; ?>><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 <?php endif; ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
             <?php /* </div> */ ?>
         </<?php echo $outer_el; ?>>
     <?php endif; ?>
     </div>
-    
+
     <?php endif;
 }
 
@@ -155,7 +155,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
 
     if (!empty($module_wrapper_theme)) {
-        $wrapper_theme_class = '  d-background--' . $module_wrapper_theme . '  t-neutral';
+        $wrapper_theme_class = '  d-background--' . $module_wrapper_theme . '  t-' . $module_wrapper_color;
     }
 
     // If we're showing a title, we want to use an aside for the sidebar, otherwise div:
@@ -334,7 +334,7 @@ function modChrome_magic($module, &$params, &$attribs) {
 
     if (!empty($module_wrapper_bottom_border)) {
        // $wrapper_classes[] = 'ff-width--' . $module_wrapper_width;
-        $outer_wrapper_classes[] = 'd-bands--bottom';
+        $outer_wrapper_classes[] = 'd-border--bottom--thick';
     }
 
     if (!empty($module_wrapper_width)) {
