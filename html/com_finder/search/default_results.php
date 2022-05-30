@@ -8,6 +8,9 @@
  */
 
 defined('_JEXEC') or die;
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+
+$db = JFactory::getDBO();
 
 ?>
 <?php // Display the suggested search if it is different from the current search. ?>
@@ -47,6 +50,25 @@ defined('_JEXEC') or die;
 <ul class="n-search-results">
     <?php $this->baseUrl = JUri::getInstance()->toString(array('scheme', 'host', 'port')); ?>
     <?php foreach ($this->results as $result) : ?>
+        <?php
+            $query = $db->getQuery(true);
+            $query->select('access');
+            $query->from('#__menu');
+            if (strstr($result->url, 'index.php')) {
+                $query->where('link = ' . $db->quote($result->url));
+            } else {
+                $query->where('path = ' . $db->quote($result->url));
+            }
+            
+            $db->setQuery($query);
+
+            // Shouldn't show search results if access is hidden form menus, sitemap or search:
+            $menu_access = $db->loadResult();
+
+            if ($menu_access == 6 || $menu_access == 9 || $menu_access == 11) {
+                continue;
+            }     
+            ?>
         <?php $this->result = &$result; ?>
         <?php $layout = $this->getLayoutFile($this->result->layout); ?>
         <?php echo $this->loadTemplate($layout); ?>
