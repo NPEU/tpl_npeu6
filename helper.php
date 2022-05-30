@@ -113,6 +113,26 @@ class TplNPEU6Helper
     }
 
     /**
+     * Adjusts HSL lightness
+     *
+     * @return object
+     */
+    public static function adjust_lightness($value, $adjustment)
+    {
+        $t = 0;
+        $v = (int) $value;
+        $r = 100 - $v;
+
+        if ($adjustment > 0) {
+            $t = round($v + ($r * $adjustment));
+        } else {
+            $t = round($v - ($v * -$adjustment));
+        }
+
+        return $t . '%';
+    }
+
+    /**
      * Gets a brand - defaults to getting current menu item brand.
      *
      * @return object
@@ -175,21 +195,43 @@ class TplNPEU6Helper
             }
 
             // Include the colour values:
+
+            $very_light_adjust =  0.92;
+            $light_adjust      =  0.7;
+            $very_light_adjust =  0.92;
+            $dark_adjust       = -0.23;
+            $very_dark_adjust  = -0.36;
+
             $primary_color = new Color($colour_1);
 
-            $brand->primary_colour_is_light = $primary_color->isLight();
-            $brand->primary_colour_hsl      = $primary_color->getHsl();
-            $brand->primary_colour_hsl['H'] = round($brand->primary_colour_hsl['H']);
-            $brand->primary_colour_hsl['S'] = round($brand->primary_colour_hsl['S'] * 100) . '%';
-            $brand->primary_colour_hsl['L'] = round($brand->primary_colour_hsl['L'] * 100) . '%';
+            $brand->primary_colour_is_light     = $primary_color->isLight();
+            $brand->primary_colour_hsl          = $primary_color->getHsl();
+            $brand->primary_colour_hsl['H']     = round($brand->primary_colour_hsl['H']);
+            $brand->primary_colour_hsl['S']     = round($brand->primary_colour_hsl['S'] * 100) . '%';
+            $brand->primary_colour_hsl['L_int'] = round($brand->primary_colour_hsl['L'] * 100);
+            $brand->primary_colour_hsl['L']     = $brand->primary_colour_hsl['L_int'] . '%';
+
+            $brand->primary_colour_l = [];
+            $brand->primary_colour_l['very-light'] = self::adjust_lightness($brand->primary_colour_hsl['L_int'], $very_light_adjust);
+            $brand->primary_colour_l['light']      = self::adjust_lightness($brand->primary_colour_hsl['L_int'], $light_adjust);
+            $brand->primary_colour_l['dark']       = self::adjust_lightness($brand->primary_colour_hsl['L_int'], $dark_adjust);
+            $brand->primary_colour_l['very-dark']  = self::adjust_lightness($brand->primary_colour_hsl['L_int'], $very_dark_adjust);
+
 
             $secondary_color = new Color($colour_2);
 
-            $brand->secondary_colour_is_light = $secondary_color->isLight();
-            $brand->secondary_colour_hsl      = $secondary_color->getHsl();
-            $brand->secondary_colour_hsl['H'] = round($brand->secondary_colour_hsl['H']);
-            $brand->secondary_colour_hsl['S'] = round($brand->secondary_colour_hsl['S'] * 100) . '%';
-            $brand->secondary_colour_hsl['L'] = round($brand->secondary_colour_hsl['L'] * 100) . '%';
+            $brand->secondary_colour_is_light     = $secondary_color->isLight();
+            $brand->secondary_colour_hsl          = $secondary_color->getHsl();
+            $brand->secondary_colour_hsl['H']     = round($brand->secondary_colour_hsl['H']);
+            $brand->secondary_colour_hsl['S']     = round($brand->secondary_colour_hsl['S'] * 100) . '%';
+            $brand->secondary_colour_hsl['L_int'] = round($brand->secondary_colour_hsl['L'] * 100);
+            $brand->secondary_colour_hsl['L']     = $brand->secondary_colour_hsl['L_int'] . '%';
+
+            $brand->secondary_colour_l = [];
+            $brand->secondary_colour_l['very-light'] = self::adjust_lightness($brand->secondary_colour_hsl['L_int'], $very_light_adjust);
+            $brand->secondary_colour_l['light']      = self::adjust_lightness($brand->secondary_colour_hsl['L_int'], $light_adjust);
+            $brand->secondary_colour_l['dark']       = self::adjust_lightness($brand->secondary_colour_hsl['L_int'], $dark_adjust);
+            $brand->secondary_colour_l['very-dark']  = self::adjust_lightness($brand->secondary_colour_hsl['L_int'], $very_dark_adjust);
 
             if ($get_page_brand) {
                 self::$brand = $brand;
