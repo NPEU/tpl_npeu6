@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_users
@@ -130,7 +125,7 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
 ?>
 <?php #echo TplNPEU6Helper::get_messages(); ?>
 <form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_users&task=profile.save&redirect=user-profile/edit'); ?>" method="post" enctype="multipart/form-data">
-    <div class="u-text-align--center  c-system-message  u-space--below">
+    <div class="c-system-message  d-background--sloped  t-notice">
         <p><?php echo JText::_('PLG_USER_STAFFPROFILE_COMPULSORY_MESSAGE'); ?></p>
     </div>
     
@@ -153,70 +148,74 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
             </span>
         </p>
         <?php endif; ?>
-        <div class="l-col-to-row">
-            <div class="l-col-to-row__item  ff-width-100--30--20">
-                <div class="u-padding--xs">
-                    <?php echo $fields[$keys[0]]->label; ?><br>
-                    <?php echo $fields[$keys[0]]->input . "\n"; ?>
+        <div class="l-layout  l-row">
+            <div class="l-layout__inner">
+                <div class="l-box  ff-width-100--30--20">
+                    <div class="l-box--space--edge--s">
+                        <?php echo $fields[$keys[0]]->label; ?><br>
+                        <?php echo $fields[$keys[0]]->input . "\n"; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="l-col-to-row__item  ff-width-100--30--20">
-                <div class="u-padding--xs">
-                    <?php echo $fields[$keys[1]]->label; ?><br>
-                    <?php echo $fields[$keys[1]]->input . "\n"; ?>
+                <div class="l-box  ff-width-100--30--20">
+                    <div class="l-box--space--edge--s">
+                        <?php echo $fields[$keys[1]]->label; ?><br>
+                        <?php echo $fields[$keys[1]]->input . "\n"; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="l-col-to-row__item  ff-width-100--30--20">
-                <div class="u-padding--xs">
-                    <?php echo $fields[$keys[2]]->label; ?><br>
-                    <?php echo $fields[$keys[2]]->input . "\n"; ?>
+                <div class="l-box  ff-width-100--30--20">
+                    <div class="l-box--space--edge--s">
+                        <?php echo $fields[$keys[2]]->label; ?><br>
+                        <?php echo $fields[$keys[2]]->input . "\n"; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="l-col-to-row__item  ff-width-100--30--20">
-                <div class="u-padding--xs">
-                    <?php echo $fields[$keys[3]]->label; ?><br>
-                    <?php echo $fields[$keys[3]]->input . "\n"; ?>
+                <div class="l-box  ff-width-100--30--20">
+                    <div class="l-box--space--edge--s">
+                        <?php echo $fields[$keys[3]]->label; ?><br>
+                        <?php echo $fields[$keys[3]]->input . "\n"; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="l-col-to-row__item  ff-width-100--30--20">
-                <div class="u-padding--xs">
-                    <?php echo $fields[$keys[4]]->label; ?><br>
-                    <?php echo $fields[$keys[4]]->input . "\n"; ?>
+                <div class="l-box  ff-width-100--30--20">
+                    <div class="l-box--space--edge--s">
+                        <?php echo $fields[$keys[4]]->label; ?><br>
+                        <?php echo $fields[$keys[4]]->input . "\n"; ?>
+                    </div>
                 </div>
             </div>
         </div>
         <details class="sh-naked-details">
             <summary><?php echo JText::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_LABEL'); ?></summary>
             <p><?php echo JText::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_DESC'); ?></p>
-            <div class="l-col-to-row">
-                <div class="l-col-to-row__item  ff-width-100--30--20">
-                    <div class="u-padding--xs">
-                        <?php echo $fields[$keys[5]]->label; ?><br>
-                        <?php echo $fields[$keys[5]]->input . "\n"; ?>
+            <div class="l-layout  l-row">
+                <div class="l-layout__inner">
+                    <div class="l-box  ff-width-100--30--20">
+                        <div class="l-box--space--edge--s">
+                            <?php echo $fields[$keys[5]]->label; ?><br>
+                            <?php echo $fields[$keys[5]]->input . "\n"; ?>
+                        </div>
                     </div>
-                </div>
-                <div class="l-col-to-row__item  ff-width-100--30--20">
-                    <div class="u-padding--xs">
-                        <?php echo $fields[$keys[6]]->label; ?><br>
-                        <?php echo $fields[$keys[6]]->input . "\n"; ?>
+                    <div class="l-box  ff-width-100--30--20">
+                        <div class="l-box--space--edge--s">
+                            <?php echo $fields[$keys[6]]->label; ?><br>
+                            <?php echo $fields[$keys[6]]->input . "\n"; ?>
+                        </div>
                     </div>
-                </div>
-                <div class="l-col-to-row__item  ff-width-100--30--20">
-                    <div class="u-padding--xs">
-                        <?php echo $fields[$keys[7]]->label; ?><br>
-                        <?php echo $fields[$keys[7]]->input . "\n"; ?>
+                    <div class="l-box  ff-width-100--30--20">
+                        <div class="l-box--space--edge--s">
+                            <?php echo $fields[$keys[7]]->label; ?><br>
+                            <?php echo $fields[$keys[7]]->input . "\n"; ?>
+                        </div>
                     </div>
-                </div>
-                <div class="l-col-to-row__item  ff-width-100--30--20">
-                    <div class="u-padding--xs">
-                        <?php echo $fields[$keys[8]]->label; ?><br>
-                        <?php echo $fields[$keys[8]]->input . "\n"; ?>
+                    <div class="l-box  ff-width-100--30--20">
+                        <div class="l-box--space--edge--s">
+                            <?php echo $fields[$keys[8]]->label; ?><br>
+                            <?php echo $fields[$keys[8]]->input . "\n"; ?>
+                        </div>
                     </div>
-                </div>
-                <div class="l-col-to-row__item  ff-width-100--30--20">
-                    <div class="u-padding--xs">
-                        <?php echo $fields[$keys[9]]->label; ?><br>
-                        <?php echo $fields[$keys[9]]->input . "\n"; ?>
+                    <div class="l-box  ff-width-100--30--20">
+                        <div class="l-box--space--edge--s">
+                            <?php echo $fields[$keys[9]]->label; ?><br>
+                            <?php echo $fields[$keys[9]]->input . "\n"; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -235,46 +234,48 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
         </p>
         <?php endif; ?>
         
-        <div class="l-col-to-row">
-            <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
-            <?php #echo '<pre>'; var_dump($field->type); echo '</pre>'; ?>
-            <?php $prefix = $field->getAttribute('prefix', false); ?>
-            <?php if ($field->type == 'EditHelp'): ?>
-            <div class="u-fill-width">
-                <?php $help .= $field->input . "\n"; ?>
-            </div>
-            <?php elseif ($field->type == 'EditMsg'): //editmsg ?>
-            <div hidden aria-hidden="false">Notice</div>
-            <p class="u-text-align--center  c-system-message  u-fill-width"><?php echo TplNPEU6Helper::clean_title($field->label); ?></p>
-            <?php elseif ($field->hidden): // If the field is hidden, just display the input. ?>
-            <?php $hidden .= $field->input . "\n"; ?>
-            <?php else: ?>
-            <div class="l-col-to-row__item  u-padding--right <?php echo $field->type == 'Editor' ? 'u-fill-width' : 'ff-width-100--25--25'?>">
-                <?php if ($field->type == 'Gravatar' || $field->type == 'ImageEdit'): ?>
-                <?php echo preg_replace('/\sfor="[^"]+"/', '', TplNPEU6Helper::clean_title($field->label)); ?>
-                <?php else: ?>
-                <?php echo TplNPEU6Helper::clean_title($field->label); ?>
-                <?php endif; ?>
-            </div>
-            <div class="l-col-to-row__item  <?php echo $field->type == 'Editor' ? 'u-fill-width  u-space--below' : 'ff-width-100--25--75'?>">
-                <?php if ($field->type == 'Editor' && $field->required): ?>
-                <?php echo preg_replace('/<textarea/', '<textarea class="required" required aria-required="true"', $field->input); ?>
-                <?php elseif ($field->type == 'ImageEdit'): ?>
-                <div>
-                    <?php echo $field->input; ?>
+        <div class="l-layout  l-row  l-gutter  l-flush-edge-gutter">
+            <div class="l-layout__inner">
+                <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
+                <?php #echo '<pre>'; var_dump($field->type); echo '</pre>'; ?>
+                <?php $prefix = $field->getAttribute('prefix', false); ?>
+                <?php if ($field->type == 'EditHelp'): ?>
+                <div class="u-fill-width">
+                    <?php $help .= $field->input . "\n"; ?>
                 </div>
-                <?php elseif ($field->type == 'Password'): ?>
-                <?php #echo add_class(str_replace('autocomplete="off"', 'autocomplete="new-password"', $field->input), 'text-input'); ?>
-                <?php echo str_replace('autocomplete="off"', 'autocomplete="new-password"', $field->input); ?>
+                <?php elseif ($field->type == 'EditMsg'): //editmsg ?>
+                <div hidden aria-hidden="false">Notice</div>
+                <p class="u-text-align--center  c-system-message  u-fill-width"><?php echo TplNPEU6Helper::clean_title($field->label); ?></p>
+                <?php elseif ($field->hidden): // If the field is hidden, just display the input. ?>
+                <?php $hidden .= $field->input . "\n"; ?>
                 <?php else: ?>
-                <?php #echo in_array($field->type, array('Email', 'Text')) ? add_class($field->input, 'text-input') : $field->input; ?>
-                <?php if ($prefix): ?><span class="c-composite"><span><?php echo $prefix; ?></span><?php endif; ?>
-                <?php echo $field->input; ?>
-                <?php if ($prefix): ?></span><?php endif; ?>
+                <div class="l-box <?php echo $field->type == 'Editor' ? 'u-fill-width' : 'ff-width-100--25--25'?>">
+                    <?php if ($field->type == 'Gravatar' || $field->type == 'ImageEdit'): ?>
+                    <?php echo preg_replace('/\sfor="[^"]+"/', '', TplNPEU6Helper::clean_title($field->label)); ?>
+                    <?php else: ?>
+                    <?php echo TplNPEU6Helper::clean_title($field->label); ?>
+                    <?php endif; ?>
+                </div>
+                <div class="l-box  <?php echo $field->type == 'Editor' ? 'u-fill-width  u-space--below' : 'ff-width-100--25--75'?>">
+                    <?php if ($field->type == 'Editor' && $field->required): ?>
+                    <?php echo preg_replace('/<textarea/', '<textarea class="required" required aria-required="true"', $field->input); ?>
+                    <?php elseif ($field->type == 'ImageEdit'): ?>
+                    <div>
+                        <?php echo $field->input; ?>
+                    </div>
+                    <?php elseif ($field->type == 'Password'): ?>
+                    <?php #echo add_class(str_replace('autocomplete="off"', 'autocomplete="new-password"', $field->input), 'text-input'); ?>
+                    <?php echo str_replace('autocomplete="off"', 'autocomplete="new-password"', $field->input); ?>
+                    <?php else: ?>
+                    <?php #echo in_array($field->type, array('Email', 'Text')) ? add_class($field->input, 'text-input') : $field->input; ?>
+                    <?php if ($prefix): ?><span class="c-composite"><span class="c-composite__info"><?php echo $prefix; ?></span><?php endif; ?>
+                    <?php echo $field->input; ?>
+                    <?php if ($prefix): ?></span><?php endif; ?>
+                    <?php endif; ?>
+                </div>
                 <?php endif; ?>
+                <?php endforeach; ?>
             </div>
-            <?php endif; ?>
-            <?php endforeach; ?>
         </div>
         <?php if (!empty($help)): ?>
         <?php echo $help; ?>

@@ -83,7 +83,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
         <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
             <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
     <?php else: ?>
-    <div class="modstyle_bespoke--wrapper  u-fill-height">
+    <div class="c-panel__module  modstyle_bespoke--wrapper  u-fill-height">
     <?php endif; ?>
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
                 <header class="c-panel__header  modstyle_bespoke--header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">

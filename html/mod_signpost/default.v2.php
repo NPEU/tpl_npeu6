@@ -16,7 +16,7 @@ $signs = (array) $params->get('signs');
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 $page_brand = TplNPEU6Helper::get_brand();
-$theme = 't-' . $page_brand->alias;
+$theme = '';
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
 ?>
 <?php if (count($signs) > 0) : ?>
@@ -29,24 +29,26 @@ $theme = 't-' . $page_brand->alias;
             if ($sign->colspan) {
                 $sign_class .= '  c-sign--span-all';
             }
-            
-            $sfx_class= '';
-            if (!empty($sign->signclass_sfx)) {
-                $sfx_class = $sign->signclass_sfx;
+
+
+            if ($sign->signclass_sfx == '--alt') {
+                $theme = '  t-secondary';
             }
-            
+
             $padding_class = '';
             if ($sign->padding) {
-                $padding_class = '  l-box--space--block--l';
+                $padding_class = '  l-box--space--inline--s  l-box--space--block--l';
+            } else {
+                $padding_class = '  l-box--space--edge--s';
             }
-            
+
             $svg = '';
             if (!empty($sign->svg)) {
                 $svg = '<span class="c-sign__svg" style="background-image: url(\'data:image/svg+xml;base64,' . base64_encode($sign->svg) . '\');"></span>';
             }
-            
+
             $sign_content = $sign->content;
-            
+
             $data_src = $sign->data_src;
             if (!empty($data_src)) {
 
@@ -77,8 +79,8 @@ $theme = 't-' . $page_brand->alias;
                 }
             }
         ?>
-        <div class="<?php echo $sign_class; ?> <?php echo $theme . $sfx_class; ?>">
-            <a href="<?php echo $sign->url; ?>" class="c-sign__link">
+        <div class="<?php echo $sign_class; ?><?php echo $theme; ?>">
+            <a href="<?php echo $sign->url; ?>" class="c-sign__link  c-sign--padding--xs">
                 <span class="c-sign__centered-content<?php echo $padding_class; ?>">
                     <?php echo $svg; ?>
                     <?php echo $sign_content; ?>

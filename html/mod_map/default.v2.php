@@ -111,7 +111,7 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
         <?php echo $static_map_no_js; ?>
     </div>
     <?php if (!empty($legend)): ?>
-    <figcaption class="u-space--above">
+    <figcaption class="l-box--space--block-start">
         <?php echo $legend; ?>
     </figcaption>
     <?php endif; ?>
