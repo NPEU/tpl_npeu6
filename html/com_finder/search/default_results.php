@@ -8,6 +8,9 @@
  */
 
 defined('_JEXEC') or die;
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+
+$db = JFactory::getDBO();
 
 ?>
 <?php // Display the suggested search if it is different from the current search. ?>
