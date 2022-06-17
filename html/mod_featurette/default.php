@@ -33,6 +33,13 @@ $img_path  = $params->get('image');
 $img_src   = $params->get('image');
 $svg_src   = false;
 
+$img_info = getimagesize($img_path);
+
+$img_ratio = $img_info[0] / $img_info[1];
+$img_info['width'] = 200;
+
+$img_info['height'] = round($img_info['width'] / $img_ratio);
+
 // Check if there's an SVG version of this images available:
 $img_path_info = pathinfo($img_path);
 if ($img_path_info['extension'] != 'svg') {
@@ -69,11 +76,11 @@ $fit_class    = $params->get('fit', 'cover') == 'cover' ? 'u-image-cover  js-ima
         <div class="l-proportional-container  l-proportional-container--1-1">
             <div class="l-proportional-container__content">
                 <div class="<?php echo $fit_class; ?>">
-                    <div<?php echo empty($fit_class) ? '' : ' class="u-image-cover__inner"'; ?>>
+                    <div<?php echo empty($fit_class) ? '' : ' class="u-image-cover__inner"'; ?>>                        
                         <?php if ($svg_src) : ?>
-                        <img src="<?php echo $svg_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="200" onerror="this.src='<?php echo $img_src; ?>'; this.onerror=null;">
+                        <img src="<?php echo $svg_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>" onerror="this.src='<?php echo $img_src; ?>'; this.onerror=null;">
                         <?php else: ?>
-                        <img src="<?php echo $img_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="200">
+                        <img src="<?php echo $img_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>">
                         <?php endif; ?>
                     </div>
                 </div>
