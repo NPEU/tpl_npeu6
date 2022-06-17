@@ -87,7 +87,7 @@ $fallback_height = round($fallback_width / $ratio, 2);
         <img<?php echo $image_classes; ?> src="<?php echo JURI::base() . $images->images0->image; ?>" width="<?php echo $fallback_width; ?>" height="<?php echo $fallback_height; ?>" alt="<?php echo $images->images0->alt; ?>">
     <?php if (isset($images->images0->url)): ?></a><?php else: ?></div><?php endif; ?>
     <?php if ($has_details): ?>
-    <figcaption class="c-longform-content  c-user-content  c-panel  c-panel--very-dark" style="
+    <figcaption class="c-longform-content  c-user-content  c-panel  c-panel--very-dark  mod_image__details" style="
         position: absolute;
         top: 0;
         background: rgba(0,0,0,0.5);
