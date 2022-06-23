@@ -71,7 +71,7 @@ $return = base64_encode($return_uri);
     <br>
         <?php echo $this->form->getInput('articletext'); ?>
     </div>
-    <p class="u-space--above">
+    <p>
         <button type="submit" name="task" value="article.save"><?php echo JText::_('JSAVE') ?></button>
         <?php if ($is_new) : ?>
         <a href="<?php echo $return_uri;?>" class="c-cta"><?php echo JText::_('JCANCEL') ?></a>

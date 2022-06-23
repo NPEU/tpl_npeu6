@@ -312,7 +312,6 @@ $block_css_files = false;
             --t-secondary-color-l: <?php echo $page_brand->secondary_colour_hsl['L']; ?>;
             --t-secondary-color-l-copy: <?php echo $page_brand->secondary_colour_hsl['L']; ?>;
 
-
             --t-primary-color-l--very-light: <?php echo $page_brand->primary_colour_l['very-light']; ?>;
             --t-primary-color-l--light: <?php echo $page_brand->primary_colour_l['light']; ?>;
             --t-primary-color-l--dark: <?php echo $page_brand->primary_colour_l['dark']; ?>;

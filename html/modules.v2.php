@@ -349,6 +349,7 @@ function modChrome_magic($module, &$params, &$attribs) {
 
     $wrapper_classes = ['t-' . $theme_name];
 
+
     //
     /* This is meant to control SElF within multi-module in same position scenarios, but not sure
        if the CSS is in place in the NEW template yet.
@@ -358,6 +359,7 @@ function modChrome_magic($module, &$params, &$attribs) {
     }
 
     */
+
 
     if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform') {
         $wrapper_classes[] = 'c-panel';
@@ -382,12 +384,14 @@ function modChrome_magic($module, &$params, &$attribs) {
 
 
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
-                <header class="u-text-group  u-text-group--push-apart  u-space--below  modstyle_magic--header">
-                    <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
-                    <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <header class="<?php echo ($module_wrapper == 'panel_longform') ? '' : 'c-panel__header  '; ?>modstyle_magic--header">
+                    <div<?php if ($module_wrapper_align == 'center') {echo ' class="l-box  l-box--center"';} ?>>
+                        <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                        <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                    </div>
                 </header>
                 <?php elseif ($module->showtitle): ?>
-                <header class="u-text-group  u-text-group--push-apart  u-space--below  modstyle_magic--header">
+                <header class="<?php if ($module_wrapper_align == 'center') {echo 'l-box  l-box--center  l-box--space--block-end  ';} ?>modstyle_magic--header">
                     <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
                 </header>
                 <?php endif; ?>

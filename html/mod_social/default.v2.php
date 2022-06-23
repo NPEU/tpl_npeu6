@@ -12,11 +12,12 @@ defined('_JEXEC') or die;
 
 $doc = JFactory::getDocument();
 
-$layout_classes = ['l-layout', 'l-row  l-row--start'];
+$layout_classes = ['l-layout', 'l-row'];
 
 
 $layout_classes[] = 'l-gutter';
 $layout_classes[] = 'l-flush-edge-gutter';
+$layout_classes[] = 'l-row--' . $params->get('align', 'start');
 
 /*
 if (!empty($params->get('list_layout'))) {
