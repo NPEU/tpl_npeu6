@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_finder
@@ -73,8 +68,8 @@ if ($this->params->get('highlight_terms', 1) && JPluginHelper::isEnabled('system
 }
 
 ?>
-<li class="n-search-results__result  u-space--below">
-	<h2 class="n-search-results__heading  u-space--below">
+<li class="n-search-results__result">
+	<h2 class="n-search-results__heading">
 		<a href="<?php echo JRoute::_($route); ?>">
 			<?php echo $this->result->title; ?>
 		</a>

@@ -132,12 +132,13 @@ foreach ($fieldsets as $group => $fieldset): // Iterate through the form fieldse
 </div>
 <?php endif;?>
 <?php endforeach;?>
+<?php if (!empty($room)) : ?>
+<h2>Individual Printable Resources</h2>
 <div>
-    <h2>Individual Printable Resources</h2>
-
     <?php if (!empty($room)) : ?>
     <p>
         <a href="/printables/office-cards?room=<?php echo $room_url; ?>" target="_blank">Your Office Card (<?php echo $room; ?>)</a>
     </p>
     <?php endif; ?>
 </div>
+<?php endif; ?>

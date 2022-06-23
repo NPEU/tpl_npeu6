@@ -1,4 +1,9 @@
 <?php
+if (!empty($_SERVER['JTV2'])) {
+    include(str_replace('.php', '.v2.php', __FILE__));
+    return;
+}
+?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_finder
@@ -16,7 +21,7 @@ $theme = 't-' . $page_brand->alias;
 $db = JFactory::getDBO();
 $page_search_area = '';
 if ($page_brand->alias != 'npeu') {
-    
+
         $query = '
             SELECT id
             FROM #__finder_taxonomy
