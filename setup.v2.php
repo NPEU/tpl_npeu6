@@ -541,6 +541,40 @@ if ($page_has_article) {
     }
 
 }
+#echo '$page_has_hero<pre>'; var_dump($page_has_hero); echo '</pre>'; #exit;
+#echo '$page_has_article<pre>'; var_dump($page_has_article); echo '</pre>'; #exit;
+#echo '<pre>'; var_dump($is_blog); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($doc->article->headline_image); echo '</pre>'; exit;
+
+// Put Twitter and Page badge in sidebar:
+//if (($is_blog && $page_is_subroute) && ($page_article_brand || !empty($doc->article->twitter_url))) {
+if (($is_blog && $page_is_subroute) && $page_article_brand) {
+    $page_has_pull_outs = true;
+    $page_has_sidebar_bottom;
+}
+
+// If the page is blog item, then the headline image should be the hero image:
+/*
+if ($is_blog && $page_is_subroute) {
+    if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) {
+            $img = $doc->article->headline_image;
+            $page_has_hero = true;
+            $page_hero = new stdClass();
+
+            $page_hero->enabled       = 1;
+            $page_hero->image         = $img['headline-image'];
+            $page_hero->alt           = $img['headline-image-alt-text'];
+            $page_hero->heading       = false;
+            $page_hero->text          = false;
+            $page_hero->text_position = false;
+            $page_hero->cta_link      = false;
+            $page_hero->cta_text      = false;
+            $page_hero->credit        = $img['headline-image-credit-line'];
+
+            $page_heroes = ['hero_image0' => $page_hero];
+    }
+}
+*/
 
 // Social Media:
 
