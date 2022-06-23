@@ -32,7 +32,9 @@ $list = $displayData['list'];
             <span class="l-layout  l-row  l-row--center">
                 <span class="l-layout__inner">
                     <?php foreach ($list['pages'] as $page) : ?>
+                    <span role="listitem" class="l-box">
                         <?php echo $page['data'] ; ?><span class="l-box__separator">&nbsp;&nbsp;|&nbsp;</span>
+                    </span>
                     <?php endforeach; ?>
                 </span>
             </span>
