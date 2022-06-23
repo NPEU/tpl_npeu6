@@ -270,9 +270,9 @@ function modChrome_magic($module, &$params, &$attribs) {
 
 
 
-    $brand = TplNPEU6Helper::get_brand();
+    $page_brand = TplNPEU6Helper::get_brand();
 
-    #echo  '<pre>'; var_dump($brand); echo '</pre>';
+    #echo  '<pre>'; var_dump($page_brand); echo '</pre>';
 
     $module_wrapper               = $params->get('wrapper', '');
     $module_wrapper_theme         = $params->get('theme', '');
@@ -290,7 +290,7 @@ function modChrome_magic($module, &$params, &$attribs) {
     $wrapper_theme_class = '';
     $hx = $params->get('header_tag', 'h2');
 
-    $theme_name = $brand->alias;
+    $theme_name = $page_brand->alias;
 
     // Handle special case for 'WHITE' This probably needs a re-think in the next version of the template
     if ($module_wrapper_theme == 'white') {
@@ -328,7 +328,7 @@ function modChrome_magic($module, &$params, &$attribs) {
 
 
 
-    $outer_wrapper_classes = ['modstyle_magic--wrapper  t-' . $brand->alias . '  l-box'];
+    $outer_wrapper_classes = ['modstyle_magic--wrapper  t-' . $page_brand->alias . '  l-box'];
 
 
     if (!empty($module_wrapper_bottom_border)) {
@@ -348,6 +348,7 @@ function modChrome_magic($module, &$params, &$attribs) {
 
     $wrapper_classes = ['t-' . $theme_name];
 
+
     //
     /* This is meant to control SElF within multi-module in same position scenarios, but not sure
        if the CSS is in place in the NEW template yet.
@@ -357,6 +358,7 @@ function modChrome_magic($module, &$params, &$attribs) {
     }
 
     */
+
 
     if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform') {
         $wrapper_classes[] = 'c-panel';
@@ -372,24 +374,29 @@ function modChrome_magic($module, &$params, &$attribs) {
 
 
 
+
     if (!empty($module->content)): ?>
 
     <div class="u-fill-heightX  <?php echo implode('  ', $outer_wrapper_classes); ?>">
         <div class="u-fill-heightX  <?php echo implode('  ', $wrapper_classes); ?>">
-            <<?php echo $outer_el; ?> class="u-fill-height  <?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content  c-user-content' : 'c-panel__module'; ?>">
+            <<?php echo $outer_el; ?> class="u-fill-height  <?php echo ($module_wrapper == 'panel_longform') ? 'longform-content  user-content' : 'c-panel__module'; ?>">
 
 
                 <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
-                <header class="u-text-group  u-text-group--push-apart  u-space--below  modstyle_magic--header">
-                    <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
-                    <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <header class="<?php echo ($module_wrapper == 'panel_longform') ? '' : 'c-panel__header  '; ?>modstyle_magic--header">
+                    <div<?php if ($module_wrapper_align == 'center') {echo ' class="l-box  l-box--center"';} ?>>
+                        <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                        <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                    </div>
                 </header>
                 <?php elseif ($module->showtitle): ?>
-                <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                <header class="<?php if ($module_wrapper_align == 'center') {echo 'l-box  l-box--center  ';} ?>modstyle_magic--header">
+                    <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+                </header>
                 <?php endif; ?>
                 <?php echo $module->content; ?>
                 <?php if ($has_cta && $cta_position == 'bottom'): ?>
-                <p class="u-space--above"><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+                <p class="u-space--above"><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 <?php endif; ?>
 
             </<?php echo $outer_el; ?>>

@@ -22,6 +22,7 @@ $layout_classes = ['l-layout', 'l-row  l-row--start'];
 
 $layout_classes[] = 'l-gutter--m';
 $layout_classes[] = 'l-flush-edge-gutter';
+$layout_classes[] = 'l-row--' . $params->get('align', 'start');
 
 /*
 if (!empty($params->get('list_layout'))) {
