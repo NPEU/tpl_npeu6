@@ -66,23 +66,36 @@ $nav = '';
 // has children or not without 'lookahead' loops.
 // For the Section Menu, we only want to show items on the current level, but the module doesn't
 // allow for this option, so sort that out here too.
-$menu_item = TplNPEU6Helper::get_menu_item();
-$menu_level = (int) $menu_item->level;
-#echo '<pre>'; var_dump($menu_level); echo '</pre>';
+$menu_item  = TplNPEU6Helper::get_menu_item();
+#echo '<pre>'; var_dump($list); echo '</pre>';
 
-$new_list = array();
+$siblings = array();
+$children = array();
 foreach ($list as $i => &$item)
 {
-    $skip_item  = false;
-
     $item_level = (int) $item->level;
 
-    if ($menu_level == 2 && $item->level <= $menu_level) {
-        $skip_item = true;
+    // If CURRENT menu id is the same as THIS ITEMs parent, THIS ITEM is a child of CURRENT ...
+    if ($menu_item->id == $item->parent_id) {
+        $children[] =& $item;
+    } elseif ($menu_item->parent_id == $item->parent_id) {
+        // ... but if BOTH have the same parent, THIS ITEM is a sibling of CURRENT
+        $siblings[] =& $item;
+    } else {
+        continue;
     }
-    if ($menu_level == 3 && $item->level < $menu_level) {
-        $skip_item = true;
-    }
+
+}
+
+$use_list = $children;
+if (empty($use_list)) {
+    $use_list = $siblings;
+}
+
+$new_list = array();
+foreach ($use_list as $i => &$item)
+{
+    $skip_item  = false;
 
     // Don't show hidden menu items:
     if ($is_sitemap && $item->access == $hidden_from_menus_and_sitemap) {
