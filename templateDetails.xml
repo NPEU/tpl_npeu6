@@ -23,7 +23,6 @@
 
 
     <files>
-        <folder>_build</folder>
         <folder>admin</folder>
         <folder>ajax</folder>
         <folder>css</folder>
