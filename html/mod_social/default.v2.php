@@ -37,7 +37,7 @@ if (!empty($params->get('list_basis'))) {
 }
 */
 ?>
-<div class="<?php echo implode("  ", $layout_classes); ?>  mod_social">
+<div class="<?php echo implode("  ", $layout_classes); ?>  mod_social" data-fs-text="center">
     <p class="l-layout__inner">
 
         <?php if ($show_twitter) : ?>

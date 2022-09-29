@@ -17,7 +17,7 @@ function pagination_item_inactive(&$item) {
     } elseif ($item->text == 'Next' || $item->text == 'End') {
         return after_link($item);
     } else {
-        return '<a aria-current="page" class="d-background--light   t-neutral">' . $item->text . '</a>';
+        return '<a aria-current="page">' . $item->text . '</a>';
     }
 }
 

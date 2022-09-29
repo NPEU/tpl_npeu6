@@ -217,6 +217,16 @@ class TplNPEU6Helper
             $brand->primary_colour_l['dark']       = self::adjust_lightness($brand->primary_colour_hsl['L_int'], $dark_adjust);
             $brand->primary_colour_l['very-dark']  = self::adjust_lightness($brand->primary_colour_hsl['L_int'], $very_dark_adjust);
 
+            $primary_colour_hsl_very_light = ['H' => (int) $brand->primary_colour_hsl['H'], 'S' => ((int) $brand->primary_colour_hsl['S']) / 100, 'L' => ((int) $brand->primary_colour_l['very-light']) / 100];
+            $primary_colour_hsl_light      = ['H' => (int) $brand->primary_colour_hsl['H'], 'S' => ((int) $brand->primary_colour_hsl['S']) / 100, 'L' => ((int) $brand->primary_colour_l['light']) / 100];
+            $primary_colour_hsl_dark       = ['H' => (int) $brand->primary_colour_hsl['H'], 'S' => ((int) $brand->primary_colour_hsl['S']) / 100, 'L' => ((int) $brand->primary_colour_l['dark']) / 100];
+            $primary_colour_hsl_very_dark  = ['H' => (int) $brand->primary_colour_hsl['H'], 'S' => ((int) $brand->primary_colour_hsl['S']) / 100, 'L' => ((int) $brand->primary_colour_l['very-dark']) / 100];
+
+            $brand->primary_colour__very_light = '#' . Color::hslToHex($primary_colour_hsl_very_light);
+            $brand->primary_colour__light      = '#' . Color::hslToHex($primary_colour_hsl_light);
+            $brand->primary_colour__dark       = '#' . Color::hslToHex($primary_colour_hsl_dark);
+            $brand->primary_colour__very_dark  = '#' . Color::hslToHex($primary_colour_hsl_very_dark);
+
 
             $secondary_color = new Color($colour_2);
 

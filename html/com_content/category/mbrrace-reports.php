@@ -75,6 +75,7 @@ $items = $this->items;
 $report_field_group_id = 6;
 
 // The following values would come from the URL (via a form submission or link):
+/**/
 $report_filters = [
     'This is a topic',
     'Third topic here'
@@ -97,7 +98,7 @@ foreach ($items as $i => $article) {
     }
 }
 
-
+/**/
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline">
 <?php if ($this->params->get('filter_field') !== 'hide' || $this->params->get('show_pagination_limit')) : ?>

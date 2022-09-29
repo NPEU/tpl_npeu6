@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_svg
@@ -149,42 +144,47 @@ foreach ($rooms as $room => $keys) {
 <?php endif; ?>
 
 <h2>Staff member details</h2>
+<div class="l-layout  l-gallery-grid  l-gallery-grid--gutter--m  l-gallery-grid--basis-15">
+    <ul class="l-layout__inner">
+        <?php foreach ($staff_members as $k => $staff) : ?>
 
-<ul class="l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-20">
-    <?php foreach ($staff_members as $k => $staff) : ?>
+        <li class="l-box  l-box--space--block">
+            <article class="c-glimpse  c-glimpse--image-round  d-background--light" id="<?php echo $staff['alias']; ?>">
 
-    <li class="u-fill-height">
-        <article class="c-glimpse  d-background--light  u-padding--s" id="<?php echo $staff['alias']; ?>">
+                <div data-fs-block="border">
+                    <h3 class="c-glimpse__title"><span><?php echo $staff['first_name']; ?></span> <span><?php echo $staff['last_name']; ?></span></h3>
 
-            <div class="c-glimpse__image  c-glimpse__image--rounded">
-                <div class="l-proportional-container  l-proportional-container--1-1">
-                    <div class="l-proportional-container__content">
-                        <div class="u-image-cover  js-image-cover">
+
+                    <div class="c-glimpse__image  d-border">
+                        <div class="u-image-cover  js-image-cover  u-image-cover--min-100">
                             <div class="u-image-cover__inner">
-                                <img src="<?php echo $staff['avatar']; ?>?s=140" alt="" width="70px">
+                                <img src="<?php echo $staff['avatar']; ?>?s=300" sizes="100vw" srcset="<?php echo $staff['avatar']; ?>?s=1600 1600w, <?php echo $staff['avatar']; ?>?s=900 900w, <?php echo $staff['avatar']; ?>?s=300 300w" alt="" class="u-image-cover__image" width="120" height="120">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="c-utilitext" style="position: absolute; left: 100px; top: 10px;">
-                    <a href="/about/people/<?php echo $staff['alias']; ?>" class="u-space--right--xs"><svg height="20" width="20" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a><br>
-                    <a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>" class="u-space--right--xs"><svg height="20" width="20" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?><br>
-                    <a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>" class="u-space--right--xs"><svg height="20" width="20" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?>
-                </div>
-            </div>
-            <div class="c-glimpse__content">
-                <h3 class="c-glimpse__heading">
-                    <span><?php echo $staff['first_name']; ?></span> <span><?php echo $staff['last_name']; ?></span>
-                </h3>
-                <p class="c-utilitext"><?php echo $staff['role']; ?></p>
-                <p class="c-utilitext"><a href="mailto:<?php echo $staff['email']; ?>"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-email"></use></svg> <span><?php echo $staff['email']; ?></span></a></p>
-                <?php if (!empty($staff['tel'])) : ?>
-                <p class="c-utilitext"><svg height="20" width="20" focusable="false" class="icon  u-space--right--xs" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> <span><?php echo $staff['tel']; ?></span></p>
-                <?php endif; ?>
-            </div>
 
-        </article>
-    </li>
+                    <div class="c-glimpse__body">
 
-    <?php endforeach; ?>
-</ul>
+                        <p class="c-utilitext  c-utilitext--no-font-reduction"><?php echo $staff['role']; ?></p>
+                        <p class="c-utilitext  c-utilitext--no-font-reduction"><a href="mailto:<?php echo $staff['email']; ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-email"></use></svg> <span><?php echo $staff['email']; ?></span></a></p>
+                        <?php if (!empty($staff['tel'])) : ?>
+                        <p class="c-utilitext  c-utilitext--no-font-reduction  l-box--space--block--xs"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> <span><?php echo $staff['tel']; ?></span></p>
+                        <?php endif; ?>
+                        <p class="c-utilitext  c-utilitext--no-font-reduction  l-box--space--block--xs  l-layout  l-row  l-row--start  l-gutter--xs  l-flush-edge-gutter">
+                            <span class="l-layout__inner">
+                                <span class="l-box"><a href="/about/people/<?php echo $staff['alias']; ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a></span>&emsp;
+                                <span class="l-box"><a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?></span>&emsp;
+                                <span class="l-box"><a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?></span>
+                            </span>
+                        </p>
+                    </div>
+
+
+                </div>
+
+            </article>
+        </li>
+
+        <?php endforeach; ?>
+    </ul>
+</div>

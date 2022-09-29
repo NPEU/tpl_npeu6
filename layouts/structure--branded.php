@@ -70,7 +70,7 @@
                             </div>
                             */ ?>
 
-                            <a href="http://www.npeu.ox.ac.uk/" class="c-badge  c-badge--primary-logo  u-space--above  u-space--left  u-space--right">
+                            <a href="https://www.npeu.ox.ac.uk/" class="c-badge  c-badge--primary-logo  u-space--above  u-space--left  u-space--right">
                                 <?php
                                 // Note this may come form the template project setting somehow, so the device could change depending if it's CTU or SHEER for example. Not sure yet.
                                 $device_brand_id = 122;

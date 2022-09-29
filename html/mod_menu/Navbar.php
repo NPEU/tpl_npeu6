@@ -17,7 +17,7 @@ $active_menu = $app->getMenu()->getActive();
 //$is_blog = ($active_menu->query['view'] == 'category' && $active_menu->query['layout'] == 'blog');
 
 $uri   = JUri::getInstance();
-$menu_route = trim($active_menu->route, '/');
+$menu_route = isset($active_menu->route) ? trim($active_menu->route, '/') : '';
 $uri_route  = trim($uri->getPath(), '/');
 $page_is_subroute = ($menu_route == $uri_route) ? false : true;
 
@@ -30,7 +30,7 @@ $brand = TplNPEU6Helper::get_brand();
 if (!isset($is_sitemap)) {
     $is_sitemap = false;
 
-    if ($active_menu->alias == 'sitemap2' || $active_menu->alias == 'sitemap') {
+    if (isset($active_menu->alias) && $active_menu->alias == 'sitemap2' || $active_menu->alias == 'sitemap') {
         $is_sitemap = true;
     }
 

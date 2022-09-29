@@ -79,7 +79,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; ?>"  modstyle_bespoke--wrapper">
+    <div class="c-panel<?php echo $wrapper_theme_class; ?>  modstyle_bespoke--wrapper">
         <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
             <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
     <?php else: ?>
@@ -226,7 +226,15 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
 function modChrome_block($module, &$params, &$attribs) {
     if (!empty($module->content)): ?>
-    <div class="l-blockrow  modstyle_block">
+    <div class="l-box  modstyle_block">
+        <?php echo $module->content; ?>
+    </div>
+    <?php endif;
+}
+
+function modChrome_block_space_below($module, &$params, &$attribs) {
+    if (!empty($module->content)): ?>
+    <div class="u-space--below  l-box  l-box--space--block-end  modstyle_blockspace-below">
         <?php echo $module->content; ?>
     </div>
     <?php endif;
@@ -234,7 +242,7 @@ function modChrome_block($module, &$params, &$attribs) {
 
 function modChrome_block_fill_width($module, &$params, &$attribs) {
     if (!empty($module->content)): ?>
-    <div class="l-blockrow  u-fill-width  modstyle_fill-width">
+    <div class="l-box  u-fill-width  modstyle_fill-width">
         <?php echo $module->content; ?>
     </div>
     <?php endif;

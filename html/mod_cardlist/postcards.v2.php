@@ -15,8 +15,8 @@ $doc = JFactory::getDocument();
 $hx = (int) str_replace('h', '', $params->get('header_tag'));
 $hx = 'h' . $hx;
 
-$basis = $params->get('card_basis', '25');
-
+$basis     = $params->get('card_basis', '25');
+$full_link = $params->get('link_full', 0);
 ?>
 
 <?php if (!empty($params->get('cards'))) : ?>
@@ -31,6 +31,7 @@ $basis = $params->get('card_basis', '25');
             //echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
             
             $card_data['theme_classes'] = empty($card->theme_classes) ? 'd-background' : $card->theme_classes;
+            $card_data['full_link']     = $full_link;
             /*
             $card_data['link']          = $card->link;
             $card_data['image']         = $headline_image['headline-image'];

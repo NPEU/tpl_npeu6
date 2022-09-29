@@ -26,6 +26,7 @@ $ff_widths = array(
 );
 
 $ff_width = $ff_widths[$c];
+$full_link = $params->get('link_full', 0);
 //echo '<pre>'; var_dump($params->get('cards')); echo '</pre>'; exit;
 ?>
 <div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_cardlist  modlayout_ff-widths">
@@ -39,6 +40,7 @@ $ff_width = $ff_widths[$c];
             //echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
             
             $card_data['theme_classes'] = empty($card->theme_classes) ? 'd-background' : $card->theme_classes;
+            $card_data['full_link']     = $full_link;
             /*
             $card_data['link']          = $card->link;
             $card_data['image']         = $headline_image['headline-image'];

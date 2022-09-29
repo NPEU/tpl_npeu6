@@ -36,7 +36,7 @@ if (!empty($_SERVER['JTV2'])) {
             There's a much long essay on this brewing and I'll add the link when it's done.
         */
         body{font:1em/1.2 sans-serif;padding:1em;margin:0 auto;max-width:50em}details,dialog,main,summary{display:block}@supports (list-style-type:disclosure-closed){summary{display:list-item}}mark{background:#ff0;color:# 000}[hidden],template{display:none}fieldset{border:1px solid;border-color:#777;margin:1em 0;padding:1em}image,img,svg{max-width:100%;-ms-interpolation-mode:bicubic;vertical-align:middle;/*height:auto;*/border:0}figure{max-width:100%;overflow-x:auto}_:-o-prefocus,:root figure{max-width:initial;overflow-x:visible}hr{border-style:solid;border-width:0 0 1px 0;margin:1em 0;color:#777}pre{width:100%;overflow-x:scroll;overflow-y:auto}video{max-width:100%;height:auto}button,input,label,select,textarea{vertical-align:middle;vertical-align:middle;min-height:2.2em;margin:.2em 0}button,input[type=checkbox],input[type=radio],label,select,textarea{cursor:pointer}button,input,textarea{padding:0 .5em;line-height:1.5}table{width:100%;border:1px solid #777;border-collapse:collapse}table[role=presentation]{border:0;table-layout:fixed}table[role=presentation] td{border:0}th{background:#eee}caption,td,th{padding:.5em}
-    
+
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
         .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top:0;left:0;width:100%;height:100%;}
     </style>
@@ -64,7 +64,7 @@ if (!empty($_SERVER['JTV2'])) {
         only print, screen and (min-width: 1vm),
         only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
-    ">  
+    ">
     <!-- Load styles for IE11, UC -->
     <script>
     if (
@@ -77,7 +77,7 @@ if (!empty($_SERVER['JTV2'])) {
         document.getElementsByTagName('head')[0].appendChild(link);
     }
     </script>
-    
+
     <!--
         Print, Edge 12? - 18
         Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
@@ -211,47 +211,48 @@ if (!empty($_SERVER['JTV2'])) {
     <?php if ($env != 'production') : ?>
     <style>
 
-     .env_container {
-         padding: 1.2rem 0.6rem;
-         text-align: center;
-         position: sticky;
-         top: 0;
-         z-index: 9999;
-         background: #cc6289;
-         color: #fff;
-         box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
-     }
-     
-     .env-testing .env_container,
-     .env-sandbox .env_container {
-         background: #ffc77c;
-         color: #222;
-     }
-     
-     .env_container * {
-         margin: 0;
-         padding: 0;
-         border: 0;
-     }
-     
-     .env_container button {
-         position: absolute;
-         right: 1.2rem;
-         top: 1rem;
-         background-color: rgba(0,0,0,0.1);
-         padding: 0 0.6rem;
-         color: inherit;
-     }
-     
-     .env_container button:hover,
-     .env_container button:active,
-     .env_container button:focus {
-         background-color: rgba(0,0,0,0.3);
-     }
+    .env_container {
+        padding: 1.2rem 0.6rem;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        background: #cc6289;
+        color: #fff;
+        box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
+    }
+
+    .env-testing .env_container,
+    .env-sandbox .env_container,
+    .env-next .env_container {
+        background: #ffc77c;
+        color: #222;
+    }
+
+    .env_container * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .env_container button {
+        position: absolute;
+        right: 1.2rem;
+        top: 1rem;
+        background-color: rgba(0,0,0,0.1);
+        padding: 0 0.6rem;
+        color: inherit;
+    }
+
+    .env_container button:hover,
+    .env_container button:active,
+    .env_container button:focus {
+        background-color: rgba(0,0,0,0.3);
+    }
 
     </style>
     <?php endif; ?>
-    
+
 
     <!--<![endif]-->
 

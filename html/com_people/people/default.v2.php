@@ -37,13 +37,10 @@ function person_img_size($img_url, $size) {
 
     <div class="l-layout  l-row">
         <div class="l-layout__inner">
-            <div class="l-box  ff-width-100--40--50  l-box--space--block-end--l">
-                <div class="c-panel">
-                    <div class="longform-content  user-content">
-                        <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
-                    </div>
-                </div>
-            </div>
+            
+            <div class="l-box  ff-width-100--70--50  l-box--space--block-end--l">
+                <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
+            </div>        
 
             <div class="l-box  ff-width-100--40--50">
                 <?php echo JHtml::_('content.prepare', '{loadposition people_image}'); ?>

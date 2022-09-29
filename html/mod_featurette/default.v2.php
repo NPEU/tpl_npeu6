@@ -75,7 +75,7 @@ $fit_class    = $params->get('fit', 'cover') == 'contain' ? '  u-image-cover--co
                 <?php if ($svg_src) : ?>
                 <img src="<?php echo $svg_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>" onerror="this.src='<?php echo $img_src; ?>'; this.onerror=null;">
                 <?php else: ?>
-                <img src="<?php echo $img_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>">
+                <img src="<?php echo $img_src; ?>?s=300" sizes="100vw" srcset="<?php echo $img_src; ?>?s=1600 1600w, <?php echo $img_src; ?>?s=900 900w, <?php echo $img_src; ?>?s=300 300w" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>">
                 <?php endif; ?>
             </p>
         </div>

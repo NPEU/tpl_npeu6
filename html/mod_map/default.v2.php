@@ -27,18 +27,19 @@ $legend = $params->get('legend');
 $doc->addStyleSheet($template_path . '/css/map.min.css');
 $doc->addScript($template_path . '/js/map.min.js');
 
-$markers        = array();
-$markers_json   = 'null';
-$manual_markers = $params->get('manual_markers', false);
-$remote_markers = $params->get('remote_markers_url', false);
-$json_format    = $params->get('remote_markers_json_format', false);
+$markers            = array();
+$remote_markers     = array();
+$markers_json       = 'null';
+$manual_markers     = $params->get('manual_markers', false);
+$remote_markers_url = $params->get('remote_markers_url', false);
+$json_format        = $params->get('remote_markers_json_format', false);
 
 // Allow for relative data src URLs:
-if ($remote_markers && strpos($remote_markers, 'http') !== 0) {
-    $s        = empty($_SERVER['SERVER_PORT']) ? '' : ($_SERVER['SERVER_PORT'] == '443' ? 's' : '');
-    $protocol = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
-    $domain   = $protocol.'://'.$_SERVER['SERVER_NAME'];
-    $remote_markers = $domain . '/' . trim($remote_markers, '/');
+if ($remote_markers_url && strpos($remote_markers_url, 'http') !== 0) {
+    $s                  = empty($_SERVER['SERVER_PORT']) ? '' : ($_SERVER['SERVER_PORT'] == '443' ? 's' : '');
+    $protocol           = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
+    $domain             = $protocol.'://'.$_SERVER['SERVER_NAME'];
+    $remote_markers_url = $domain . '/' . trim($remote_markers_url, '/');
 }
 
 // Handle any manual markers:
@@ -53,7 +54,7 @@ if ($manual_markers) {
 }
 
 // Then add any remote markers:
-if ($remote_markers && $remote_markers_data = file_get_contents($remote_markers)) {
+if ($remote_markers_url && $remote_markers_data = file_get_contents($remote_markers_url)) {
 
     // Treat markers as CSV.
     // Let's see if we an decode it:
@@ -110,8 +111,8 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
         </p>
         <?php echo $static_map_no_js; ?>
     </div>
-    <?php if (!empty($legend)): ?>
-    <figcaption class="l-box--space--block-start">
+    <?php if (!empty(trim($legend))): ?>
+    <figcaption class="l-box--space--block-start  user-content">
         <?php echo $legend; ?>
     </figcaption>
     <?php endif; ?>

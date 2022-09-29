@@ -15,7 +15,7 @@ $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
 /*
     Expects a $card_data array with the following keys:
     theme_classes
-    --full_link--
+    full_link
     link
     hx
     title
@@ -37,7 +37,7 @@ $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
     footer_image_padded
 
 */
-
+#echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
 if (!isset($wrapper_classes) || !is_array($wrapper_classes)) {
     $wrapper_classes = [];
 }
@@ -84,7 +84,7 @@ if (!empty($card_data['footer_image'])) {
     if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
         $card_data['footer_image_svg_file'] = $footer_image_svg_file;
     }
-    
+
     $footer_image_path       = $public_root_path . $card_data['footer_image'];
     $footer_image_info       = getimagesize($footer_image_path);
     $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
@@ -112,13 +112,13 @@ if (empty($card_data['header_span_attr'])) {
 }
 ?>
 
-<article class="c-card  js-c-card<?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo '  ' . implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>">
-    <div data-fs-block="border">
+<article class="c-card<?php if (!empty($card_data['full_link']) && !empty($card_data['link'])) : ?>  js-c-card<?php endif; ?><?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo '  ' . implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>">
+    <div data-fs-block="border  rounded  inverted">
         <header class="c-card__header">
             <h<?php echo $card_data['hx']; ?> class="c-card__title">
-                <a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>>
+                <?php if (!empty($card_data['link'])) : ?><a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>><?php endif; ?>
                     <span<?php echo $card_data['header_span_attr']; ?>><?php echo $card_data['title']; ?></span>
-                </a>
+                <?php if (!empty($card_data['link'])) : ?></a><?php endif; ?>
             </h<?php echo $card_data['hx']; ?>>
             <?php if (!empty($card_data['header_image'])) : ?>
             <div class="c-card__image  l-box">
@@ -141,7 +141,7 @@ if (empty($card_data['header_span_attr'])) {
         </div>
         <?php endif; ?>
 
-        <?php if (!empty($card_data['footer_extra']) || !empty($card_data['link_text'])) : ?>
+        <?php if (!empty($card_data['footer_extra']) || (!empty($card_data['link_text']) && !empty($card_data['link']))) : ?>
 
         <footer class="c-card__footer">
             <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-edge-gutter">
@@ -151,7 +151,7 @@ if (empty($card_data['header_span_attr'])) {
                         <?php echo $card_data['footer_extra']; ?>
                     </p>
                     <?php endif; ?>
-                    <?php if (!empty($card_data['link_text'])) : ?>
+                    <?php if (!empty($card_data['link_text']) && !empty($card_data['link'])) : ?>
                     <p class="l-box  l-box--center">
                         <b><a href="<?php echo $card_data['link']; ?>" class="c-cta" id="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>" tabindex="-1" aria-hidden="true"><?php echo $card_data['link_text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></a></b>
                     </p>

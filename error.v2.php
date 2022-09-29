@@ -98,18 +98,18 @@ ob_start();
                 </div>
             </div>
             <?php else : ?>
-            
+
             <h1 id="error-<?php echo $error_code; ?>">Error <?php echo $error_code; ?></h1>
             <p><?php echo $this->error->getMessage(); ?></p>
             <p><?php echo str_replace("\n", "<br>\n", $this->error->getTraceAsString()); ?></p>
-            
+
             <?php endif; ?>
-                
+
         </main>
 
     </div>
-        
-        
+
+
     <div class="l-box">
 
         <footer aria-label="Page" data-fs-text="center">
@@ -220,7 +220,7 @@ ob_start();
                             <p class="c-utilitext   l-layout  l-row  l-row--start  l-gutter--xs">
                                 <span class="l-layout__inner">
                                     <span class="l-box">
-                                        © NPEU <?php echo date('Y'); ?> 
+                                        © NPEU <?php echo date('Y'); ?>
                                     </span>
                                 </span>
                             </p>

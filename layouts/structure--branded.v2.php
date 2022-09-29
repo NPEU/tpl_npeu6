@@ -22,7 +22,7 @@
             <div class="l-box">
 
                 <header aria-label="Page" class="page-header">
-                    <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-block-gutter">
+                    <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-block-gutter  d-background--very-dark">
                         <div class="l-layout__inner">
                             <div class="l-box">
                                 <p role="list" class="c-utilitext  c-utilitext--skiplinks">
@@ -72,10 +72,10 @@
                     <?php endif; ?>
 
 
-                    <div class="l-layout  l-distribute  l-gutter">
+                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  <?php echo $page_brand->alias; ?>">
                         <p class="l-layout__inner"<?php if (!$page_display_cta) : ?> data-js="cmr" data-ie-safe-parent-level="1"<?php endif; ?>>
 
-                            <span class="l-box"<?php if (!$page_display_cta) : ?> data-min-width="229"<?php endif; ?>>
+                            <span class="l-box  primary-logo-wrap"<?php if (!$page_display_cta) : ?> data-min-width="229"<?php endif; ?>>
                                 <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo"><?php echo str_replace('height="80"', 'height="100" width="' . $page_brand->svg_width_at_height_100 . '"', str_replace('height="150"', 'height="100" width="' . $page_brand->svg_width_at_height_100 . '"', $page_brand->logo_svg_with_fallback)); ?></a>
                             </span>
 
@@ -86,7 +86,8 @@
                             <?php endif; ?>
                             <?php
                                 if ($page_brand->alias == 'npeu') {
-                                    $second_brand_id = 122;
+                                    //$second_brand_id = 122;
+                                    $second_brand_id = false;
 
                                 } elseif ($page_brand->alias == 'pru-mnhc') {
                                     $second_brand_id = 2;
@@ -102,18 +103,19 @@
 
                                     $second_brand_id = $parent_brand_alias_id[$page_unit];
                                 }
-
-                                $second_brand = TplNPEU6Helper::get_brand($second_brand_id);
-                                $second_brand_url = 'https://www.npeu.ox.ac.uk';
-                                if ($page_brand->alias == 'npeu') {
-                                    $second_brand_width = $second_brand->svg_width_at_height_100;
-                                } elseif ($page_brand->alias == 'pru-mnhc') {
-                                    $second_brand_url = $second_brand->params->logo_url;
-                                    $second_brand_width = $second_brand->svg_width_at_height_80;
-                                } else {
-                                    $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : ($page_unit == 'npeu' ? '' : $second_brand->alias));
-                                    $second_brand_width = $second_brand->svg_width_at_height_80;
-                                }
+                            ?>
+                            <?php if ($second_brand_id) :
+                            $second_brand = TplNPEU6Helper::get_brand($second_brand_id);
+                            $second_brand_url = 'https://www.npeu.ox.ac.uk';
+                            if ($page_brand->alias == 'npeu') {
+                                $second_brand_width = $second_brand->svg_width_at_height_100;
+                            } elseif ($page_brand->alias == 'pru-mnhc') {
+                                $second_brand_url = $second_brand->params->logo_url;
+                                $second_brand_width = $second_brand->svg_width_at_height_80;
+                            } else {
+                                $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : ($page_unit == 'npeu' ? '' : $second_brand->alias));
+                                $second_brand_width = $second_brand->svg_width_at_height_80;
+                            }
                             ?>
                             <span class="l-box"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
                                 <a href="<?php echo $second_brand_url; ?>" class="c-badge  c-badge--primary-logo"><?php if ($page_brand->alias == 'npeu') : ?>
@@ -122,12 +124,12 @@
                                     <img src="<?php echo $second_brand->logo_svg_path; ?>" onerror="this.src='<?php echo $second_brand->logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $second_brand->name; ?>" height="80" width="<?php echo $second_brand_width; ?>">
                                     <?php endif; ?></a>
                             </span>
+                            <?php endif; ?>
                         </p>
                     </div>
 
-
                     <?php if($page_has_navbar) : ?>
-                    <div class="d-background">
+                    <div class="d-background" data-fs-block="inverted flush">
                         <div class="nav-bar" data-js="cmr" data-ie-safe-parent-level="1">
 
                             <div class="nav-bar__start" data-area="navbar-controls">
@@ -187,7 +189,7 @@
             </div>
             <div class="l-box  l-box--expand">
 
-                <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" class="d-background--dark<?php if ($is_blog && $page_has_article) :?>  is-blog-article<?php endif; ?>">
+                <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" class="dX-background--dark<?php if ($is_blog && $page_has_article) :?>  is-blog-article<?php endif; ?>">
 
                     <?php if($page_has_hero) : ?>
                     <?php if (!empty($page_heroes['hero_image0']->heading)) {
@@ -392,7 +394,7 @@
                             </div>
                             <?php endif; ?>
 
-                            <div class="l-primary-content__main  has-longform-content">
+                            <div class="l-primary-content__main<?php if ($page_has_article) {echo '  has-longform-content';} ?>">
 
                                 <?php if ($page_has_article) : ?>
                                 <div class="longform-content  user-content">
@@ -438,8 +440,8 @@
                                 <?php endif; ?>
 
                                 <?php if ($page_has_article) : ?>
-                                <footer class="longform-content__companion  t-neutral  d-background--very-light">
-                                    <div class="l-layout  l-row  l-row--push-apart  l-gutter--s">
+                                <footer class="longform-content__companion">
+                                    <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  t-neutral  d-background--very-light">
                                         <p class="l-layout__inner  c-utilitext">
                                             <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                             <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)) : ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . '" target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  u-space--left--xs"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
@@ -511,7 +513,7 @@
             </div>
 
             <div class="l-box">
-                <footer id="page-footer" aria-label="Page" data-fs-text="center" class="page-footer">
+                <footer id="page-footer" aria-label="Page" class="page-footer">
 
                     <?php if ($page_has_footer_top): ?>
                     <?php /*<div data-position="6-footer-top">
@@ -555,7 +557,7 @@
                     <?php #if ($page_unit != 'npeu') : ?>
                     <?php #if ($page_unit != $page_brand->alias) : ?>
                     <?php if (true) : ?>
-                    <div class="d-border--bottom--thick">
+                    <div class="d-border--bottom--thick" data-fs-text="center">
                         <div class="l-layout  l-gutter  l-distribute  l-distribute--balance-top  l--basis-20">
                             <p class="l-layout__inner">
                                 <?php
@@ -597,11 +599,11 @@
 
                     <?php echo $modules__footer_bottom; ?>
 
-                    <div class="d-background--dark  page-footer">
+                    <div class="d-background--dark  page-footer__brand-footer  <?php echo $page_brand->alias; ?>" data-fs-block="inverted flush" data-fs-text="center">
 
                         <div class="l-layout  l-row  l-gutter">
                             <div class="l-layout__inner">
-                                <div class="l-box  l-box--center">
+                                <div class="l-box  l-box--center  page-footer__info-box">
                                     <p class="c-utilitext   l-layout  l-row  l-row--center  l-gutter--xs  no-print">
                                         <span role="list" class="l-layout__inner">
                                             <?php echo $page_footer_text; ?>
