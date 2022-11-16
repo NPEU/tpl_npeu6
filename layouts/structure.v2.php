@@ -97,10 +97,6 @@ $block_css_files = false;
         only print,
         only all and (prefers-reduced-motion: no-preference), only all and (prefers-reduced-motion: reduce)
     ">
-    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css-v2/experiments.min.css'); ?>" media="
-        only print,
-        only all and (prefers-reduced-motion: no-preference), only all and (prefers-reduced-motion: reduce)
-    ">
     <!-- Load styles for IE11, UC -->
     <script>
     if (
