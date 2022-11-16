@@ -1,6 +1,8 @@
 _resources
 composer.lock
 
+favicon/
+
 
 ####################################################################################################
 # Windows (https://github.com/github/gitignore/blob/master/Global/Windows.gitignore)               #
