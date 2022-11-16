@@ -40,6 +40,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     $module_wrapper = $params->get('wrapper') ? $params->get('wrapper') : '';
     $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
+    $module_wrapper_fill_height = $params->get('wrapper_fill_hieght') ? $params->get('wrapper_fill_hieght') : '';
 
     $wrapper_classname = '';
     $header_classname  = $params->get('header_class', '');
@@ -84,7 +85,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?>  modstyle_bespoke--wrapper">
+    <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?><?php echo (!empty($module_wrapper_fill_height) ? '  u-fill-height': '');?>  modstyle_bespoke--wrapper">
         <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'c-longform-content  c-user-content' : 'c-panel__module'; ?>">
             <div<?php echo $wrapper_class; ?>>
     <?php endif; ?>
@@ -203,7 +204,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
                 <?php elseif ($module->showtitle): ?>
                 <h2<?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></h2>
                 <?php endif; ?>
-                <?php echo $module->content; ?> 
+                <?php echo $module->content; ?>
                 <?php if ($has_cta && $cta_position == 'bottom'): ?>
                 <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
                 <?php endif; ?>

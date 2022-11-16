@@ -35,6 +35,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     $module_wrapper = $params->get('wrapper') ? $params->get('wrapper') : '';
     $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
+    $module_wrapper_fill_height = $params->get('wrapper_fill_hieght') ? $params->get('wrapper_fill_hieght') : '';
 
     //$wrapper_classname = '';
     $header_classname  = $params->get('header_class', '');
@@ -79,7 +80,7 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
     if (!empty($module->content)): ?>
     <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-    <div class="c-panel<?php echo $wrapper_theme_class; ?>  modstyle_bespoke--wrapper">
+    <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?><?php echo (!empty($module_wrapper_fill_height) ? '  u-fill-height': '');?>  modstyle_bespoke--wrapper">
         <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
             <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
     <?php else: ?>
