@@ -26,9 +26,12 @@
         <folder>admin</folder>
         <folder>ajax</folder>
         <folder>css</folder>
+        <folder>css-v2</folder>
+        <folder>endpoints</folder>
         <folder>favicon</folder>
         <folder>html</folder>
         <folder>js</folder>
+        <folder>js-v2</folder>
         <folder>language</folder>
         <folder>layouts</folder>
         <folder>svg</folder>
