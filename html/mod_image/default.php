@@ -34,7 +34,7 @@ $inner_classes = 'u-image-natural';
 $image_classes = 'u-image-natural__image';
 
 if ($cover == 1) {
-    $container_classes .= ' u-image-cover  u-image-cover--min-30  js-image-cover';
+    $container_classes .= ' u-image-cover  u-image-cover--min-50  js-image-cover';
     $inner_classes = 'u-image-cover__inner';
     $image_classes = 'u-image-cover__image';
 }
@@ -83,7 +83,7 @@ $fallback_height = round($fallback_width / $ratio, 2);
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>
 <<?php echo $wrapper; echo $container_classes; ?>>
-    <?php if (isset($images->images0->url)): ?><a href="<?php echo $images->images0->url; ?>"<?php if (strpos($images->images0->url, $_SERVER['SERVER_NAME']) === false): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>    
+    <?php if (isset($images->images0->url)): ?><a href="<?php echo $images->images0->url; ?>"<?php if (strpos($images->images0->url, $_SERVER['SERVER_NAME']) === false): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>
         <img<?php echo $image_classes; ?> src="<?php echo JURI::base() . $images->images0->image; ?>" width="<?php echo $fallback_width; ?>" height="<?php echo $fallback_height; ?>" alt="<?php echo $images->images0->alt; ?>">
     <?php if (isset($images->images0->url)): ?></a><?php else: ?></div><?php endif; ?>
     <?php if ($has_details): ?>
