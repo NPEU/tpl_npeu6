@@ -133,6 +133,7 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
     $card_data['theme_classes']    = 'd-background  d-border'; //empty($theme) ? 'd-background' : $theme;
 
     //$card_data['full_link']       = $i == 1 ? false : true;
+    $card_data['full_link']        = true;
     $card_data['link']             = JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
     //$card_data['link_text']        = 'Read more';
     $card_data['header_image']     = $headline_image['headline-image'];
