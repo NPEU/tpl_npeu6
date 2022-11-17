@@ -5,11 +5,11 @@
         <description>Joomla! tpl_npeu6 template</description>
         <element>npeu6</element>
         <type>template</type>
-        <version>1.243.0</version>
+        <version>1.244.0</version>
         <client>site</client>
-        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v1.243.0</infourl>
+        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v1.244.0</infourl>
         <downloads>
-            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v1.243.0.zip</downloadurl>
+            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v1.244.0.zip</downloadurl>
         </downloads>
         <targetplatform name="joomla" />
         <tags>
