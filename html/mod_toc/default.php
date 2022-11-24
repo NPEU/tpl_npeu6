@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_toc
@@ -33,7 +28,7 @@ if (count($matches) < $min_h_count) {
 }
 
 ?>
-<div class="c-panel  c-panel--very-light  t-neutral  u-space--below  mod_toc">
+<div class="c-panel  c-panel--rounded  d-background--very-light  t-neutral  mod_toc">
     <nav class="c-panel__module" aria-label="table of contents">
         <div class="">
             <?php if ($module->showtitle): ?>

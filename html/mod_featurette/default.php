@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_cardlist
@@ -24,7 +19,6 @@ if (strpos($module->content, 'mod_featurette') !== false) {
     return;
 }
 
-
 $doc = JFactory::getDocument();
 
 $hx        = $params->get('header_tag', 'h2');
@@ -40,6 +34,12 @@ $img_info['width'] = 200;
 
 $img_info['height'] = round($img_info['width'] / $img_ratio);
 
+//if ($img_info[0] > $img_info[1]) {
+//    $img_info['height'] = $img_info['width'] / $img_ratio;
+//} else {
+//    $img_info['height'] = $img_info['width'] * $img_ratio;
+//}
+
 // Check if there's an SVG version of this images available:
 $img_path_info = pathinfo($img_path);
 if ($img_path_info['extension'] != 'svg') {
@@ -50,17 +50,14 @@ if ($img_path_info['extension'] != 'svg') {
     }
 }
 
-$theme_class  = !empty($params->get('theme', false)) ? '  t-featurette--' . $params->get('theme') : '';
-$border_class = $params->get('border', 'none') == 'none' ? '' : '  d-bands';
+
+$theme_class  = !empty($params->get('theme', false)) ? '  d-background--' . $params->get('theme') : '';
+$border_class = $params->get('border', 'none') == 'none' ? '' : '  d-border--thick';
 $shape_class  = $params->get('shape', 'square') == 'square' ? '' : '  c-featurette__image--' . $params->get('shape');
-$fit_class    = $params->get('fit', 'cover') == 'cover' ? 'u-image-cover  js-image-cover' : '';
-
-#echo '<pre>'; var_dump($module->content); echo '</pre>'; #exit;
-
-
+$fit_class    = $params->get('fit', 'cover') == 'contain' ? '  u-image-cover--contain  js-image-cover--contain' : '';
 ?>
-<div class="c-featurette<?php echo $has_image ? '  c-featurette--pull-image  u-space--above--none' : ''; ?><?php echo $theme_class; ?> mod_featurette">
-    <div class="c-featurette__body  c-featurette__body--80">
+<div class="c-featurette<?php echo ($has_image && $params->get('shape', 'square') == 'round') ? '  c-featurette--pull-image' : ''; ?><?php echo $theme_class; ?>  mod_featurette">
+    <div class="c-featurette__body  c-featurette__body--60">
         <?php if ($module->showtitle): ?>
         <<?php echo $hx; ?>><?php echo $module->title; ?></<?php echo $hx; ?>>
         <?php endif; ?>
@@ -73,18 +70,14 @@ $fit_class    = $params->get('fit', 'cover') == 'cover' ? 'u-image-cover  js-ima
     </div>
     <?php if ($has_image): ?>
     <div class="c-featurette__image<?php echo $shape_class; ?><?php echo $border_class; ?>">
-        <div class="l-proportional-container  l-proportional-container--1-1">
-            <div class="l-proportional-container__content">
-                <div class="<?php echo $fit_class; ?>">
-                    <div<?php echo empty($fit_class) ? '' : ' class="u-image-cover__inner"'; ?>>                        
-                        <?php if ($svg_src) : ?>
-                        <img src="<?php echo $svg_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>" onerror="this.src='<?php echo $img_src; ?>'; this.onerror=null;">
-                        <?php else: ?>
-                        <img src="<?php echo $img_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>">
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
+        <div class="u-image-cover  u-image-cover--contain  u-image-cover--min-100  js-image-cover<?php echo $fit_class; ?>">
+            <p class="u-image-cover__inner">
+                <?php if ($svg_src) : ?>
+                <img src="<?php echo $svg_src; ?>" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>" onerror="this.src='<?php echo $img_src; ?>'; this.onerror=null;">
+                <?php else: ?>
+                <img src="<?php echo $img_src; ?>?s=300" sizes="100vw" srcset="<?php echo $img_src; ?>?s=1600 1600w, <?php echo $img_src; ?>?s=900 900w, <?php echo $img_src; ?>?s=300 300w" alt="<?php echo $params->get('alt'); ?>" class="u-image-cover__image" width="<?php echo $img_info['width']; ?>" height="<?php echo $img_info['height']; ?>">
+                <?php endif; ?>
+            </p>
         </div>
     </div>
     <?php endif; ?>

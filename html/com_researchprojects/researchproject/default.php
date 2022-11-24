@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_researchprojects
@@ -29,12 +24,11 @@ $skip = array(
     'state'
 );
 
-if (!function_exists('format_person')) {
-    function format_person($p) {
-        $pp = ResearchProjectsHelper::parseCollaborator($p);
-        return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
-    }
+function format_person($p) {
+    $pp = ResearchProjectsHelper::parseCollaborator($p);
+    return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
 }
+
 
 
 $pi_s = empty($this->item->pi_2) ? '' : 's';
@@ -44,14 +38,36 @@ $brand = false;
 if (!empty($this->item->brand_details)) {
     $brand = $this->item->brand_details;
 }
-#echo '<pre>'; var_dump($this->item); echo '</pre>'; exit;
+
+// Construct the protocol (http|https):
+$s                 = empty($_SERVER['SERVER_PORT']) ? '' : (($_SERVER['SERVER_PORT'] == '443') ? 's' : '');
+$protocol          = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
+
+// Construct the domain url:
+$domain            = $protocol.'://'.$_SERVER['SERVER_NAME'];
+
+// Construct the public root path: (note: this is the SERVER path, not a URL)
+$public_root_path  = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
+
+$image_path = $public_root_path . $brand->logo_png_path;
+
+$image_info = getimagesize($image_path);
+
+$w = $image_info[0];
+$h = $image_info[1];
+$image_ratio = ($w < $h) ? ($w / $h) : ($h / $w);
+
+$image_height = 100;
+$image_width  = round($image_height / $image_ratio);
 
 ob_start();
 ?>
-<div class="u-space">
+<div>
     <?php if ($brand) : ?>
-    <div class="u-space--below">
-        <a href="<?php echo $this->item->brand_details->alias; ?>" class="c-badge"><img src="<?php echo $this->item->brand_details->logo_svg_path; ?>" onerror="this.src='<?php echo $this->item->brand_details->logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $this->item->brand_details->name; ?>" height="80"></a>
+    <div class="l-box l-box--center  l-box--space--block">
+        <a href="<?php echo $brand->alias; ?>" class="c-badge  c-badge--limit-height--xl">
+            <img src="<?php echo $brand->logo_svg_path; ?>" onerror="<?php echo $brand->logo_png_path; ?>" alt="Logo: <?php echo $brand->name; ?>" height="<?php echo $image_height; ?>" width="<?php echo $image_width; ?>">
+        </a>
     </div>
     <?php endif; ?>
     <dl>
@@ -100,7 +116,7 @@ $doc->component__sidebar_top = ob_get_contents();
 ob_end_clean();
 ?>
 
-<div class="c-user-content  u-space--below">
+<div class="longform-content  user-content">
     <h2>Summary</h2>
     <?php echo $this->item->content; ?>
     <?php if (!empty($this->item->publications)) : ?>
@@ -108,6 +124,8 @@ ob_end_clean();
     <?php echo $this->item->publications; ?>
     <?php endif; ?>
 </div>
+<?php /*
 <p>
     <a href="<?php echo JRoute::_('index.php?option=com_researchprojects'); ?>">Back</a>
 </p>
+*/?>

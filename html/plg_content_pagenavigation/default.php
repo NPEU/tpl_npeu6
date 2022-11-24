@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Plugin
  * @subpackage  Content.pagenavigation
@@ -19,24 +14,18 @@ JHtml::_('bootstrap.tooltip');
 $lang = JFactory::getLanguage();
 
 ?>
-<div class="n-pagination  u-max-measure">
-    <ul class="n-pagination__list  n-pagination__list--push-apart">
-    <?php if ($row->prev) :
-        $direction = $lang->isRtl() ? 'right' : 'left'; ?>
-        <li class="n-pagination__item">
-            <a class="n-pagination__link" aria-label="<?php echo JText::sprintf('PAGINATION_PREVIOUS_TITLE', htmlspecialchars($rows[$location-1]->title)); ?>" href="<?php echo $row->prev; ?>" rel="prev">
-                <svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-left"></use></svg><?php echo '<span aria-hidden="true">' . JText::_('PAGINATION_PREVIOUS') . '</span>'; ?>
-            </a>
-        </li>
+<nav class="l-layout  l-row  l-row--push-apart  n-pagination">
+    <p class="l-layout__inner">
+    <?php if ($row->prev) : ?>
+        <span class="l-box">
+            <a href="<?php echo $row->prev; ?>" rel="next"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-left"></use></svg><span><?php echo JText::_('PAGINATION_PREVIOUS'); ?></span></a><span class="l-box__separator">&nbsp;&nbsp;|&nbsp;</span>
+        </span>
     <?php endif; ?>
-    <?php if ($row->next) :
-        $direction = $lang->isRtl() ? 'left' : 'right'; ?>
-        <li class="n-pagination__item  u-space--left--auto">
-            <a class="n-pagination__link" aria-label="<?php echo JText::sprintf('PAGINATION_NEXT_TITLE', htmlspecialchars($rows[$location+1]->title)); ?>" href="<?php echo $row->next; ?>" rel="next">
-                <?php echo '<span aria-hidden="true">' . JText::_('PAGINATION_NEXT') . '</span>'; ?><svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg>
-            </a>
-        </li>
+    <?php if ($row->next) : ?>
+        <span class="l-box  l-box--push-end">
+            <a href="<?php echo $row->next; ?>" rel="prev" ><span><?php echo JText::_('PAGINATION_NEXT'); ?></span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
+        </span>
     <?php endif; ?>
-    </ul>
-</div>
+    </p>
+</nav>
 

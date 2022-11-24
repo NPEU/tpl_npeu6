@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_cardlist
@@ -31,93 +26,37 @@ $ff_widths = array(
 );
 
 $ff_width = $ff_widths[$c];
+$full_link = $params->get('link_full', 0);
+//echo '<pre>'; var_dump($params->get('cards')); echo '</pre>'; exit;
 ?>
 <div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_cardlist  modlayout_ff-widths">
     <div class="l-layout__inner">
 
-    <?php foreach ($params->get('cards') as $card) :
-
-    if (!empty($card->link && !empty($card->link_text))) {
-        $card->body .= '<p class="c-card__cta"><a href="' . $card->link .'" class="c-cta  c-cta--has-icon">' . $card->link_text . '<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>';
-    }
-
-    $full_link = false;
-
-    if (!empty($card->link) && (bool) $params->get('link_full')) {
-        $full_link = true;
-    }
-
-    $card->footer = trim($card->footer);
+    <?php foreach ($params->get('cards') as $card) : ?>
     
-    $theme_classes = empty($card->theme_classes) ? '' : '  ' . $card->theme_classes;
-    ?>
         <div class="ff-width-100--45--<?php echo $ff_width; ?>  l-box">
-            <div class="c-card<?php echo $theme_classes; ?>  u-fill-height">
-                <?php echo $full_link ? '<a href="' . $card->link .'" class="c-card__full-link  u-fill-height--column">' : ''; ?>
-                <?php if (!empty($card->header_image)) : ?>
+            <?php
+            $card_data = (array) $card;
+            //echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
+            
+            $card_data['theme_classes'] = empty($card->theme_classes) ? 'd-background' : $card->theme_classes;
+            $card_data['full_link']     = $full_link;
+            /*
+            $card_data['link']          = $card->link;
+            $card_data['image']         = $headline_image['headline-image'];
+            $card_data['image_alt']     = $headline_image['headline-image-alt-text'];
+            $card_data['title']         = $this->item->title;
+            $card_data['publish_date']  = $this->item->publish_up;
+            $card_data['date_format']   = $date_format;
+            $card_data['state']         = (int) $this->item->state;
+            */
 
+            $card_path = dirname(dirname(__DIR__)) . '/layouts/partial-card.php';
+            //echo '<pre>'; var_dump($card_path); echo '</pre>'; exit;
+            //echo '<pre>'; var_dump(file_exists($card_path)); echo '</pre>'; exit;
+            include($card_path);
 
-                <div class="c-card__image">
-                    <div class="l-proportional-container  l-proportional-container--3-1">
-                        <div class="l-proportional-container__content">
-                            <div class="u-image-cover  js-image-cover">
-                                <div class="u-image-cover__inner">
-                                    <img src="<?php echo $card->header_image; ?>?s=300" sizes="100vw" srcset="<?php echo $card->header_image; ?>?s=1600 1600w, <?php echo $card->header_image; ?>?s=900 900w, <?php echo $card->header_image; ?>?s=300 300w" alt="<?php echo $card->header_image_alt; ?>" class="u-image-cover__image" width="200">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
-                <div class="c-card__main  u-fill-height--column__expand">
-                    <<?php echo $hx; ?> class="c-card__title"><?php echo $card->title; ?></<?php echo $hx; ?>>
-                    <?php if (!empty($card->body)) : ?>
-                    <div class="c-card__body  c-user-content">
-                        <?php echo $card->body; ?>
-
-                    </div>
-                    <?php endif; ?>
-                    <?php if (!empty($card->footer)) : ?>
-                    <div class="c-card__footer">
-                        <?php echo $card->footer; ?>
-                        <?php /* Not sure how to handle this, as this markup would be a pain in the editor, but is what's needed for proper footer layout
-                        <p class="c-card__info  u-text-group  u-text-group--wide-space">
-                            <span class="u-text-group"><span>Published on: </span><span>18 June 2018 10:11</span></span>
-                            <span class="u-text-group"><span>Published in: </span><span>Quite a long category name category name to test wrapping</span></span>
-                        </p>
-                        */ ?>
-                    </div>
-                    <?php endif; ?>
-
-                </div>
-                <?php if (!empty($card->footer_image)) :
-                // Check for an SVG:
-                $pathinfo = pathinfo($card->footer_image);
-                $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card->footer_image);
-
-                if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
-                    $card->footer_image_svg = $footer_image_svg_file;
-                }
-
-                ?>
-                <div class="c-card__footer_image">
-                    <div class="l-proportional-container  l-proportional-container--4-1">
-                        <div class="l-proportional-container__content">
-                            <div class="u-image-cover<?php if (!empty($card->footer_logo)): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover">
-                                <div class="u-image-cover__inner<?php if (!empty($card->footer_logo)): ?>  u-padding--s  d-background  t-white<?php endif; ?>">
-                                    <?php if (!empty($card->footer_image_svg)): ?>
-                                    <img src="<?php echo $card->footer_image_svg; ?>" onerror="this.src='<?php echo $card->footer_image; ?>'; this.onerror=null;" alt="<?php echo $card->footer_image_alt; ?>" class="u-image-cover__image" width="200">
-                                    <?php else: ?>
-                                    <img src="<?php echo $card->footer_image; ?>?s=300" sizes="100vw" srcset="<?php echo $card->footer_image; ?>?s=1600 1600w, <?php echo $card->footer_image; ?>?s=900 900w, <?php echo $card->footer_image; ?>?s=300 300w" alt="<?php echo $card->footer_image_alt; ?>" class="u-image-cover__image" width="200">
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
-                <?php echo $full_link ? '</a>' : ''; ?>
-            </div>
+            ?>
         </div>
 
     <?php endforeach; ?>

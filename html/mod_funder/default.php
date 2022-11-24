@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_funder
@@ -18,6 +13,7 @@ require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/administrator/compo
 
 use SVG\SVG;
 
+/*
 $db = JFactory::getDBO();
 
 $query = $db->getQuery(true);
@@ -26,6 +22,8 @@ $query->from('#__brands');
 $query->where('id = ' . $params->get('brand_id'));
 $db->setQuery($query);
 $brand = $db->loadObject();
+*/
+$brand = TplNPEU6Helper::get_brand($params->get('brand_id'));
 
 JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 $page_brand = TplNPEU6Helper::get_brand();
@@ -38,11 +36,11 @@ $logo_image = @SVG::fromString($brand->logo_svg);
 $logo_svg_doc = $logo_image->getDocument();
 $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
 ?>
-<div class="u-fill-heightX  d-bands--bottomX  <?php echo $theme; ?>  mod_funder">
-    <div class="u-fill-heightX  l-layout  l-row">
+<div class="d-border--bottom--thickX  mod_funder">
+    <div class="l-layout  l-row">
         <div class="l-layout__inner">
-            <?php if (!empty($params->get('image'))): /* this is the old single-image option, but keep untill all have been migrated. */ ?>
-            <div class="l-box  ff-width-100--40--50  u-fill-heightX">
+            <?php if (!empty($params->get('image'))) : /* this is the old single-image option, but keep untill all have been migrated. */  ?>
+            <div class="l-box  ff-width-100--40--50">
                 <div class="u-image-cover  u-image-cover--min-20  js-image-cover">
                     <div class="u-image-cover__inner">
                         <img class="u-image-cover__image" src="<?php echo $params->get('image'); ?>" width="150" alt="">
@@ -57,7 +55,7 @@ $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
                 }
                 shuffle($images);
             ?>
-            <div class="l-box  ff-width-100--40--50  u-fill-heightX">
+            <div class="l-box  ff-width-100--40--50">
                 <div class="u-image-cover  u-image-cover--min-20  js-image-cover">
                     <div class="u-image-cover__inner">
                         <img class="u-image-cover__image" src="<?php echo $images[0]; ?>" width="150" alt="">
@@ -69,16 +67,15 @@ $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
             <div class="l-box  ff-width-100--40--50">
                 <div class="c-panel  u-fill-height  u-max-measure">
 
-                    <div class="u-text-align--center u-fill-width u-space--below">
-                        <div>
-                            <a href="<?php echo $params->get('brand_url'); ?>" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
-                                <img src="/assets/images/brand-logos/funder/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80">
-                            </a>
-                        </div>
-                    </div>
+                    <p class="u-text-align--center u-fill-width u-space--below">
+                        <a href="<?php echo $params->get('brand_url'); ?>" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
+                            <img src="/assets/images/brand-logos/funder/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80" width="<?php echo $brand->svg_width_at_height_80; ?>">
+                        </a>
+                    </p>
                     <div class="c-user-content">
                         <?php echo $params->get('statement'); ?>
                     </div>
+
                 </div>
             </div>
         </div>

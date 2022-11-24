@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_breadcrumbs
@@ -36,41 +31,49 @@ $show_last = $params->get('showLast', 1);
 
 if ($count > 0) :
 ?>
-<nav aria-label="Breadcrumbs" class="mod_breadcrumbs">
-    <dl class="n-breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
-        <dt class="n-breadcrumbs__title"><?php echo JText::_('MOD_BREADCRUMBS_HERE'); ?></dt>
+<nav aria-label="Breadcrumbs" class="l-layout  l-row  l-row--start  l-gutter--xs  d-background--dark t-npeu  l-box--space--inline--xs  mod_breadcrumbs" data-area="breadcrumbs">
+    <div class="l-layout__inner  c-utilitext">
+        <p class="l-box"><?php echo JText::_('MOD_BREADCRUMBS_HERE'); ?> </p>
+        <p role="list" class="l-box" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+            <span class="l-layout  l-row  l-row--start  l-gutter--xs  l-flush-edge-gutter">
+                <span class="l-layout__inner">
+                
+                    <?php
+                    
+                    // Find last and penultimate items in breadcrumbs list
+                    end($list);
+                    $last_item_key   = key($list);
+                    prev($list);
+                    $penult_item_key = key($list);
 
-        <?php
-        
-        // Find last and penultimate items in breadcrumbs list
-        end($list);
-        $last_item_key   = key($list);
-        prev($list);
-        $penult_item_key = key($list);
 
-        
-        
+                    // Generate the trail ?>
+                    <?php foreach ($list as $key => $item): ?>
+                    <?php if ($key !== $last_item_key):
+                    // Render all but last item - along with separator ?>
+                    <span role="listitem" class="l-box" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                        <?php if (!empty($item->link)): ?>
+                        <a itemprop="item" href="<?php echo preg_replace('/\?.*/', '', $item->link); ?>"><span itemprop="name"><?php echo $item->name; ?></span></a>
+                        <?php else: ?>
+                        <a class="n-breadcrumbs__link" itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
+                        <a itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
+                        <?php endif; ?>
+                        <meta itemprop="position" content="<?php echo $key + 1; ?>">
+                    </span>
+                    <span class="l-box__separator">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                    <?php elseif ($show_last):
+                    // Render last item if reqd. ?>
+                    <span role="listitem" class="l-box" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                        <a aria-current="page"><span><?php echo $item->name; ?></span></a>
+                        <meta itemprop="position" content="<?php echo $key + 1; ?>">
+                    </span>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
 
-        // Generate the trail ?>
-        <?php foreach ($list as $key => $item): ?>
-        <?php if ($key !== $last_item_key):
-        // Render all but last item - along with separator ?>
-        <dd class="n-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <?php if (!empty($item->link)): ?>
-            <a class="n-breadcrumbs__link" itemprop="item" href="<?php echo preg_replace('/\?.*/', '', $item->link); ?>"><span itemprop="name"><?php echo $item->name; ?></span></a>
-            <?php else: ?>
-            <a class="n-breadcrumbs__link" itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
-            <?php endif; ?>
-            <meta itemprop="position" content="<?php echo $key + 1; ?>">
-        </dd>
-        <?php elseif ($show_last):
-        // Make a link if not the last item in the breadcrumbs
-        // Render last item if reqd. ?>
-        <dd class="n-breadcrumbs__item">
-            <a class="n-breadcrumbs__link"><span><?php echo $item->name; ?></span></a>
-        </dd>
-        <?php endif; ?>
-        <?php endforeach; ?>
-    </dl>
+                </span>
+            </span>
+        </p>
+
+    </div>
 </nav>
 <?php endif; ?>

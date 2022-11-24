@@ -1,9 +1,5 @@
-<?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?>
-    <div class="sticky-footer-wrap  c-page-wrap">
-        <?php echo $page_content; ?>
+    <div class="l-layout  page-wrap" data-brand="<?php echo $page_brand->alias; ?>">
+        <div class="l-layout__inner">
+            <?php echo $page_content; ?>
+        </div>
     </div>

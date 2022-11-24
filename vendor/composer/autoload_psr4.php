@@ -6,7 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ScssPhp\\Server\\' => array($vendorDir . '/scssphp/server/src'),
-    'ScssPhp\\ScssPhp\\' => array($vendorDir . '/scssphp/scssphp/src'),
     'Michelf\\' => array($vendorDir . '/michelf/php-markdown/Michelf'),
 );

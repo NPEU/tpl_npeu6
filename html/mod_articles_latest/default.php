@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_articles_latest
@@ -13,6 +8,8 @@ if (!empty($_SERVER['JTV2'])) {
  */
 
 defined('_JEXEC') or die;
+
+JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 
 // Don't show a news article if that's the one that's loaded on the page:
 $doc   = JFactory::getDocument();
@@ -37,7 +34,8 @@ if (empty($list)) {
     return '';
 }
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
+
+
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
@@ -53,11 +51,11 @@ $count = $params->get('count');
 // to $count in some way?
 ?>
 <?php if ($count == 1): ?>
-<?php $item = $items[0]; ?>
+<?php $wrapper_classes = ['  mod_articles_latest  d-background  d-border']; $item = $items[0]; ?>
 <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
 <?php else: 
 // Have a go at providing useful classes:
-
+$wrapper_classes = ['d-background  d-border'];
 if ($count >= 2 && $count < 5) {
     $wrap_class  = 'mod_articles_latest';
     $outer_class = 'l-layout  l-row  l-gutter  l-flush-edge-gutter';

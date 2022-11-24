@@ -4,14 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5
+class ComposerStaticInit32a8260c69f9edcee64af9fa8c9cbc14
 {
     public static $prefixLengthsPsr4 = array (
-        'S' => 
-        array (
-            'ScssPhp\\Server\\' => 15,
-            'ScssPhp\\ScssPhp\\' => 16,
-        ),
         'M' => 
         array (
             'Michelf\\' => 8,
@@ -19,14 +14,6 @@ class ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5
     );
 
     public static $prefixDirsPsr4 = array (
-        'ScssPhp\\Server\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/scssphp/server/src',
-        ),
-        'ScssPhp\\ScssPhp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
-        ),
         'Michelf\\' => 
         array (
             0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
@@ -41,9 +28,9 @@ class ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit01e8eff6bf6fda5973fe62771eb5e7d5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit32a8260c69f9edcee64af9fa8c9cbc14::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit32a8260c69f9edcee64af9fa8c9cbc14::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit32a8260c69f9edcee64af9fa8c9cbc14::$classMap;
 
         }, null, ClassLoader::class);
     }

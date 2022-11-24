@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 // No direct access
 defined('_JEXEC') or die;
 
@@ -115,9 +110,10 @@ foreach ($use_list as $i => &$item)
 foreach ($new_list as $i => &$item) {
     $level = (int) $item->level;
 
-    $item_class         = 'n-section-menu__item';
-    $item_current_class = 'n-section-menu__item--active';
-    $item_link_class    = 'n-section-menu__link';
+    $item_class         = '';
+    $item_current_class = 'd-background--light  t-neutral';
+    $item_link_class    = '';
+    $item_attribs = '';
 
     $nav_item = '';
 
@@ -133,6 +129,7 @@ foreach ($new_list as $i => &$item) {
         // menu's URL will not be correct:
         if ($active->route == $current_url_path) {
             $current = true;
+            $item_attribs = ' aria-current="page"';
         }
     }
 
@@ -140,7 +137,7 @@ foreach ($new_list as $i => &$item) {
         $class = ' class="' . trim($class) . '"';
     }
 
-    $nav_item .= str_repeat("\t", $level) . '<li'.$class.'>';
+    $nav_item .= str_repeat("\t", $level) . '<li' . $class . $item_attribs . '>';
 
     $item->anchor_css = $item_link_class;
 
@@ -179,7 +176,7 @@ foreach ($new_list as $i => &$item) {
 }
 ?>
 <?php if(!empty($nav)): ?>
-<ul class="n-section-menu__list  u-fill-width  mod_menu">
+<ul class="n-menu__links  mod_menu">
     <?php echo $nav; ?>
 </ul>
 <?php endif; ?>

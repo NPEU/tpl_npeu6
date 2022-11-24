@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_finder
@@ -86,54 +81,64 @@ jQuery(function() {";
 }
 
 ?>
-<form id="finder-search" action="<?php echo JRoute::_($this->query->toUri()); ?>" method="get" class="form-inline  u-space--below">
-    <?php if ($page_search_area != ''): ?>
-    <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
-    <?php endif; ?>
-    <?php echo $this->getFields(); ?>
-    <?php // DISABLED UNTIL WEIRD VALUES CAN BE TRACKED DOWN. ?>
-    <?php if (false && $this->state->get('list.ordering') !== 'relevance_dsc') : ?>
-        <input type="hidden" name="o" value="<?php echo $this->escape($this->state->get('list.ordering')); ?>" />
-    <?php endif; ?>
-    <fieldset class="<?php echo $theme; ?>  d-bands">
-        <label for="q">
-            <?php echo JText::_('COM_FINDER_SEARCH_TERMS'); ?>
-        </label>
-        <span class="composite">
-            <input type="text" name="q" id="q" size="30" value="<?php echo $this->escape($this->query->input); ?>" class="inputbox" />
-            <?php if ($this->escape($this->query->input) != '' || $this->params->get('allow_empty_query')) : ?>
-            <button type="submit" class="<?php echo $theme; ?>">
-                <span class="icon-search icon-white"></span>
-                <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
-            </button>
-            <?php else : ?>
-            <button type="submit" class="<?php echo $theme; ?> disabled">
-                <span class="icon-search icon-white"></span>
-                <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
-            </button>
-            <?php endif; ?>
-        </span>
-        <?php if ($this->params->get('show_advanced', 1)) : ?>
-        <a href="#advancedSearch" data-toggle="collapse" class="btn">
-            <span class="icon-list" aria-hidden="true"></span>
-            <?php echo JText::_('COM_FINDER_ADVANCED_SEARCH_TOGGLE'); ?>
-        </a>
+<div class="l-box  l-box--space--block-end  longform-content">
+    <form id="finder-search" action="<?php echo JRoute::_($this->query->toUri()); ?>" method="get" class="form-inline  u-space--below">
+        <?php if ($page_search_area != ''): ?>
+        <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
         <?php endif; ?>
-    </fieldset>
-    <?php if ($this->params->get('show_advanced', 1)) : ?>
-        <div id="advancedSearch" class="collapse<?php if ($this->params->get('expand_advanced', 0)) echo ' in'; ?>">
-            <hr />
-            <?php if ($this->params->get('show_advanced_tips', 1)) : ?>
-                <div id="search-query-explained">
-                    <div class="advanced-search-tip">
-                        <?php echo JText::_('COM_FINDER_ADVANCED_TIPS'); ?>
+        <?php echo $this->getFields(); ?>
+        <?php // DISABLED UNTIL WEIRD VALUES CAN BE TRACKED DOWN. ?>
+        <?php if (false && $this->state->get('list.ordering') !== 'relevance_dsc') : ?>
+            <input type="hidden" name="o" value="<?php echo $this->escape($this->state->get('list.ordering')); ?>" />
+        <?php endif; ?>
+        <fieldset>
+        <div class="l-layout  l-row  l-row--start">
+                <div class="l-layout__inner">
+                    <div class="l-box  l-box--space--inline-end--xs  ff-width-100--25--25">
+                        <label for="q">
+                            <?php echo JText::_('COM_FINDER_SEARCH_TERMS'); ?>
+                        </label>
                     </div>
-                    <hr />
+                    <div class="l-box  ff-width-100--25--75">
+                        <span class="c-composite  u-fill-width">
+                            <input type="text" name="q" id="q" size="30" value="<?php echo $this->escape($this->query->input); ?>" class="inputbox" />
+                            <?php if ($this->escape($this->query->input) != '' || $this->params->get('allow_empty_query')) : ?>
+                            <button type="submit" class="<?php echo $theme; ?>">
+                                <svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-search"></use></svg>
+                                <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
+                            </button>
+                            <?php else : ?>
+                            <button type="submit" class="<?php echo $theme; ?> disabled">
+                                <svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-search"></use></svg>
+                                <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
+                            </button>
+                            <?php endif; ?>
+                        </span>
+                        <?php if ($this->params->get('show_advanced', 1)) : ?>
+                        <a href="#advancedSearch" data-toggle="collapse" class="btn">
+                            <span class="icon-list" aria-hidden="true"></span>
+                            <?php echo JText::_('COM_FINDER_ADVANCED_SEARCH_TOGGLE'); ?>
+                        </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
-            <?php endif; ?>
-            <div id="finder-filter-window">
-                <?php echo JHtml::_('filter.select', $this->query, $this->params); ?>
             </div>
-        </div>
-    <?php endif; ?>
-</form>
+        </fieldset>
+        <?php if ($this->params->get('show_advanced', 1)) : ?>
+            <div id="advancedSearch" class="collapse<?php if ($this->params->get('expand_advanced', 0)) echo ' in'; ?>">
+                <hr />
+                <?php if ($this->params->get('show_advanced_tips', 1)) : ?>
+                    <div id="search-query-explained">
+                        <div class="advanced-search-tip">
+                            <?php echo JText::_('COM_FINDER_ADVANCED_TIPS'); ?>
+                        </div>
+                        <hr />
+                    </div>
+                <?php endif; ?>
+                <div id="finder-filter-window">
+                    <?php echo JHtml::_('filter.select', $this->query, $this->params); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </form>
+</div>

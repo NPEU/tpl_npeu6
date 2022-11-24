@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  Layout
@@ -15,17 +10,47 @@ if (!empty($_SERVER['JTV2'])) {
 defined('JPATH_BASE') or die;
 
 $list = $displayData['list'];
+#echo '<pre>'; var_dump($list); echo '</pre>'; exit;
+
 ?>
-<ul class="n-pagination__list">
-	<li class="n-pagination__item"><?php echo $list['start']['data']; ?></li>
-	<li class="n-pagination__item"><?php echo $list['previous']['data']; ?></li>
-	<?php foreach ($list['pages'] as $page) : ?>
-        <?php if ($page['active']): ?>
-		<?php echo '<li class="n-pagination__item">' . $page['data'] . '</li>'; ?>
-        <?php else: ?>
-		<?php echo '<li class="n-pagination__item  n-pagination__item--active">' . $page['data'] . '</li>'; ?>
-        <?php endif; ?>
-	<?php endforeach; ?>
-	<li class="n-pagination__item"><?php echo $list['next']['data']; ?></li>
-	<li class="n-pagination__item"><?php echo $list['end']['data']; ?></li>
-</ul>
+<nav aria-label="Pagination" class="l-layout  l-row  l-row--center  n-pagination">
+    <p class="l-layout__inner">
+        <span class="l-box  n-pagination__start-links">
+            <span class="l-layout  l-row  l-row--center">
+                <span class="l-layout__inner">
+                    <span class="l-box">
+                        <?php echo $list['start']['data']; ?><span class="l-box__separator">&nbsp;&nbsp;|&nbsp;</span>
+                    </span>
+                    <span class="l-box">
+                        <?php echo $list['previous']['data']; ?><span class="l-box__separator">&nbsp;&nbsp;|&nbsp;</span>
+                    </span>
+                </span>
+            </span>
+        </span>
+
+        <span role="list" class="l-box  n-pagination__page-links">
+            <span class="l-layout  l-row  l-row--center">
+                <span class="l-layout__inner">
+                    <?php foreach ($list['pages'] as $page) : ?>
+                    <span role="listitem" class="l-box">
+                        <?php echo $page['data'] ; ?><span class="l-box__separator">&nbsp;&nbsp;|&nbsp;</span>
+                    </span>
+                    <?php endforeach; ?>
+                </span>
+            </span>
+        </span>
+
+        <span class="l-box  n-pagination__end-links">
+            <span class="l-layout  l-row  l-row--center">
+                <span class="l-layout__inner">
+                    <span class="l-box">
+                        <?php echo $list['next']['data']; ?><span class="l-box__separator">&nbsp;&nbsp;|&nbsp;</span>
+                    </span>
+                    <span class="l-box">
+                        <?php echo $list['end']['data']; ?>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </p>
+</nav>

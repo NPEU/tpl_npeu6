@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_image
@@ -59,16 +54,29 @@ if (!$result) {
     $alias = false;
 }
 
+$public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
+$image_path       = $public_root_path . $images->images0->image;
+$image_info       = getimagesize($image_path);
+$image_real_ratio = $image_info[0] / $image_info[1];
+
+$height = 80;
+if ($image_info[0] > $image_info[1]) {
+    $width = round($height * $image_real_ratio);
+} else {
+    $width = round($height / $image_real_ratio);
+}
+
+
 #$svg_path = str_replace('.' . $pathinfo['extension'], '.svg', JURI::base() . $images->images0->image);
 #echo '<pre>'; var_dump(file_exists(JPATH_BASE . '/' . $svg_file)); echo '</pre>'; return;
 ?>
-<<?php echo $wrapper; ?> class="l-primary-content__pull-out__padded--@small  mod_image">
+<<?php echo $wrapper; ?> class="mod_image">
     
     <<?php echo $alias ? 'a href="https://www.npeu.ox.ac.uk/' . $alias . '"' : 'span'; ?> class="c-badge  c-badge--page-brand">
         <?php if (file_exists(JPATH_BASE . '/' . $svg_file)) : ?>
-        <img src="<?php echo JURI::base() . $svg_file; ?>" onerror="this.src='<?php echo JURI::base() . $images->images0->image; ?>'; this.onerror=null;" alt="<?php echo $module->title; ?>" height="80" class="u-fill-width">
+        <img src="<?php echo JURI::base() . $svg_file; ?>" onerror="this.src='<?php echo JURI::base() . $images->images0->image; ?>'; this.onerror=null;" alt="<?php echo $module->title; ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" class="u-fill-width">
         <?php else : ?>
-        <img src="<?php echo JURI::base() . $images->images0->image; ?>" alt="<?php echo $module->title; ?>" height="80" class="u-fill-width">
+        <img src="<?php echo JURI::base() . $images->images0->image; ?>" alt="<?php echo $module->title; ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" class="u-fill-width">
         <?php endif; ?>
     </<?php echo $alias ? 'a' : 'span'; ?>>
 </<?php echo $wrapper; ?>>

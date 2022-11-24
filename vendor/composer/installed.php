@@ -37,23 +37,5 @@
             'reference' => NULL,
             'dev_requirement' => false,
         ),
-        'scssphp/scssphp' => array(
-            'pretty_version' => 'v1.10.1',
-            'version' => '1.10.1.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../scssphp/scssphp',
-            'aliases' => array(),
-            'reference' => '8256fbaf02b06bf8ea6dbf2331ca5382296d4027',
-            'dev_requirement' => false,
-        ),
-        'scssphp/server' => array(
-            'pretty_version' => '1.10.0',
-            'version' => '1.10.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../scssphp/server',
-            'aliases' => array(),
-            'reference' => '37a8f66643df4585c4bc13a6107abe603f1af303',
-            'dev_requirement' => false,
-        ),
     ),
 );

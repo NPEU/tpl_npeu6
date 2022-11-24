@@ -1,8 +1,6 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
+$block_css_files = false;
+#$block_css_files = true;
 ?><!doctype html>
 <html lang="en-gb" class="env-<?php echo $env; ?>">
 <head>
@@ -22,6 +20,7 @@ if (!empty($_SERVER['JTV2'])) {
     <?php endif; ?>
 
     <!-- Ultra-light fallback styles for ancient browsers: -->
+    <meta id="css_has_loaded">
     <style>
         /*
             Tiny Fall-Back Styles (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md)
@@ -35,10 +34,19 @@ if (!empty($_SERVER['JTV2'])) {
             is so as not to pollute the class space and help authors make distinctions.
             There's a much long essay on this brewing and I'll add the link when it's done.
         */
-        body{font:1em/1.2 sans-serif;padding:1em;margin:0 auto;max-width:50em}details,dialog,main,summary{display:block}@supports (list-style-type:disclosure-closed){summary{display:list-item}}mark{background:#ff0;color:# 000}[hidden],template{display:none}fieldset{border:1px solid;border-color:#777;margin:1em 0;padding:1em}image,img,svg{max-width:100%;-ms-interpolation-mode:bicubic;vertical-align:middle;/*height:auto;*/border:0}figure{max-width:100%;overflow-x:auto}_:-o-prefocus,:root figure{max-width:initial;overflow-x:visible}hr{border-style:solid;border-width:0 0 1px 0;margin:1em 0;color:#777}pre{width:100%;overflow-x:scroll;overflow-y:auto}video{max-width:100%;height:auto}button,input,label,select,textarea{vertical-align:middle;vertical-align:middle;min-height:2.2em;margin:.2em 0}button,input[type=checkbox],input[type=radio],label,select,textarea{cursor:pointer}button,input,textarea{padding:0 .5em;line-height:1.5}table{width:100%;border:1px solid #777;border-collapse:collapse}table[role=presentation]{border:0;table-layout:fixed}table[role=presentation] td{border:0}th{background:#eee}caption,td,th{padding:.5em}
+        fieldset,hr{margin:1em 0}image,img,object,svg,video{max-width:100%;height:auto}pre,table{width:100%}fieldset,table{border:1px solid currentColor}html{background:<?php echo $page_brand->primary_colour__dark; ?>}body{font:1em/1.2 sans-serif;padding:2em;margin:0 auto;max-width:50em;background:#fff}details,dialog,main,summary{display:block}@supports (list-style-type:disclosure-closed){summary{display:list-item}}mark{background:#ff0;color:#000}[hidden],template{display:none}fieldset{padding:1em}image,img,object,svg{-ms-interpolation-mode:bicubic;vertical-align:middle;border:0}a[href]{color:inherit}a[href]:hover{text-decoration:none}a[href] img{padding:.3em;margin:.2em}figure{max-width:100%;overflow-x:auto}_:-o-prefocus,:root figure{max-width:initial;overflow-x:visible}hr{border-style:solid;border-width:0 0 1px;color:currentColor}pre{overflow-x:scroll;overflow-y:auto}button{background-color:<?php echo $page_brand->primary_colour; ?>;color:#fff}button,input,label,select,textarea{vertical-align:middle;min-height:2.2em;margin:.2em 0}button,input[type=checkbox],input[type=radio],label,select{cursor:pointer}button,input,textarea{padding:0 .5em;line-height:1.5}table{border-collapse:collapse}table[role=presentation]{border:0;table-layout:fixed}table[role=presentation] td{border:0}th{background:<?php echo $page_brand->primary_colour__very_light; ?>}caption,td,th{padding:.5em}[data-fs-text~=right]{text-align:right}[data-fs-text~=center]{text-align:center}[data-fs-text~=larger]{font-size:larger}[data-fs-text~=nowrap]{white-space:nowrap}
 
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
         .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top:0;left:0;width:100%;height:100%;}
+
+        /* IE needs SVG icons to NOT be auto height: */
+        svg[height="1.25em"] {height: 1.25em;}
+
+        .c-map {
+            height: 200px;
+        }
+
+        [data-fs-block=hidden]{display:none !important}
     </style>
 
     <!-- From here we're cutting off IE9- to stop all kinds of JS and CSS fails. -->
@@ -46,7 +54,21 @@ if (!empty($_SERVER['JTV2'])) {
 
     <style>
         /* Tiny Fall-Back Styles continued ... */
-        [data-fs-text~=right]{text-align:right}[data-fs-text~=center]{text-align:center}[data-fs-text~=larger]{font-size:larger}[data-fs-text~=nowrap]{white-space:nowrap}[data-fs-block~=background]{background:#eee}[data-fs-block~=border]{border:1px solid;margin:1em 0;padding:1em}[data-fs-block~=padding]{padding:1em}[data-fs-block~=table]{display:table;width:100%;table-layout:fixed}[data-fs-block~=table]>*{display:table-cell;padding:.5em}[data-fs-block~=flex]{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}[data-fs-block~=flex]>*{-webkit-box-flex:1;-webkit-flex:1 0 auto;-moz-box-flex:1;-ms-flex:1 0 auto;flex:1 0 auto}[data-fs-block=video]{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%}[data-fs-block=video] embed,[data-fs-block=video] iframe,[data-fs-block=video] object{position:absolute;top:0;left:0;width:100%;height:100%}[data-fs-hr=larger]{border-top-width:10px}
+        [data-fs-block]{display:block}[data-fs-block~=background]{background:<?php echo $page_brand->primary_colour__light; ?>;padding:1em}[data-fs-block~=inverted]{background-color:<?php echo $page_brand->primary_colour; ?>;padding:1em}[data-fs-block~=inverted] *{color:#fff}[data-fs-block~=inverted] img{background:#fff;padding:.5em;border:0}[data-fs-block~=border]{border:1px solid <?php echo $page_brand->primary_colour; ?>;margin:1em 0;padding:1em}[data-fs-block~=rounded]{border-radius:1em}[data-fs-block~=padding]{padding:1em}[data-fs-block~=flush]{margin-left:-2em;margin-right:-2em}[data-fs-block~=flush]:last-child{margin-bottom:-2em}[data-fs-block~=table]{display:table;width:100%;table-layout:fixed}[data-fs-block~=table]>*{display:table-cell;padding:.5em}[data-fs-block~=flex]{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}[data-fs-block~=flex]>*{-webkit-box-flex:1;-webkit-flex:1 1 auto;-moz-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}[data-fs-block=video]{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%}[data-fs-block=video] embed,[data-fs-block=video] iframe,[data-fs-block=video] object{position:absolute;top:0;left:0;width:100%;height:100%}[data-fs-hr=larger]{border-top-width:10px}
+
+        /*
+        .c-card {
+            border-color: hsl(var(--t-primary-color-h), var(--t-primary-color-s), var(--t-primary-color-l));
+            border-radius: 0.5em;
+            /*background-color: #5D4777;* /
+            background-color: hsl(var(--t-primary-color-h), var(--t-primary-color-s), var(--t-primary-color-l));
+            color: #ffffff;
+        }
+
+        .c-card * {
+            color: inherit;
+        }
+        */
     </style>
 
     <!--
@@ -55,6 +77,7 @@ if (!empty($_SERVER['JTV2'])) {
     -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
+    <?php /*
     <!--
         Print, Edge 12? - 18
         Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
@@ -64,6 +87,15 @@ if (!empty($_SERVER['JTV2'])) {
         only print, screen and (min-width: 1vm),
         only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
+    ">*/?>
+    <?php if (!$block_css_files) : ?>
+    <!--
+        Print (Edge doesn't apply to print otherwise)
+        Edge 79+, Chrome 74+, Firefox 63+, Opera 64+, Safari 10.1+, iOS 10.3+, Android 81+
+    -->
+    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/style.min.css'); ?>?sub=1" media="
+        only print,
+        only all and (prefers-reduced-motion: no-preference), only all and (prefers-reduced-motion: reduce)
     ">
     <!-- Load styles for IE11, UC -->
     <script>
@@ -73,31 +105,19 @@ if (!empty($_SERVER['JTV2'])) {
     ) {
         var link  = document.createElement('link');
         link.rel  = 'stylesheet';
-        link.href = '<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/theme-' . $page_brand->alias . '.min.css'); ?>';
+        link.href = '<?php echo TplNPEU6Helper::stamp_filename("/templates/npeu6/css/style.min.css"); ?>';
         document.getElementsByTagName('head')[0].appendChild(link);
     }
     </script>
-
-    <!--
-        Print, Edge 12? - 18
-        Edge 79+, Chrome 58+, Opera 45+, Safari 10+, iOS 10+, Android Webview/Chrome 58+, Samsung Internet
-        FF 47+
-    -->
-    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/broken.min.css'); ?>" media="
-        only print, screen and (min-width: 1vm),
-        only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
-        only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
-    ">
-    <!-- Load styles for IE11, UC -->
+    <!-- Load IE11 fixes -->
     <script>
     if (
         (!!window.MSInputMethodContext && !!document.documentMode)
-     || (navigator.userAgent.indexOf('UCBrowser') > -1)
     ) {
-        var link  = document.createElement('link');
-        link.rel  = 'stylesheet';
-        link.href = '<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/broken.min.css'); ?>';
-        document.getElementsByTagName('head')[0].appendChild(link);
+        var script  = document.createElement('script');
+        script.type  = 'text/javascript';
+        script.src = '<?php echo TplNPEU6Helper::stamp_filename("/templates/npeu6/js/ie11.min.js"); ?>';
+        document.getElementsByTagName('head')[0].appendChild(script);
     }
     </script>
 
@@ -108,9 +128,8 @@ if (!empty($_SERVER['JTV2'])) {
         FF 47+
     -->
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
-        only print, screen and (min-width: 1vm),
-        only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
-        only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
+        only print,
+        only all and (prefers-reduced-motion: no-preference), only all and (prefers-reduced-motion: reduce)
     ">
     <!-- Load styles for IE11, UC -->
     <script>
@@ -134,9 +153,8 @@ if (!empty($_SERVER['JTV2'])) {
         FF 47+
     -->
     <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>" media="
-        only print, screen and (min-width: 1vm),
-        only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
-        only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
+        only print,
+        only all and (prefers-reduced-motion: no-preference), only all and (prefers-reduced-motion: reduce)
     ">
     <!-- Load styles for IE11, UC -->
     <script>
@@ -153,40 +171,10 @@ if (!empty($_SERVER['JTV2'])) {
     <?php endforeach; ?>
     <?php endif; ?>
 
+    <?php endif; ?>
+
     <!-- Template scripts -->
     <script src="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/js/script.min.js'); ?>"></script>
-
-    <?php /*
-
-    {% if page.load_highlighter != false %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
-    <style>
-        /* Override hljs styles to reset to StartCSS: * /
-        .hljs {
-            display: inline-block;
-            overflow-x: auto;
-            padding: 1.2rem;
-            background: transparent;
-        }
-    </style>
-    {% endif %}
-
-    {% if page.has_map %}
-        <link href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
-        <link href="/css/vendor/leaflet-fullscreen.css" rel="stylesheet" />
-        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
-        <script src="/js/map.min.js"></script>
-    {% endif %}
-
-    {% if page.has_highcharts %}
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/export-data.js"></script>
-        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    {% endif %}
-
-
-    */ ?>
 
     <?php if (!empty($doc->include_joomla_scripts) && !empty($doc->joomla_scripts)): ?>
     <!-- CMS scripts -->
@@ -212,11 +200,9 @@ if (!empty($_SERVER['JTV2'])) {
     <style>
 
     .env_container {
-        padding: 1.2rem 0.6rem;
-        text-align: center;
         position: sticky;
         top: 0;
-        z-index: 9999;
+        z-index: 99999;
         background: #cc6289;
         color: #fff;
         box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
@@ -229,11 +215,19 @@ if (!empty($_SERVER['JTV2'])) {
         color: #222;
     }
 
+    .env_container > div {
+        position: relative;
+        padding: 1.2rem 0.6rem;
+        text-align: center;
+    }
+
+
     .env_container * {
         margin: 0;
         padding: 0;
         border: 0;
     }
+
 
     .env_container button {
         position: absolute;
@@ -252,7 +246,6 @@ if (!empty($_SERVER['JTV2'])) {
 
     </style>
     <?php endif; ?>
-
 
     <!--<![endif]-->
 
@@ -308,8 +301,38 @@ if (!empty($_SERVER['JTV2'])) {
     <?php endif;?>
 
     <!-- End Social Media -->
+
+    <style>
+        :root {
+
+            --t-primary-color: <?php echo $page_brand->primary_colour; ?>;
+            --t-primary-color-h: <?php echo $page_brand->primary_colour_hsl['H']; ?>;
+            --t-primary-color-s: <?php echo $page_brand->primary_colour_hsl['S']; ?>;
+            --t-primary-color-l: <?php echo $page_brand->primary_colour_hsl['L']; ?>;
+            --t-primary-color-l-copy: <?php echo $page_brand->primary_colour_hsl['L']; ?>;
+
+            --t-secondary-color: <?php echo $page_brand->secondary_colour; ?>;
+            --t-secondary-color-h: <?php echo $page_brand->secondary_colour_hsl['H']; ?>;
+            --t-secondary-color-s: <?php echo $page_brand->secondary_colour_hsl['S']; ?>;
+            --t-secondary-color-l: <?php echo $page_brand->secondary_colour_hsl['L']; ?>;
+            --t-secondary-color-l-copy: <?php echo $page_brand->secondary_colour_hsl['L']; ?>;
+
+            --t-primary-color-l--very-light: <?php echo $page_brand->primary_colour_l['very-light']; ?>;
+            --t-primary-color-l--light: <?php echo $page_brand->primary_colour_l['light']; ?>;
+            --t-primary-color-l--dark: <?php echo $page_brand->primary_colour_l['dark']; ?>;
+            --t-primary-color-l--very-dark: <?php echo $page_brand->primary_colour_l['very-dark']; ?>;
+            --t-primary-fore-text-color: var(--t-text-color-inverse);
+
+            --t-secondary-color-l--very-light: <?php echo $page_brand->secondary_colour_l['very-light']; ?>;
+            --t-secondary-color-l--light: <?php echo $page_brand->secondary_colour_l['light']; ?>;
+            --t-secondary-color-l--dark: <?php echo $page_brand->secondary_colour_l['dark']; ?>;
+            --t-secondary-color-l--very-dark: <?php echo $page_brand->secondary_colour_l['very-dark']; ?>;
+            --t-secondary-fore-text-color: var(--t-text-color-inverse);
+
+        }
+    </style>
 </head>
-<body id="top"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
+<body  id="top" role="document" class="" data-layout="default"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
     <!-- Matamo no-js tracking: -->
     <noscript>
@@ -324,11 +347,10 @@ if (!empty($_SERVER['JTV2'])) {
     }
     </style>
     <?php echo $page_svg_icons; ?>
-
-    <div data-css-only="true" data-fs-text="center">
+    <div data-hidden="if-css" data-fs-text="center">
         <fieldset role="presentation">
             <p>
-                <b>Notice:</b> You are viewing an unstyled version of this page. Are you using a very old browser? If so, <a href="https://browsehappy.com/?locale=en">please consider upgrading</a>.
+                <strong>Notice:</strong> You are viewing an unstyled version of this page. Are you using a very old browser? If so, <a href="https://browsehappy.com/?locale=en">please consider upgrading</a>
             </p>
         </fieldset>
     </div>

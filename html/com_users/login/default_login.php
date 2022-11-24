@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_users
@@ -60,8 +55,8 @@ $return = $jinput->get('return', $return);
         <div class="l-box  ff-width-100--45--33-333">
 
             <h2>NPEU Website</h2>
-            <form action="<?php echo JRoute::_('index.php?option=com_users&task=user.login'); ?>" method="post" class="u-space--below--none">
-                <fieldset class="u-space--below--none">
+            <form action="<?php echo JRoute::_('index.php?option=com_users&task=user.login'); ?>" method="post">
+                <fieldset>
 
                     <?php foreach ($this->form->getFieldset('credentials') as $field): ?>
                     <?php if (!$field->hidden): ?>
@@ -100,17 +95,17 @@ $return = $jinput->get('return', $return);
                     <button type="submit"><?php echo JText::_('JLOGIN'); ?></button>
                     <input type="hidden" name="return" value="<?php echo $return; ?>" />
                     <?php echo JHtml::_('form.token'); ?>
-
-                    <p class="u-text-group  u-text-group--wide-space">
-                        <span>
-                            <a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>">
-                            <?php echo JText::_('COM_USERS_LOGIN_REMIND'); ?></a>
-                        </span>
-                        <span>
-                            <a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>">
-                            <?php echo JText::_('COM_USERS_LOGIN_RESET'); ?></a>
-                        </span>
-                    </p>
+                    
+                    <div class="l-layout  l-row  l-row--start">
+                        <p class="l-layout__inner">
+                            <span class="l-box  l-box--space--inline-end">
+                                <a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>"><?php echo JText::_('COM_USERS_LOGIN_REMIND'); ?></a>
+                            </span>
+                            <span class="l-box">
+                                <a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>"><?php echo JText::_('COM_USERS_LOGIN_RESET'); ?></a>
+                            </span>
+                        </p>
+                    </div>
                 </fieldset>
 
             </form>
