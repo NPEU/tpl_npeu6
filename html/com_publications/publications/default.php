@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_publications
@@ -87,18 +82,22 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
 
 <div filterable_group filterable_mark_results filterable_replace="#pubsForm">
     <script type="text/template" filterable_form_template>
-        <form class="c-tool-form  c-panel  d-bands  u-space--below">
-            <div>
-                <label for="filter_title">Filter publications by title:</label>
-                <span class="c-composite">
-                     <input id="filter_title" filterable_input> <button filterable_submit>Filter</button>
-                </span>
-                <input type="reset" value="Clear" filterable_reset>
-            </div>
-            <div>
-                <label for="include_1">Include Journal Articles:</label> <input type="checkbox" name="include_1" id="include_1" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^(Journal Article)$"><br>
-                <label for="include_2">Include Reports / Other:</label> <input type="checkbox" name="include_2" id="include_2" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^((?!Journal Article).)*$">
-            </div>
+        <form class="c-form  c-form--tool-form">
+            <label for="filter_title">Filter publications by title:</label>
+            <span class="c-composite">
+                 <input id="filter_title" filterable_input> <button filterable_submit>Filter</button>
+            </span>
+            <input type="reset" value="Clear" filterable_reset>
+            <fieldset class="c-form--tool-form__fieldset">
+                <div>
+                    <span class="c-form__group">
+                        <label for="include_1">Include Journal Articles:</label> <input type="checkbox" name="include_1" id="include_1" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^(Journal Article)$"><br>
+                    </span>
+                    <span class="c-form__group">
+                        <label for="include_2">Include Reports / Other:</label> <input type="checkbox" name="include_2" id="include_2" checked filterable_exclude_container="[data-pub-type]" filterable_exclude_match="^((?!Journal Article).)*$">
+                    </span>
+                </div>
+            </fieldset>
         </form>
     </script>
     <script type="text/template" filterable_empty_list_template>

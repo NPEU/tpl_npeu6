@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_badgelist
@@ -16,6 +11,8 @@ defined('_JEXEC') or die;
 
 
 $doc = JFactory::getDocument();
+
+$public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
 
 $layout_classes = ['l-layout'];
 if (!empty($params->get('list_layout'))) {
@@ -48,10 +45,31 @@ if (in_array('l-distribute--balance-bottom', $layout_classes) || in_array('l-dis
 ?>
 <div class="<?php echo implode("  ", $layout_classes); ?>  mod_badgelist">
     <div class="l-layout__inner">
-    <?php foreach ($badges as $badge) : ?>
+    <?php foreach ($badges as $badge) : 
+    
+    //$badge->params->limit_height
+
+    $badge_image_path       = $public_root_path . $badge->logo_png_path;
+    $badge_image_info       = getimagesize($badge_image_path);
+    $badge_image_real_ratio = $badge_image_info[0] / $badge_image_info[1];
+    
+    if (!is_numeric($badge->params->limit_height)) {
+        // Could maybe switch the height depending on t-shirt size, but not sure it's worth it as
+        // it would be arbitrary and not necessarily connected to the CSS.
+        $badge_height = 100;
+    } else {
+        $badge_height = $badge->params->limit_height . '0';
+    }
+    if ($badge_image_info[0] > $badge_image_info[1]) {
+        $badge_width  = round($badge_height * $badge_image_real_ratio);
+    } else {
+        $badge_width  = round($badge_height / $badge_image_real_ratio);
+    }
+    
+    ?>
         <p class="<?php echo implode("  ", $box_classes); ?>">
             <a href="<?php echo $badge->params->logo_url; ?>" class="c-badge c-badge--limit-height--<?php echo $badge->params->limit_height; ?>" rel="external noopener noreferrer" target="_blank">
-                <img alt="Logo: <?php echo $badge->alt; ?>" height="<?php echo $badge->params->limit_height; ?>0" onerror="this.src='<?php echo $badge->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $badge->logo_svg_path; ?>">
+                <img data-ratio="<?php echo $badge_image_real_ratio; ?>" alt="Logo: <?php echo $badge->alt; ?>" width="<?php echo $badge_width; ?>" height="<?php echo $badge_height; ?>" onerror="this.src='<?php echo $badge->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $badge->logo_svg_path; ?>">
             </a>
         </p>
         <?php endforeach; ?>

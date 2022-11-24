@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  mod_map
@@ -26,7 +21,7 @@ $lng    = $params->get('lng');
 $zoom   = $params->get('zoom');
 $token  = $params->get('access_token');
 $height = $params->get('height');
-$legend = trim($params->get('legend'));
+$legend = $params->get('legend');
 
 // Add Leaflet assets:
 $doc->addStyleSheet($template_path . '/css/map.min.css');
@@ -41,9 +36,9 @@ $json_format        = $params->get('remote_markers_json_format', false);
 
 // Allow for relative data src URLs:
 if ($remote_markers_url && strpos($remote_markers_url, 'http') !== 0) {
-    $s        = empty($_SERVER['SERVER_PORT']) ? '' : ($_SERVER['SERVER_PORT'] == '443' ? 's' : '');
-    $protocol = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
-    $domain   = $protocol.'://'.$_SERVER['SERVER_NAME'];
+    $s                  = empty($_SERVER['SERVER_PORT']) ? '' : ($_SERVER['SERVER_PORT'] == '443' ? 's' : '');
+    $protocol           = preg_replace('#/.*#',  $s, strtolower($_SERVER['SERVER_PROTOCOL']));
+    $domain             = $protocol.'://'.$_SERVER['SERVER_NAME'];
     $remote_markers_url = $domain . '/' . trim($remote_markers_url, '/');
 }
 
@@ -109,15 +104,15 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
 
 ?>
 
-<figure class="u-fill-height  mod_map">
-    <div class="c-map  c-map--<?php echo $height; ?>  u-fill-height" id="<?php echo $map_id; ?>">
+<figure class="c-map  c-map--<?php echo $height; ?>  u-fill-height  mod_map">
+    <div id="<?php echo $map_id; ?>">
         <p class="u-text-align--center">
             <img class="c-map__static" src="<?php echo $static_map_src; ?>" alt="<?php echo $static_map_alt; ?>">
         </p>
         <?php echo $static_map_no_js; ?>
     </div>
-    <?php if (!empty($legend)): ?>
-    <figcaption class="u-space--above  c-user-content">
+    <?php if (!empty(trim($legend))): ?>
+    <figcaption class="l-box--space--block-start  user-content">
         <?php echo $legend; ?>
     </figcaption>
     <?php endif; ?>

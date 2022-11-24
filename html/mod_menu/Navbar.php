@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 // No direct access
 defined('_JEXEC') or die;
 
@@ -106,9 +101,9 @@ foreach ($new_list as $i => &$item) {
     if ($level == (1 + $start_level)) {
         $tab_multiplier = 2;
 
-        $item_class         = 'subnav__item';
-        $item_current_class = 'subnav__item--current';
-        $item_link_class    = 'subnav__link';
+        $item_class         = 'sub-nav__item';
+        $item_current_class = 'sub-nav__item--current';
+        $item_link_class    = 'sub-nav__link';
     }
 
     $nav_item = '';
@@ -125,7 +120,11 @@ foreach ($new_list as $i => &$item) {
         $class = ' class="' . trim($class) . '"';
     }
 
-    $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<li'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
+    if ($level == $start_level) {
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<li'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
+    } else {
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<span role="listitem"'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
+    }
 
     $item->anchor_css = $item_link_class;
 
@@ -158,33 +157,30 @@ foreach ($new_list as $i => &$item) {
     }
 
 
-/*
-<div class="dropdown dropdown--only-wide js-dropdown">
-
-<button id="clinicians-sub-menu" class="dropdown__button  t-neoclear" data-js="dropdown__button" hidden="" aria-label="Clinicians sub-menu" aria-expanded="false"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>
-
-                                        <div class="dropdown__area" id="clinicians-sub-menu--target">
-*/
     $nav_item .= str_replace(' >', '>', $output);
 
     // The next item is deeper.
     if ($next_item && $next_level > $level) {
         $nav_item .= "\n" . TplNPEU6Helper::tab($level + 2) . '<div class="dropdown  dropdown--only-wide" data-js="dropdown">';
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<button id="' . $item->alias . '-sub-menu" class="dropdown__control  t-' . $brand->alias . '" data-js="dropdown__control" hidden="" aria-label="' . $item->title . ' sub-menu" aria-expanded="false"><svg display="none" focusable="false" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg display="none" focusable="false" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<button id="' . $item->alias . '-sub-menu" class="dropdown__control" data-js="dropdown__control" hidden="" aria-label="' . $item->title . ' sub-menu" aria-expanded="false"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  icon--is-closed"><use xlink:href="#icon-chevron-down"></use></svg><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  icon--is-open"><use xlink:href="#icon-chevron-up"></use></svg></button>';
         $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '<div class="dropdown__area" id="' . $item->alias . '-sub-menu--target">';
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 4) . '<ul class="subnav__items  subnav__items--stacked  t-' . $brand->alias . '">';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 4) . '<div role="list" class="sub-nav__items  sub-nav__items--stacked  d-background--dark">';
     }
     // The next item is shallower.
     elseif ($next_item && $next_level < $level) {
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 4) . '</li>';
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '</ul>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 4) . '</span>';
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level + 3) . '</div>';
         $nav_item .= "\n" . TplNPEU6Helper::tab($level + 2) . '</div>';
         $nav_item .= "\n" . TplNPEU6Helper::tab($level + 1) . '</div>';
         $nav_item .= "\n" . TplNPEU6Helper::tab($level) . '</li>';
     }
     // The next item is on the same level.
     else {
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '</li>';
+        if ($level == $start_level) {
+            $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '</li>';
+        } else {
+            $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '</span>';
+        }
     }
     $nav .= $nav_item;
 }

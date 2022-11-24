@@ -1,9 +1,4 @@
 <?php
-if (!empty($_SERVER['JTV2'])) {
-    include(str_replace('.php', '.v2.php', __FILE__));
-    return;
-}
-?><?php
 /**
  * @package     Joomla.Site
  * @subpackage  com_bespoke
@@ -20,25 +15,16 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helpe
 // See Trello note.
 
 $page_brand = TplNPEU6Helper::get_brand();
-$theme = 't-' . $page_brand->alias;
-
 ?>
 <?php foreach ($this->blocks as $name => $block):
-$block_theme   = $theme;
 $block_classes = '';
 if (!empty($block['block_classes'])) {
     $block_classes = $block['block_classes'];
-    
-    // Check to see if a theme has already been added:
-    if (preg_match('#t-[a-z]+#', $block_classes)) {
-        $block_theme = '';
-    }
 }
 
-$block_classes .= '  ' . $block_theme;
 ?>
 <?php if (!empty($block['leftpane'])): ?>
-<div class="l-blockrow  c-bespoke">
+<div class="com-bespoke">
     <div<?php if ($block_classes) { echo ' class="' . $block_classes . '"'; } ?>>
         <?php if (!empty($block['rightpane'])): ?>
         <?php
