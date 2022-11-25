@@ -22,7 +22,7 @@ ob_start(); ?>
 <div class="c-panel  c-panel--white  c-panel--framed">
     <div class="c-panel__module">
 
-        <form class="c-tool-form  c-panel  d-bands  u-space--below" id="pubsForm" name="pubsForm" method="get" action="/research/publications">
+        <form class="c-tool-form  c-panel  d-border" id="pubsForm" name="pubsForm" method="get" action="/research/publications">
             <div>
                 <label class="" for="filter_keywords" id="filter_keywords-lbl">Search publications:</label>
                 <span class="c-composite">
@@ -109,7 +109,7 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
     <h2 id="year_<?php echo $year; ?>"><?php echo $year; ?></h2>
     <ul filterable_list>
         <?php foreach($data['publications'] as $publication): ?>
-        <li class="u-space--below--s" filterable_item>
+        <li class="l-box--space--block-end" filterable_item>
             <?php if(!$this->is_filtered): ?>
             <span filterable_index filterable_index_name="title">
                 <?php if (!empty($publication['url'])) : ?>
