@@ -131,6 +131,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
     $module_wrapper_color = $params->get('color') ? $params->get('color') : 'neutral';
 
+
     $wrapper_classname = '';
     $header_classname  = '';
     $wrapper_class = '';
@@ -138,6 +139,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     $wrapper_theme_class = '  d-background--very-light  t-neutral';
 
     $theme_name = $module_wrapper_color == 'brand' ? $page_brand->alias : 'neutral';
+    $module_wrapper_theme_class = ($theme_name == 'neutral') ? '  t-neutral' : '';
 
     // @ASSUMPTION: If there's a menu in the sidebar, it's a section menu.
     if ($module->module == 'mod_menu') {
@@ -156,8 +158,8 @@ function modChrome_sidebar($module, &$params, &$attribs) {
 
 
     if (!empty($module_wrapper_theme)) {
-        //$wrapper_theme_class = '  d-background--' . $module_wrapper_theme . '  t-' . $module_wrapper_color;
-        $wrapper_theme_class = '  d-background--' . $module_wrapper_theme;
+        $wrapper_theme_class = '  d-background--' . $module_wrapper_theme . $module_wrapper_theme_class;
+        //$wrapper_theme_class = '  d-background--' . $module_wrapper_theme;
     }
 
     // If we're showing a title, we want to use an aside for the sidebar, otherwise div:
