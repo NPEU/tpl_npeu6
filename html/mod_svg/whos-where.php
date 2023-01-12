@@ -118,7 +118,7 @@ foreach ($rooms as $room => $keys) {
         $y += 7.8;
     }
 
-    $svg = str_replace('{' . $room . '}', $s, $svg);
+    $module->content = str_replace('{' . $room . '}', $s, $module->content);
 }
 
 // <tspan x="0" y="0" class="st13 st4 st14">DAVE M </tspan><tspan x="0" y="7.8" class="st13 st4 st14">AAA </tspan><tspan x="0" y="15.6" class="st13 st4 st14">BBB </tspan>
@@ -131,7 +131,7 @@ foreach ($rooms as $room => $keys) {
 <<?php echo $params->get('header_tag'); ?>><?php echo $module->title; ?></<?php echo $params->get('header_tag'); ?>>
 <?php endif; ?>
 <figure class="u-space--below<?php if ($border) : ?>  d-bands  t-neutral<?php endif; ?>  mod_svg">
-    <?php echo $svg; ?>
+    <?php echo $module->content; ?>
 </figure>
 
 <?php if (!empty($rooms['unassigned'])) : ?>
