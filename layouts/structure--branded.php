@@ -117,7 +117,7 @@
                                 $second_brand_width = $second_brand->svg_width_at_height_80;
                             }
                             ?>
-                            <span class="l-box"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
+                            <span class="l-box  l-box--center"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
                                 <a href="<?php echo $second_brand_url; ?>" class="c-badge  c-badge--primary-logo"><?php if ($page_brand->alias == 'npeu') : ?>
                                     <?php echo str_replace('height="80"', 'height="100" width="' . $second_brand_width . '"', $second_brand->logo_svg_with_fallback); ?>
                                     <?php else: ?>
