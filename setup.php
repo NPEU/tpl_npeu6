@@ -545,7 +545,7 @@ if ($page_has_article) {
 
 }
 #echo '$page_has_hero<pre>'; var_dump($page_has_hero); echo '</pre>'; #exit;
-#echo '$page_has_article<pre>'; var_dump($page_has_article); echo '</pre>'; #exit;
+#echo '$page_has_article<pre>'; var_dump($page_has_article); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($is_blog); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($doc->article->headline_image); echo '</pre>'; exit;
 
