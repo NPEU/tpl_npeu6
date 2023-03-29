@@ -183,7 +183,7 @@
                 <field
                     name="footer_text"
                     type="textarea"
-                    default="© NPEU {{ YEAR }}"
+                    default=""
                     label="TPL_NPEU6_FOOTER_TEXT_LABEL"
                     description="TPL_NPEU6_FOOTER_TEXT_DESC"
                     filter="string"

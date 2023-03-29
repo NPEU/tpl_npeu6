@@ -501,8 +501,31 @@ class TplNPEU6Helper
      */
     public static function tweak_markdown_output($html, $options = array())
     {
-        if (!empty($options['trim_paragraph'])) {
-            $html = preg_replace(array('/^<p>/', '/<\/p>$/'), '', $html);
+        //if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
+        //    $s = $options['split_to_list'];
+        //    $a = explode($s, $html);
+        //    $html = '<span role="list" class="l-layout__inner">' . "\n" . '<span role="listitem" class="l-box">' . "\n" . implode("\n" . '</span> ' . "\n\n" . '<span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>' . "\n\n" . '<span role="listitem" class="l-box">' . "\n", $a) . "\n" . '</span>';
+        //}
+
+        if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
+
+            $html = str_replace(
+                '<p>',
+                '<p>' . "\n" . '<span role="list" class="l-layout__inner">' . "\n" . '<span role="listitem" class="l-box">'. "\n",
+                $html
+            );
+
+            $html = str_replace(
+                $options['split_to_list'],
+                "\n" .
+                '</span> ' . "\n\n" .
+                '<span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>' . "\n\n" .
+                '<span role="listitem" class="l-box">' . "\n",
+                $html
+            );
+
+            $html = str_replace('</p>', "\n" . '</span>' . "\n" . '</span>' . "\n" . '</p>', $html);
+
         }
 
         if (!empty($options['add_link_spans'])) {
@@ -510,10 +533,12 @@ class TplNPEU6Helper
             $html = preg_replace('/<\/a>/', '</span></a>', $html);
         }
 
-        if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
-            $s = $options['split_to_list'];
-            $a = explode($s, $html);
-            $html = '<span role="listitem" class="l-box">' . implode('</span> <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span> <span role="listitem" class="l-box">', $a) . '</span>';
+        if (!empty($options['p_classes'])) {
+            $html = str_replace('<p>', '<p class="' . $options['p_classes'] . '">', $html);
+        }
+
+        if (!empty($options['trim_paragraph'])) {
+            $html = preg_replace(array('/^<p[^>]+>/', '/<\/p>$/'), '', $html);
         }
 
         return $html;
