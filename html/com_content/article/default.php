@@ -101,7 +101,7 @@ if ($this->item->catid == 63) {#
     ////$twitter .= '    <a href="' . $twitter_url  . '" class="c-cta  twitter-share-button" data-size="large"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-twitter"></use></svg> <span>Tweet</span></a>';
     //$twitter .= '    <a href="' . $twitter_url  . '" class="c-cta" target="_blank"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-twitter--inverted"></use></svg> <span>Tweet</span></a>';
     //$twitter .= '</p>';
-    
+
     $this->item->twitter_url = $twitter_url;
 
     //if (!empty($this->item->fulltext)) {
