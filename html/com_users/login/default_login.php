@@ -35,7 +35,7 @@ $return = $jinput->get('return', $return);
 <?php endif; ?>
 
 <?php if (
-    ($this->params->get('logindescription_show') == 1 && str_replace(' ', '', $this->params->get('login_description')) != '')
+    ($this->params->get('logindescription_show') == 1 && $this->params->get('login_description') && trim($this->params->get('login_description')) != '')
   || $this->params->get('login_image') != ''
   ) : ?>
 <div>
@@ -95,7 +95,7 @@ $return = $jinput->get('return', $return);
                     <button type="submit"><?php echo JText::_('JLOGIN'); ?></button>
                     <input type="hidden" name="return" value="<?php echo $return; ?>" />
                     <?php echo JHtml::_('form.token'); ?>
-                    
+
                     <div class="l-layout  l-row  l-row--start">
                         <p class="l-layout__inner">
                             <span class="l-box  l-box--space--inline-end">
