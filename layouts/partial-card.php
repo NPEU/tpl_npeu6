@@ -54,55 +54,64 @@ if (empty($card_data['hx'])) {
     $card_data['hx'] = '3';
 }
 
-
 if (!empty($card_data['header_image'])) {
-    $header_image_path       = $public_root_path . $card_data['header_image'];
-    $header_image_info       = getimagesize($header_image_path);
-    $header_image_real_ratio = $header_image_info[0] / $header_image_info[1];
-    $card_data['header_image_real_ratio'] = $header_image_real_ratio;
+    $header_image_path = $public_root_path . $card_data['header_image'];
+    if (file_exists($header_image_path)) {
+        $header_image_exists = true;
+        $header_image_info       = getimagesize($header_image_path);
+        $header_image_real_ratio = $header_image_info[0] / $header_image_info[1];
+        $card_data['header_image_real_ratio'] = $header_image_real_ratio;
 
-    if (empty($card_data['header_image_ratio'])) {
-        $card_data['header_image_ratio'] = '56-25';
-    }
-    if (empty($card_data['header_image_width'])) {
-        $card_data['header_image_width'] = '200';
-    }
+        if (empty($card_data['header_image_ratio'])) {
+            $card_data['header_image_ratio'] = '56-25';
+        }
+        if (empty($card_data['header_image_width'])) {
+            $card_data['header_image_width'] = '200';
+        }
 
-    $card_data['header_image_height'] = round($card_data['header_image_width'] / $header_image_real_ratio);
-    //if ($header_image_info[0] > $header_image_info[1]) {
-    //    $card_data['header_image_height'] = $card_data['header_image_width'] / $header_image_real_ratio;
-    //} else {
-    //    $card_data['header_image_height'] = $card_data['header_image_width'] * $header_image_real_ratio;
-    //}
+        $card_data['header_image_height'] = round($card_data['header_image_width'] / $header_image_real_ratio);
+        //if ($header_image_info[0] > $header_image_info[1]) {
+        //    $card_data['header_image_height'] = $card_data['header_image_width'] / $header_image_real_ratio;
+        //} else {
+        //    $card_data['header_image_height'] = $card_data['header_image_width'] * $header_image_real_ratio;
+        //}
+    } else {
+        $header_image_exists = false;
+    }
 }
 
 if (!empty($card_data['footer_image'])) {
-    // Check for an SVG:
-    $pathinfo = pathinfo($card_data['footer_image']);
-    $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card_data['footer_image']);
+    $footer_image_path = $public_root_path . $card_data['footer_image'];
+    if (file_exists($footer_image_path)) {
+        $footer_image_exists = true;
+        // Check for an SVG:
+        $pathinfo = pathinfo($card_data['footer_image']);
+        $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card_data['footer_image']);
 
-    if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
-        $card_data['footer_image_svg_file'] = $footer_image_svg_file;
+        if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
+            $card_data['footer_image_svg_file'] = $footer_image_svg_file;
+        }
+
+        $footer_image_info       = getimagesize($footer_image_path);
+        $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
+        $card_data['footer_image_real_ratio'] = $footer_image_real_ratio;
+
+        if (empty($card_data['footer_image_ratio'])) {
+            $card_data['footer_image_ratio'] = '30';
+        }
+        if (empty($card_data['image_width'])) {
+            $card_data['footer_image_width'] = '200';
+        }
+
+        $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
+        //if ($footer_image_info[0] > $footer_image_info[1]) {
+        //    $card_data['footer_image_height'] = $card_data['footer_image_width'] / $footer_image_real_ratio;
+        //} else {
+        //    $card_data['footer_image_height'] = $card_data['footer_image_width'] * $footer_image_real_ratio;
+        //}
+    } else {
+        $footer_image_exists = false;
     }
-
-    $footer_image_path       = $public_root_path . $card_data['footer_image'];
-    $footer_image_info       = getimagesize($footer_image_path);
-    $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
-    $card_data['footer_image_real_ratio'] = $footer_image_real_ratio;
-
-    if (empty($card_data['footer_image_ratio'])) {
-        $card_data['footer_image_ratio'] = '30';
-    }
-    if (empty($card_data['image_width'])) {
-        $card_data['footer_image_width'] = '200';
-    }
-
-    $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
-    //if ($footer_image_info[0] > $footer_image_info[1]) {
-    //    $card_data['footer_image_height'] = $card_data['footer_image_width'] / $footer_image_real_ratio;
-    //} else {
-    //    $card_data['footer_image_height'] = $card_data['footer_image_width'] * $footer_image_real_ratio;
-    //}
 }
 
 if (empty($card_data['header_span_attr'])) {
@@ -120,7 +129,7 @@ if (empty($card_data['header_span_attr'])) {
                     <span<?php echo $card_data['header_span_attr']; ?>><?php echo $card_data['title']; ?></span>
                 <?php if (!empty($card_data['link'])) : ?></a><?php endif; ?>
             </h<?php echo $card_data['hx']; ?>>
-            <?php if (!empty($card_data['header_image'])) : ?>
+            <?php if (!empty($card_data['header_image']) && $header_image_exists) : ?>
             <div class="c-card__image  l-box">
                 <div class="u-image-cover  js-image-cover  u-image-cover--min-<?php echo $card_data['header_image_ratio']; ?>">
                     <div class="u-image-cover__inner">
@@ -161,7 +170,7 @@ if (empty($card_data['header_span_attr'])) {
         </footer>
         <?php endif; ?>
 
-        <?php if (!empty($card_data['footer_image'])) : ?>
+        <?php if (!empty($card_data['footer_image']) && $footer_image_exists) : ?>
         <div class="c-card__footer-image<?php if (!empty($card_data['footer_image_padded'])) : ?>  c-card__footer-image--padded<?php endif; ?>">
             <div class="u-image-cover<?php if (!empty($card_data['footer_logo'])): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover  u-image-cover--min-<?php echo $card_data['footer_image_ratio']; ?>">
                 <div class="u-image-cover__inner<?php if (!empty($card_data['footer_logo'])): ?>  l-box--space--edge--s<?php endif; ?>">
