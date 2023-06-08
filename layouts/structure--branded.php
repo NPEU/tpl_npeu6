@@ -70,9 +70,11 @@
                     <?php if ($modules__top != '') : ?>
                     <?php echo $modules__top; ?>
                     <?php endif; ?>
+                    <?php
+                        $is_brc = ($menu_route == 'brc-cardiovascular-medicine');
+                    ?>
 
-
-                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  <?php echo $page_brand->alias; ?>">
+                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  <?php echo $is_brc ? 'brc' : $page_brand->alias; ?>">
                         <p class="l-layout__inner"<?php if (!$page_display_cta) : ?> data-js="cmr" data-ie-safe-parent-level="1"<?php endif; ?>>
 
                             <span class="l-box  primary-logo-wrap"<?php if (!$page_display_cta) : ?> data-min-width="229"<?php endif; ?>>
@@ -85,7 +87,11 @@
                             </span>
                             <?php endif; ?>
                             <?php
-                                if ($page_brand->alias == 'npeu') {
+                                // Ugh - this is getting very hacky. If possible, change template to allow for 'secondary logo'
+                                // to be specified as an 'overide'.
+                                if ($is_brc) {
+                                    $second_brand_id = 146;
+                                } elseif ($page_brand->alias == 'npeu') {
                                     //$second_brand_id = 122;
                                     $second_brand_id = false;
 
@@ -103,11 +109,15 @@
 
                                     $second_brand_id = $parent_brand_alias_id[$page_unit];
                                 }
+
                             ?>
                             <?php if ($second_brand_id) :
                             $second_brand = TplNPEU6Helper::get_brand($second_brand_id);
                             $second_brand_url = 'https://www.npeu.ox.ac.uk';
-                            if ($page_brand->alias == 'npeu') {
+                            if ($is_brc) {
+                                $second_brand_url = $second_brand->params->logo_url;
+                                $second_brand_width = $second_brand->svg_width_at_height_80;
+                            } elseif ($page_brand->alias == 'npeu') {
                                 $second_brand_width = $second_brand->svg_width_at_height_100;
                             } elseif ($page_brand->alias == 'pru-mnhc') {
                                 $second_brand_url = $second_brand->params->logo_url;
