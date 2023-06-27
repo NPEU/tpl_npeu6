@@ -62,6 +62,7 @@ if ($remote_markers_url && $remote_markers_data = file_get_contents($remote_mark
 
         if (!empty($json_format)) {
             $twig_data = $remote_markers_json;
+            #echo '<pre>twig_data: '; var_dump($twig_data); echo '</pre>'; exit;
 
             // We need to parse this to format the json:
             $loader = new \Twig\Loader\ArrayLoader(array('tpl' => $json_format));
@@ -77,7 +78,16 @@ if ($remote_markers_url && $remote_markers_data = file_get_contents($remote_mark
             });
             $twig->addFilter($html_id_filter);
 
-            $json = $twig->render('tpl', array('data' => $twig_data));
+            try {
+                $json = $twig->render('tpl', array('data' => $twig_data));
+            } catch (Exception $e) {
+                echo 'Caught exception: ',  $e->getMessage(), "\n";
+            }
+
+            #echo '<pre>json_format: '; var_dump($json_format); echo '</pre>'; #exit;
+            #echo '<pre>json: '; var_dump($json); echo '</pre>'; exit;
+            #echo '<pre>twig_data'; var_dump($twig_data); echo '</pre>'; exit;
+            #echo '<pre>'; var_dump(json_decode($json, true)); echo '</pre>'; exit;
             $remote_markers = json_decode($json, true);
         }
 
