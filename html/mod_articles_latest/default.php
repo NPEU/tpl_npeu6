@@ -53,7 +53,7 @@ $count = $params->get('count');
 <?php if ($count == 1): ?>
 <?php $wrapper_classes = ['  mod_articles_latest  d-background  d-border']; $item = $items[0]; ?>
 <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
-<?php else: 
+<?php else:
 // Have a go at providing useful classes:
 $wrapper_classes = ['d-background  d-border'];
 if ($count >= 2 && $count < 5) {
@@ -72,8 +72,8 @@ if ($count >= 2 && $count < 5) {
     $wrap_class   = 'u-space--below  mod_articles_latest';
     //$outer_class  = 'l-distribute--flush-edge-gutters';
     $outer_class  = 'l-layout  l-distribute  l-gutter  l-basis--20';
-    $inner_class  = 'l-layout__inner'; 
-    //$inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20'; 
+    $inner_class  = 'l-layout__inner';
+    //$inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20';
     $item_class   = 'l-box';
 }
 
@@ -98,7 +98,7 @@ if ($count >= 2 && $count < 5) {
             <h2>Trial Updates</h2>
             <p><a href="<?php echo $items[0]->category_route; ?>" class="c-cta  c-cta--has-icon">See all updates<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
         </header>
-        
+
         <div class="l-col-to-row--flush-edge-gutters">
             <div class="l-col-to-row  l-col-to-row--gutter--medium">
                 <?php foreach ($items as $item): ?>
