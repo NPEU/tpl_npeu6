@@ -137,7 +137,7 @@ function modChrome_sidebar($module, &$params, &$attribs) {
     // behaviours, but I haven't got time to updat all the modules with this.
 
     // News pages shouldn't show a latest news module:
-    $is_news_page    = $menu_item->query['layout'] == 'blog';
+    $is_news_page    = (isset($menu_item->query['layout']) && $menu_item->query['layout'] == 'blog');
     $is_article_page = ($menu_route == $uri_route) ? false : true;
     $is_first_page   = !$is_article_page && is_null($uri->getVar('start'));
 
