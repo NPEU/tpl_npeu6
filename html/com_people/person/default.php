@@ -197,7 +197,7 @@ function get_custom($custom_title, $custom) {
     <div class="l-primary-content__main  has-longform-content">
 
         <?php if(!empty($person['biography'])): ?>
-        <section class="l-box--space--block  d-background--very-light  t-neutral">
+        <section class="l-box--space--edge  d-background--very-light  t-neutral">
             <div class="longform-content user-content">
                 <h2>Biography</h2>
                 <?php echo $person['biography']; ?>
