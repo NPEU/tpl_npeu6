@@ -545,7 +545,11 @@
                             <div class="l-layout__inner">
                                 <?php if ($page_has_footer_mid_left): ?>
                                 <div class="l-box  ff-width-100--40--50" data-position="6-footer-mid-left">
-                                    <?php echo $modules__footer_mid_left; ?>
+                                    <div class="l-layout l-row">
+                                        <div class="l-layout__inner">
+                                            <?php echo $modules__footer_mid_left; ?>
+                                        </div>
+                                    </div>
                                 </div>
                                 <?php endif; ?>
                                 <?php if ($page_has_footer_mid_right): ?>
