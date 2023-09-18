@@ -30,6 +30,10 @@ $theme = '';
                 $sign_class .= '  c-sign--span-all';
             }
 
+            $sign_link_el = 'span';
+            if (!empty($sign->url)) {
+                $sign_link_el = 'a';
+            }
 
             if ($sign->signclass_sfx == '--alt') {
                 $theme = '  t-secondary';
@@ -80,12 +84,12 @@ $theme = '';
             }
         ?>
         <div class="<?php echo $sign_class; ?><?php echo $theme; ?>">
-            <a href="<?php echo $sign->url; ?>" class="c-sign__link  c-sign--padding--xs">
+            <<?php echo $sign_link_el; ?> href="<?php echo $sign->url; ?>" class="c-sign__link  c-sign--padding--xs">
                 <span class="c-sign__centered-content<?php echo $padding_class; ?>">
                     <?php echo $svg; ?>
                     <?php echo $sign_content; ?>
                 </span>
-            </a>
+            </<?php echo $sign_link_el; ?>>
         </div>
         <?php endforeach; ?>
     </div>
