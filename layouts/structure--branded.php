@@ -480,8 +480,19 @@
                                         <header class="c-panel__header" aria-labelledby="in-this-section">
                                             <h2>More on <?php echo $page_article_brand->name; ?>:</h2>
                                         </header>
+                                        <?php
+                                        if ($page_article_brand->alias == 'npeu') {
+                                            $page_article_brand_url = '/';
+                                        } else {
+                                            if (!empty($page_article_brand->params && !empty($page_article_brand->params->logo_url))) {
+                                                $page_article_brand_url = $page_article_brand->params->logo_url;
+                                            } else {
+                                                $page_article_brand_url = '/' . $page_article_brand->alias;
+                                            }
+                                        }
+                                        ?>
                                         <p class="u-text-align--center">
-                                            <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
+                                            <a href="<?php echo ($page_article_brand_url); ?>" class="c-badge  c-badge--limit-height--6">
                                                 <?php
                                                     $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
                                                     $image_path       = $public_root_path . $page_article_brand->logo_png_path;
