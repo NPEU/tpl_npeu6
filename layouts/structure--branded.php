@@ -438,10 +438,10 @@
                                     <?php endif; ?>
 
                                     <?php if ($page_has_priority_content) : ?>
-                                    <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
+                                    <?php echo JHtml::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->fulltext)); ?>
                                     <?php else : ?>
-                                    <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
-                                    <?php echo JHtml::_('content.prepare', $doc->article->fulltext); ?>
+                                    <?php echo JHtml::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->introtext)); ?>
+                                    <?php echo JHtml::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->fulltext)); ?>
                                     <?php endif; ?>
                                 </div>
 

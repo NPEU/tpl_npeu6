@@ -543,4 +543,70 @@ class TplNPEU6Helper
 
         return $html;
     }
+
+    /**
+     * Adjus article HMTL
+     *
+     * @return string
+     */
+    public static function adjust_article_html($html)
+    {
+        // Reslive data-true-url
+        // Note what this does is get the URL of an <a> inside an element with an id matching the
+        // # of a URL and replaces the orginal URL. This is to allow for the same file link /
+        // document to appear in multple places on the site whilst still maintaining a "single-
+        // source-of-truth" where by the acutal file is ony placed on a sngle page and other
+        // instances of it exists as #links to a container id.
+        // So an original page might have:
+        //
+        // <a id="guidance-sheet-1 href="/assets/downloads/neogastric/neoGASTRIC_Guidance_Sheet_1_Trial_one-page_summary_v10_02062023.pdf">neoGASTRIC Guidance Sheet 1 Trial one-page summary v1.0 02062023</a>
+        //
+        // and a secondary instance might have:
+        //
+        // <a data-true-url="" href="https://dev.npeu.ox.ac.uk/neogastric/health-professionals/guidance-sheets#guidance-sheet-1">Guidance Sheet 1 Trial one-page summary</a>
+        //
+        // Which will be resolved to:
+        //
+        // <a href="/assets/downloads/neogastric/neoGASTRIC_Guidance_Sheet_1_Trial_one-page_summary_v10_02062023.pdf">Guidance Sheet 1 Trial one-page summary</a>
+        preg_match_all('/<a data-true-url.+?href="([^#]+)#([^"]+)">([^<]+)<\/a>/', $html, $matches, PREG_SET_ORDER);
+        $config = [];
+        foreach ($matches as $match) {
+            $url = $match[1];
+
+            if (!array_key_exists($url, $config)) {
+                $config[$url] = [];
+            }
+
+            $config_entry = [
+                'id' => $match[2],
+                'text' => $match[3]
+            ];
+
+            $config[$url][] = $config_entry;
+        }
+
+        foreach ($config as $url => $config_entries) {
+            if (strpos($url, 'https://') !== 0) {
+                $full_url = 'https://' . $_SERVER['SERVER_NAME'] . $url;
+            }
+            $contents = file_get_contents($full_url);
+            if (!empty($contents)) {
+                foreach ($config_entries as $config_entry) {
+                    $regex = '/<a[^>]*?id="' . $config_entry['id'] . '"[^>]*?>(.*?)<\/a>/s';
+
+                    if (preg_match($regex, $contents, $ms)) {
+                        preg_match('/href="([^"]+)"/', $ms[0], $ms2);
+                        $old_url = '"' . $url . '#' . $config_entry['id'] . '"';
+                        $old_text = $config_entry['text'];
+                        $new_url = '"' . $ms2[1] . '"';
+                        $new_text = trim(strip_tags($ms[1]));
+
+                        $html = str_replace([$old_url , $old_text], [$new_url, $new_text], $html);
+                    }
+                }
+            }
+        }
+
+        return $html;
+    }
 }
