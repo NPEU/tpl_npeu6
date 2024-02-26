@@ -107,8 +107,10 @@ ob_start();
         <dd><?php echo $this->item->start_year; ?></dd>
         <dt>End year</dt>
         <dd><?php echo $this->item->end_year; ?></dd>
+        <?php if (!empty($this->item->owner_details->name)) : ?>
         <dt>NPEU Contact</dt>
         <dd><?php echo $this->item->owner_details->name; ?></dd>
+        <?php endif; ?>
     </dl>
 </div>
 <?php
