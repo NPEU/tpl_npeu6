@@ -291,7 +291,7 @@
                                         <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
                                         <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                         <?php endif; ?>
-                                        <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : /* E.g. What's New */ ?>
+                                        <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item->params->get('show_feed_link', true) == true) : /* E.g. What's New */ ?>
                                         <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
                                         <?php endif; ?>
                                         <?php if ($has_add_form_child && $page_is_subroute == false) : /* E.g. Staff Notices */ ?>
@@ -335,7 +335,7 @@
                                                 <?php if (isset($doc->header_cta)) : ?>
                                                 <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                                 <?php endif; ?>
-                                                <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : ?>
+                                                <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item->params->get('show_feed_link', true) == true) : ?>
                                                 <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
                                                 <?php endif; ?>
                                                 <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
