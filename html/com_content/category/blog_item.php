@@ -92,7 +92,9 @@ if (!empty($urls)) {
     }
 }
 
-
+// Get the Menu Item params:
+$menu_item = TplNPEU6Helper::get_menu_item();
+$menu_item_params = $menu_item->params;
 
 ?>
 
@@ -130,7 +132,12 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
 
     $card_data = array();
 
-    $card_data['theme_classes']    = 'd-background  d-border'; //empty($theme) ? 'd-background' : $theme;
+    // Note this is a hack but I can't find another way of flagging this display should be different.
+    $card_classes = 'd-background  d-border';
+    if ($menu_item_params->get('pageclass_sfx') == 'outline-cards') {
+        $card_classes = 'd-border';
+    }
+    $card_data['theme_classes']    = $card_classes; //empty($theme) ? 'd-background' : $theme;
 
     //$card_data['full_link']       = $i == 1 ? false : true;
     $card_data['full_link']        = true;
@@ -140,9 +147,13 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
     $card_data['header_image_alt'] = $headline_image['headline-image-alt-text'];
     $card_data['title']            = $this->item->title;
     //$card_data['body']             = $i == 1 ? $item->introtext : '';
-    $card_data['publish_date']     = $this->item->publish_up;
-    $card_data['footer_extra']     = date($date_format, strtotime($this->item->publish_up));
-    $card_data['date_format']      = $date_format;
+
+
+    if ($params->get('show_publish_date', true) == true) {
+        $card_data['publish_date']     = $this->item->publish_up;
+        $card_data['footer_extra']     = date($date_format, strtotime($this->item->publish_up));
+        $card_data['date_format']      = $date_format;
+    }
     $card_data['state']            = (int) $this->item->state;
     //$card_data['wrapper_classes'] = array('u-fill-height');
 
