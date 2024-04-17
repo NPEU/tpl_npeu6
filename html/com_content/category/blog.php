@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('behavior.caption');
@@ -58,10 +60,19 @@ $has_items = !empty($this->intro_items);
     @TODO - should really cater for LEAD items here too
     (and column I suppose though I don't currently use it).
 */
+
+// Get the Menu Item params:
+$menu_item = TplNPEU6Helper::get_menu_item();
+$menu_item_params = $menu_item->params;
+
+$layout_classes = "  l-basis--30  l-limit--60  l-distribute  l-distribute--balance-top";
+if (strstr($menu_item_params->get('pageclass_sfx'), 'full-width-cards') !== false) {
+    $layout_classes = "";
+}
 ?>
 <div class="c-panelx l-primary-content__space-inline--@large  com_blog">
     <?php if (!empty($this->intro_items)) : ?>
-    <section class="l-layout  l-gutter  l-flush-edge-gutter  l-basis--30  l-limit--60  l-distribute  l-distribute--balance-top">
+    <section class="l-layout  l-gutter  l-flush-edge-gutter<?php echo $layout_classes; ?>">
         <div class="l-layout__inner">
             <?php foreach ($this->intro_items as $key => &$item) : ?>
             <div class="l-box">
@@ -96,5 +107,5 @@ $has_items = !empty($this->intro_items);
         </div>
     </section>
     <?php endif; ?>
-    
+
 </div>

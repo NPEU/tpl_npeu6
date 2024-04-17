@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
@@ -91,7 +91,6 @@ if (!empty($urls)) {
         }
     }
 }
-
 // Get the Menu Item params:
 $menu_item = TplNPEU6Helper::get_menu_item();
 $menu_item_params = $menu_item->params;
@@ -134,7 +133,7 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
 
     // Note this is a hack but I can't find another way of flagging this display should be different.
     $card_classes = 'd-background  d-border';
-    if ($menu_item_params->get('pageclass_sfx') == 'outline-cards') {
+    if (strstr($menu_item_params->get('pageclass_sfx'), 'outline-cards') !== false) {
         $card_classes = 'd-border';
     }
     $card_data['theme_classes']    = $card_classes; //empty($theme) ? 'd-background' : $theme;
@@ -142,6 +141,9 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
     //$card_data['full_link']       = $i == 1 ? false : true;
     $card_data['full_link']        = true;
     $card_data['link']             = JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
+    if (strstr($menu_item_params->get('pageclass_sfx'), 'outline-cards') !== false) {
+        $card_data['link_text']        = 'View this project';
+    }
     //$card_data['link_text']        = 'Read more';
     $card_data['header_image']     = $headline_image['headline-image'];
     $card_data['header_image_alt'] = $headline_image['headline-image-alt-text'];
