@@ -8,10 +8,11 @@
  */
 
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
 use Joomla\String\StringHelper;
 
-
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 $hx = (int) str_replace('h', '', $params->get('header_tag'));
 $hx = 'h' . $hx;
 
@@ -33,7 +34,7 @@ $hx = 'h' . $hx;
         if (!empty($card->link) && (bool) $params->get('link_full')) {
             $full_link = true;
         }
-        
+
         $theme_classes = empty($card->theme_classes) ? '' : '  ' . $card->theme_classes;
         ?>
             <li>

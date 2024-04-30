@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Uri\Uri;
+
 require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use \Michelf\Markdown;
@@ -78,23 +80,13 @@ $ratio = $image_info[0] / $image_info[1];
 $fallback_width  = 600;
 $fallback_height = round($fallback_width / $ratio, 2);
 
-$image_url = false;
-$image_url_external = false;
-if (isset($images->images0->url)) {
-    $image_url = $images->images0->url;
-    if (substr($image_url, 0, 1) != '/' && strpos($image_url, $_SERVER['SERVER_NAME']) === false) {
-        $image_url_external = true;
-    }
-
-}
-
 ?>
 <?php if($n_images > 1) : ?>
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>
 <<?php echo $wrapper; echo $container_classes; ?>>
-    <?php if ($image_url): ?><a href="<?php echo $image_url; ?>"<?php if ($image_url_external): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>
-        <img<?php echo $image_classes; ?> src="<?php echo JURI::base() . $images->images0->image; ?>" width="<?php echo $fallback_width; ?>" height="<?php echo $fallback_height; ?>" alt="<?php echo $images->images0->alt; ?>">
+    <?php if (isset($images->images0->url)): ?><a href="<?php echo $images->images0->url; ?>"<?php if (strpos($images->images0->url, $_SERVER['SERVER_NAME']) === false): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>
+        <img<?php echo $image_classes; ?> src="<?php echo Uri::base() . $images->images0->image; ?>" width="<?php echo $fallback_width; ?>" height="<?php echo $fallback_height; ?>" alt="<?php echo $images->images0->alt; ?>">
     <?php if (isset($images->images0->url)): ?></a><?php else: ?></div><?php endif; ?>
     <?php if ($has_details): ?>
     <figcaption class="c-longform-content  c-user-content  c-panel  c-panel--very-dark  mod_image__details" style="

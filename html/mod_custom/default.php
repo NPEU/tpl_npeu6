@@ -20,6 +20,6 @@ if (strpos($module->content, 'mod_custom') !== false) {
 ?>
 
 <div class="user-content  mod_custom" <?php if ($params->get('backgroundimage')) : ?> style="background-image:url(<?php echo $params->get('backgroundimage'); ?>)"<?php endif; ?> >
-	<?php echo $module->content; ?>
+    <?php echo $module->content; ?>
 </div>
 

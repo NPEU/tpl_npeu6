@@ -9,9 +9,15 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 use Joomla\CMS\Factory;
-$session = JFactory::getSession();
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+$session = Factory::getSession();
 $registry = $session->get('registry');
 $jinput = Factory::getApplication()->input;
 
@@ -44,7 +50,7 @@ $return = $jinput->get('return', $return);
     <?php endif; ?>
 
     <?php if (($this->params->get('login_image')!='')) :?>
-    <img src="<?php echo $this->escape($this->params->get('login_image')); ?>" class="login-image" alt="<?php echo JTEXT::_('COM_USER_LOGIN_IMAGE_ALT')?>"/>
+    <img src="<?php echo $this->escape($this->params->get('login_image')); ?>" class="login-image" alt="<?php echo Text::_('COM_USER_LOGIN_IMAGE_ALT')?>"/>
     <?php endif; ?>
 </div>
 <?php endif; ?>
@@ -55,7 +61,7 @@ $return = $jinput->get('return', $return);
         <div class="l-box  ff-width-100--45--33-333">
 
             <h2>NPEU Website</h2>
-            <form action="<?php echo JRoute::_('index.php?option=com_users&task=user.login'); ?>" method="post">
+            <form action="<?php echo Route::_('index.php?option=com_users&task=user.login'); ?>" method="post">
                 <fieldset>
 
                     <?php foreach ($this->form->getFieldset('credentials') as $field): ?>
@@ -85,24 +91,24 @@ $return = $jinput->get('return', $return);
                     <?php endif; ?>
                     <?php endforeach; ?>
 
-                    <?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>
+                    <?php if (PluginHelper::isEnabled('system', 'remember')) : ?>
                     <div>
                         <input id="remember" type="checkbox" name="remember" value="yes" />
-                        <label id="remember-lbl" for="remember"><?php echo JText::_('JGLOBAL_REMEMBER_ME') ?></label>
+                        <label id="remember-lbl" for="remember"><?php echo Text::_('JGLOBAL_REMEMBER_ME') ?></label>
                     </div>
                     <?php endif; ?>
 
-                    <button type="submit"><?php echo JText::_('JLOGIN'); ?></button>
+                    <button type="submit"><?php echo Text::_('JLOGIN'); ?></button>
                     <input type="hidden" name="return" value="<?php echo $return; ?>" />
-                    <?php echo JHtml::_('form.token'); ?>
+                    <?php echo HTMLHelper::_('form.token'); ?>
 
                     <div class="l-layout  l-row  l-row--start">
                         <p class="l-layout__inner">
                             <span class="l-box  l-box--space--inline-end">
-                                <a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>"><?php echo JText::_('COM_USERS_LOGIN_REMIND'); ?></a>
+                                <a href="<?php echo Route::_('index.php?option=com_users&view=remind'); ?>"><?php echo Text::_('COM_USERS_LOGIN_REMIND'); ?></a>
                             </span>
                             <span class="l-box">
-                                <a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>"><?php echo JText::_('COM_USERS_LOGIN_RESET'); ?></a>
+                                <a href="<?php echo Route::_('index.php?option=com_users&view=reset'); ?>"><?php echo Text::_('COM_USERS_LOGIN_RESET'); ?></a>
                             </span>
                         </p>
                     </div>

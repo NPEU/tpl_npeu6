@@ -1,7 +1,7 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_people
+ * @package        Joomla.Site
+ * @subpackage    com_people
  *
  * @copyright   Copyright (C) NPEU 2019.
  * @license     MIT License; see LICENSE.md
@@ -9,12 +9,16 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 $application_env = $_SERVER['SERVER_NAME'] == 'dev.npeu.ox.ac.uk' ? 'development' : ($_SERVER['SERVER_NAME'] == 'test.npeu.ox.ac.uk' ? 'testing' : 'production');
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 unset($this->people['*']);
 
 function get_person_image_info($img_url) {
+    #echo '<p datathing>' . $img_url . '</p>';
+    return ['src'=>$img_url,'w'=>200, 'h'=>'200'];
     $r = [
         'src' => $img_url
     ];
@@ -39,18 +43,20 @@ function person_img_size($img_url, $size) {
         <div class="l-layout__inner">
 
             <div class="l-box  ff-width-100--70--50  l-box--space--block-end--l">
-                <?php echo JHtml::_('content.prepare', '{loadposition people_intro}'); ?>
+                <?php echo HTMLHelper::_('content.prepare', '{loadposition people_intro}'); ?>
             </div>
 
             <div class="l-box  ff-width-100--40--50">
-                <?php echo JHtml::_('content.prepare', '{loadposition people_image}'); ?>
+                <?php echo HTMLHelper::_('content.prepare', '{loadposition people_image}'); ?>
             </div>
         </div>
     </div>
 
 </div>
 
-<?php $director = $this->people['Director']['people'][0]; unset($this->people['Director']); ?>
+<?php $director = $this->people['Director']['people'][0]; unset($this->people['Director']);
+
+?>
 
 <div class="d-border--bottom--thick">
     <div class="c-panel  d-background--dark  l-box--space--inline--l">

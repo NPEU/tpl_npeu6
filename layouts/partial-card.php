@@ -8,7 +8,9 @@
  */
 
 defined('_JEXEC') or die;
-JLoader::register('TplNPEU6Helper', dirname(__DIR__) . '/helper.php');
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
 
 /* <pre><?php var_dump($card_data); ?></pre> */
@@ -54,10 +56,18 @@ if (empty($card_data['hx'])) {
     $card_data['hx'] = '3';
 }
 
-if (!empty($card_data['header_image'])) {
-    $header_image_path = $public_root_path . $card_data['header_image'];
-    if (file_exists($header_image_path)) {
-        $header_image_exists = true;
+$image_data = TplNPEU6Helper::resolve_image_data($card_data['header_image']);
+
+#echo '<pre>'; var_dump($image_data); echo '</pre>'; #exit;
+#echo '<pre>'; var_dump(empty($card_data['header_image'])); echo '</pre>'; exit;
+if (!empty($image_data)) {
+    $header_image_path = TplNPEU6Helper::resolve_image_path($image_data['imagefile']);
+    if (empty($header_image_path)) {
+        $card_data['header_image'] = false;
+    } else {
+        $card_data['header_image'] = $header_image_path;
+        $header_image_path = $public_root_path . $header_image_path;
+
         $header_image_info       = getimagesize($header_image_path);
         $header_image_real_ratio = $header_image_info[0] / $header_image_info[1];
         $card_data['header_image_real_ratio'] = $header_image_real_ratio;
@@ -75,43 +85,38 @@ if (!empty($card_data['header_image'])) {
         //} else {
         //    $card_data['header_image_height'] = $card_data['header_image_width'] * $header_image_real_ratio;
         //}
-    } else {
-        $header_image_exists = false;
     }
 }
 
+#echo '<pre>'; var_dump($card_data); echo '</pre>'; #exit;
+
 if (!empty($card_data['footer_image'])) {
-    $footer_image_path = $public_root_path . $card_data['footer_image'];
-    if (file_exists($footer_image_path)) {
-        $footer_image_exists = true;
-        // Check for an SVG:
-        $pathinfo = pathinfo($card_data['footer_image']);
-        $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card_data['footer_image']);
+    // Check for an SVG:
+    $pathinfo = pathinfo($card_data['footer_image']);
+    $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card_data['footer_image']);
 
-        if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
-            $card_data['footer_image_svg_file'] = $footer_image_svg_file;
-        }
-
-        $footer_image_info       = getimagesize($footer_image_path);
-        $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
-        $card_data['footer_image_real_ratio'] = $footer_image_real_ratio;
-
-        if (empty($card_data['footer_image_ratio'])) {
-            $card_data['footer_image_ratio'] = '30';
-        }
-        if (empty($card_data['image_width'])) {
-            $card_data['footer_image_width'] = '200';
-        }
-
-        $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
-        //if ($footer_image_info[0] > $footer_image_info[1]) {
-        //    $card_data['footer_image_height'] = $card_data['footer_image_width'] / $footer_image_real_ratio;
-        //} else {
-        //    $card_data['footer_image_height'] = $card_data['footer_image_width'] * $footer_image_real_ratio;
-        //}
-    } else {
-        $footer_image_exists = false;
+    if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
+        $card_data['footer_image_svg_file'] = $footer_image_svg_file;
     }
+
+    $footer_image_path       = $public_root_path . $card_data['footer_image'];
+    $footer_image_info       = getimagesize($footer_image_path);
+    $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
+    $card_data['footer_image_real_ratio'] = $footer_image_real_ratio;
+
+    if (empty($card_data['footer_image_ratio'])) {
+        $card_data['footer_image_ratio'] = '30';
+    }
+    if (empty($card_data['image_width'])) {
+        $card_data['footer_image_width'] = '200';
+    }
+
+    $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
+    //if ($footer_image_info[0] > $footer_image_info[1]) {
+    //    $card_data['footer_image_height'] = $card_data['footer_image_width'] / $footer_image_real_ratio;
+    //} else {
+    //    $card_data['footer_image_height'] = $card_data['footer_image_width'] * $footer_image_real_ratio;
+    //}
 }
 
 if (empty($card_data['header_span_attr'])) {
@@ -129,7 +134,7 @@ if (empty($card_data['header_span_attr'])) {
                     <span<?php echo $card_data['header_span_attr']; ?>><?php echo $card_data['title']; ?></span>
                 <?php if (!empty($card_data['link'])) : ?></a><?php endif; ?>
             </h<?php echo $card_data['hx']; ?>>
-            <?php if (!empty($card_data['header_image']) && $header_image_exists) : ?>
+            <?php if (!empty($card_data['header_image'])) : ?>
             <div class="c-card__image  l-box">
                 <div class="u-image-cover  js-image-cover  u-image-cover--min-<?php echo $card_data['header_image_ratio']; ?>">
                     <div class="u-image-cover__inner">
@@ -170,7 +175,7 @@ if (empty($card_data['header_span_attr'])) {
         </footer>
         <?php endif; ?>
 
-        <?php if (!empty($card_data['footer_image']) && $footer_image_exists) : ?>
+        <?php if (!empty($card_data['footer_image'])) : ?>
         <div class="c-card__footer-image<?php if (!empty($card_data['footer_image_padded'])) : ?>  c-card__footer-image--padded<?php endif; ?>">
             <div class="u-image-cover<?php if (!empty($card_data['footer_logo'])): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover  u-image-cover--min-<?php echo $card_data['footer_image_ratio']; ?>">
                 <div class="u-image-cover__inner<?php if (!empty($card_data['footer_logo'])): ?>  l-box--space--edge--s<?php endif; ?>">

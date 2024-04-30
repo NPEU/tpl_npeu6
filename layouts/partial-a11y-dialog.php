@@ -1,7 +1,10 @@
 <?php
 
 defined('_JEXEC') or die;
-$doc = JFactory::getDocument();
+
+use Joomla\CMS\Factory;
+
+$doc = Factory::getDocument();
 
 $doc->addStyleSheet('/templates/npeu6/css/a11y-dialog.min.css');
 $doc->addScript('/templates/npeu6/js/a11y-dialog.min.js');

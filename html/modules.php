@@ -7,8 +7,9 @@
  * @license     MIT License; see LICENSE.md
  */
 
-// Include the template helper:
-JLoader::register('TplNPEU6Helper', dirname(__DIR__) . '/helper.php');
+use Joomla\CMS\Factory;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 function modChrome_basic($module, &$params, &$attribs) {
 
@@ -21,7 +22,7 @@ function modChrome_basic($module, &$params, &$attribs) {
 
 function modChrome_bespoke($module, &$params, &$attribs) {
 
-    $app = JFactory::getApplication();
+    $app = Factory::getApplication();
     $template = $app->getTemplate(true);
 
 
@@ -115,45 +116,14 @@ function modChrome_bespoke($module, &$params, &$attribs) {
 
 function modChrome_sidebar($module, &$params, &$attribs) {
 
-    $app = JFactory::getApplication();
+    $app = Factory::getApplication();
     $template = $app->getTemplate(true);
 
-    $menu_item = TplNPEU6Helper::get_menu_item();
-    $uri       = JUri::getInstance();
 
-
-    // Work out if current page is a route of a component or not;
-    $menu_route = trim($menu_item->route, '/');
-    $uri_route  = trim($uri->getPath(), '/');
-
-    #echo  '<pre>'; var_dump($menu_item); echo '</pre>';
     #echo  '<pre>'; var_dump($module); echo '</pre>';
     #echo  '<pre>'; var_dump($params); echo '</pre>';
     #echo  '<pre>'; var_dump($attribs); echo '</pre>';
-    #echo  '<pre>'; var_dump($template); echo '</pre>';
-    #echo  '<pre>'; var_dump($module->content); echo '</pre>';
-
-    // These are a bit of a hack - I guess module settings themselves should determine these
-    // behaviours, but I haven't got time to updat all the modules with this.
-
-    // News pages shouldn't show a latest news module:
-    $is_news_page    = (isset($menu_item->query['layout']) && $menu_item->query['layout'] == 'blog');
-    $is_article_page = ($menu_route == $uri_route) ? false : true;
-    $is_first_page   = !$is_article_page && is_null($uri->getVar('start'));
-
-    #echo  'is_news_page<pre>'; var_dump($is_news_page); echo '</pre>';
-    #echo  'is_article_page<pre>'; var_dump($is_article_page); echo '</pre>';
-    #echo  'is_first_page<pre>'; var_dump(!$is_first_page); echo '</pre>';
-
-    if ($module->module == 'mod_articles_latest'
-     && $is_news_page
-     && $is_first_page
-    ) {
-        return '';
-    }
-    if ($module->module == 'mod_articles_latest' && $module->content == '') {
-        return '';
-    }
+    #echo  '<pre>'; var_dump($template); echo '</pre>;
 
     $page_brand = TplNPEU6Helper::get_brand();
 
@@ -306,7 +276,7 @@ function modChrome_layout_box($module, &$params, &$attribs) {
 
 function modChrome_magic($module, &$params, &$attribs) {
 
-    $app = JFactory::getApplication();
+    $app = Factory::getApplication();
     $template = $app->getTemplate(true);
 
 

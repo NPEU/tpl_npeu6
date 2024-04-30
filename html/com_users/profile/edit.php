@@ -9,15 +9,21 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 //load user_profile plugin language
-$lang = JFactory::getLanguage();
+$lang = Factory::getLanguage();
 $lang->load( 'plg_user_profile', JPATH_ADMINISTRATOR );
 
 
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 $doc->include_avatar_modal = true;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
 
 // For now, jQuery is required by CKEditor Footnotes, WYM, and ...
 #$jquery = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__)))) . '/js/jquery-3.5.1.min.js';
@@ -25,20 +31,8 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helpe
 
 
 
-### //JHtml::_('behavior.keepalive');
-
-#JHtml::_('behavior.tooltip');
-#JHtml::_('behavior.formvalidation');
-####JHtml::_('formbehavior.chosen', 'select');
-#JHtml::_('behavior.noframes');
-#return;
-### //JHTML::_('behavior.modal');
-
-###  JHtml::_('jquery.ui', array('core', 'sortable'));
-###  JHtml::_('script', 'system/subform-repeatable.js', array('version' => 'auto', 'relative' => true));
-
 /*
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 #echo '<pre>'; var_dump(get_class_methods($doc)); echo '</pre>';
 
 $doc->addScript('/media/system/js/mootools-core.js');
@@ -76,10 +70,10 @@ $str = implode("\n", $style);
 $doc->addStyleDeclaration($str);
 */
 
-$user        = JFactory::getUser();
+$user        = Factory::getUser();
 #echo '<pre>'; var_dump($user); echo '</pre>';
 $user_editor = $user->getParam('editor', false);
-$j_config    = JFactory::getConfig();
+$j_config    = Factory::getConfig();
 #echo '<pre>'; var_dump($j_config); echo '</pre>'; exit;
 /*
 if ($j_config->get('editor') == 'ckeditorbasic' || $user_editor == 'ckeditorbasic') {
@@ -95,7 +89,7 @@ if ($j_config->get('editor') == 'ckeditorbasic' || $user_editor == 'ckeditorbasi
     $script[] = "       jeditors['jform_profile_publications_manual'].update();";
     $script[] = "   });";
     $script[] = "});";
-    
+
     $str = implode("\n", $script);
     ### //$doc->addScriptDeclaration($str);
 }
@@ -124,27 +118,27 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
 
 ?>
 <?php #echo TplNPEU6Helper::get_messages(); ?>
-<form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_users&task=profile.save&redirect=user-profile/edit'); ?>" method="post" enctype="multipart/form-data">
+<form id="member-profile" action="<?php echo Route::_('index.php?option=com_users&task=profile.save&redirect=user-profile/edit'); ?>" method="post" enctype="multipart/form-data">
     <div class="c-system-message  d-background--sloped  t-notice">
-        <p><?php echo JText::_('PLG_USER_STAFFPROFILE_COMPULSORY_MESSAGE'); ?></p>
+        <p><?php echo Text::_('PLG_USER_STAFFPROFILE_COMPULSORY_MESSAGE'); ?></p>
     </div>
-    
+
     <?php  /*<p><strong>Tip:</strong> hover your mouse over each field label to show more information on how to complete that field.</p>*/ ?>
     <?php $i = 0; foreach ($this->form->getFieldsets() as $group => $fieldset):// Iterate through the form fieldsets and display each one.?>
     <?php #echo '<pre>'; var_dump($fieldset); echo '</pre>'; ?>
     <?php if ($group == 'params') { continue; } ?>
     <?php $fields = $this->form->getFieldset($group); $hidden = ''; $help = ''; ?>
     <?php if (count($fields)) : ?>
-    
+
     <?php if ($fieldset->name == 'whatson-prefs_fields') : $keys = array_keys($fields); ?>
     <?php #echo '<pre>'; var_dump($fields); echo '</pre>'; ?>
     <fieldset id="fieldset<?php echo $i; ?>">
         <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
-        <legend><h2><?php echo JText::_($fieldset->label); ?></h2></legend>
+        <legend><h2><?php echo Text::_($fieldset->label); ?></h2></legend>
         <p class="u-text-align--right  u-space--below--none">
-            <button <?php /*id="profile_save"*/ ?> type="submit" class=""><span><?php echo JText::_('JSAVE'); ?></span></button>
-            <span><?php echo JText::_('COM_USERS_OR'); ?>
-                <a class="" href="<?php echo JRoute::_('/user-profile'); ?>" title="<?php echo JText::_('JCANCEL'); ?>"><?php echo JText::_('JCANCEL'); ?></a>
+            <button <?php /*id="profile_save"*/ ?> type="submit" class=""><span><?php echo Text::_('JSAVE'); ?></span></button>
+            <span><?php echo Text::_('COM_USERS_OR'); ?>
+                <a class="" href="<?php echo Route::_('/user-profile'); ?>" title="<?php echo Text::_('JCANCEL'); ?>"><?php echo Text::_('JCANCEL'); ?></a>
             </span>
         </p>
         <?php endif; ?>
@@ -183,8 +177,8 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
             </div>
         </div>
         <details class="sh-naked-details">
-            <summary><?php echo JText::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_LABEL'); ?></summary>
-            <p><?php echo JText::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_DESC'); ?></p>
+            <summary><?php echo Text::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_LABEL'); ?></summary>
+            <p><?php echo Text::_('PLG_USER_STAFFPROFILE_WHATSON_FIELD_WEEK2_DESC'); ?></p>
             <div class="l-layout  l-row">
                 <div class="l-layout__inner">
                     <div class="l-box  ff-width-100--30--20">
@@ -222,18 +216,18 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
         </details>
     </fieldset>
     <?php else : ?>
-    
+
     <fieldset id="fieldset<?php echo $i; ?>">
         <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
-        <legend><h2><?php echo JText::_($fieldset->label); ?></h2></legend>
+        <legend><h2><?php echo Text::_($fieldset->label); ?></h2></legend>
         <p class="u-text-align--right  u-space--below--none">
-            <button <?php /*id="profile_save"*/ ?> type="submit" class=""><span><?php echo JText::_('JSAVE'); ?></span></button>
-            <span><?php echo JText::_('COM_USERS_OR'); ?>
-                <a class="" href="<?php echo JRoute::_('/user-profile'); ?>" title="<?php echo JText::_('JCANCEL'); ?>"><?php echo JText::_('JCANCEL'); ?></a>
+            <button <?php /*id="profile_save"*/ ?> type="submit" class=""><span><?php echo Text::_('JSAVE'); ?></span></button>
+            <span><?php echo Text::_('COM_USERS_OR'); ?>
+                <a class="" href="<?php echo Route::_('/user-profile'); ?>" title="<?php echo Text::_('JCANCEL'); ?>"><?php echo Text::_('JCANCEL'); ?></a>
             </span>
         </p>
         <?php endif; ?>
-        
+
         <div class="l-layout  l-row  l-gutter  l-flush-edge-gutter">
             <div class="l-layout__inner">
                 <?php foreach ($fields as $field):// Iterate through the fields in the set and display them.?>
@@ -288,9 +282,9 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-a11y-dialog.php')
     <?php endif; ?>
     <?php endif; ?>
     <?php $i++; endforeach; ?>
-    
+
     <input type="hidden" name="option" value="com_users" />
     <input type="hidden" name="task" value="profile.save" />
     <input type="hidden" name="redirect" value="/user-profile-edit/" />
-    <?php echo JHtml::_('form.token'); ?>
+    <?php echo HTMLHelper::_('form.token'); ?>
 </form>

@@ -9,10 +9,12 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\View\GenericDataException;
 
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 
-$db    = JFactory::getDbo();
+$db    = Factory::getDbo();
 $query = $db->getQuery(true);
 
 // Create the select statement.
@@ -33,7 +35,7 @@ $q .= 'ORDER BY last_name, first_name;';
 
 $db->setQuery($q);
 if (!$db->execute($q)) {
-    JError::raiseError( 500, $db->stderr() );
+    throw new GenericDataException($db->stderr(), 500);
     return false;
 }
 
@@ -174,7 +176,7 @@ foreach ($rooms as $room => $keys) {
                             <span class="l-layout__inner">
                                 <span class="l-box"><a href="/about/people/<?php echo $staff['alias']; ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a></span>&emsp;
                                 <span class="l-box"><a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?></span>&emsp;
-                                <span class="l-box"><a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office (<?php echo $staff['room']; ?>)</span></a><?php endif; ?></span>
+                                <span class="l-box"><a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?></span>
                             </span>
                         </p>
                     </div>

@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
+
 require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use \Michelf\Markdown;
@@ -31,21 +34,21 @@ $alias = str_replace('-logo', '', $pathinfo['filename']);
 #echo '<pre>'; var_dump($alias); echo '</pre>'; return;
 
 // Get a db connection.
-$db = JFactory::getDbo();
- 
+$db = Factory::getDbo();
+
 // Create a new query object.
 $query = $db->getQuery(true);
- 
+
 // Select all records from the user profile table where key begins with "custom.".
 // Order it by the ordering field.
 $query->select($db->qn('id'));
 $query->from($db->qn('#__menu'));
 $query->where($db->qn('path') . ' = '. $db->q($alias));
 $query->andWhere($db->qn('published') . ' = 1');
- 
+
 // Reset the query using our newly populated query object.
 $db->setQuery($query);
- 
+
 // Load the results as a list of stdClass objects (see later for more options on retrieving data).
 $result = $db->loadResult();
 #echo '<pre>'; var_dump($result); echo '</pre>'; return;
@@ -54,16 +57,16 @@ if (!$result) {
     $alias = false;
 }
 
-#$svg_path = str_replace('.' . $pathinfo['extension'], '.svg', JURI::base() . $images->images0->image);
+#$svg_path = str_replace('.' . $pathinfo['extension'], '.svg', Uri::base() . $images->images0->image);
 #echo '<pre>'; var_dump(file_exists(JPATH_BASE . '/' . $svg_file)); echo '</pre>'; return;
 ?>
 <<?php echo $wrapper; ?> class="l-primary-content__pull-out__padded--@small  mod_image">
-    
+
     <<?php echo $alias ? 'a href="https://www.npeu.ox.ac.uk/' . $alias . '"' : 'span'; ?> class="c-badge  u-fill-width">
         <?php if (file_exists(JPATH_BASE . '/' . $svg_file)) : ?>
-        <img src="<?php echo JURI::base() . $svg_file; ?>" onerror="this.src='<?php echo JURI::base() . $images->images0->image; ?>'; this.onerror=null;" alt="<?php echo $module->title; ?>" height="80" class="u-fill-width">
+        <img src="<?php echo Uri::base() . $svg_file; ?>" onerror="this.src='<?php echo Uri::base() . $images->images0->image; ?>'; this.onerror=null;" alt="<?php echo $module->title; ?>" height="80" class="u-fill-width">
         <?php else : ?>
-        <img src="<?php echo JURI::base() . $images->images0->image; ?>" alt="<?php echo $module->title; ?>" height="80" class="u-fill-width">
+        <img src="<?php echo Uri::base() . $images->images0->image; ?>" alt="<?php echo $module->title; ?>" height="80" class="u-fill-width">
         <?php endif; ?>
     </<?php echo $alias ? 'a' : 'span'; ?>>
 </<?php echo $wrapper; ?>>

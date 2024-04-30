@@ -9,24 +9,31 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\Language\Associations as LanguageAssociations;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Table\Table;
+use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
+
 require_once dirname(dirname(dirname(__DIR__))) . '/vendor/autoload.php';
 
 use \Michelf\Markdown;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+$app   = Factory::getApplication();
 
 // Create shortcuts to some parameters.
 $params  = $this->item->params;
 $images  = json_decode($this->item->images);
 $urls    = json_decode($this->item->urls);
 $canEdit = $params->get('access-edit');
-$user    = JFactory::getUser();
+$user    = Factory::getUser();
 $info    = $params->get('info_block_position', 0);
 
 // Check if associations are implemented. If they are, define the parameter.
-$assocParam = (JLanguageAssociations::isEnabled() && $params->get('show_associations'));
-#JHtml::_('behavior.caption');
+$assocParam = (LanguageAssociations::isEnabled() && $params->get('show_associations'));
 
 // Get the custom fields for the article:
 $fields = $this->item->jcfields;
@@ -128,14 +135,17 @@ if (!empty($urls)) {
 
         if (!empty($matches[1])) {
             // Pretty certain this is the ID of the progenitor article, so lets get that data:
-            $progenitor_article = JTable::getInstance("content");
+            $progenitor_article = Table::getInstance("content");
             $progenitor_article->load($matches[1]);
 
-            JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php'); //load fields helper
-            $customFieldnames = FieldsHelper::getFields('com_content.article', $matches[1], true); // get custom field names by article id
+            // Get custom field names by article id:
+            $customFieldnames = FieldsHelper::getFields('com_content.article', $matches[1], true);
+
             $customFieldIds = array_column($customFieldnames, 'id');
-            $model = JModelLegacy::getInstance('Field', 'FieldsModel', array('ignore_request' => true)); //load fields model
-            $customFieldValues = $model->getFieldValues($customFieldIds, $matches[1]); //Fetch values for custom field Ids
+            $fieldModel = $app->bootComponent('com_fields')->getMVCFactory()->createModel('Field', 'Administrator', ['ignore_request' => true]);
+
+            //Fetch values for custom field Ids:
+            $customFieldValues = $fieldModel->getFieldValues($customFieldIds, $matches[1]);
 
             // If the headline images URL for this article is empty, and the progenitor has one,
             // use that:
@@ -158,9 +168,7 @@ if (!empty($urls)) {
     }
 }
 
-
-
-$doc        = JFactory::getDocument();
+$doc        = Factory::getDocument();
 $doc->article = $this->item;
 
 ?>

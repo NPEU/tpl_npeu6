@@ -1,4 +1,6 @@
 <?php
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 $block_css_files = false;
 #$block_css_files = true;
 ?><!doctype html>

@@ -7,13 +7,33 @@
  * @license     MIT License; see LICENSE.md
  */
 
-defined('_JEXEC') or die;
+defined('_JEXEC');
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+$app = Factory::getApplication();
 
-JHtml::_('behavior.caption');
+$this->category->text = $this->category->description;
+$app->triggerEvent('onContentPrepare', [$this->category->extension . '.categories', &$this->category, &$this->params, 0]);
+$this->category->description = $this->category->text;
+
+$results = $app->triggerEvent('onContentAfterTitle', [$this->category->extension . '.categories', &$this->category, &$this->params, 0]);
+$afterDisplayTitle = trim(implode("\n", $results));
+
+$results = $app->triggerEvent('onContentBeforeDisplay', [$this->category->extension . '.categories', &$this->category, &$this->params, 0]);
+$beforeDisplayContent = trim(implode("\n", $results));
+
+$results = $app->triggerEvent('onContentAfterDisplay', [$this->category->extension . '.categories', &$this->category, &$this->params, 0]);
+$afterDisplayContent = trim(implode("\n", $results));
+
+#$htag    = $this->params->get('show_page_heading') ? 'h2' : 'h1';
+
+/*
 
 
 $dispatcher = JEventDispatcher::getInstance();
@@ -30,7 +50,7 @@ $beforeDisplayContent = trim(implode("\n", $results));
 
 $results = $dispatcher->trigger('onContentAfterDisplay', array($this->category->extension . '.categories', &$this->category, &$this->params, 0));
 $afterDisplayContent = trim(implode("\n", $results));
-
+*/
 // Remove items that aren't published:
 /*
 
@@ -44,10 +64,10 @@ if (!empty($this->intro_items)) {
         #if ($item->state != 1 || in_array('4', $tag_ids)) {
         if (
             $item->state != 1
-         || strtotime($item->publish_up) > strtotime(JFactory::getDate())
+         || strtotime($item->publish_up) > strtotime(Factory::getDate())
          || (
-             strtotime($item->publish_down) < strtotime(JFactory::getDate())
-          && $item->publish_down != JFactory::getDbo()->getNullDate()
+             strtotime($item->publish_down) < strtotime(Factory::getDate())
+          && $item->publish_down != Factory::getDbo()->getNullDate()
           )
         ) {
             unset($this->intro_items[$key]);
@@ -60,19 +80,10 @@ $has_items = !empty($this->intro_items);
     @TODO - should really cater for LEAD items here too
     (and column I suppose though I don't currently use it).
 */
-
-// Get the Menu Item params:
-$menu_item = TplNPEU6Helper::get_menu_item();
-$menu_item_params = $menu_item->params;
-
-$layout_classes = "  l-basis--30  l-limit--60  l-distribute  l-distribute--balance-top";
-if (strstr($menu_item_params->get('pageclass_sfx'), 'full-width-cards') !== false) {
-    $layout_classes = "";
-}
 ?>
 <div class="c-panelx l-primary-content__space-inline--@large  com_blog">
     <?php if (!empty($this->intro_items)) : ?>
-    <section class="l-layout  l-gutter  l-flush-edge-gutter<?php echo $layout_classes; ?>">
+    <section class="l-layout  l-gutter  l-flush-edge-gutter  l-basis--30  l-limit--60  l-distribute  l-distribute--balance-top">
         <div class="l-layout__inner">
             <?php foreach ($this->intro_items as $key => &$item) : ?>
             <div class="l-box">
@@ -90,14 +101,14 @@ if (strstr($menu_item_params->get('pageclass_sfx'), 'full-width-cards') !== fals
     <ul>
     <?php foreach ($this->link_items as &$item) : ?>
         <li<?php if ($item->state != 1): ?> style="opacity: 0.5;"<?php endif; ?>>
-            <a href="<?php echo JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)); ?>">
+            <a href="<?php echo Route::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)); ?>">
                 <?php echo $item->title; ?></a>
         </li>
     <?php endforeach; ?>
     </ul>
     <?php endif; ?>
 
-    <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
+    <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && (count($this->pagination->getData()->pages) > 1)) : ?>
     <section class="c-panel  d-background--very-light  t-neutral">
         <div class="n-pagination">
             <?php if ($this->params->def('show_pagination_results', 1)): ?>

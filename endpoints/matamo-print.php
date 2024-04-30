@@ -1,18 +1,18 @@
 <?php
 
 if (empty($_GET['url']) || empty($_GET['title'])) {
-	trigger_error('Missing one or more of \'url\', \'title\' in query string.', E_USER_WARNING);
-	exit;
+    trigger_error('Missing one or more of \'url\', \'title\' in query string.', E_USER_WARNING);
+    exit;
 }
 
 if (!$pg_url = base64_decode($_GET['url'])) {
-	trigger_error('Could not decode \'url\' in query string.', E_USER_WARNING);
-	exit;
+    trigger_error('Could not decode \'url\' in query string.', E_USER_WARNING);
+    exit;
 }
 
 if (!$pg_title = base64_decode($_GET['title'])) {
-	trigger_error('Could not decode \'title\' in query string.', E_USER_WARNING);
-	exit;
+    trigger_error('Could not decode \'title\' in query string.', E_USER_WARNING);
+    exit;
 }
 #echo '<pre>'; var_dump($_SERVER); echo '</pre>'; exit;
 

@@ -9,6 +9,20 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Associations as LanguageAssociations;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Component\Content\Administrator\Extension\ContentComponent;
+use Joomla\Component\Content\Site\Helper\RouteHelper;
+use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+$app = Factory::getApplication();
 
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
@@ -16,12 +30,12 @@ $theme = 't-' . $page_brand->alias;
 
 // Create a shortcut for params.
 $params = $this->item->params;
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 $canEdit = $this->item->params->get('access-edit');
 $info    = $params->get('info_block_position', 0);
 
 // Check if associations are implemented. If they are, define the parameter.
-$assocParam = (JLanguageAssociations::isEnabled() && $params->get('show_associations'));
+$assocParam = (LanguageAssociations::isEnabled() && $params->get('show_associations'));
 
 // Maybe need to make this configurable?
 $date_format = 'd M Y';
@@ -62,14 +76,14 @@ if (!empty($urls)) {
         if (!empty($matches[1])) {
             // Pretty certain this is the ID of the progenitor article, so lets get that data:
 
-            $progenitor_article = JTable::getInstance("content");
+            $progenitor_article = Table::getInstance("content");
             $progenitor_article->load($matches[1]);
 
-            JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php'); //load fields helper
             $customFieldnames = FieldsHelper::getFields('com_content.article', $matches[1], true); // get custom field names by article id
             $customFieldIds = array_column($customFieldnames, 'id');
-            $model = JModelLegacy::getInstance('Field', 'FieldsModel', array('ignore_request' => true)); //load fields model
-            $customFieldValues = $model->getFieldValues($customFieldIds, $matches[1]); //Fetch values for custom field Ids
+
+            $fieldModel = $app->bootComponent('com_fields')->getMVCFactory()->createModel('Field', 'Administrator', ['ignore_request' => true]);
+            $customFieldValues = $fieldModel->getFieldValues($customFieldIds, $matches[1]); //Fetch values for custom field Ids
 
             // If the headline images URL for this article is empty, and the progenitor has one,
             // use that:
@@ -91,9 +105,8 @@ if (!empty($urls)) {
         }
     }
 }
-// Get the Menu Item params:
-$menu_item = TplNPEU6Helper::get_menu_item();
-$menu_item_params = $menu_item->params;
+
+
 
 ?>
 
@@ -110,7 +123,7 @@ $card_data = array();
 
 $card_data['theme']        = $theme;
 $card_data['full_link']    = true;
-$card_data['link']         = JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
+$card_data['link']         = Route::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
 $card_data['image']        = $headline_image['headline-image'];
 $card_data['image_alt']    = $headline_image['headline-image-alt-text'];
 $card_data['title']        = $this->item->title;
@@ -131,31 +144,19 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
 
     $card_data = array();
 
-    // Note this is a hack but I can't find another way of flagging this display should be different.
-    $card_classes = 'd-background  d-border';
-    if (strstr($menu_item_params->get('pageclass_sfx'), 'outline-cards') !== false) {
-        $card_classes = 'd-border';
-    }
-    $card_data['theme_classes']    = $card_classes; //empty($theme) ? 'd-background' : $theme;
+    $card_data['theme_classes']    = 'd-background  d-border'; //empty($theme) ? 'd-background' : $theme;
 
     //$card_data['full_link']       = $i == 1 ? false : true;
     $card_data['full_link']        = true;
-    $card_data['link']             = JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
-    if (strstr($menu_item_params->get('pageclass_sfx'), 'outline-cards') !== false) {
-        $card_data['link_text']        = 'View this project';
-    }
+    $card_data['link']             = Route::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
     //$card_data['link_text']        = 'Read more';
     $card_data['header_image']     = $headline_image['headline-image'];
     $card_data['header_image_alt'] = $headline_image['headline-image-alt-text'];
     $card_data['title']            = $this->item->title;
     //$card_data['body']             = $i == 1 ? $item->introtext : '';
-
-
-    if ($params->get('show_publish_date', true) == true) {
-        $card_data['publish_date']     = $this->item->publish_up;
-        $card_data['footer_extra']     = date($date_format, strtotime($this->item->publish_up));
-        $card_data['date_format']      = $date_format;
-    }
+    $card_data['publish_date']     = $this->item->publish_up;
+    $card_data['footer_extra']     = date($date_format, strtotime($this->item->publish_up));
+    $card_data['date_format']      = $date_format;
     $card_data['state']            = (int) $this->item->state;
     //$card_data['wrapper_classes'] = array('u-fill-height');
 

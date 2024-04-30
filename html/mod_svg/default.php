@@ -9,8 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 
 ?>
 

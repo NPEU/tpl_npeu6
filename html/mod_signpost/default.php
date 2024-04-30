@@ -3,18 +3,16 @@
  * @package     Joomla.Site
  * @subpackage  mod_signpost
  *
- * @copyright   Copyright (C) NPEU 2019.
+ * @copyright   Copyright (C) NPEU 2024.
  * @license     MIT License; see LICENSE.md
  */
 
 defined('_JEXEC') or die;
 
-
-$doc = JFactory::getDocument();
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $signs = (array) $params->get('signs');
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = '';
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
@@ -22,7 +20,7 @@ $theme = '';
 <?php if (count($signs) > 0) : ?>
 <div class="u-fill-height  mod_signpost">
     <div class="c-signpost">
-        <?php foreach ($signs as $sign): ?>
+        <?php foreach ($signs as $k => $sign): ?>
         <?php if (isset($sign->status) && $sign->status == '0') { continue; } ?>
         <?php
             $sign_class= 'c-sign  d-background--sloped';
@@ -30,10 +28,6 @@ $theme = '';
                 $sign_class .= '  c-sign--span-all';
             }
 
-            $sign_link_el = 'span';
-            if (!empty($sign->url)) {
-                $sign_link_el = 'a';
-            }
 
             if ($sign->signclass_sfx == '--alt') {
                 $theme = '  t-secondary';
@@ -74,22 +68,18 @@ $theme = '';
                     if (!$json = json_decode($data)) {
                         $sign_content = $data_decode_err;
                     } else {
-                        $twig = ModSignpostHelper::getTwig(array(
-                            'tpl' => $data_tpl
-                        ));
-
-                        $sign_content = $twig->render('tpl', array('data' => $json));
+                        $sign_content = $twig->render('tpl_' . $k, ['data' => $json]);
                     }
                 }
             }
         ?>
         <div class="<?php echo $sign_class; ?><?php echo $theme; ?>">
-            <<?php echo $sign_link_el; ?> href="<?php echo $sign->url; ?>" class="c-sign__link  c-sign--padding--xs">
+            <a href="<?php echo $sign->url; ?>" class="c-sign__link  c-sign--padding--xs">
                 <span class="c-sign__centered-content<?php echo $padding_class; ?>">
                     <?php echo $svg; ?>
                     <?php echo $sign_content; ?>
                 </span>
-            </<?php echo $sign_link_el; ?>>
+            </a>
         </div>
         <?php endforeach; ?>
     </div>

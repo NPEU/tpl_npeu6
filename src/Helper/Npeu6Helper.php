@@ -7,46 +7,69 @@
  * @license     MIT License; see LICENSE.md
  */
 
+namespace NPEU\Template\Npeu6\Site\Helper;
+#echo '<pre>'; var_dump($_SERVER); echo '</pre>'; exit;
 defined('_JEXEC') or die;
 
-require_once __DIR__ . '/vendor/autoload.php';
+use Joomla\CMS\Document\Renderer\Html\MessageRenderer;
+use Joomla\CMS\Factory;
+
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use \Mexitek\PHPColors\Color;
 
 /**
  * Helper for tpl_npeu6
  */
-class TplNPEU6Helper
+class Npeu6Helper
 {
-
+    /**
+     * Global brand object
+     *
+     * @var    Brand
+     */
+    public static $brand = null;
 
     /**
-	 * Global brand object
-	 *
-	 * @var    Brand
-	 */
-	public static $brand = null;
+     * Global menu_item object
+     *
+     * @var    Menu Item
+     */
+    public static $menu_item = null;
 
     /**
-	 * Global menu_item object
-	 *
-	 * @var    Menu Item
-	 */
-	public static $menu_item = null;
+     * Global menu_id object
+     *
+     * @var    Menu Item
+     */
+    public static $menu_id = null;
 
     /**
-	 * Global menu_id object
-	 *
-	 * @var    Menu Item
-	 */
-	public static $menu_id = null;
+     * Global template object
+     *
+     * @var    Template
+     */
+    public static $template = null;
 
-    /**
-	 * Global template object
-	 *
-	 * @var    Template
-	 */
-	public static $template = null;
+    public static function resolve_image_data($datastring)
+    {
+        $json = json_decode($datastring, true);
+        if (is_null($json)) {
+            return ['imagefile' => $datastring];
+        }
+        return $json;
+    }
+
+    public static function resolve_image_path($path = false)
+    {
+        if (!empty($path)) {
+            $path = preg_replace('/#joomlaImage:[^"]+/', '', $path);
+            return $path;
+
+        }
+        return '';
+    }
+
 
     /**
      * Checks if a category is empty or not.
@@ -59,7 +82,7 @@ class TplNPEU6Helper
             return;
         }
 
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
 
         $query = $db->getQuery(true);
         $query->select('COUNT(*) as total_item');
@@ -68,7 +91,7 @@ class TplNPEU6Helper
         $db->setQuery($query);
         $result = (int) $db->loadResult();
 
-		return (bool) $result;
+        return (bool) $result;
     }
 
 
@@ -101,7 +124,7 @@ class TplNPEU6Helper
             return false;
         }
 
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
 
         $query = $db->getQuery(true);
         $query->select('id');
@@ -164,7 +187,7 @@ class TplNPEU6Helper
 
         // We have a valid brand id now, so let's get the brand data:
         if ($brand_id) {
-            $db = JFactory::getDBO();
+            $db = Factory::getDBO();
 
             $query = $db->getQuery(true);
             $query->select('*');
@@ -250,7 +273,7 @@ class TplNPEU6Helper
             return $brand;
         }
 
-		return false;
+        return false;
     }
 
     /**
@@ -268,7 +291,7 @@ class TplNPEU6Helper
             self::get_menu_item();
         }
 
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
 
         $query = $db->getQuery(true);
         $query->select('id');
@@ -278,7 +301,7 @@ class TplNPEU6Helper
 
         self::$menu_id = $db->loadResult();
 
-		return self::$menu_id;
+        return self::$menu_id;
     }
 
     /**
@@ -289,15 +312,15 @@ class TplNPEU6Helper
     public static function get_menu_item()
     {
         if (!self::$menu_item) {
-            $menu_item = JFactory::getApplication()->getMenu()->getActive();
+            $menu_item = Factory::getApplication()->getMenu()->getActive();
 
             if (is_null($menu_item)) {
 
-                $menu_item = JFactory::getApplication()->getMenu()->getItem(120);
+                $menu_item = Factory::getApplication()->getMenu()->getItem(120);
             }
             self::$menu_item = $menu_item;
         }
-		return self::$menu_item;
+        return self::$menu_item;
     }
 
     /**
@@ -307,12 +330,12 @@ class TplNPEU6Helper
      */
     public static function get_messages()
     {
-        	$doc = JFactory::getDocument();
+            $doc = Factory::getDocument();
             if (isset($doc->mesages_renderered) && $doc->mesages_renderered == true) {
                 return '';
             }
 
-            $messages = new JDocumentRendererMessage($doc);
+            $messages = new MessageRenderer($doc);
             $doc->mesages_renderered = true;
             return $messages->render(NULL);
     }
@@ -325,13 +348,12 @@ class TplNPEU6Helper
     public static function get_template()
     {
         if (!self::$template) {
-            $app = JFactory::getApplication();
+            $app = Factory::getApplication();
             $template = $app->getTemplate(true);
 
             self::$template = $template;
         }
-
-		return self::$template;
+        return self::$template;
     }
 
     /**
@@ -354,7 +376,7 @@ class TplNPEU6Helper
                 }
             }
         }
-		return $scripts;
+        return $scripts;
     }
 
     /**
@@ -377,7 +399,7 @@ class TplNPEU6Helper
                 }
             }
         }
-		return $stylesheets;
+        return $stylesheets;
     }
 
     /**
@@ -501,31 +523,8 @@ class TplNPEU6Helper
      */
     public static function tweak_markdown_output($html, $options = array())
     {
-        //if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
-        //    $s = $options['split_to_list'];
-        //    $a = explode($s, $html);
-        //    $html = '<span role="list" class="l-layout__inner">' . "\n" . '<span role="listitem" class="l-box">' . "\n" . implode("\n" . '</span> ' . "\n\n" . '<span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>' . "\n\n" . '<span role="listitem" class="l-box">' . "\n", $a) . "\n" . '</span>';
-        //}
-
-        if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
-
-            $html = str_replace(
-                '<p>',
-                '<p>' . "\n" . '<span role="list" class="l-layout__inner">' . "\n" . '<span role="listitem" class="l-box">'. "\n",
-                $html
-            );
-
-            $html = str_replace(
-                $options['split_to_list'],
-                "\n" .
-                '</span> ' . "\n\n" .
-                '<span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>' . "\n\n" .
-                '<span role="listitem" class="l-box">' . "\n",
-                $html
-            );
-
-            $html = str_replace('</p>', "\n" . '</span>' . "\n" . '</span>' . "\n" . '</p>', $html);
-
+        if (!empty($options['trim_paragraph'])) {
+            $html = preg_replace(array('/^<p>/', '/<\/p>$/'), '', $html);
         }
 
         if (!empty($options['add_link_spans'])) {
@@ -533,85 +532,10 @@ class TplNPEU6Helper
             $html = preg_replace('/<\/a>/', '</span></a>', $html);
         }
 
-        if (!empty($options['p_classes'])) {
-            $html = str_replace('<p>', '<p class="' . $options['p_classes'] . '">', $html);
-        }
-
-        if (!empty($options['trim_paragraph'])) {
-            $html = preg_replace(array('/^<p[^>]+>/', '/<\/p>$/'), '', $html);
-        }
-
-        return $html;
-    }
-
-    /**
-     * Adjus article HMTL
-     *
-     * @return string
-     */
-    public static function adjust_article_html($html)
-    {
-        // Resolve data-true-url
-        // Note what this does is get the URL of an <a> inside an element with an id matching the
-        // # of a URL and replaces the orginal URL. This is to allow for the same file link /
-        // document to appear in multple places on the site whilst still maintaining a "single-
-        // source-of-truth" where by the acutal file is ony placed on a sngle page and other
-        // instances of it exists as #links to a container id.
-        // So an original page might have:
-        //
-        // <a id="guidance-sheet-1 href="/assets/downloads/neogastric/neoGASTRIC_Guidance_Sheet_1_Trial_one-page_summary_v10_02062023.pdf">neoGASTRIC Guidance Sheet 1 Trial one-page summary v1.0 02062023</a>
-        //
-        // and a secondary instance might have:
-        //
-        // <a data-true-url="" href="https://dev.npeu.ox.ac.uk/neogastric/health-professionals/guidance-sheets#guidance-sheet-1">Guidance Sheet 1 Trial one-page summary</a>
-        //
-        // Which will be resolved to:
-        //
-        // <a href="/assets/downloads/neogastric/neoGASTRIC_Guidance_Sheet_1_Trial_one-page_summary_v10_02062023.pdf">Guidance Sheet 1 Trial one-page summary</a>
-        preg_match_all('/<a data-true-url.+?href="([^#]+)#([^"]+)">([^<]+)<\/a>/', $html, $matches, PREG_SET_ORDER);
-
-        $config = [];
-        foreach ($matches as $match) {
-            $url = $match[1];
-
-            if (!array_key_exists($url, $config)) {
-                $config[$url] = [];
-            }
-
-            $config_entry = [
-                'id' => $match[2],
-                'text' => $match[3]
-            ];
-
-            $config[$url][] = $config_entry;
-        }
-
-        foreach ($config as $url => $config_entries) {
-            if (strpos($url, 'https://') !== 0) {
-                $full_url = 'https://' . $_SERVER['SERVER_NAME'] . $url;
-            }
-
-            if (empty($full_url)) {
-                continue;
-            }
-
-            $contents = file_get_contents($full_url);
-
-            if (!empty($contents)) {
-                foreach ($config_entries as $config_entry) {
-                    $regex = '/<a[^>]*?id="' . $config_entry['id'] . '"[^>]*?>(.*?)<\/a>/s';
-
-                    if (preg_match($regex, $contents, $ms)) {
-                        preg_match('/href="([^"]+)"/', $ms[0], $ms2);
-                        $old_url = '"' . $url . '#' . $config_entry['id'] . '"';
-                        $old_text = $config_entry['text'];
-                        $new_url = '"' . $ms2[1] . '"';
-                        $new_text = trim(strip_tags($ms[1]));
-
-                        $html = str_replace([$old_url , $old_text], [$new_url, $new_text], $html);
-                    }
-                }
-            }
+        if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
+            $s = $options['split_to_list'];
+            $a = explode($s, $html);
+            $html = '<span role="listitem" class="l-box">' . implode('</span> <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span> <span role="listitem" class="l-box">', $a) . '</span>';
         }
 
         return $html;

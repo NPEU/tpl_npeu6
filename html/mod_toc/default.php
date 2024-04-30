@@ -8,11 +8,14 @@
  */
 
 defined('_JEXEC') or die;
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+
+use Joomla\CMS\Factory;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $hx          = $params->get('header_tag', 'h2');
 $min_h_count = (int) $params->get('min_heading_count', '3');
-$doc         = JFactory::getDocument();
+$doc         = Factory::getDocument();
 
 $min_h_count = 3;
 
@@ -40,7 +43,7 @@ if (count($matches) < $min_h_count) {
                 if(!isset($id_match[0])) {
                     $h2_id = TplNPEU6Helper::html_id($match[1]);
                     $new_h2 = str_replace('<h2', '<h2 id="' . $h2_id . '"', $match[0]);
-                    
+
                     #$doc->article->text      = str_replace($match[0], $new_h2, $doc->article->text);
                     #$doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
                     #$doc->article->introtext = str_replace($match[0], $new_h2, $doc->article->introtext);
