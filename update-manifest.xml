@@ -7,9 +7,9 @@
         <type>template</type>
         <version>4.0.0</version>
         <client>site</client>
-        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v2.23.0</infourl>
+        <infourl title="NPEU: tpl_npeu6">https://github.com/NPEU/tpl_npeu6/releases/tag/v4.0.0</infourl>
         <downloads>
-            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v2.23.0.zip</downloadurl>
+            <downloadurl type="full" format="zip">https://github.com/NPEU/tpl_npeu6/archive/v4.0.0.zip</downloadurl>
         </downloads>
         <targetplatform name="joomla" />
         <tags>
