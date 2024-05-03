@@ -21,7 +21,7 @@
         <server type="extension" name="NPEU: tpl_npeu6 Update Site">https://raw.githubusercontent.com/NPEU/tpl_npeu6/master/update-manifest.xml</server>
     </updateservers>
 
-    <namespace path="src">NPEU\Template\Npeu6\Site</namespace>
+    <namespace path="src">NPEU\Template\Npeu6</namespace>
 
     <files>
         <folder>css</folder>
