@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 $doc = Factory::getDocument();
 
 // Set page title
-$page_title = $this->item->title;
+#$page_title = $this->item->title;
 
 $skip = array(
     'id',
@@ -54,16 +54,21 @@ $domain            = $protocol.'://'.$_SERVER['SERVER_NAME'];
 // Construct the public root path: (note: this is the SERVER path, not a URL)
 $public_root_path  = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
 
-$image_path = $public_root_path . $brand->logo_png_path;
+$brand = false;
+if (!empty($this->item->brand_details)) {
+    $brand = $this->item->brand_details;
 
-$image_info = getimagesize($image_path);
 
-$w = $image_info[0];
-$h = $image_info[1];
-$image_ratio = ($w < $h) ? ($w / $h) : ($h / $w);
+    $image_path = $public_root_path . $brand->logo_png_path;
+    $image_info = getimagesize($image_path);
 
-$image_height = 100;
-$image_width  = round($image_height / $image_ratio);
+    $w = $image_info[0];
+    $h = $image_info[1];
+    $image_ratio = ($w < $h) ? ($w / $h) : ($h / $w);
+
+    $image_height = 100;
+    $image_width  = round($image_height / $image_ratio);
+}
 #echo 'here<pre>'; var_dump($this->item->collaborators); echo '</pre>'; exit;
 ob_start();
 ?>
