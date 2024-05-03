@@ -10,7 +10,7 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>4.0.0</version>
+    <version>4.0.1</version>
     <!-- The description is optional and defaults to the name -->
     <!--<description>TPL_NPEU6_DESCRIPTION</description>-->
     <!-- The above should work but doesn't and results in the untranslated string being shown. -->
@@ -21,6 +21,7 @@
         <server type="extension" name="NPEU: tpl_npeu6 Update Site">https://raw.githubusercontent.com/NPEU/tpl_npeu6/master/update-manifest.xml</server>
     </updateservers>
 
+    <namespace path="src">NPEU\Template\Npeu6\Site</namespace>
 
     <files>
         <folder>css</folder>
