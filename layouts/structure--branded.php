@@ -609,12 +609,8 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
                         <div class="l-layout  l-row  l-gutter">
                             <div class="l-layout__inner">
-                                <div class="l-box  l-box--center  page-footer__info-box">
-                                    <p class="c-utilitext   l-layout  l-row  l-row--center  l-gutter--xs  no-print">
-                                        <span role="list" class="l-layout__inner">
-                                            <?php echo $page_footer_text; ?>
-                                        </span>
-                                    </p>
+                            <div class="l-box  l-box--center  page-footer__info-box">
+                                    <?php echo $page_footer_text; ?>
                                     <p class="c-utilitext   l-layout  l-row  l-row--center  l-gutter--xs  no-print">
                                         <span role="list" class="l-layout__inner">
                                             <span role="listitem" class="l-box">
@@ -637,6 +633,32 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
                                             <span role="listitem" class="l-box">
                                                 <a href="https://www.npeu.ox.ac.uk/sheer"><span>NPEU SHEER Site</span></a>
+                                            </span>
+                                        </span>
+                                    </p>
+                                    <p class="c-utilitext   l-layout  l-row  l-row--center  l-gutter--xs  no-print">
+                                        <span role="list" class="l-layout__inner">
+
+                                            <span role="listitem" class="l-box">
+                                                <a href="/about"><span>About the NPEU</span></a>
+                                            </span>
+
+                                            <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+
+                                            <span role="listitem" class="l-box">
+                                                <a href="/privacy-cookies"><span>Privacy &amp; Cookies</span></a>
+                                            </span>
+
+                                            <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+
+                                            <span role="listitem" class="l-box">
+                                                <a href="https://dev.npeu.ox.ac.uk/accessibility"><span>Accessibility</span></a>
+                                            </span>
+
+                                            <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+
+                                            <span role="listitem" class="l-box">
+                                                <a href="#top"><span>Top of page</span></a>
                                             </span>
                                         </span>
                                     </p>
