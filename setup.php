@@ -548,7 +548,11 @@ $page_unit        = $page_template_params->unit;
 // Page footer links need to have their link text wrapped in spans, as per the Utilitext pattern.
 $page_footer_text = TplNPEU6Helper::tweak_markdown_output(
     Markdown::defaultTransform(str_replace('{{ YEAR }}', date('Y'), htmlentities($page_template_params->footer_text))),
-    array('trim_paragraph' => true, 'add_link_spans' => true, 'split_to_list' => ' | ')
+    [
+        'add_link_spans' => true,
+        'split_to_list'  => ' | ',
+        'p_classes'      => 'c-utilitext   l-layout  l-row  l-row--center  l-gutter--xs  no-print'
+    ]
 );
 
 // Article Brand (only for NPEU News category items)
