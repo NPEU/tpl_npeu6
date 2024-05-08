@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
+
 use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $page_brand = TplNPEU6Helper::get_brand();
