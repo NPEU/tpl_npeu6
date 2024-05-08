@@ -36,6 +36,7 @@ function format_person($p) {
 }
 
 #echo 'here<pre>'; var_dump((array) $this->item->funders); echo '</pre>'; exit;
+#echo 'here<pre>'; var_dump(empty((array) $this->item->collaborators)); echo '</pre>'; exit;
 $pi_s = empty($this->item->pi_2) ? '' : 's';
 $fu_s = count(get_object_vars($this->item->funders)) > 1 ? 's' : '';
 
@@ -69,7 +70,6 @@ if (!empty($this->item->brand_details)) {
     $image_height = 100;
     $image_width  = round($image_height / $image_ratio);
 }
-#echo 'here<pre>'; var_dump($this->item->collaborators); echo '</pre>'; exit;
 ob_start();
 ?>
 <div>
@@ -83,7 +83,7 @@ ob_start();
     <dl>
         <dt>Principal investigator<?php echo $pi_s; ?></dt>
         <dd><?php echo format_person($this->item->pi_1) . (empty($this->item->pi_2) ? '' : ', ' . format_person($this->item->pi_2)); ?></dd>
-        <?php if (!empty($this->item->collaborators)) : ?>
+        <?php if (!empty((array) $this->item->collaborators)) : ?>
         <dt>Collaborators</dt>
         <dd><?php
             $i = 0;
@@ -104,7 +104,7 @@ ob_start();
                 $i++;
             }
         ?></dd>
-        <?php if (!empty($this->item->funders)) : ?>
+        <?php if (!empty((array) $this->item->funders)) : ?>
         <dt>Funder<?php echo $fu_s; ?></dt>
         <dd><?php $i = 0;
             $c = count((array) $this->item->funders) - 1;
@@ -117,8 +117,10 @@ ob_start();
         <dd><?php echo $this->item->start_year; ?></dd>
         <dt>End year</dt>
         <dd><?php echo $this->item->end_year; ?></dd>
+        <?php if (!empty($this->item->owner_details->name)) : ?>
         <dt>NPEU Contact</dt>
         <dd><?php echo $this->item->owner_details->name; ?></dd>
+        <?php endif; ?>
     </dl>
 </div>
 <?php
