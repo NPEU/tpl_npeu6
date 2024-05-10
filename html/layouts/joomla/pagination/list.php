@@ -10,7 +10,6 @@
 defined('JPATH_BASE') or die;
 
 $list = $displayData['list'];
-#echo 'LIST<pre>'; var_dump($list['start']['data']); echo '</pre>'; exit;
 
 ?>
 <nav aria-label="Pagination" class="l-layout  l-row  l-row--center  n-pagination">

@@ -10,11 +10,9 @@
 defined('_JEXEC');
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Layout\FileLayout;
-use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $app = Factory::getApplication();
 
@@ -35,22 +33,6 @@ $afterDisplayContent = trim(implode("\n", $results));
 
 /*
 
-
-$dispatcher = JEventDispatcher::getInstance();
-
-$this->category->text = $this->category->description;
-$dispatcher->trigger('onContentPrepare', array($this->category->extension . '.categories', &$this->category, &$this->params, 0));
-$this->category->description = $this->category->text;
-
-$results = $dispatcher->trigger('onContentAfterTitle', array($this->category->extension . '.categories', &$this->category, &$this->params, 0));
-$afterDisplayTitle = trim(implode("\n", $results));
-
-$results = $dispatcher->trigger('onContentBeforeDisplay', array($this->category->extension . '.categories', &$this->category, &$this->params, 0));
-$beforeDisplayContent = trim(implode("\n", $results));
-
-$results = $dispatcher->trigger('onContentAfterDisplay', array($this->category->extension . '.categories', &$this->category, &$this->params, 0));
-$afterDisplayContent = trim(implode("\n", $results));
-*/
 // Remove items that aren't published:
 /*
 
@@ -80,10 +62,21 @@ $has_items = !empty($this->intro_items);
     @TODO - should really cater for LEAD items here too
     (and column I suppose though I don't currently use it).
 */
+
+// Get the Menu Item params:
+$menu_item = TplNPEU6Helper::get_menu_item();
+$menu_item_params = $menu_item->getParams();
+
+$pagination = $this->pagination;
+
+$layout_classes = "  l-basis--30  l-limit--60  l-distribute  l-distribute--balance-top";
+if (strstr($menu_item_params->get('pageclass_sfx'), 'full-width-cards') !== false) {
+    $layout_classes = "";
+}
 ?>
 <div class="c-panelx l-primary-content__space-inline--@large  com_blog">
     <?php if (!empty($this->intro_items)) : ?>
-    <section class="l-layout  l-gutter  l-flush-edge-gutter  l-basis--30  l-limit--60  l-distribute  l-distribute--balance-top">
+    <section class="l-layout  l-gutter  l-flush-edge-gutter<?php echo $layout_classes; ?>">
         <div class="l-layout__inner">
             <?php foreach ($this->intro_items as $key => &$item) : ?>
             <div class="l-box">
@@ -108,13 +101,13 @@ $has_items = !empty($this->intro_items);
     </ul>
     <?php endif; ?>
 
-    <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && (count($this->pagination->getData()->pages) > 1)) : ?>
+    <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($pagination->total > 1)) : ?>
     <section class="c-panel  d-background--very-light  t-neutral">
         <div class="n-pagination">
             <?php if ($this->params->def('show_pagination_results', 1)): ?>
             <?php #echo $this->pagination->getPagesCounter(); ?>
             <?php endif; ?>
-            <?php echo $this->pagination->getPagesLinks(); ?>
+            <?php echo $pagination->getPagesLinks(); ?>
         </div>
     </section>
     <?php endif; ?>

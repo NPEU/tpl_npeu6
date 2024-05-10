@@ -15,8 +15,6 @@ use NPEU\Component\Researchprojects\Administrator\Helper\ResearchprojectsHelper;
 
 defined('_JEXEC') or die;
 
-$template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
-
 $table_id = 'researchprojectsTable';
 // If you need specific JS/CSS for this view, add them here.
 // Example included for DataTables (https://datatables.net/) delete if you don't want this.
@@ -24,7 +22,7 @@ $table_id = 'researchprojectsTable';
 
 // Get the doc object:
 $doc = Factory::getDocument();
-
+$template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
 $doc->addScript($template_path . '/js/filter.min.js');
 
 /*

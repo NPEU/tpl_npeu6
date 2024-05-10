@@ -42,7 +42,7 @@ $date_format = 'd M Y';
 
 // Get the custom fields for the article:
 $fields = FieldsHelper::getFields('com_content.article', $this->item, true);
-$headline_image = array();
+$headline_image = [];
 foreach ($fields as $field) {
     switch ($field->name) {
         case 'headline-image':
@@ -106,7 +106,9 @@ if (!empty($urls)) {
     }
 }
 
-
+// Get the Menu Item params:
+$menu_item = TplNPEU6Helper::get_menu_item();
+$menu_item_params = $menu_item->getParams();
 
 ?>
 
@@ -142,21 +144,32 @@ include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
 
     $i = isset($i) ? $i : 0;
 
-    $card_data = array();
+    $card_data = [];
 
-    $card_data['theme_classes']    = 'd-background  d-border'; //empty($theme) ? 'd-background' : $theme;
+    // Note this is a hack but I can't find another way of flagging this display should be different.
+    $card_classes = 'd-background  d-border';
+    if (strstr($menu_item_params->get('pageclass_sfx'), 'outline-cards') !== false) {
+        $card_classes = 'd-border';
+    }
+    $card_data['theme_classes']    = $card_classes; //empty($theme) ? 'd-background' : $theme;
 
     //$card_data['full_link']       = $i == 1 ? false : true;
     $card_data['full_link']        = true;
     $card_data['link']             = Route::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid, $this->item->language));
+    if (strstr($menu_item_params->get('pageclass_sfx'), 'outline-cards') !== false) {
+        $card_data['link_text']        = 'View this project';
+    }
     //$card_data['link_text']        = 'Read more';
     $card_data['header_image']     = $headline_image['headline-image'];
     $card_data['header_image_alt'] = $headline_image['headline-image-alt-text'];
     $card_data['title']            = $this->item->title;
     //$card_data['body']             = $i == 1 ? $item->introtext : '';
-    $card_data['publish_date']     = $this->item->publish_up;
-    $card_data['footer_extra']     = date($date_format, strtotime($this->item->publish_up));
-    $card_data['date_format']      = $date_format;
+
+    if ($params->get('show_publish_date', true) == true) {
+        $card_data['publish_date']     = $this->item->publish_up;
+        $card_data['footer_extra']     = date($date_format, strtotime($this->item->publish_up));
+        $card_data['date_format']      = $date_format;
+    }
     $card_data['state']            = (int) $this->item->state;
     //$card_data['wrapper_classes'] = array('u-fill-height');
 

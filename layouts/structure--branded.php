@@ -3,6 +3,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+$menu_item = TplNPEU6Helper::get_menu_item();
+$menu_item_params = $menu_item->getParams();
 ?>
     <div class="l-layout  page-wrap" data-brand="<?php echo $page_brand->alias; ?>">
         <div class="l-layout__inner">
@@ -76,7 +79,9 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
                     <?php if ($modules__top != '') : ?>
                     <?php echo $modules__top; ?>
                     <?php endif; ?>
-
+                    <?php
+                        $is_brc = ($menu_route == 'brc-cardiovascular-medicine');
+                    ?>
 
                     <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  <?php echo $page_brand->alias; ?>">
                         <p class="l-layout__inner"<?php if (!$page_display_cta) : ?> data-js="cmr" data-ie-safe-parent-level="1"<?php endif; ?>>
@@ -91,7 +96,11 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
                             </span>
                             <?php endif; ?>
                             <?php
-                                if ($page_brand->alias == 'npeu') {
+                                // Ugh - this is getting very hacky. If possible, change template to allow for 'secondary logo'
+                                // to be specified as an 'overide'.
+                                if ($is_brc) {
+                                    $second_brand_id = 146;
+                                } elseif ($page_brand->alias == 'npeu') {
                                     //$second_brand_id = 122;
                                     $second_brand_id = false;
 
@@ -109,11 +118,15 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
                                     $second_brand_id = $parent_brand_alias_id[$page_unit];
                                 }
+
                             ?>
                             <?php if ($second_brand_id) :
                             $second_brand = TplNPEU6Helper::get_brand($second_brand_id);
                             $second_brand_url = 'https://www.npeu.ox.ac.uk';
-                            if ($page_brand->alias == 'npeu') {
+                            if ($is_brc) {
+                                $second_brand_url = $second_brand->params->logo_url;
+                                $second_brand_width = $second_brand->svg_width_at_height_80;
+                            } elseif ($page_brand->alias == 'npeu') {
                                 $second_brand_width = $second_brand->svg_width_at_height_100;
                             } elseif ($page_brand->alias == 'pru-mnhc') {
                                 $second_brand_url = $second_brand->params->logo_url;
@@ -123,7 +136,7 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
                                 $second_brand_width = $second_brand->svg_width_at_height_80;
                             }
                             ?>
-                            <span class="l-box  l-box--center"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
+                            <span class="l-box  l-box  l-box--center"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
                                 <a href="<?php echo $second_brand_url; ?>" class="c-badge  c-badge--primary-logo"><?php if ($page_brand->alias == 'npeu') : ?>
                                     <?php echo str_replace('height="80"', 'height="100" width="' . $second_brand_width . '"', $second_brand->logo_svg_with_fallback); ?>
                                     <?php else: ?>
@@ -287,7 +300,7 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
                                         <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
                                         <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                         <?php endif; ?>
-                                        <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : /* E.g. What's New */ ?>
+                                        <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item_params->get('show_feed_link', true) == true) : /* E.g. What's New */ ?>
                                         <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
                                         <?php endif; ?>
                                         <?php if ($has_add_form_child && $page_is_subroute == false) : /* E.g. Staff Notices */ ?>
@@ -331,7 +344,7 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
                                                 <?php if (isset($doc->header_cta)) : ?>
                                                 <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                                 <?php endif; ?>
-                                                <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false) : ?>
+                                                <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item_params->get('show_feed_link', true) == true) : ?>
                                                 <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
                                                 <?php endif; ?>
                                                 <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
@@ -420,7 +433,7 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
                                     <?php endif; ?>
 
-                                    <?php if ($is_blog && (!empty($doc->article->publish_up) || !empty($doc->article->twitter_url))) : ?>
+                                    <?php if ($is_blog && ((!empty($doc->article->publish_up) && $menu_item_params->get('show_publish_date', true) == true) || !empty($doc->article->twitter_url))) : ?>
                                     <p class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-edge-gutter">
                                         <span class="l-layout__inner">
                                         <?php if (!empty($doc->article->publish_up)) : ?><span class="l-box  l-box--center"><span>Published on <?php echo HTMLHelper::_('date', $doc->article->publish_up, Text::_('DATE_FORMAT_LC1')); ?></span></span><?php endif; ?>
@@ -476,6 +489,17 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
                                         <header class="c-panel__header" aria-labelledby="in-this-section">
                                             <h2>More on <?php echo $page_article_brand->name; ?>:</h2>
                                         </header>
+                                        <?php
+                                        if ($page_article_brand->alias == 'npeu') {
+                                            $page_article_brand_url = '/';
+                                        } else {
+                                            if (!empty($page_article_brand->params && !empty($page_article_brand->params->logo_url))) {
+                                                $page_article_brand_url = $page_article_brand->params->logo_url;
+                                            } else {
+                                                $page_article_brand_url = '/' . $page_article_brand->alias;
+                                            }
+                                        }
+                                        ?>
                                         <p class="u-text-align--center">
                                             <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
                                                 <?php
@@ -541,7 +565,11 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
                             <div class="l-layout__inner">
                                 <?php if ($page_has_footer_mid_left): ?>
                                 <div class="l-box  ff-width-100--40--50" data-position="6-footer-mid-left">
-                                    <?php echo $modules__footer_mid_left; ?>
+                                    <div class="l-layout l-row">
+                                        <div class="l-layout__inner">
+                                            <?php echo $modules__footer_mid_left; ?>
+                                        </div>
+                                    </div>
                                 </div>
                                 <?php endif; ?>
                                 <?php if ($page_has_footer_mid_right): ?>

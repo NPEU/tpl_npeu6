@@ -89,13 +89,12 @@ if (isset($images->images0->url)) {
     }
 }
 
-
 ?>
 <?php if($n_images > 1) : ?>
 <!-- @TOTO -->
 <?php else: /* @TODO - need to think about credit lines. */?>
 <<?php echo $wrapper; echo $container_classes; ?>>
-    <?php if ($image_url): ?><a href="<?php echo $images->images0->url; ?>"<?php if (strpos($images->images0->url, $_SERVER['SERVER_NAME']) === false): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>
+    <?php if ($image_url): ?><a href="<?php echo $images->images0->url; ?>"<?php if ($image_url_external): ?> rel="external noopener noreferrer"<?php endif?><?php else: ?><div<?php endif; echo $inner_classes; ?>>
         <img<?php echo $image_classes; ?> src="<?php echo Uri::base() . $images->images0->image; ?>" width="<?php echo $fallback_width; ?>" height="<?php echo $fallback_height; ?>" alt="<?php echo $images->images0->alt; ?>">
     <?php if ($image_url): ?></a><?php else: ?></div><?php endif; ?>
     <?php if ($has_details): ?>

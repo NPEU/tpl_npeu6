@@ -9,10 +9,16 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 $application_env = $_SERVER['SERVER_NAME'] == 'dev.npeu.ox.ac.uk' ? 'development' : ($_SERVER['SERVER_NAME'] == 'test.npeu.ox.ac.uk' ? 'testing' : 'production');
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+
+// Get the doc object:
+$doc = Factory::getDocument();
+$template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
+$doc->addScript($template_path . '/js/filter.min.js');
 
 unset($this->people['*']);
 
@@ -54,9 +60,7 @@ function person_img_size($img_url, $size) {
 
 </div>
 
-<?php $director = $this->people['Director']['people'][0]; unset($this->people['Director']);
-
-?>
+<?php $director = $this->people['Director']['people'][0]; unset($this->people['Director']); ?>
 
 <div class="d-border--bottom--thick">
     <div class="c-panel  d-background--dark  l-box--space--inline--l">
@@ -107,21 +111,26 @@ $l = count($people);
 <div class="c-panel  l-box--space--inline--l  d-background--white">
     <div filterable_group>
         <script type="text/template" filterable_form_template>
-            <form class="tool-form">
-                <div class="tool-form__fieldset">
-                    <label for="filter_staff_list">Filter staff list:</label> <input id="filter_staff_list" filterable_input>
-                </div>
-                <div class="tool-form__fieldset">
-                    <span class="tool-form__group  u-space--right">
-                        <label for="filter_choice_firstname">Filter by first name:</label> <input type="radio" name="filter_choice" id="filter_choice_firstname" filterable_toggle="first_name">
-                    </span>
-                    <span class="tool-form__group  u-space--right">
-                        <label for="filter_choice_lastname">Filter by last name:</label> <input type="radio" name="filter_choice" id="filter_choice_lastname" filterable_toggle="last_name">
-                    </span>
-                    <span class="tool-form__group">
-                        <label for="filter_choice_all">Filter both:</label> <input type="radio" name="filter_choice" id="filter_choice_all" filterable_toggle="" checked>
-                    </span>
-                </div>
+            <form class="c-form  c-form--tool-form">
+                <label for="filter_staff_list">Filter staff list:</label>
+                <span class="c-form__composite">
+                    <input id="filter_staff_list" filterable_input> <button filterable_submit>Filter</button>
+                </span>
+                <input type="reset" value="Clear" filterable_reset>
+                <fieldset class="c-form--tool-form__fieldset">
+                    <div>
+                        <legend>Filter by:</legend>
+                        <span class="c-form__group">
+                            <label for="filter_choice_firstname">First name:</label> <input type="radio" name="filter_choice" id="filter_choice_firstname" filterable_toggle="firstname">
+                        </span>
+                        <span class="c-form__group">
+                            <label for="filter_choice_lastname">Last name:</label> <input type="radio" name="filter_choice" id="filter_choice_lastname" filterable_toggle="lastname">
+                        </span>
+                        <span class="tool-form__group">
+                            <label for="filter_choice_all">Both:</label> <input type="radio" name="filter_choice" id="filter_choice_all" filterable_toggle="" checked>
+                        </span>
+                    </div>
+                </fieldset>
             </form>
         </script>
         <script type="text/template" filterable_empty_list_template>
@@ -140,7 +149,7 @@ $l = count($people);
                     <li class="l-box  l-box--space--block" filterable_item>
                         <article class="c-glimpse  js-c-glimpse c-glimpse--image-round  d-border  t-neutral">
                             <div data-fs-block="border">
-                                <h3 class="c-glimpse__title"><a href="https://www.npeu.ox.ac.uk/about/people/<?php echo $person['alias']; ?>"><span><?php echo $person['name']; ?></span></a></h3>
+                            <h3 class="c-glimpse__title"><a href="https://www.npeu.ox.ac.uk/about/people/<?php echo $person['alias']; ?>"><span filterable_index filterable_index_name="firstname"><?php echo $person['firstname']; ?></span> <span filterable_index filterable_index_name="lastname"><?php echo $person['lastname']; ?></span></a></h3>
 
                                 <div class="c-glimpse__image  d-border  t-neutral">
                                     <div class="u-image-cover  js-image-cover  u-image-cover--min-100">
