@@ -74,6 +74,7 @@ if (!isset($error_menu_id)) {
 }
 if (!isset($menu_item)) {
     $menu_item = TplNPEU6Helper::get_menu_item();
+    $menu_item_params = $menu_item->getParams();
 }
 
 $menu_root = explode('/', $menu_item->route)[0];
@@ -102,7 +103,7 @@ $menu_root_item = $app->getMenu()->getItem($menu_root_id);
 #echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->alias); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->title); echo '</pre>'; exit;
-#echo '<pre>'; var_dump($menu_item->params->get('hero_image')); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($$menu_item_params->get('hero_image')); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_root); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->access); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_id); echo '</pre>'; exit;
@@ -175,7 +176,7 @@ if ($page_brand->alias != 'npeu') {
 //$page_is_landing = $menu_item->menutype != 'mainnenu' && $menu_item->menutype != 'user' && $menu_item->level == 1;
 // May be better to check the brand that's applied as that's less likely to change
 // (can't easily check template style unfortunately)
-$page_is_landing = $menu_item->getParams()->get('is_landing', 'auto');
+$page_is_landing = $menu_item_params->get('is_landing', 'auto');
 
 if ($page_is_landing == 'auto') {
     $page_is_landing = $page_brand->alias == 'npeu' && $menu_item->level == 0; //? Needs checking
@@ -186,7 +187,7 @@ if ($page_is_landing == 'auto') {
 
 // Override landing setting for subroutes if necessary:
 if ($page_is_subroute) {
-    $page_is_landing = (bool) $menu_item->getParams()->get('subroute_is_landing', '1');
+    $page_is_landing = (bool) $menu_item_params->get('subroute_is_landing', '1');
 }
 
 // Override special case of page being an 'add/edit' form:
@@ -217,15 +218,15 @@ if (isset($doc->page_heading_additional)) {
 $page_title = $page_heading;
 
 // Menu Items can override the heading / title in 'Page Display' tab:
-if (!empty($menu_item->getParams()->get('page_heading', false))) {
-    $page_heading = $menu_item->params->get('page_heading');
+if (!empty($menu_item_params->get('page_heading', false))) {
+    $page_heading = $menu_item_params->get('page_heading');
 }
 
-if (!empty($menu_item->getParams()->get('page_title', false))) {
-    $page_title = $menu_item->getParams()->get('page_title');
+if (!empty($menu_item_params->get('page_title', false))) {
+    $page_title = $menu_item_params->get('page_title');
 }
 
-$show_page_heading = $menu_item->getParams()->get('show_page_heading', false);
+$show_page_heading = $menu_item_params->get('show_page_heading', false);
 
 
 if ($page_heading != $page_template_params->site_title) {
@@ -268,7 +269,7 @@ $page_is_component_root = $page_default_view == $page_current_view;
 
 
 // We can't FORCE show modules, because there may not be any, but we can force DON'T SHOW modules:
-$page_disable_modules = $menu_item->getParams()->get('disable_modules');
+$page_disable_modules = $menu_item_params->get('disable_modules');
 if (!(
     $page_disable_modules == 'always'
  || $page_disable_modules == 'root' && $page_is_component_root
@@ -358,7 +359,7 @@ if (
 */
 #echo '<pre>'; var_dump($page_has_pull_outs); echo '</pre>'; exit;
 
-#$menu_item->params->get('hero_image');
+#$$menu_item_params->get('hero_image');
 
 $page_has_main_lower = $doc->countModules('3-main-lower');
 
@@ -399,7 +400,7 @@ $page_description = $doc->description != ''
                   : $page_template_params->site_description;
 
 if (isset($menu_item)) {
-    if ($menu_description = $menu_item->getParams()->get('menu-meta_description', false)) {
+    if ($menu_description = $menu_item_params->get('menu-meta_description', false)) {
         $page_description = $menu_description ;
     }
 }
@@ -497,7 +498,7 @@ $search_field_hint = !empty($page_template_params->search_hint) ? $page_template
 
 
 // Hero image / Carousel:
-$page_heroes         = (array) $menu_item->getParams()->get('hero_image');
+$page_heroes         = (array) $menu_item_params->get('hero_image');
 #echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($user->authorise('core.create', 'com_media')); echo '</pre>'; exit;
 
@@ -536,7 +537,7 @@ if ($page_has_hero) {
 #echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
 
 // Headline image:
-$show_headline_image = $menu_item->getParams()->get('show_headline_image', 1);
+$show_headline_image = $menu_item_params->get('show_headline_image', 1);
 
 // Meta (?):
 $page_unit        = $page_template_params->unit;

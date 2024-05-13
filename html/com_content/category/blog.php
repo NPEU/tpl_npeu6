@@ -101,7 +101,7 @@ if (strstr($menu_item_params->get('pageclass_sfx'), 'full-width-cards') !== fals
     </ul>
     <?php endif; ?>
 
-    <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($pagination->total > 1)) : ?>
+    <?php if (($this->params->def('show_pagination', 1) == 1 || ($this->params->get('show_pagination') == 2)) && ($pagination->pagesTotal > 1)) : ?>
     <section class="c-panel  d-background--very-light  t-neutral">
         <div class="n-pagination">
             <?php if ($this->params->def('show_pagination_results', 1)): ?>

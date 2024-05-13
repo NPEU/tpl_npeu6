@@ -45,7 +45,6 @@ function format_person($p) {
     $pp = ResearchProjectsHelper::parseCollaborator($p);
     return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
 }
-
 ?>
 <?php if (!empty($this->topics)) :
 ob_start(); ?>
