@@ -38,8 +38,8 @@ $assocParam = (LanguageAssociations::isEnabled() && $params->get('show_associati
 // Get the custom fields for the article:
 $fields = $this->item->jcfields;
 #echo '<pre>'; var_dump($fields); echo '</pre>'; exit;
-$headline_image = array();
-$tweak_markdown_options = array('trim_paragraph' => true, 'add_link_spans' => true);
+$headline_image = [];
+$tweak_markdown_options = ['trim_paragraph' => true, 'add_link_spans' => true];
 
 foreach ($fields as $field) {
     switch ($field->name) {
@@ -78,7 +78,7 @@ foreach ($fields as $field) {
 
 // Check for embedded credit info:
 $headline_image['headline-image-credit-line'] = '';
-$image_meta = array();
+$image_meta = [];
 
 $image_meta_response = json_decode(file_get_contents(
     'https://' . $_SERVER['HTTP_HOST'] . '/plugins/system/imagemeta/ajax/image-meta.php?image=' . base64_encode($headline_image['headline-image'])

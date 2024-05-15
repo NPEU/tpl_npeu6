@@ -108,7 +108,7 @@ class Npeu6Helper
             // No title attribute present.
             return $return;
         } else {
-            $title = strip_tags(str_replace(array('&gt;', '&lt;'), array('> ', '<'), $matches[1]));
+            $title = strip_tags(str_replace(['&gt;', '&lt;'], ['> ', '<'], $matches[1]));
             return str_replace($matches[1], $title, $return);
         }
     }
@@ -188,12 +188,13 @@ class Npeu6Helper
         // We have a valid brand id now, so let's get the brand data:
         if ($brand_id) {
             $db = Factory::getDBO();
-
+            #echo "<pre>"; var_dump($brand_id); echo "</pre>"; #exit;
             $query = $db->getQuery(true);
             $query->select('*');
             $query->from('#__brands');
             $query->where('id = ' . $brand_id);
             $db->setQuery($query);
+            #echo "<pre>"; var_dump((string) $query); echo "</pre>"; #exit;
             $brand = $db->loadObject();
 
             $brand->params = json_decode($brand->params);
@@ -363,10 +364,10 @@ class Npeu6Helper
      */
     public static function remove_joomla_scripts($scripts, &$doc)
     {
-        $patterns = array(
+        $patterns = [
             '#^/media/jui/js#',
             '#^/media/system/js#'
-        );
+        ];
 
         foreach ($scripts as $script => $data) {
             foreach ($patterns as $pattern) {
@@ -386,10 +387,10 @@ class Npeu6Helper
      */
     public static function remove_joomla_stylesheets($stylesheets, &$doc)
     {
-        $patterns = array(
+        $patterns = [
             '#^/media/jui/css#',
             '#^/media/system/css#'
-        );
+        ];
 
         foreach ($stylesheets as $stylesheet => $data) {
             foreach ($patterns as $pattern) {
@@ -491,27 +492,30 @@ class Npeu6Helper
         $prime = '\x{2032}\x{2033}\x{2034}\x{2057}';
         $nummodifiers = $numbersign . $percent . $prime;
         $return = preg_replace(
-        array(
-            // Remove separator, control, formatting, surrogate,
-            // open/close quotes.
-            '/[\p{Z}\p{Cc}\p{Cf}\p{Cs}\p{Pi}\p{Pf}]/u',
-            // Remove other punctuation except special cases
-            '/\p{Po}(?<![' . $specialquotes .
-            $numseparators . $urlall . $nummodifiers . '])/u',
-            // Remove non-URL open/close brackets, except URL brackets.
-            '/[\p{Ps}\p{Pe}](?<![' . $urlbrackets . '])/u',
-            // Remove special quotes, dashes, connectors, number
-            // separators, and URL characters followed by a space
-            '/[' . $specialquotes . $numseparators . $urlspaceafter .
-            '\p{Pd}\p{Pc}]+((?= )|$)/u',
-            // Remove special quotes, connectors, and URL characters
-            // preceded by a space
-            '/((?<= )|^)[' . $specialquotes . $urlspacebefore . '\p{Pc}]+/u',
-            // Remove dashes preceded by a space, but not followed by a number
-            '/((?<= )|^)\p{Pd}+(?![\p{N}\p{Sc}])/u',
-            // Remove consecutive spaces
-            '/ +/',
-            ), ' ', $text);
+            [
+                // Remove separator, control, formatting, surrogate,
+                // open/close quotes.
+                '/[\p{Z}\p{Cc}\p{Cf}\p{Cs}\p{Pi}\p{Pf}]/u',
+                // Remove other punctuation except special cases
+                '/\p{Po}(?<![' . $specialquotes .
+                $numseparators . $urlall . $nummodifiers . '])/u',
+                // Remove non-URL open/close brackets, except URL brackets.
+                '/[\p{Ps}\p{Pe}](?<![' . $urlbrackets . '])/u',
+                // Remove special quotes, dashes, connectors, number
+                // separators, and URL characters followed by a space
+                '/[' . $specialquotes . $numseparators . $urlspaceafter .
+                '\p{Pd}\p{Pc}]+((?= )|$)/u',
+                // Remove special quotes, connectors, and URL characters
+                // preceded by a space
+                '/((?<= )|^)[' . $specialquotes . $urlspacebefore . '\p{Pc}]+/u',
+                // Remove dashes preceded by a space, but not followed by a number
+                '/((?<= )|^)\p{Pd}+(?![\p{N}\p{Sc}])/u',
+                // Remove consecutive spaces
+                '/ +/',
+            ],
+            ' ',
+            $text
+        );
         $return = str_replace('/', '_', $return);
         return str_replace("'", '', $return);
     }
@@ -521,10 +525,33 @@ class Npeu6Helper
      *
      * @return string
      */
-    public static function tweak_markdown_output($html, $options = array())
+    public static function tweak_markdown_output($html, $options = [])
     {
-        if (!empty($options['trim_paragraph'])) {
-            $html = preg_replace(array('/^<p>/', '/<\/p>$/'), '', $html);
+        //if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
+        //    $s = $options['split_to_list'];
+        //    $a = explode($s, $html);
+        //    $html = '<span role="list" class="l-layout__inner">' . "\n" . '<span role="listitem" class="l-box">' . "\n" . implode("\n" . '</span> ' . "\n\n" . '<span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>' . "\n\n" . '<span role="listitem" class="l-box">' . "\n", $a) . "\n" . '</span>';
+        //}
+
+        if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
+
+            $html = str_replace(
+                '<p>',
+                '<p>' . "\n" . '<span role="list" class="l-layout__inner">' . "\n" . '<span role="listitem" class="l-box">'. "\n",
+                $html
+            );
+
+            $html = str_replace(
+                $options['split_to_list'],
+                "\n" .
+                '</span> ' . "\n\n" .
+                '<span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>' . "\n\n" .
+                '<span role="listitem" class="l-box">' . "\n",
+                $html
+            );
+
+            $html = str_replace('</p>', "\n" . '</span>' . "\n" . '</span>' . "\n" . '</p>', $html);
+
         }
 
         if (!empty($options['add_link_spans'])) {
@@ -532,10 +559,84 @@ class Npeu6Helper
             $html = preg_replace('/<\/a>/', '</span></a>', $html);
         }
 
-        if (!empty($options['split_to_list']) && is_string($options['split_to_list'])) {
-            $s = $options['split_to_list'];
-            $a = explode($s, $html);
-            $html = '<span role="listitem" class="l-box">' . implode('</span> <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span> <span role="listitem" class="l-box">', $a) . '</span>';
+        if (!empty($options['p_classes'])) {
+            $html = str_replace('<p>', '<p class="' . $options['p_classes'] . '">', $html);
+        }
+
+        if (!empty($options['trim_paragraph'])) {
+            $html = preg_replace(['/^<p[^>]*>/', '/<\/p>$/'], '', $html);
+        }
+        return $html;
+    }
+
+    /**
+     * Adjust article HMTL
+     *
+     * @return string
+     */
+    public static function adjust_article_html($html)
+    {
+        // Resolve data-true-url
+        // Note what this does is get the URL of an <a> inside an element with an id matching the
+        // # of a URL and replaces the orginal URL. This is to allow for the same file link /
+        // document to appear in multple places on the site whilst still maintaining a "single-
+        // source-of-truth" where by the acutal file is ony placed on a sngle page and other
+        // instances of it exists as #links to a container id.
+        // So an original page might have:
+        //
+        // <a id="guidance-sheet-1 href="/assets/downloads/neogastric/neoGASTRIC_Guidance_Sheet_1_Trial_one-page_summary_v10_02062023.pdf">neoGASTRIC Guidance Sheet 1 Trial one-page summary v1.0 02062023</a>
+        //
+        // and a secondary instance might have:
+        //
+        // <a data-true-url="" href="https://dev.npeu.ox.ac.uk/neogastric/health-professionals/guidance-sheets#guidance-sheet-1">Guidance Sheet 1 Trial one-page summary</a>
+        //
+        // Which will be resolved to:
+        //
+        // <a href="/assets/downloads/neogastric/neoGASTRIC_Guidance_Sheet_1_Trial_one-page_summary_v10_02062023.pdf">Guidance Sheet 1 Trial one-page summary</a>
+        preg_match_all('/<a data-true-url.+?href="([^#]+)#([^"]+)">([^<]+)<\/a>/', $html, $matches, PREG_SET_ORDER);
+
+        $config = [];
+        foreach ($matches as $match) {
+            $url = $match[1];
+
+            if (!array_key_exists($url, $config)) {
+                $config[$url] = [];
+            }
+
+            $config_entry = [
+                'id' => $match[2],
+                'text' => $match[3]
+            ];
+
+            $config[$url][] = $config_entry;
+        }
+
+        foreach ($config as $url => $config_entries) {
+            if (strpos($url, 'https://') !== 0) {
+                $full_url = 'https://' . $_SERVER['SERVER_NAME'] . $url;
+            }
+
+            if (empty($full_url)) {
+                continue;
+            }
+
+            $contents = file_get_contents($full_url);
+
+            if (!empty($contents)) {
+                foreach ($config_entries as $config_entry) {
+                    $regex = '/<a[^>]*?id="' . $config_entry['id'] . '"[^>]*?>(.*?)<\/a>/s';
+
+                    if (preg_match($regex, $contents, $ms)) {
+                        preg_match('/href="([^"]+)"/', $ms[0], $ms2);
+                        $old_url = '"' . $url . '#' . $config_entry['id'] . '"';
+                        $old_text = $config_entry['text'];
+                        $new_url = '"' . $ms2[1] . '"';
+                        $new_text = trim(strip_tags($ms[1]));
+
+                        $html = str_replace([$old_url , $old_text], [$new_url, $new_text], $html);
+                    }
+                }
+            }
         }
 
         return $html;

@@ -79,32 +79,29 @@ $return = $jinput->get('return', $return);
                                 #$input = add_class($input, 'error');
                             }
                             ?>
-                            <div class="l-box  ff-width-100--25--25">
+                            <div class="l-box  l-box--space--inline-end  ff-width-100--25--25">
                             <?php echo $label; ?>
                             </div>
                             <div class="l-box  ff-width-100--25--75">
-                            <?php echo $input; ?>
+                            <?php echo str_replace('class="', 'class="u-fill-width  ', $input); ?>
                             </div>
 
                         </div>
                     </div>
                     <?php endif; ?>
                     <?php endforeach; ?>
-                    <div class="l-layout  l-row">
+                    <div class="l-layout  l-row  l-row--start">
                         <div class="l-layout__inner">
-                            <div class="l-box  ff-width-100--25--25">
-                                <?php if (PluginHelper::isEnabled('system', 'remember')) : ?>
-                                <div class="l-box  ff-width-100--25--25">
-                                    <input id="remember" type="checkbox" name="remember" value="yes" />
-                                    <label id="remember-lbl" for="remember"><?php echo Text::_('JGLOBAL_REMEMBER_ME') ?></label>
-                                </div>
+                            <?php if (PluginHelper::isEnabled('system', 'remember')) : ?>
+                            <div class="l-box  l-box--space--inline-end">
+                                <input id="remember" type="checkbox" name="remember" value="yes" />
+                                <label id="remember-lbl" for="remember"><?php echo Text::_('JGLOBAL_REMEMBER_ME') ?></label>
+                            </div>
                             <?php endif; ?>
-                                </div>
-                                <div class="l-box  ff-width-100--25--75">
-                                    <button type="submit"><?php echo Text::_('JLOGIN'); ?></button>
-                                    <input type="hidden" name="return" value="<?php echo $return; ?>" />
-                                    <?php echo HTMLHelper::_('form.token'); ?>
-                                </div>
+                            <div class="l-box  l-box--push-end">
+                                <button type="submit"><?php echo Text::_('JLOGIN'); ?></button>
+                                <input type="hidden" name="return" value="<?php echo $return; ?>" />
+                                <?php echo HTMLHelper::_('form.token'); ?>
                             </div>
                         </div>
                     </div>
