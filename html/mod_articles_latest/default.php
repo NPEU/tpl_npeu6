@@ -9,10 +9,13 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 // Don't show a news article if that's the one that's loaded on the page:
-$doc   = JFactory::getDocument();
+$doc   = Factory::getDocument();
 $current_article_in_list = false;
 foreach($list as $k => $item) {
     if (isset($doc->article->id) && $item->id == $doc->article->id) {
@@ -52,7 +55,7 @@ $count = $params->get('count');
 ?>
 <?php if ($count == 1): ?>
 <?php $wrapper_classes = ['  mod_articles_latest  d-background  d-border']; $item = $items[0]; ?>
-<?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+<?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
 <?php else:
 // Have a go at providing useful classes:
 $wrapper_classes = ['d-background  d-border'];
@@ -83,7 +86,7 @@ if ($count >= 2 && $count < 5) {
         <ul class="<?php echo $inner_class; ?>">
             <?php foreach ($items as $item): ?>
             <li class="<?php echo $item_class; ?>">
-                <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+                <?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
             </li>
             <?php endforeach; ?>
         </ul>
@@ -103,7 +106,7 @@ if ($count >= 2 && $count < 5) {
             <div class="l-col-to-row  l-col-to-row--gutter--medium">
                 <?php foreach ($items as $item): ?>
                 <div class="l-col-to-row__item  ff-width-100--50--33-333">
-                    <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+                    <?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
                 </div>
                 <?php endforeach; ?>
             </div>

@@ -9,11 +9,15 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\GenericDataException;
+
 ini_set('display_errors', 'On');
 
 if (!isset($this->error)) {
-	$this->error = JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
-	$this->debug = false;
+    #$this->error = JError::raiseWarning(404, Text::_('JERROR_ALERTNOAUTHOR'));
+    $this->error = new GenericDataException(Text::_('JERROR_ALERTNOAUTHOR'), 404);
+    $this->debug = false;
 }
 #echo "<pre>\n"; var_dump($this->error); echo "</pre>\n"; exit;
 $is_error   = true;

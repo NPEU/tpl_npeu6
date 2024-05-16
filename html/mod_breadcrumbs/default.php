@@ -8,12 +8,15 @@
  */
 
 defined('_JEXEC') or die;
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+
 #echo '<pre>'; var_dump($list); echo '</pre>'; exit;
 // Get rid of duplicated entries on trail including home page when using multilanguage
-for ($i = 0; $i < $count; $i++)
-{
-    if ($i === 1 && !empty($list[$i]->link) && !empty($list[$i - 1]->link) && $list[$i]->link === $list[$i - 1]->link)
-    {
+for ($i = 0; $i < $count; $i++) {
+    if ($i === 1 && !empty($list[$i]->link) && !empty($list[$i - 1]->link) && $list[$i]->link === $list[$i - 1]->link) {
         unset($list[$i]);
         $count--;
     }
@@ -33,13 +36,13 @@ if ($count > 0) :
 ?>
 <nav aria-label="Breadcrumbs" class="l-layout  l-row  l-row--start  l-gutter--xs  d-background--dark t-npeu  l-box--space--inline--xs  mod_breadcrumbs" data-area="breadcrumbs">
     <div class="l-layout__inner  c-utilitext">
-        <p class="l-box"><?php echo JText::_('MOD_BREADCRUMBS_HERE'); ?> </p>
+        <p class="l-box"><?php echo Text::_('MOD_BREADCRUMBS_HERE'); ?> </p>
         <p role="list" class="l-box" itemscope="" itemtype="https://schema.org/BreadcrumbList">
             <span class="l-layout  l-row  l-row--start  l-gutter--xs  l-flush-edge-gutter">
                 <span class="l-layout__inner">
-                
+
                     <?php
-                    
+
                     // Find last and penultimate items in breadcrumbs list
                     end($list);
                     $last_item_key   = key($list);
@@ -53,7 +56,7 @@ if ($count > 0) :
                     // Render all but last item - along with separator ?>
                     <span role="listitem" class="l-box" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
                         <?php if (!empty($item->link)): ?>
-                        <a itemprop="item" href="<?php echo preg_replace('/\?.*/', '', $item->link); ?>"><span itemprop="name"><?php echo $item->name; ?></span></a>
+                        <a itemprop="item" href="<?php echo preg_replace('/\?.*/', '', Route::_($item->link)); ?>"><span itemprop="name"><?php echo $item->name; ?></span></a>
                         <?php else: ?>
                         <a class="n-breadcrumbs__link" itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>
                         <a itemprop="item"><span itemprop="name"><?php echo $item->name; ?></span></a>

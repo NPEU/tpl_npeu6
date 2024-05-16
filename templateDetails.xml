@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="template" version="3.2.0" client="site">
+<extension type="template" client="site">
 
     <name>npeu6</name>
     <author>Andy Kirk</author>
@@ -10,7 +10,7 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>2.23.0</version>
+    <version>4.0.3</version>
     <!-- The description is optional and defaults to the name -->
     <!--<description>TPL_NPEU6_DESCRIPTION</description>-->
     <!-- The above should work but doesn't and results in the untranslated string being shown. -->
@@ -21,6 +21,7 @@
         <server type="extension" name="NPEU: tpl_npeu6 Update Site">https://raw.githubusercontent.com/NPEU/tpl_npeu6/master/update-manifest.xml</server>
     </updateservers>
 
+    <namespace path="src">NPEU\Template\Npeu6</namespace>
 
     <files>
         <folder>css</folder>
@@ -30,11 +31,10 @@
         <folder>js</folder>
         <folder>language</folder>
         <folder>layouts</folder>
+        <folder>src</folder>
         <folder>svg</folder>
         <folder>vendor</folder>
         <filename>error.php</filename>
-        <filename>helper.php</filename>
-        <filename>index.html</filename>
         <filename>index.php</filename>
         <filename>setup.php</filename>
         <filename>templateDetails.xml</filename>
@@ -90,7 +90,7 @@
                     type="list"
                     default="structure--branded"
                     label="TPL_NPEU6_MAIN_LAYOUT_LABEL"
-					description="TPL_NPEU6_MAIN_LAYOUT_DESC"
+                    description="TPL_NPEU6_MAIN_LAYOUT_DESC"
                 >
                     <option value="structure--basic">Basic</option>
                     <option value="structure--branded">Branded</option>
@@ -110,7 +110,7 @@
                     type="list"
                     default="npeu"
                     label="TPL_NPEU6_UNIT_LABEL"
-					description="TPL_NPEU6_UNIT_DESC"
+                    description="TPL_NPEU6_UNIT_DESC"
                 >
                     <option value="npeu">NPEU</option>
                     <option value="npeu_ctu">NPEU CTU</option>
@@ -191,6 +191,5 @@
             </fieldset>
         </fields>
     </config>
-
 
 </extension>

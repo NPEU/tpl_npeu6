@@ -8,10 +8,11 @@
  */
 
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
 use Joomla\String\StringHelper;
 
-
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 $hx = (int) str_replace('h', '', $params->get('header_tag'));
 $hx = 'h' . $hx;
 
@@ -29,7 +30,7 @@ $full_link = $params->get('link_full', 0);
             <?php
             $card_data = (array) $card;
             //echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
-            
+
             $card_data['theme_classes'] = empty($card->theme_classes) ? 'd-background' : $card->theme_classes;
             $card_data['full_link']     = $full_link;
             /*
@@ -47,7 +48,7 @@ $full_link = $params->get('link_full', 0);
             //echo '<pre>'; var_dump(file_exists($card_path)); echo '</pre>'; exit;
             include($card_path);
 
-            ?>  
+            ?>
             </li>
 
         <?php endforeach; ?>

@@ -9,7 +9,10 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
+use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 

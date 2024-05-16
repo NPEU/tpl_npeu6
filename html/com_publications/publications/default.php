@@ -9,12 +9,14 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 $template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
 
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 $doc->addScript($template_path . '/js/filter.min.js');
 
-$jinput = JFactory::getApplication()->input;
+$jinput = Factory::getApplication()->input;
 
 unset($this->all['*']);
 
@@ -107,30 +109,26 @@ $describedby_id = $this->form->getFieldAttribute('keywords', 'name', '', 'filter
     <?php $i = 0; foreach($this->all as $year => $data): ?>
     <?php if(!empty($data['publications'])): ?>
     <h2 id="year_<?php echo $year; ?>"><?php echo $year; ?></h2>
-    <div class="l-layout  l-gutter  l-flush-edge-gutter">
-        <ul class="l-layout__inner" filterable_list>
-            <?php foreach($data['publications'] as $publication): ?>
-            <li class="l-box" filterable_item role="listitem">
-                <div class="c-panel  c-panel--rounded  d-background--very-light  t-neutral">
-                    <?php if(!$this->is_filtered): ?>
-                    <span filterable_index filterable_index_name="title">
-                        <?php if (!empty($publication['url'])) : ?>
-                        <a href="<?php echo $publication['url']; ?>" rel="external">
-                        <?php endif; ?>
-                        <?php echo $this->escape($publication['full_entry']); ?>
-                        <?php if (!empty($publication['url'])) : ?>
-                        </a>
-                        <?php endif; ?>
-                    </span>
-                    <?php else: ?>
-                    <?php echo preg_replace('/(' . preg_quote(JRequest::getString('keywords')) . ')/i', '<mark><b>$1</b></mark>', $publication['full_entry']); ?>
-                    <?php endif; ?>
-                    <br>[<span data-pub-type><?php echo $publication['type']; ?></span>]
-                </div>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+    <ul filterable_list>
+        <?php foreach($data['publications'] as $publication): ?>
+        <li class="l-box--space--block-end" filterable_item>
+            <?php if(!$this->is_filtered): ?>
+            <span filterable_index filterable_index_name="title">
+                <?php if (!empty($publication['url'])) : ?>
+                <a href="<?php echo $publication['url']; ?>" rel="external">
+                <?php endif; ?>
+                <?php echo $this->escape($publication['full_entry']); ?>
+                <?php if (!empty($publication['url'])) : ?>
+                </a>
+                <?php endif; ?>
+            </span>
+            <?php else: ?>
+            <?php echo preg_replace('/(' . preg_quote(JRequest::getString('keywords')) . ')/i', '<mark><b>$1</b></mark>', $publication['full_entry']); ?>
+            <?php endif; ?>
+            <br>[<span data-pub-type><?php echo $publication['type']; ?></span>]
+        </li>
+        <?php endforeach; ?>
+    </ul>
     <?php endif; ?>
     <?php $i++; ?>
     <?php endforeach; ?>

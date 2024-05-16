@@ -2,6 +2,12 @@
 // No direct access
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\Uri\Uri;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 /*
     Vars defined in \modules\mod_menu\mod_menu.php:
 
@@ -17,13 +23,10 @@ defined('_JEXEC') or die;
 
 */
 
-#$doc    = JFactory::getDocument();
-#$app    = JFactory::getApplication();
+#$doc    = Factory::getDocument();
+#$app    = Factory::getApplication();
 
-$current_url_path = str_replace(JURI::root(), '', JURI::current());
-
-// Include the template helper:
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
+$current_url_path = str_replace(Uri::root(), '', Uri::current());
 
 $brand = TplNPEU6Helper::get_brand();
 
@@ -39,7 +42,7 @@ if (!isset($is_sitemap)) {
 if(count($list) > 0) :
 
 // Find the access id for 'Hidden' menu items:
-$db = JFactory::getDBO();
+$db = Factory::getDBO();
 
 $query = $db->getQuery(true);
 $query->select('id')->from('#__viewlevels');
@@ -69,11 +72,11 @@ foreach ($list as $i => &$item) {
     if (!$is_sitemap && ($item->access == $hidden_from_menus_and_sitemap || $item->access == $hidden_from_menus)) {
         $skip_item = true;
     }
-    
+
     #echo '<pre>'; var_dump($item); echo '</pre>';
-    // If the menu item is for a news blog and there are no news items in that category, then we 
+    // If the menu item is for a news blog and there are no news items in that category, then we
     // don't want to show the link, as it'll effectively be to a blank page:
-    // (Note checking the alias isn't great, as it's implicit on naming convention, but there's 
+    // (Note checking the alias isn't great, as it's implicit on naming convention, but there's
     // currently no explicit way of distinguishing a 'news' blog to any other type on blog).
     if (
         $item->alias == 'news'
@@ -139,10 +142,10 @@ foreach ($new_list as $i => &$item) {
         case 'separator':
         case 'url':
         case 'component':
-            require JModuleHelper::getLayoutPath('mod_menu', 'default_'.$item->type);
+            require ModuleHelper::getLayoutPath('mod_menu', 'default_'.$item->type);
             break;
         default:
-            require JModuleHelper::getLayoutPath('mod_menu', 'default_url');
+            require ModuleHelper::getLayoutPath('mod_menu', 'default_url');
             break;
     }
     $output = ob_get_contents();

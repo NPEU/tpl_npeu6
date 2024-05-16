@@ -9,10 +9,14 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
-$doc   = JFactory::getDocument();
-$doc->header_cta = array('text' => JText::_('COM_USERS_Edit_Profile'), 'url' => '/user-profile/edit/'.  $this->data->id);
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+$doc   = Factory::getDocument();
+#$doc->header_cta = array('text' => Text::_('COM_USERS_Edit_Profile'), 'url' => '/user-profile/edit/'.  $this->data->id);
+$doc->header_cta = array('text' => Text::_('COM_USERS_Edit_Profile'), 'url' => '/user-profile/edit/');
 ?>
 <?php #echo TplNPEU6Helper::get_messages(); ?>
 
@@ -22,6 +26,6 @@ $doc->header_cta = array('text' => JText::_('COM_USERS_Edit_Profile'), 'url' => 
 
 <?php echo $this->loadTemplate('custom'); ?>
 
-<?php if (JFactory::getUser()->id == $this->data->id) : ?>
+<?php if (Factory::getUser()->id == $this->data->id) : ?>
 
 <?php endif; ?>

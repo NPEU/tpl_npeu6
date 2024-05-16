@@ -3,22 +3,22 @@
 // - NO won't work as need to allow this page to be visited if JS not available
 #echo "<pre>\n";var_dump($_SERVER);echo "</pre>\n";exit;
 /*if ($_SERVER['REMOTE_ADDR'] != $_SERVER['SERVER_ADDR']) {
-	echo 'Access denied.';
-	exit;
+    echo 'Access denied.';
+    exit;
 }*/
 
 if (empty($_GET['name']) || empty($_GET['value'])) {
-	echo 'Missing one or more of \'name\', \'value\' in query string.';
-	exit;
+    echo 'Missing one or more of \'name\', \'value\' in query string.';
+    exit;
 }
 
 if (
-	isset($_GET['expire']) && (
-		!is_numeric($_GET['expire']) || $_GET['expire'] <= time()
-	)
+    isset($_GET['expire']) && (
+        !is_numeric($_GET['expire']) || $_GET['expire'] <= time()
+    )
 ) {
-	echo '\'expire\' was not a valid future timestamp.';
-	exit;
+    echo '\'expire\' was not a valid future timestamp.';
+    exit;
 }
 // Sanitize:
 $name   = urldecode($_GET['name']);
@@ -27,13 +27,13 @@ $expire = isset($_GET['expire']) ? (int) $_GET['expire'] : 0;
 
 
 if (setcookie($name, $value, $expire, '/')) {
-	echo 'Cookie \'' . $name . '\' set successfully.';
+    echo 'Cookie \'' . $name . '\' set successfully.';
 } else {
-	echo 'Setting cookie \'' . $name . '\' failed.';
+    echo 'Setting cookie \'' . $name . '\' failed.';
 }
 
 if (!empty($_GET['redirect'])) {
-	header('Location: ' . urldecode($_GET['redirect']));
+    header('Location: ' . urldecode($_GET['redirect']));
 }
 exit;
 ?>

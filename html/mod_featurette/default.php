@@ -8,6 +8,8 @@
  */
 
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
 use Joomla\String\StringHelper;
 
 // So there's a bug in Joomla where the conten property of a module will sometimes contain the
@@ -19,7 +21,7 @@ if (strpos($module->content, 'mod_featurette') !== false) {
     return;
 }
 
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 
 $hx        = $params->get('header_tag', 'h2');
 $has_image = !empty($params->get('image', false));

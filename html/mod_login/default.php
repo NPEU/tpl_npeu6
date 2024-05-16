@@ -9,12 +9,10 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('UsersHelperRoute', JPATH_SITE . '/components/com_users/helpers/route.php');
-
-JHtml::_('behavior.keepalive');
-JHtml::_('bootstrap.tooltip');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Uri\Uri;
 
 ?>
 <p class="c-utilitext  mod_login">
-    <a href="/login?return=<?php echo base64_encode(JUri::getInstance()->toString()); ?>" class="mod_login"><span>NPEU Login</span></a>
+    <a href="/login?return=<?php echo base64_encode(Uri::getInstance()->toString()); ?>" class="mod_login"><span>NPEU Login</span></a>
 </p>

@@ -9,14 +9,20 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use \Michelf\Markdown;
 
-// Include the template helper:
-JLoader::register('TplNPEU6Helper', __DIR__ . '/helper.php');
 
-#echo '<pre>'; var_dump($_SERVER); echo '</pre>'; exit;
+#echo '<pre>'; var_dump('here'); echo '</pre>'; exit;
 switch ($_SERVER['SERVER_NAME']) {
     case 'dev.npeu.ox.ac.uk' :
         $env = 'development';
@@ -35,12 +41,12 @@ switch ($_SERVER['SERVER_NAME']) {
 }
 #echo '<pre>'; var_dump($env); echo '</pre>'; exit;
 
-$app   = JFactory::getApplication();
-$doc   = JFactory::getDocument();
-$input = JFactory::getApplication()->input;
-$db    = JFactory::getDBO();
-$user  = JFactory::getUser();
-$uri   = JUri::getInstance();
+$app   = Factory::getApplication();
+$doc   = Factory::getDocument();
+$db    = Factory::getDBO();
+$user  = Factory::getUser();
+$uri   = Uri::getInstance();
+$input = $app->input;
 $menu  = $app->getMenu();
 
 #echo '<pre>'; var_dump($app); echo '</pre>'; exit;
@@ -51,6 +57,7 @@ $menu  = $app->getMenu();
 #echo '<pre>'; var_dump($uri); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($uri->getPath()); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu); echo '</pre>'; exit;
+
 
 // If the user has the staff group id (10) in their auth groups array, they are a member of staff,
 // so provide a short cut:
@@ -67,7 +74,9 @@ if (!isset($error_menu_id)) {
 }
 if (!isset($menu_item)) {
     $menu_item = TplNPEU6Helper::get_menu_item();
+    $menu_item_params = $menu_item->getParams();
 }
+
 $menu_root = explode('/', $menu_item->route)[0];
 if (!isset($menu_id)) {
     $menu_id = TplNPEU6Helper::get_menu_id();
@@ -87,14 +96,14 @@ foreach ($menu_item_children as $child) {
 }
 
 $menu_root_id = $menu_item->tree[0];
-$menu_root_item = JFactory::getApplication()->getMenu()->getItem($menu_root_id);
+$menu_root_item = $app->getMenu()->getItem($menu_root_id);
 
 #echo '<pre>'; var_dump($add_form_child_url); echo '</pre>'; exit;
 
 #echo '<pre>'; var_dump($menu_item); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->alias); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->title); echo '</pre>'; exit;
-#echo '<pre>'; var_dump($menu_item->params->get('hero_image')); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($$menu_item_params->get('hero_image')); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_root); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_item->access); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($menu_id); echo '</pre>'; exit;
@@ -114,6 +123,7 @@ $page_is_subroute = ($menu_route == $uri_route) ? false : true;
 #echo '<pre>'; var_dump($page_is_subroute); echo '</pre>'; exit;
 // Brand
 $page_brand        = TplNPEU6Helper::get_brand();
+
 $page_brand_folder = $page_brand->alias . '/';
 #echo '<pre>'; var_dump($page_brand); echo '</pre>'; exit;
 
@@ -122,24 +132,26 @@ $page_brand_folder = $page_brand->alias . '/';
 // Pre-rendering all modules here to avoid that. Not sure if there will be other consequences.
 // NOTE - defining module styles (chrome) here is unreliable because the module renderer overrides
 // it if the module itself specifies it (which they often do)
+
 jimport('joomla.application.module.helper');
-$modules__top                  = trim(JHtml::_('content.prepare', '{loadposition 1-top,basic}'));
-$modules__header_nav_bar       = trim(JHtml::_('content.prepare', '{loadposition 2-header-nav-bar,basic}'));
-$modules__main_breadcumbs      = trim(JHtml::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}'));
-$modules__main_upper           = trim(JHtml::_('content.prepare', '{loadposition 3-main-upper,basic}'));
-$modules__sidebar_top          = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}'));
-//$modules__sidebar_section_menu = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-section-menu,sidebar}'));
-$modules__sidebar_bottom       = trim(JHtml::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}'));
-$modules__main_lower           = trim(JHtml::_('content.prepare', '{loadposition 3-main-lower,basic}'));
-$modules__bottom               = trim(JHtml::_('content.prepare', '{loadposition 5-bottom,block}'));
-$modules__footer_top           = trim(JHtml::_('content.prepare', '{loadposition 6-footer-top,block}'));
-$modules__footer_mid_left      = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-left,block}'));
-$modules__footer_mid_right     = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-right,bespoke layout_box}'));
-$modules__footer_mid_bottom    = trim(JHtml::_('content.prepare', '{loadposition 6-footer-mid-bottom}'));
-$modules__footer_bottom        = trim(JHtml::_('content.prepare', '{loadposition 6-footer-bottom,block}'));
+
+$modules__top                  = trim(HTMLHelper::_('content.prepare', '{loadposition 1-top,basic}'));
+$modules__header_nav_bar       = trim(HTMLHelper::_('content.prepare', '{loadposition 2-header-nav-bar,basic}'));
+$modules__main_breadcumbs      = trim(HTMLHelper::_('content.prepare', '{loadposition 3-main-breadcrumbs,basic}'));
+$modules__main_upper           = trim(HTMLHelper::_('content.prepare', '{loadposition 3-main-upper,basic}'));
+$modules__sidebar_top          = trim(HTMLHelper::_('content.prepare', '{loadposition 4-sidebar-top,sidebar}'));
+//$modules__sidebar_section_menu = trim(HTMLHelper::_('content.prepare', '{loadposition 4-sidebar-section-menu,sidebar}'));
+$modules__sidebar_bottom       = trim(HTMLHelper::_('content.prepare', '{loadposition 4-sidebar-bottom,sidebar}'));
+$modules__main_lower           = trim(HTMLHelper::_('content.prepare', '{loadposition 3-main-lower,basic}'));
+$modules__bottom               = trim(HTMLHelper::_('content.prepare', '{loadposition 5-bottom,block}'));
+$modules__footer_top           = trim(HTMLHelper::_('content.prepare', '{loadposition 6-footer-top,block}'));
+$modules__footer_mid_left      = trim(HTMLHelper::_('content.prepare', '{loadposition 6-footer-mid-left,block}'));
+$modules__footer_mid_right     = trim(HTMLHelper::_('content.prepare', '{loadposition 6-footer-mid-right,bespoke layout_box}'));
+$modules__footer_mid_bottom    = trim(HTMLHelper::_('content.prepare', '{loadposition 6-footer-mid-bottom}'));
+$modules__footer_bottom        = trim(HTMLHelper::_('content.prepare', '{loadposition 6-footer-bottom,block}'));
 
 
-$modules__log_in_out_button    = trim(JHtml::_('content.prepare', '{loadposition log-in-out-button,basic}'));
+$modules__log_in_out_button    = trim(HTMLHelper::_('content.prepare', '{loadposition log-in-out-button,basic}'));
 
 #echo '<pre>'; var_dump($modules__sidebar_bottom); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($modules__footer_mid_right); echo '</pre>'; exit;
@@ -159,13 +171,12 @@ if ($page_brand->alias != 'npeu') {
 }
 
 
-
 // Level 1 menu items that are not mainmenu or are landing pages:
 // (Note this isn't robust as if new non-brand menus are created or names change, this will fail)
 //$page_is_landing = $menu_item->menutype != 'mainnenu' && $menu_item->menutype != 'user' && $menu_item->level == 1;
 // May be better to check the brand that's applied as that's less likely to change
 // (can't easily check template style unfortunately)
-$page_is_landing = $menu_item->params->get('is_landing', 'auto');
+$page_is_landing = $menu_item_params->get('is_landing', 'auto');
 
 if ($page_is_landing == 'auto') {
     $page_is_landing = $page_brand->alias == 'npeu' && $menu_item->level == 0; //? Needs checking
@@ -176,7 +187,7 @@ if ($page_is_landing == 'auto') {
 
 // Override landing setting for subroutes if necessary:
 if ($page_is_subroute) {
-    $page_is_landing = (bool) $menu_item->params->get('subroute_is_landing', '1');
+    $page_is_landing = (bool) $menu_item_params->get('subroute_is_landing', '1');
 }
 
 // Override special case of page being an 'add/edit' form:
@@ -190,6 +201,8 @@ $page_head_data = $doc->getHeadData();
 
 // Template
 $page_template        = TplNPEU6Helper::get_template();
+#echo 'after<pre>'; var_dump($page_template); echo '</pre>';exit;
+
 $page_template_params = $page_template->params->toObject();
 
 #echo '<pre>'; var_dump($page_template); echo '</pre>'; exit;
@@ -205,15 +218,15 @@ if (isset($doc->page_heading_additional)) {
 $page_title = $page_heading;
 
 // Menu Items can override the heading / title in 'Page Display' tab:
-if (!empty($menu_item->params->get('page_heading', false))) {
-    $page_heading = $menu_item->params->get('page_heading');
+if (!empty($menu_item_params->get('page_heading', false))) {
+    $page_heading = $menu_item_params->get('page_heading');
 }
 
-if (!empty($menu_item->params->get('page_title', false))) {
-    $page_title = $menu_item->params->get('page_title');
+if (!empty($menu_item_params->get('page_title', false))) {
+    $page_title = $menu_item_params->get('page_title');
 }
 
-$show_page_heading = $menu_item->params->get('show_page_heading', false);
+$show_page_heading = $menu_item_params->get('show_page_heading', false);
 
 
 if ($page_heading != $page_template_params->site_title) {
@@ -256,7 +269,7 @@ $page_is_component_root = $page_default_view == $page_current_view;
 
 
 // We can't FORCE show modules, because there may not be any, but we can force DON'T SHOW modules:
-$page_disable_modules = $menu_item->params->get('disable_modules');
+$page_disable_modules = $menu_item_params->get('disable_modules');
 if (!(
     $page_disable_modules == 'always'
  || $page_disable_modules == 'root' && $page_is_component_root
@@ -282,7 +295,7 @@ $page_has_footer_mid_bottom    = empty($modules__footer_mid_bottom) ? 0 : $doc->
 // Sort out Badges
 $page_badge = '';
 if ($doc->countModules('3-main-badge') > 0) {
-    $page_badge = JHtml::_('content.prepare', '{loadposition 3-main-badge,sidebar}');
+    $page_badge = HTMLHelper::_('content.prepare', '{loadposition 3-main-badge,sidebar}');
 
     if (!empty($page_badge)) {
         $page_has_sidebar_super++;
@@ -298,7 +311,7 @@ if ($doc->countModules('3-main-badge') > 0) {
 // Sort out ToC. May make this a module to make it clearer to others where this comes from:
 $page_toc = '';
 if ($page_has_article) {
-    $page_toc = JHtml::_('content.prepare', '{loadposition 3-main-toc,sidebar}');
+    $page_toc = HTMLHelper::_('content.prepare', '{loadposition 3-main-toc,sidebar}');
 
     if (!empty($page_toc)) {
         $page_has_sidebar_top++;
@@ -346,7 +359,7 @@ if (
 */
 #echo '<pre>'; var_dump($page_has_pull_outs); echo '</pre>'; exit;
 
-#$menu_item->params->get('hero_image');
+#$$menu_item_params->get('hero_image');
 
 $page_has_main_lower = $doc->countModules('3-main-lower');
 
@@ -354,14 +367,15 @@ $page_has_main_lower = $doc->countModules('3-main-lower');
 $page_has_area_menu    = false;
 $page_area_menu_id     = 'menu';
 $page_has_section_menu = false;
-$sidebar_bottom_modules = JModuleHelper::getModules('4-sidebar-bottom');
+$sidebar_bottom_modules = ModuleHelper::getModules('4-sidebar-bottom');
 
 foreach ($sidebar_bottom_modules as $module) {
-    $registry = Joomla\Registry\Registry::getInstance('mod_' . $module->id);
+    //$registry = Joomla\Registry\Registry::getInstance('mod_' . $module->id);
+    $registry = new Registry('mod_' . $module->id);
     $module_params = $registry->loadString($module->params);
 
     if ($module_params->get('layout') == 'npeu6:Area-Menu') {
-        $t1 = JHtml::_('content.prepare', '{loadmoduleid ' . $module->id .'}');
+        $t1 = HTMLHelper::_('content.prepare', '{loadmoduleid ' . $module->id .'}');
 
         if (!empty($t1)) {
             $page_has_area_menu = true;
@@ -371,7 +385,7 @@ foreach ($sidebar_bottom_modules as $module) {
     }
 
     if ($module_params->get('layout') == 'npeu6:Section-Menu') {
-        $t2 = JHtml::_('content.prepare', '{loadmoduleid ' . $module->id .'}');
+        $t2 = HTMLHelper::_('content.prepare', '{loadmoduleid ' . $module->id .'}');
 
         if (!empty($t2)) {
             $page_has_section_menu = true;
@@ -380,14 +394,13 @@ foreach ($sidebar_bottom_modules as $module) {
     }
 }
 
-
 // Page Description
 $page_description = $doc->description != ''
                   ? $doc->description
                   : $page_template_params->site_description;
 
 if (isset($menu_item)) {
-    if ($menu_description = $menu_item->params->get('menu-meta_description', false)) {
+    if ($menu_description = $menu_item_params->get('menu-meta_description', false)) {
         $page_description = $menu_description ;
     }
 }
@@ -421,11 +434,17 @@ $page_svg_icons = str_replace("> ", ">\n ", file_get_contents(__DIR__ . '/svg/ic
 // Assets:
 $page_stylesheets = TplNPEU6Helper::remove_joomla_stylesheets($page_head_data['styleSheets'], $doc);
 $page_style       = $page_head_data['style'];
-$doc->joomla_scripts = array();
+if (!empty($page_style['text/css'])) {
+    $page_style       = $page_style['text/css'];
+}
+
+
+$doc->joomla_scripts = [];
 $page_scripts     = TplNPEU6Helper::remove_joomla_scripts($page_head_data['scripts'], $doc);
+
 // This is problematic as it's not easy to remove Joomla/jQuery stuff so just bypass for now:
 if (!empty($doc->include_script)) {
-    $page_script      = !empty($page_head_data['script']) ? $page_head_data['script']['text/javascript'] : '';
+    $page_script      = !empty($page_head_data['script']) ? trim(implode("\n", $page_head_data['script']['text/javascript'])) : '';
 } else {
     $page_script      = '';
 }
@@ -437,7 +456,7 @@ if ($page_script !== '') {
 }
 */
 #echo '<pre>'; var_dump($page_stylesheets); echo '</pre>'; #exit;
-#echo '<pre>'; var_dump($page_styles); echo '</pre>'; #exit;
+#echo '<pre>'; var_dump($page_style); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($page_scripts); echo '</pre>'; exit;
 #echo '<pre>'; print_r($page_script); echo '</pre>'; exit;
 
@@ -447,9 +466,8 @@ $page_cta_text     = $page_template_params->cta_text;
 $page_cta_url      = $page_template_params->cta_url;
 $page_display_cta  = $page_cta_text && $page_cta_url;
 
-
 // Header:
-$header_balance = array();
+$header_balance = [];
 $header_balance[] = '50';
 $header_balance[] = '50';
 if (!empty($page_template_params->header_balance)) {
@@ -480,8 +498,9 @@ $search_field_hint = !empty($page_template_params->search_hint) ? $page_template
 
 
 // Hero image / Carousel:
-$page_heroes         = (array) $menu_item->params->get('hero_image');
+$page_heroes         = (array) $menu_item_params->get('hero_image');
 #echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($user->authorise('core.create', 'com_media')); echo '</pre>'; exit;
 
 $page_has_hero     = !empty($page_heroes['hero_image0']->image);
 $page_has_carousel = $page_has_hero && count($page_heroes) > 1;
@@ -489,7 +508,7 @@ $page_has_carousel = $page_has_hero && count($page_heroes) > 1;
 // Extract meta for ease of use:
 if ($page_has_hero) {
     foreach ($page_heroes as $key => $image) {
-        $image_meta = array();
+        $image_meta = [];
         $image_meta_response = json_decode(file_get_contents(
             'https://' . $_SERVER['HTTP_HOST'] . '/plugins/system/imagemeta/ajax/image-meta.php?image=' . base64_encode($image->image)
         ), true);
@@ -518,7 +537,7 @@ if ($page_has_hero) {
 #echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
 
 // Headline image:
-$show_headline_image = $menu_item->params->get('show_headline_image', 1);
+$show_headline_image = $menu_item_params->get('show_headline_image', 1);
 
 // Meta (?):
 $page_unit        = $page_template_params->unit;
@@ -549,9 +568,16 @@ if ($page_has_article) {
 
 }
 #echo '$page_has_hero<pre>'; var_dump($page_has_hero); echo '</pre>'; #exit;
-#echo '$page_has_article<pre>'; var_dump($page_has_article); echo '</pre>'; exit;
+#echo '$page_has_article<pre>'; var_dump($page_has_article); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($is_blog); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($doc->article->headline_image); echo '</pre>'; exit;
+
+// J4 - headline image storage seems to have changed so try to sort that out:
+if (!empty($doc->article->headline_image['headline-image'])) {
+    $data = TplNPEU6Helper::resolve_image_data($doc->article->headline_image['headline-image']);
+    $doc->article->headline_image['headline-image'] = TplNPEU6Helper::resolve_image_path($data['imagefile']);
+}
+#echo 'H<pre>'; var_dump($doc->article->headline_image); echo '</pre>'; exit;
 
 // Put Twitter and Page badge in sidebar:
 //if (($is_blog && $page_is_subroute) && ($page_article_brand || !empty($doc->article->twitter_url))) {
@@ -586,7 +612,7 @@ if ($is_blog && $page_is_subroute) {
 // Social Media:
 
 // Twitter:
-$twitter = array();
+$twitter = [];
 
 $twitter['site']        = '@NPEU_Oxford';
 $twitter['card']        = 'summary';

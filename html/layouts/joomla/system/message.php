@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+
 $msgList = $displayData['msgList'];
 
 ?>
@@ -20,10 +22,10 @@ $msgList = $displayData['msgList'];
     <fieldset role="presentation" class="c-system-message  d-background--sloped  t-<?php echo $type == 'message' ? 'success' : $type; ?>"<?php echo $dismiss; ?>>
         <?php // This requires JS so we should add it trough JS. Progressive enhancement and stuff. ?>
         <?php /*<a class="close" data-dismiss="alert">×</a>*/?>
-        <p><strong><?php echo JText::_($type); ?></strong></p>
+        <p><strong><?php echo Text::_($type); ?></strong></p>
         <?php foreach ($msgs as $msg) : ?>
         <p><?php echo $msg; ?></p>
-        <?php endforeach; ?>        
+        <?php endforeach; ?>
     </fieldset>
 
     <?php endforeach; ?>

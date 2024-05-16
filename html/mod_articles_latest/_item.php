@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
+
 defined('_JEXEC') or die;
 /* <pre><?php var_dump($item); ?></pre> */
 $fields = FieldsHelper::getFields('com_content.article', $item, true);

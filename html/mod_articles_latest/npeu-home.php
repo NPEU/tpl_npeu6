@@ -9,7 +9,10 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+use Joomla\CMS\Helper\ModuleHelper;
+
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
@@ -26,8 +29,8 @@ $count = $params->get('count');
 ?>
 <?php if ($count == 1): ?>
 <?php $item = $items[0]; ?>
-<?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
-<?php else: 
+<?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+<?php else:
 // Have a go at providing useful classes:
 $i = 0;
 
@@ -46,7 +49,7 @@ if ($count >= 2 && $count < 5) {
 } else {
     $wrap_class   = 'u-space--below';
     $outer_class  = 'l-distribute--flush-edge-gutters';
-    $inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20'; 
+    $inner_class  = 'l-distribute  l-distribute--gutter--medium  l-distribute--limit-20';
     $item_class   = '';
 }
 
@@ -57,7 +60,7 @@ if ($count >= 2 && $count < 5) {
         <ul class="<?php echo $inner_class; ?>">
             <?php foreach ($items as $item): //$i++; ?>
             <li class="<?php echo $item_class; ?>">
-                <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+                <?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
             </li>
             <?php endforeach; ?>
         </ul>
@@ -72,12 +75,12 @@ if ($count >= 2 && $count < 5) {
             <h2>Trial Updates</h2>
             <p><a href="<?php echo $items[0]->category_route; ?>" class="c-cta  c-cta--has-icon">See all updates<svg display="none" focusable="false" class="icon" aria-hidden="true"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
         </header>
-        
+
         <div class="l-col-to-row--flush-edge-gutters">
             <div class="l-col-to-row  l-col-to-row--gutter--medium">
                 <?php foreach ($items as $item): ?>
                 <div class="l-col-to-row__item  ff-width-100--50--33-333">
-                    <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+                    <?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
                 </div>
                 <?php endforeach; ?>
             </div>

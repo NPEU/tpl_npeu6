@@ -9,7 +9,9 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
+use Joomla\CMS\Helper\ModuleHelper;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $page_brand = TplNPEU6Helper::get_brand();
 /*
@@ -33,7 +35,7 @@ $count = $params->get('count');
 ?>
 <?php if ($count == 1): ?>
 <?php $item = $items[0]; ?>
-<?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+<?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
 <?php else:
 $i = 1;
 $j = 0;
@@ -43,7 +45,7 @@ $count--;
 <div class="l-layout  l-row  l-gutter  l-flush-edge-gutter  mod_articles_latest">
     <div class="l-layout__inner">
         <div class="l-box  ff-width-100--55--40">
-            <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+            <?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
         </div>
 
         <div class="l-box  ff-width-100--55--60">
@@ -66,22 +68,22 @@ $count--;
             ///$outer_class  = 'l-distribute--flush-edge-gutters  u-fill-height';
             //$outer_class  = 'l-layout  l-distribute  l-distribute--balance-top  l-gutter  l-basis--30  l-flush-edge-gutter  u-fill-height';
             $outer_class  = 'l-layout l-distribute l-distribute--balance-top l-gutter l-basis--25 l-flush-edge-gutter u-fill-height';
-            $inner_class  = 'l-layout__inner'; 
-            ///$inner_class  = 'l-distribute  l-distribute--balance-top  l-distribute--gutter--m  l-distribute--basis-25'; 
+            $inner_class  = 'l-layout__inner';
+            ///$inner_class  = 'l-distribute  l-distribute--balance-top  l-distribute--gutter--m  l-distribute--basis-25';
         /*}*/
         ?>
             <div class="<?php echo $outer_class; ?>">
                 <div class="<?php echo $inner_class; ?>">
-                    <?php foreach ($items as $item): $j++; 
-                    
+                    <?php foreach ($items as $item): $j++;
+
                     // Ditch hero images after first 2:
                     if ($j > 2) {
                         $item->skip_image = true;
                     }
-                    
+
                     ?>
                     <div class="l-box">
-                        <?php require JModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
+                        <?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
                     </div>
                     <?php endforeach; ?>
                 </div>

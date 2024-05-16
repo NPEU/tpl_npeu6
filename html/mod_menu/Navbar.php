@@ -1,9 +1,18 @@
 <?php
-// No direct access
 defined('_JEXEC') or die;
 
-$doc         = JFactory::getDocument();
-$app         = JFactory::getApplication();
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+// No direct access
+
+
+$doc         = Factory::getDocument();
+$app         = Factory::getApplication();
 $active_menu = $app->getMenu()->getActive();
 
 // Blogs show child pages whilst still being the same menu item, so a child page is still treated as
@@ -11,14 +20,13 @@ $active_menu = $app->getMenu()->getActive();
 // so check for this case:
 //$is_blog = ($active_menu->query['view'] == 'category' && $active_menu->query['layout'] == 'blog');
 
-$uri   = JUri::getInstance();
+$uri   = Uri::getInstance();
 $menu_route = isset($active_menu->route) ? trim($active_menu->route, '/') : '';
 $uri_route  = trim($uri->getPath(), '/');
 $page_is_subroute = ($menu_route == $uri_route) ? false : true;
 
 
 // Include the template helper:
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 
 $brand = TplNPEU6Helper::get_brand();
 
@@ -35,7 +43,7 @@ $start_level = (int) $params->get('startLevel');
 <?php if(count($list) > 0): ?>
 <?php
 // Find the access id for 'Hidden' menu items:
-$db = JFactory::getDBO();
+$db = Factory::getDBO();
 
 $query = $db->getQuery(true);
 $query->select('id')->from('#__viewlevels');
@@ -83,8 +91,8 @@ foreach ($new_list as $i => &$item) {
         $next_level = (int) $next_item->level;
     }
 
-    $params = Joomla\Registry\Registry::getInstance('');
-    $params->loadObject($item->params);
+    $params = new Registry;
+    $params->loadObject($item->getParams());
 
     if (isset($params->get('data')->aliasoptions)) {
         $ref_id = $params->get('data')->aliasoptions;
@@ -140,10 +148,10 @@ foreach ($new_list as $i => &$item) {
         case 'separator':
         case 'url':
         case 'component':
-            require JModuleHelper::getLayoutPath('mod_menu', 'default_' . $item->type);
+            require ModuleHelper::getLayoutPath('mod_menu', 'default_' . $item->type);
             break;
         default:
-            require JModuleHelper::getLayoutPath('mod_menu', 'default_url');
+            require ModuleHelper::getLayoutPath('mod_menu', 'default_url');
             break;
     }
     $output = ob_get_contents();

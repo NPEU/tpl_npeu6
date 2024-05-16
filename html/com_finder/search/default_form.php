@@ -9,11 +9,17 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
-$db = JFactory::getDBO();
+$db = Factory::getDBO();
 $page_search_area = '';
 if ($page_brand->alias != 'npeu') {
 
@@ -31,7 +37,7 @@ if ($page_brand->alias != 'npeu') {
 
 if ($this->params->get('show_advanced', 1) || $this->params->get('show_autosuggest', 1))
 {
-    JHtml::_('jquery.framework');
+    HTMLHelper::_('jquery.framework');
 
     $script = "
 jQuery(function() {";
@@ -60,11 +66,11 @@ jQuery(function() {";
     */
     if ($this->params->get('show_autosuggest', 1))
     {
-        JHtml::_('script', 'jui/jquery.autocomplete.min.js', array('version' => 'auto', 'relative' => true));
+        HTMLHelper::_('script', 'jui/jquery.autocomplete.min.js', array('version' => 'auto', 'relative' => true));
 
         $script .= "
     var suggest = jQuery('#q').autocomplete({
-        serviceUrl: '" . JRoute::_('index.php?option=com_finder&task=suggestions.suggest&format=json&tmpl=component') . "',
+        serviceUrl: '" . Route::_('index.php?option=com_finder&task=suggestions.suggest&format=json&tmpl=component') . "',
         paramName: 'q',
         minChars: 1,
         maxHeight: 400,
@@ -77,12 +83,12 @@ jQuery(function() {";
     $script .= "
 });";
 
-    JFactory::getDocument()->addScriptDeclaration($script);
+    Factory::getDocument()->addScriptDeclaration($script);
 }
 
 ?>
 <div class="l-box  l-box--space--block-end  longform-content">
-    <form id="finder-search" action="<?php echo JRoute::_($this->query->toUri()); ?>" method="get" class="form-inline  u-space--below">
+    <form id="finder-search" action="<?php echo Route::_($this->query->toUri()); ?>" method="get" class="form-inline  u-space--below">
         <?php if ($page_search_area != ''): ?>
         <input type="hidden" value="<?php echo $page_search_area; ?>" name="t[]">
         <?php endif; ?>
@@ -96,7 +102,7 @@ jQuery(function() {";
                 <div class="l-layout__inner">
                     <div class="l-box  l-box--space--inline-end--xs  ff-width-100--25--25">
                         <label for="q">
-                            <?php echo JText::_('COM_FINDER_SEARCH_TERMS'); ?>
+                            <?php echo Text::_('COM_FINDER_SEARCH_TERMS'); ?>
                         </label>
                     </div>
                     <div class="l-box  ff-width-100--25--75">
@@ -105,19 +111,19 @@ jQuery(function() {";
                             <?php if ($this->escape($this->query->input) != '' || $this->params->get('allow_empty_query')) : ?>
                             <button type="submit" class="<?php echo $theme; ?>">
                                 <svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-search"></use></svg>
-                                <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
+                                <?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?>
                             </button>
                             <?php else : ?>
                             <button type="submit" class="<?php echo $theme; ?> disabled">
                                 <svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-search"></use></svg>
-                                <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
+                                <?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?>
                             </button>
                             <?php endif; ?>
                         </span>
                         <?php if ($this->params->get('show_advanced', 1)) : ?>
                         <a href="#advancedSearch" data-toggle="collapse" class="btn">
                             <span class="icon-list" aria-hidden="true"></span>
-                            <?php echo JText::_('COM_FINDER_ADVANCED_SEARCH_TOGGLE'); ?>
+                            <?php echo Text::_('COM_FINDER_ADVANCED_SEARCH_TOGGLE'); ?>
                         </a>
                         <?php endif; ?>
                     </div>
@@ -130,13 +136,13 @@ jQuery(function() {";
                 <?php if ($this->params->get('show_advanced_tips', 1)) : ?>
                     <div id="search-query-explained">
                         <div class="advanced-search-tip">
-                            <?php echo JText::_('COM_FINDER_ADVANCED_TIPS'); ?>
+                            <?php echo Text::_('COM_FINDER_ADVANCED_TIPS'); ?>
                         </div>
                         <hr />
                     </div>
                 <?php endif; ?>
                 <div id="finder-filter-window">
-                    <?php echo JHtml::_('filter.select', $this->query, $this->params); ?>
+                    <?php echo HTMLHelper::_('filter.select', $this->query, $this->params); ?>
                 </div>
             </div>
         <?php endif; ?>

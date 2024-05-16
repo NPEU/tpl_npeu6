@@ -9,21 +9,27 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 ?>
 <?php #echo TplNPEU6Helper::get_messages(); ?>
+
 <div class="longform-content">
-    <form action="<?php echo JRoute::_('index.php?option=com_users&task=reset.request'); ?>" method="post">
+    <form action="<?php echo Route::_('index.php?option=com_users&task=reset.request'); ?>" method="post">
         <fieldset>
-        
+
             <?php $i = 0; foreach ($this->form->getFieldsets() as $group => $fieldset):// Iterate through the form fieldsets and display each one.?>
             <?php if ($group == 'params') { continue; } ?>
             <?php $fields = $this->form->getFieldset($group); $hidden = ''; $help = ''; ?>
             <?php if (count($fields)) : ?>
-            
+
             <div id="fieldset<?php echo $i; ?>">
                 <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
-                <p><?php echo JText::_($fieldset->label); ?></p>
+                <p><?php echo Text::_($fieldset->label); ?></p>
                 <?php endif; ?>
                 <div class="l-layout  l-row  l-row--start">
                     <div class="l-layout__inner">
@@ -86,7 +92,7 @@ JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helpe
                     </div>
                 </div>
             </div>
-            <?php echo JHtml::_('form.token'); ?>
+            <?php echo HTMLHelper::_('form.token'); ?>
         </fieldset>
     </form>
 </div>

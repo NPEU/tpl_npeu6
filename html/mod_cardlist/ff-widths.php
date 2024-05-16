@@ -7,11 +7,12 @@
  * @license     MIT License; see LICENSE.md
  */
 
-defined('_JEXEC') or die;
+defined('_JEXEC') or die;#
+
+use Joomla\CMS\Factory;
 use Joomla\String\StringHelper;
 
-
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 $hx = StringHelper::increment($params->get('header_tag'));
 ?>
 
@@ -33,12 +34,12 @@ $full_link = $params->get('link_full', 0);
     <div class="l-layout__inner">
 
     <?php foreach ($params->get('cards') as $card) : ?>
-    
+
         <div class="ff-width-100--45--<?php echo $ff_width; ?>  l-box">
             <?php
             $card_data = (array) $card;
             //echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
-            
+
             $card_data['theme_classes'] = empty($card->theme_classes) ? 'd-background' : $card->theme_classes;
             $card_data['full_link']     = $full_link;
             /*

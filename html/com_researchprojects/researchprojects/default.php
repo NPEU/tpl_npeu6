@@ -7,19 +7,22 @@
  * @license     MIT License; see LICENSE.md
  */
 
-defined('_JEXEC') or die;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
 
-$template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
+use NPEU\Component\Researchprojects\Administrator\Helper\ResearchprojectsHelper;
+
+defined('_JEXEC') or die;
 
 $table_id = 'researchprojectsTable';
 // If you need specific JS/CSS for this view, add them here.
 // Example included for DataTables (https://datatables.net/) delete if you don't want this.
 // Make sure jQuery is loaded first:
-#JHtml::_('jquery.framework');
-#JHtml::_('bootstrap.framework');
-// Get the doc object:
-$doc = JFactory::getDocument();
 
+// Get the doc object:
+$doc = Factory::getDocument();
+$template_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', dirname(dirname(dirname(__DIR__))));
 $doc->addScript($template_path . '/js/filter.min.js');
 
 /*
@@ -42,7 +45,6 @@ function format_person($p) {
     $pp = ResearchProjectsHelper::parseCollaborator($p);
     return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
 }
-
 ?>
 <?php if (!empty($this->topics)) :
 ob_start(); ?>
@@ -52,7 +54,7 @@ ob_start(); ?>
         <div class="l-layout">
             <ul class="l-layout__inner">
                 <?php foreach ($this->topics as $topic) : ?>
-                <li class="l-box"><a href="<?php echo JRoute::_('index.php?option=com_researchprojects') . '/' . $topic->alias; ?>"><?php echo $topic->title; ?></a></li>
+                <li class="l-box"><a href="<?php echo Route::_('index.php?option=com_researchprojects') . '/' . $topic->alias; ?>"><?php echo $topic->title; ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -100,9 +102,10 @@ endif; ?>
     <div class="l-layout  l-gutter">
         <ul class="l-layout__inner" filterable_list>
         <?php foreach ($this->items as $i => $row) :
-            #$view_link = JRoute::_('index.php?option=com_researchprojects&task=researchproject.view&id=' . $row->id);
-            $view_link = JRoute::_('index.php?option=com_researchprojects&task=researchproject.view');
-            $view_link .= '/' . $row->id . '-' . $row->alias;
+            #$view_link = Route::_('index.php?option=com_researchprojects&task=researchproject.view&id=' . $row->id);
+            #$view_link = Route::_('index.php?option=com_researchprojects&task=researchproject.view');
+            #$view_link .= '/' . $row->id . '-' . $row->alias;
+            $view_link = Route::_('index.php?option=com_researchprojects&view=researchproject&id=' . $row->id . '-' . $row->alias);
         ?>
             <li class="l-box" filterable_item>
                 <?php

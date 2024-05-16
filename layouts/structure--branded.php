@@ -1,3 +1,12 @@
+<?php
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
+$menu_item = TplNPEU6Helper::get_menu_item();
+$menu_item_params = $menu_item->getParams();
+?>
     <div class="l-layout  page-wrap" data-brand="<?php echo $page_brand->alias; ?>">
         <div class="l-layout__inner">
 
@@ -47,7 +56,7 @@
                                                     <span class="l-box__separator">|</span>
 
                                                     <span role="listitem" class="l-box">
-                                                        <a href="https://api.qrserver.com/v1/create-qr-code/?data=https://qr.npeu.ox.ac.uk/<?php echo $menu_item->id; ?>&amp;format=eps"><span>QR code (eps)</span></a>
+                                                        <a href="http://api.qrserver.com/v1/create-qr-code/?data=http://qr.npeu.ox.ac.uk/<?php echo $menu_item->id; ?>&amp;format=eps"><span>QR code (eps)</span></a>
                                                     </span>
                                                     <?php endif; ?>
                                                     <?php if ($user->authorise("core.edit", "com_menus.menu." . $menu_id)): ?>
@@ -74,7 +83,7 @@
                         $is_brc = ($menu_route == 'brc-cardiovascular-medicine');
                     ?>
 
-                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  <?php echo $is_brc ? 'brc' : $page_brand->alias; ?>">
+                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  <?php echo $page_brand->alias; ?>">
                         <p class="l-layout__inner"<?php if (!$page_display_cta) : ?> data-js="cmr" data-ie-safe-parent-level="1"<?php endif; ?>>
 
                             <span class="l-box  primary-logo-wrap"<?php if (!$page_display_cta) : ?> data-min-width="229"<?php endif; ?>>
@@ -127,7 +136,7 @@
                                 $second_brand_width = $second_brand->svg_width_at_height_80;
                             }
                             ?>
-                            <span class="l-box  l-box--center"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
+                            <span class="l-box  l-box  l-box--center"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
                                 <a href="<?php echo $second_brand_url; ?>" class="c-badge  c-badge--primary-logo"><?php if ($page_brand->alias == 'npeu') : ?>
                                     <?php echo str_replace('height="80"', 'height="100" width="' . $second_brand_width . '"', $second_brand->logo_svg_with_fallback); ?>
                                     <?php else: ?>
@@ -291,7 +300,7 @@
                                         <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
                                         <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                         <?php endif; ?>
-                                        <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item->params->get('show_feed_link', true) == true) : /* E.g. What's New */ ?>
+                                        <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item_params->get('show_feed_link', true) == true) : /* E.g. What's New */ ?>
                                         <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
                                         <?php endif; ?>
                                         <?php if ($has_add_form_child && $page_is_subroute == false) : /* E.g. Staff Notices */ ?>
@@ -335,7 +344,7 @@
                                                 <?php if (isset($doc->header_cta)) : ?>
                                                 <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
                                                 <?php endif; ?>
-                                                <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item->params->get('show_feed_link', true) == true) : ?>
+                                                <?php if ($is_blog && $page_is_subroute == false && $has_add_form_child == false && $menu_item_params->get('show_feed_link', true) == true) : ?>
                                                 <a href="<?php echo $uri->getPath(); ?>?format=feed&type=rss" class="c-cta">RSS Feed<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-rss"></use></svg></a>
                                                 <?php endif; ?>
                                                 <?php if ($has_add_form_child && $page_is_subroute == false) : ?>
@@ -350,7 +359,7 @@
                                     </header>
                                     <?php endif; ?>
                                     <?php echo TplNPEU6Helper::get_messages(); ?>
-                                    <?php if ($page_has_article && !empty($doc->article->event)) : ?>
+                                    <?php if ($page_has_article) : ?>
                                     <?php
                                     // Content is generated by content plugin event "onContentAfterTitle"
                                     // Not sure this is the best place for this?
@@ -383,7 +392,7 @@
                             <?php endif; ?>
                             <?php endif; */?>
 
-                            <?php if ($page_has_article && !empty($doc->article->event)) : ?>
+                            <?php if ($page_has_article) : ?>
                             <?php // Content is generated by content plugin event "onContentBeforeDisplay"
                             // Not sure this is the best place for this? ?>
                             <?php echo $doc->article->event->beforeDisplayContent; ?>
@@ -394,7 +403,7 @@
                                 <?php echo $page_toc; ?>
                                 <?php if ($page_has_priority_content) : ?>
                                 <div class="user-content" data-contains="priority-content">
-                                    <?php echo JHtml::_('content.prepare', $doc->article->introtext); ?>
+                                    <?php echo HTMLHelper::_('content.prepare', $doc->article->introtext); ?>
                                 </div>
                                 <?php endif; ?>
 
@@ -424,10 +433,10 @@
 
                                     <?php endif; ?>
 
-                                    <?php if ($is_blog && ((!empty($doc->article->publish_up) && $menu_item->params->get('show_publish_date', true) == true) || !empty($doc->article->twitter_url))) : ?>
+                                    <?php if ($is_blog && ((!empty($doc->article->publish_up) && $menu_item_params->get('show_publish_date', true) == true) || !empty($doc->article->twitter_url))) : ?>
                                     <p class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-edge-gutter">
                                         <span class="l-layout__inner">
-                                        <?php if (!empty($doc->article->publish_up) && $menu_item->params->get('show_publish_date', true) == true) : ?><span class="l-box  l-box--center"><span>Published on <?php echo JHtml::_('date', $doc->article->publish_up, JText::_('DATE_FORMAT_LC1')); ?></span></span><?php endif; ?>
+                                        <?php if (!empty($doc->article->publish_up)) : ?><span class="l-box  l-box--center"><span>Published on <?php echo HTMLHelper::_('date', $doc->article->publish_up, Text::_('DATE_FORMAT_LC1')); ?></span></span><?php endif; ?>
                                         <?php if (!empty($doc->article->twitter_url)) : ?><span class="l-box"><a href="<?php echo $doc->article->twitter_url; ?>" class="c-cta" target="_blank"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-twitter--inverted"></use></svg> <span>Tweet</span></a></span><?php endif; ?>
                                         </span>
                                     </p>
@@ -438,10 +447,10 @@
                                     <?php endif; ?>
 
                                     <?php if ($page_has_priority_content) : ?>
-                                    <?php echo JHtml::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->fulltext)); ?>
+                                    <?php echo HTMLHelper::_('content.prepare', $doc->article->fulltext); ?>
                                     <?php else : ?>
-                                    <?php echo JHtml::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->introtext)); ?>
-                                    <?php echo JHtml::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->fulltext)); ?>
+                                    <?php echo HTMLHelper::_('content.prepare', $doc->article->introtext); ?>
+                                    <?php echo HTMLHelper::_('content.prepare', $doc->article->fulltext); ?>
                                     <?php endif; ?>
                                 </div>
 
@@ -453,7 +462,7 @@
                                 <footer class="longform-content__companion">
                                     <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  t-neutral  d-background--very-light">
                                         <p class="l-layout__inner  c-utilitext">
-                                            <span>Updated: <?php echo JHtml::_('date', $doc->article->modified, JText::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
+                                            <span>Updated: <?php echo HTMLHelper::_('date', $doc->article->modified, Text::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                             <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)) : ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . '" target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  u-space--left--xs"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
                                         </p><!-- End layout-inner -->
                                     </div>
@@ -466,7 +475,7 @@
                                 <?php endif; ?>
                             </div>
 
-                            <?php if ($page_has_article && !empty($doc->article->event)) : ?>
+                            <?php if ($page_has_article) : ?>
                             <?php // Content is generated by content plugin event "onContentAfterDisplay"
                             // Not sure this is the best place for this? ?>
                             <?php echo $doc->article->event->afterDisplayContent; ?>
@@ -492,7 +501,7 @@
                                         }
                                         ?>
                                         <p class="u-text-align--center">
-                                            <a href="<?php echo ($page_article_brand_url); ?>" class="c-badge  c-badge--limit-height--6">
+                                            <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
                                                 <?php
                                                     $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
                                                     $image_path       = $public_root_path . $page_article_brand->logo_png_path;
@@ -628,7 +637,7 @@
 
                         <div class="l-layout  l-row  l-gutter">
                             <div class="l-layout__inner">
-                                <div class="l-box  l-box--center  page-footer__info-box">
+                            <div class="l-box  l-box--center  page-footer__info-box">
                                     <?php echo $page_footer_text; ?>
                                     <p class="c-utilitext   l-layout  l-row  l-row--center  l-gutter--xs  no-print">
                                         <span role="list" class="l-layout__inner">

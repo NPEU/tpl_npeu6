@@ -8,10 +8,11 @@
  */
 
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
 use Joomla\String\StringHelper;
 
-
-$doc = JFactory::getDocument();
+$doc = Factory::getDocument();
 $hx = (int) str_replace('h', '', $params->get('header_tag'));
 $hx = 'h' . $hx;
 

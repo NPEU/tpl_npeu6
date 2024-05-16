@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(dirname(__DIR__))) . '/helper.php');
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $person = $this->person;
 
@@ -35,12 +35,17 @@ function svg_info($img_src, $fallback_width = 180) {
         $values[2] = $fallback_width;
         $values[3] = $fallback_height;
 
-        $return = array(
+        preg_match('/<title[^>]+>([^<]+)<\/title>/', $svg, $matches_2);
+        #echo '<pre>'; var_dump($matches_2); echo '</pre>';
+        $svg_title = $matches_2[1];
+
+        $return = [
             0 => $fallback_width,
             1 => $fallback_height,
-            'viewbox' => 'viewBox="' . implode(' ', $values) . '"',
-            'dimensions' => 'width="' . $fallback_width . '" height="' . $fallback_height . '"'
-        );
+            'viewbox'    => 'viewBox="' . implode(' ', $values) . '"',
+            'dimensions' => 'width="' . $fallback_width . '" height="' . $fallback_height . '"',
+            'title'      => $svg_title
+        ];
 
         return $return;
     }
@@ -89,8 +94,8 @@ function get_projects($projects) {
             <?php /*<div class="l-layout  l-gutter  l-distribute  l-distribute--balance-top  l--basis-20">*/ ?>
             <div class="l-layout  l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-15">
                 <p class="l-layout__inner" role="list">
-                    <?php foreach($projects as $project):
-                        $brand = TplNPEU6Helper::get_brand(TplNPEU6Helper::get_brand_id_from_alias($project['alias']));
+                    <?php foreach($projects as $brand_id):
+                        $brand = TplNPEU6Helper::get_brand($brand_id);
                         #echo '<pre>'; var_dump($brand); echo '</pre>'; exit;
 
                         //$svg_path = '/assets/images/brand-logos/unit/' . $project['alias'] . '-logo.svg';
@@ -102,8 +107,8 @@ function get_projects($projects) {
                         $colour    = $brand->primary_colour;
                     ?>
                     <span class="l-box  l-box--center" role="listitem">
-                        <a href="/<?php echo $project['alias']; ?>" class="c-badge  c-badge--decorated  c-badge--limit-height--xl  u-block-center" style="color: <?php echo $colour; ?>;">
-                            <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $project['title']; ?>: <?php echo $project['long_title']; ?>" <?php echo $svg_info['dimensions']; ?>>
+                        <a href="/<?php echo $brand->alias; ?>" class="c-badge  c-badge--decorated  c-badge--limit-height--xl  u-block-center" style="color: <?php echo $colour; ?>;">
+                            <img src="<?php echo $svg_path; ?>" onerror="this.src='<?php echo $png_path; ?>'; this.onerror=null;" alt="<?php echo $svg_info['title']; ?>" <?php echo $svg_info['dimensions']; ?>>
                         </a>
                     </span>
 
@@ -197,7 +202,7 @@ function get_custom($custom_title, $custom) {
     <div class="l-primary-content__main  has-longform-content">
 
         <?php if(!empty($person['biography'])): ?>
-        <section class="l-box--space--edge  d-background--very-light  t-neutral">
+        <section class="l-box--space--block  d-background--very-light  t-neutral">
             <div class="longform-content user-content">
                 <h2>Biography</h2>
                 <?php echo $person['biography']; ?>

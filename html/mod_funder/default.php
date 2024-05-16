@@ -9,12 +9,14 @@
 
 defined('_JEXEC') or die;
 
+use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
+
 require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/administrator/components/com_brands/vendor/autoload.php';
 
 use SVG\SVG;
 
 /*
-$db = JFactory::getDBO();
+$db = Factory::getDBO();
 
 $query = $db->getQuery(true);
 $query->select('*');
@@ -25,7 +27,6 @@ $brand = $db->loadObject();
 */
 $brand = TplNPEU6Helper::get_brand($params->get('brand_id'));
 
-JLoader::register('TplNPEU6Helper', dirname(dirname(__DIR__)) . '/helper.php');
 $page_brand = TplNPEU6Helper::get_brand();
 $theme = 't-' . $page_brand->alias;
 
@@ -69,7 +70,7 @@ $logo_title = $logo_svg_doc->getElementsByTagName('title')[0]->getValue();
 
                     <p class="u-text-align--center u-fill-width u-space--below">
                         <a href="<?php echo $params->get('brand_url'); ?>" class="c-badge  c-badge--limit-height  l-center" rel="external noopener noreferrer" target="_blank">
-                            <img src="/assets/images/brand-logos/funder/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/assets/images/brand-logos/funder/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80" width="<?php echo $brand->svg_width_at_height_80; ?>">
+                            <img src="/assets/images/brand-logos/funder/<?php echo $brand->alias; ?>-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/<?php echo $brand->alias; ?>-logo.png'; this.onerror=null;" alt="Logo: <?php echo $logo_title; ?>" height="80" width="<?php echo $brand->svg_width_at_height_80; ?>">
                         </a>
                     </p>
                     <div class="c-user-content">
