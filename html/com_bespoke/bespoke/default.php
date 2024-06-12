@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
@@ -18,6 +19,12 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $page_brand = TplNPEU6Helper::get_brand();
 ?>
+<?php if (!empty($this->article)) : ?>
+<?php
+$doc        = Factory::getDocument();
+$doc->article = $this->article;
+?>
+<?php else: ?>
 <?php foreach ($this->blocks as $name => $block):
 $block_classes = '';
 if (!empty($block['block_classes'])) {
@@ -64,3 +71,4 @@ if (!empty($block['block_classes'])) {
 </div>
 <?php endif; ?>
 <?php endforeach; ?>
+<?php endif; ?>
