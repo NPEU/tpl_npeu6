@@ -43,7 +43,7 @@ if (!empty($params->get('list_basis'))) {
 
         <?php if ($show_twitter) : ?>
         <span class="l-box">
-            <a class="c-badge  c-badge--limit-height--6  twitter" href="https://twitter.com/<?php echo $params->get('twitter'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="Twitter" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/twitter.png'; this.onerror=null;" src="/assets/images/brand-logos/social/twitter.svg"></a>
+            <a class="c-badge  c-badge--limit-height--6  twitter" href="https://x.com/<?php echo $params->get('twitter'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="X" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/x.png'; this.onerror=null;" src="/assets/images/brand-logos/social/x.svg"></a>
         </span>
         <?php endif; ?>
         <?php if ($show_youtube) : ?>
