@@ -61,7 +61,7 @@ if (!empty($this->item->brand_details)) {
 
 
     $image_path = $public_root_path . $brand->logo_png_path;
-    $image_info = getimagesize($image_path);
+    $image_info = getimagesize(urldecode($image_path));
 
     $w = $image_info[0];
     $h = $image_info[1];

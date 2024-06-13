@@ -29,7 +29,7 @@ $img_path  = $params->get('image');
 $img_src   = $params->get('image');
 $svg_src   = false;
 
-$img_info = getimagesize($img_path);
+$img_info = getimagesize(urldecode($img_path));
 
 $img_ratio = $img_info[0] / $img_info[1];
 $img_info['width'] = 200;

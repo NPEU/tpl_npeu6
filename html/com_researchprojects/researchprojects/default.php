@@ -34,7 +34,7 @@ $doc->addStyleSheet('//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css'
 #$doc->addStyleSheet('//cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css');
 // Add a script tag with content:
 $js = '
-jQuery(document).ready(function(){
+jQuery(document).ready(function(){#
     jQuery("#' . $table_id . '").DataTable();
 });
 ';
@@ -67,7 +67,7 @@ ob_start(); ?>
     </div>
 </div>
 <?php
-$doc->component__sidebar_bottom = ob_get_contents();
+#$doc->component__sidebar_bottom = ob_get_contents();
 ob_end_clean();
 endif; ?>
 
@@ -109,7 +109,7 @@ endif; ?>
         ?>
             <li class="l-box" filterable_item>
                 <?php
-                $card_data = array();
+                $card_data = [];
 
                 $card_data['theme_classes']    = 'd-border  t-neutral'; //empty($theme) ? 'd-background' : $theme;
 

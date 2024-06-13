@@ -68,7 +68,9 @@ if (!empty($image_data)) {
         $card_data['header_image'] = $header_image_path;
         $header_image_path = $public_root_path . $header_image_path;
 
-        $header_image_info       = getimagesize($header_image_path);
+        // Get image size is a PATH not a URL so any spaces (%20) for example mess things up:
+        $header_image_info       = getimagesize(urldecode($header_image_path));
+        #echo '<pre>'; var_dump($header_image_info); echo '</pre>'; exit;
         $header_image_real_ratio = $header_image_info[0] / $header_image_info[1];
         $card_data['header_image_real_ratio'] = $header_image_real_ratio;
 
@@ -100,7 +102,7 @@ if (!empty($card_data['footer_image'])) {
     }
 
     $footer_image_path       = $public_root_path . $card_data['footer_image'];
-    $footer_image_info       = getimagesize($footer_image_path);
+    $footer_image_info       = getimagesize(urldecode($footer_image_path));
     $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
     $card_data['footer_image_real_ratio'] = $footer_image_real_ratio;
 

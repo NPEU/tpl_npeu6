@@ -51,7 +51,7 @@ if (in_array('l-distribute--balance-bottom', $layout_classes) || in_array('l-dis
     //$badge->params->limit_height
 
     $badge_image_path       = $public_root_path . $badge->logo_png_path;
-    $badge_image_info       = getimagesize($badge_image_path);
+    $badge_image_info       = getimagesize(urldecode($badge_image_path));
     $badge_image_real_ratio = $badge_image_info[0] / $badge_image_info[1];
 
     if (!is_numeric($badge->params->limit_height)) {

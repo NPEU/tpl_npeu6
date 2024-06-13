@@ -59,7 +59,7 @@ if (!$result) {
 
 $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
 $image_path       = $public_root_path . $images->images0->image;
-$image_info       = getimagesize($image_path);
+$image_info       = getimagesize(urldecode($image_path));
 $image_real_ratio = $image_info[0] / $image_info[1];
 
 $height = 80;

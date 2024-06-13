@@ -97,7 +97,7 @@ if (isset($image_meta['copyright'])) {
 $this->item->headline_image = $headline_image;
 
 // If it's a news item:
-if ($this->item->catid == 63) {#
+if ($this->item->catid == 63) {
     $twitter_url  = 'https://twitter.com/intent/tweet';
     #$twitter_url .= '?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . trim($this->item->readmore_link, '/'));
     $twitter_url .= '?text='. $this->escape($this->item->title);
