@@ -67,7 +67,7 @@ ob_start(); ?>
     </div>
 </div>
 <?php
-#$doc->component__sidebar_bottom = ob_get_contents();
+$doc->component__sidebar_bottom = ob_get_contents();
 ob_end_clean();
 endif; ?>
 
@@ -117,11 +117,15 @@ endif; ?>
                 $card_data['header_span_attr'] = 'filterable_index filterable_index_name="title"';
                 $card_data['title']            = $row->title;
 
+                $topics = [];
+                foreach ($row->topics as $topic) {
+                    $topics[] = '<a href="' . Route::_('index.php?option=com_researchprojects') . '/' . $topic->alias . '">' . $topic->title . '</a>';
+                }
 
                 $has_pi_2 = !empty($row->pi_2);
                 $card_data['body']  = '<p>' . "\n";
                 $card_data['body'] .= '    <span>Lead' . ($has_pi_2 ? 's' : '') . ': <span filterable_index filterable_index_name="lead">' . format_person($row->pi_1) . ($has_pi_2 ? ' and ' . format_person($row->pi_2) : '') . '</span></span><br>' . "\n";
-                $card_data['body'] .= '    <span>Topics: ' . implode(", ", $row->topics) . '<span>' . "\n";
+                $card_data['body'] .= '    <span>Topics: ' . implode(", ", $topics) . '<span>' . "\n";
                 $card_data['body'] .= '</p>' . "\n";
 
                 include(dirname(dirname(dirname(__DIR__))) . '/layouts/partial-card.php');
