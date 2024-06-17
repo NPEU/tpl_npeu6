@@ -102,9 +102,6 @@ endif; ?>
     <div class="l-layout  l-gutter">
         <ul class="l-layout__inner" filterable_list>
         <?php foreach ($this->items as $i => $row) :
-            #$view_link = Route::_('index.php?option=com_researchprojects&task=researchproject.view&id=' . $row->id);
-            #$view_link = Route::_('index.php?option=com_researchprojects&task=researchproject.view');
-            #$view_link .= '/' . $row->id . '-' . $row->alias;
             $view_link = Route::_('index.php?option=com_researchprojects&view=researchproject&id=' . $row->id . '-' . $row->alias);
         ?>
             <li class="l-box" filterable_item>

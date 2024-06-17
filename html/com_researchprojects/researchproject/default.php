@@ -97,12 +97,11 @@ ob_start();
         <dt>Topics</dt>
         <dd><?php
             $i = 0;
-            $topics = $this->item->topic_details;
-            $c = count((array) $topics) - 1;
-            foreach($topics as $topic) {
-                echo $topic . ($i <  $c ? ', ' : '');
-                $i++;
+            $topics = [];
+            foreach($this->item->topics as $topic_id) {
+                $topics[] = '<a href="'.  Route::_('index.php?option=com_researchprojects') . '/' . $this->topics[$topic_id]->alias .'">'. $this->topics[$topic_id]->title .'</a>';
             }
+            echo implode(', ', $topics);
         ?></dd>
         <?php if (!empty((array) $this->item->funders)) : ?>
         <dt>Funder<?php echo $fu_s; ?></dt>
