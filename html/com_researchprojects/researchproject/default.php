@@ -35,6 +35,18 @@ function format_person($p) {
     return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
 }
 
+function adjust_heading_levels($html, $amount) {
+    // Just hoping we don't actually get any h6's/
+
+    $levels = [6,5,4,3,2,1];
+    foreach ($levels as $level) {
+        $new_level = $level + $amount;
+        $html = str_replace(['<h' . $level, '</h' . $level], ['<h' . $new_level, '</h' . $new_level], $html);
+    }
+
+    return $html;
+}
+
 #echo 'here<pre>'; var_dump((array) $this->item->funders); echo '</pre>'; exit;
 #echo 'here<pre>'; var_dump(empty((array) $this->item->collaborators)); echo '</pre>'; exit;
 $pi_s = empty($this->item->pi_2) ? '' : 's';
@@ -129,7 +141,7 @@ ob_end_clean();
 
 <div class="longform-content  user-content">
     <h2>Summary</h2>
-    <?php echo $this->item->content; ?>
+    <?php echo adjust_heading_levels($this->item->content, 1); ?>
     <?php if (!empty($this->item->publications)) : ?>
     <h2>Publications</h2>
     <?php echo $this->item->publications; ?>
