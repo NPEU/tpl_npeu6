@@ -25,34 +25,38 @@ $doc = Factory::getDocument();
 
 $hx        = $params->get('header_tag', 'h2');
 $has_image = !empty($params->get('image', false));
-$img_path  = $params->get('image');
-$img_src   = $params->get('image');
-$svg_src   = false;
+if ($has_image) {
+    $img_src   = $params->get('image');
+    $img_path  = urldecode($img_src);
+    $svg_src   = false;
 
-$img_info = getimagesize(urldecode($img_path));
+    if (!file_exists($img_path )) {
+        $has_image = false;
+    } else {
+        $img_info = getimagesize($img_path);
 
-$img_ratio = $img_info[0] / $img_info[1];
-$img_info['width'] = 200;
+        $img_ratio = $img_info[0] / $img_info[1];
+        $img_info['width'] = 200;
 
-$img_info['height'] = round($img_info['width'] / $img_ratio);
+        $img_info['height'] = round($img_info['width'] / $img_ratio);
 
-//if ($img_info[0] > $img_info[1]) {
-//    $img_info['height'] = $img_info['width'] / $img_ratio;
-//} else {
-//    $img_info['height'] = $img_info['width'] * $img_ratio;
-//}
+        //if ($img_info[0] > $img_info[1]) {
+        //    $img_info['height'] = $img_info['width'] / $img_ratio;
+        //} else {
+        //    $img_info['height'] = $img_info['width'] * $img_ratio;
+        //}
 
-// Check if there's an SVG version of this images available:
-$img_path_info = pathinfo($img_path);
-if ($img_path_info['extension'] != 'svg') {
-    $svg_path = str_replace($img_path_info['extension'], 'svg', $img_path);
+        // Check if there's an SVG version of this images available:
+        $img_path_info = pathinfo($img_path);
+        if ($img_path_info['extension'] != 'svg') {
+            $svg_path = str_replace($img_path_info['extension'], 'svg', $img_path);
 
-    if (file_exists($svg_path)) {
-        $svg_src = $svg_path;
+            if (file_exists($svg_path)) {
+                $svg_src = $svg_path;
+            }
+        }
     }
 }
-
-
 $theme_class  = !empty($params->get('theme', false)) ? '  d-background--' . $params->get('theme') : '';
 $border_class = $params->get('border', 'none') == 'none' ? '' : '  d-border--thick';
 $shape_class  = $params->get('shape', 'square') == 'square' ? '' : '  c-featurette__image--' . $params->get('shape');

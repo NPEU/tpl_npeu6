@@ -35,18 +35,6 @@ function format_person($p) {
     return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
 }
 
-function adjust_heading_levels($html, $amount) {
-    // Just hoping we don't actually get any h6's/
-
-    $levels = [6,5,4,3,2,1];
-    foreach ($levels as $level) {
-        $new_level = $level + $amount;
-        $html = str_replace(['<h' . $level, '</h' . $level], ['<h' . $new_level, '</h' . $new_level], $html);
-    }
-
-    return $html;
-}
-
 #echo 'here<pre>'; var_dump((array) $this->item->funders); echo '</pre>'; exit;
 #echo 'here<pre>'; var_dump(empty((array) $this->item->collaborators)); echo '</pre>'; exit;
 $pi_s = empty($this->item->pi_2) ? '' : 's';
@@ -71,16 +59,21 @@ $brand = false;
 if (!empty($this->item->brand_details)) {
     $brand = $this->item->brand_details;
 
+    $image_path = urldecode($public_root_path . $brand->logo_png_path);
 
-    $image_path = $public_root_path . $brand->logo_png_path;
-    $image_info = getimagesize(urldecode($image_path));
+    if (!file_exists($image_path)) {
+        $brand = false;
+    } else {
+        $image_info = getimagesize($image_path);
 
-    $w = $image_info[0];
-    $h = $image_info[1];
-    $image_ratio = ($w < $h) ? ($w / $h) : ($h / $w);
+        $w = $image_info[0];
+        $h = $image_info[1];
+        $image_ratio = ($w < $h) ? ($w / $h) : ($h / $w);
 
-    $image_height = 100;
-    $image_width  = round($image_height / $image_ratio);
+        $image_height = 100;
+        $image_width  = round($image_height / $image_ratio);
+
+    }
 }
 ob_start();
 ?>
@@ -141,7 +134,7 @@ ob_end_clean();
 
 <div class="longform-content  user-content">
     <h2>Summary</h2>
-    <?php echo adjust_heading_levels($this->item->content, 1); ?>
+    <?php echo $this->item->content; ?>
     <?php if (!empty($this->item->publications)) : ?>
     <h2>Publications</h2>
     <?php echo $this->item->publications; ?>

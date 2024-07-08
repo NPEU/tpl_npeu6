@@ -72,20 +72,29 @@ $domain            = $protocol.'://'.$_SERVER['SERVER_NAME'];
 // Construct the public root path: (note: this is the SERVER path, not a URL)
 $public_root_path  = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
 
-$image_path = $public_root_path . $images->images0->image;
-
-$image_info = getimagesize(urldecode($image_path));
-$ratio = $image_info[0] / $image_info[1];
-
-$fallback_width  = 600;
-$fallback_height = round($fallback_width / $ratio, 2);
-
 $image_url = false;
 $image_url_external = false;
-if (isset($images->images0->url)) {
-    $image_url = $images->images0->url;
-    if (substr($image_url, 0, 1) != '/' && strpos($image_url, $_SERVER['SERVER_NAME']) === false) {
-        $image_url_external = true;
+$image_path = urldecode($public_root_path . $images->images0->image);
+if (!file_exists($image_path)) {
+    // This image doesn't exist, we have a problem.
+    // Note this should in be inside the loop if there are muiltiple imagesg (@TODO)
+    // Not sure of the best way of handling this? Show nothing? A broken image <- this for now?
+    $fallback_width  = '';
+    $fallback_height = '';
+} else {
+
+    $image_info = getimagesize($image_path);
+    $ratio = $image_info[0] / $image_info[1];
+
+    $fallback_width  = 600;
+    $fallback_height = round($fallback_width / $ratio, 2);
+
+
+    if (isset($images->images0->url)) {
+        $image_url = $images->images0->url;
+        if (substr($image_url, 0, 1) != '/' && strpos($image_url, $_SERVER['SERVER_NAME']) === false) {
+            $image_url_external = true;
+        }
     }
 }
 

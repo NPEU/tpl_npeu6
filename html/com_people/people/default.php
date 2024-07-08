@@ -25,7 +25,7 @@ unset($this->people['*']);
 function get_person_image_info($img_url) {
     #echo '<p datathing>' . $img_url . '</p>';
     return ['src'=>$img_url,'w'=>200, 'h'=>'200'];
-    $r = [
+    /*$r = [
         'src' => $img_url
     ];
     $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
@@ -35,7 +35,7 @@ function get_person_image_info($img_url) {
     $r['w'] = '200';
     $r['h'] = round($r['w'] / $image_real_ratio);
 
-    return $r;
+    return $r;*/
 }
 
 function person_img_size($img_url, $size) {

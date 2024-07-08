@@ -58,17 +58,21 @@ if (!$result) {
 }
 
 $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
-$image_path       = $public_root_path . $images->images0->image;
-$image_info       = getimagesize(urldecode($image_path));
-$image_real_ratio = $image_info[0] / $image_info[1];
-
-$height = 80;
-if ($image_info[0] > $image_info[1]) {
-    $width = round($height * $image_real_ratio);
+$image_path       = urldecode($public_root_path . $images->images0->image);
+if (!file_exists($image_path)) {
+    $height = '';
+    $width = '';
 } else {
-    $width = round($height / $image_real_ratio);
-}
+    $image_info       = getimagesize($image_path);
+    $image_real_ratio = $image_info[0] / $image_info[1];
 
+    $height = 80;
+    if ($image_info[0] > $image_info[1]) {
+        $width = round($height * $image_real_ratio);
+    } else {
+        $width = round($height / $image_real_ratio);
+    }
+}
 
 #$svg_path = str_replace('.' . $pathinfo['extension'], '.svg', Uri::base() . $images->images0->image);
 #echo '<pre>'; var_dump(file_exists(JPATH_BASE . '/' . $svg_file)); echo '</pre>'; return;
