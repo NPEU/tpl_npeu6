@@ -105,7 +105,7 @@ $menu_item_params = $menu_item->getParams();
                                     $second_brand_id = false;
 
                                 } elseif ($page_brand->alias == 'pru-mnhc') {
-                                    $second_brand_id = 2;
+                                    $second_brand_id = 1;
                                 } elseif ($page_unit == 'npeu') {
                                     $second_brand_id = 1;
                                 } else {
