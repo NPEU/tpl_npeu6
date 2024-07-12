@@ -447,10 +447,10 @@ $menu_item_params = $menu_item->getParams();
                                     <?php endif; ?>
 
                                     <?php if ($page_has_priority_content) : ?>
-                                    <?php echo HTMLHelper::_('content.prepare', $doc->article->fulltext); ?>
+                                    <?php echo HTMLHelper::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->fulltext)); ?>
                                     <?php else : ?>
-                                    <?php echo HTMLHelper::_('content.prepare', $doc->article->introtext); ?>
-                                    <?php echo HTMLHelper::_('content.prepare', $doc->article->fulltext); ?>
+                                    <?php echo HTMLHelper::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->introtext)); ?>
+                                    <?php echo HTMLHelper::_('content.prepare', TplNPEU6Helper::adjust_article_html($doc->article->fulltext)); ?>
                                     <?php endif; ?>
                                 </div>
 
