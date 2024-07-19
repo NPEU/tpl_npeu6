@@ -437,7 +437,7 @@ $menu_item_params = $menu_item->getParams();
                                     <p class="l-layout  l-row  l-row--push-apart  l-gutter--s  l-flush-edge-gutter">
                                         <span class="l-layout__inner">
                                         <?php if (!empty($doc->article->publish_up)) : ?><span class="l-box  l-box--center"><span>Published on <?php echo HTMLHelper::_('date', $doc->article->publish_up, Text::_('DATE_FORMAT_LC1')); ?></span></span><?php endif; ?>
-                                        <?php if (!empty($doc->article->twitter_url)) : ?><span class="l-box"><a href="<?php echo $doc->article->twitter_url; ?>" class="c-cta" target="_blank"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-twitter--inverted"></use></svg> <span>Tweet</span></a></span><?php endif; ?>
+                                        <?php if (!empty($doc->article->twitter_url)) : ?><span class="l-box"><a href="<?php echo $doc->article->twitter_url; ?>" class="c-cta" target="_blank"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-x"></use></svg> <span>Post</span></a></span><?php endif; ?>
                                         </span>
                                     </p>
                                     <?php endif; ?>
