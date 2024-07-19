@@ -173,7 +173,7 @@ if (empty($card_data['header_span_attr'])) {
                     <?php endif; ?>
                     <?php if (!empty($card_data['link_text']) && !empty($card_data['link'])) : ?>
                     <p class="l-box  l-box--center">
-                        <b><a href="<?php echo $card_data['link']; ?>" class="c-cta" id="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>" tabindex="-1" aria-hidden="true"><?php echo $card_data['link_text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></a></b>
+                        <b><a href="<?php echo $card_data['link']; ?>" class="c-cta" id="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>" tabindex="-1" aria-hidden="true"><?php echo $card_data['link_text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></b>
                     </p>
                      <?php endif; ?>
                 </div>
