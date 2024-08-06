@@ -413,15 +413,15 @@ $menu_item_params = $menu_item->getParams();
                             </div>
                             <?php endif; ?>
 
-                            <div class="l-primary-content__main<?php if ($page_has_article) {echo '  has-longform-content';} ?>">
+                            <div class="l-primary-content__main<?php if ($page_has_article) : ?>  has-longform-content<?php endif; ?><?php if ($is_blog && $page_has_article) : ?>  c-panel  c-panel--rounded  d-background--very-light  t-neutral<?php endif; ?>">
 
                                 <?php if ($page_has_article) : ?>
                                 <div class="longform-content  user-content">
 
                                     <?php if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) : ?>
-                                    <p class="u-image-cover  js-image-cover  u-image-cover--min-56-25">
+                                    <p class="u-image-cover  js-image-cover  u-image-cover--min-56-25"<?php if ($is_blog && $page_has_article) : ?> data-display-as="breakout-box"<?php endif; ?>>
                                         <span class="u-image-cover__inner">
-                                            <img src="<?php echo $doc->article->headline_image['headline-image']; ?>?s=700" alt="<?php echo $doc->article->headline_image['headline-image-alt-text']; ?>" sizes="(max-width: 380px) 350px, 90vw" srcset="<?php echo $doc->article->headline_image['headline-image']; ?>?s=350 350w, <?php echo $doc->article->headline_image['headline-image']; ?>?s=700 700w" class="u-image-cover__image" width="700">
+                                            <img src="<?php echo $doc->article->headline_image['headline-image']; ?>?s=1000" alt="<?php echo $doc->article->headline_image['headline-image-alt-text']; ?>" sizes="(max-width: 380px) 350px, 90vw" srcset="<?php echo $doc->article->headline_image['headline-image']; ?>?s=350 350w, <?php echo $doc->article->headline_image['headline-image']; ?>?s=700 700w, <?php echo $doc->article->headline_image['headline-image']; ?>?s=1000 1000w" class="u-image-cover__image" width="700">
                                         </span>
                                     </p>
 
@@ -460,7 +460,7 @@ $menu_item_params = $menu_item->getParams();
 
                                 <?php if ($page_has_article) : ?>
                                 <footer class="longform-content__companion">
-                                    <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  t-neutral  d-background--very-light">
+                                    <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  t-neutral  d-background--light">
                                         <p class="l-layout__inner  c-utilitext">
                                             <span>Updated: <?php echo HTMLHelper::_('date', $doc->article->modified, Text::_('DATE_FORMAT_LC2')); ?> (v<?php echo $doc->article->version; ?>)</span>
                                             <?php if ($user->authorise("core.edit", "com_content.article." . $doc->article->id)) : ?><a href="<?php echo $has_add_form_child ? $uri_route . '?task=article.edit&a_id=' . $doc->article->id : '/administrator/index.php?option=com_content&amp;task=article.edit&amp;id=' . $doc->article->id . '" target="_blank"'; ?>" class="u-padding--right--s"><span>Edit content</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  u-space--left--xs"><use xlink:href="#icon-edit"></use></svg></a><?php endif; ?>
