@@ -403,6 +403,50 @@ class Npeu6Helper
         return $stylesheets;
     }
 
+
+    /**
+     * Returns a array of info for svgs similar to getimagesize()
+     *
+     * @param string $img_src
+     * @param string $fallback_width
+     * @return string
+     * @access public
+     */
+    public static function svg_info($img_src, $fallback_width = 180) {
+
+        $path = JPATH_ROOT . $img_src;
+        if (file_exists($path)) {
+            $svg = file_get_contents($path);
+            preg_match('/viewBox="([^"]+)"/', $svg, $matches);
+            #echo '<pre>'; var_dump($matches); echo '</pre>';
+            $viewbox = isset($matches[1]) ? $matches[1] : '';
+
+            $values = explode(' ', $viewbox);
+            $w = $values[2];
+            $h = $values[3];
+            $ratio = ($w < $h) ? ($w / $h) : ($h / $w);
+            $fallback_height = round($fallback_width * $ratio);
+
+            $values[2] = $fallback_width;
+            $values[3] = $fallback_height;
+
+            preg_match('/<title[^>]+>([^<]+)<\/title>/', $svg, $matches_2);
+            #echo '<pre>'; var_dump($matches_2); echo '</pre>';
+            $svg_title = $matches_2[1];
+
+            $return = [
+                0 => $fallback_width,
+                1 => $fallback_height,
+                'viewbox'    => 'viewBox="' . implode(' ', $values) . '"',
+                'dimensions' => 'width="' . $fallback_width . '" height="' . $fallback_height . '"',
+                'title'      => $svg_title
+            ];
+
+            return $return;
+        }
+    }
+
+
     /**
      * Returns a tab string for indenting
      *

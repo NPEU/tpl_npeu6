@@ -17,40 +17,6 @@ if (isset($person['pa']) && (isset($person['pa_details_only']) && $person['pa_de
     unset($person['email']);
 }
 
-function svg_info($img_src, $fallback_width = 180) {
-
-    $path = JPATH_ROOT . $img_src;
-    if (file_exists($path)) {
-        $svg = file_get_contents($path);
-        preg_match('/viewBox="([^"]+)"/', $svg, $matches);
-        #echo '<pre>'; var_dump($matches); echo '</pre>';
-        $viewbox = isset($matches[1]) ? $matches[1] : '';
-
-        $values = explode(' ', $viewbox);
-        $w = $values[2];
-        $h = $values[3];
-        $ratio = ($w < $h) ? ($w / $h) : ($h / $w);
-        $fallback_height = round($fallback_width * $ratio);
-
-        $values[2] = $fallback_width;
-        $values[3] = $fallback_height;
-
-        preg_match('/<title[^>]+>([^<]+)<\/title>/', $svg, $matches_2);
-        #echo '<pre>'; var_dump($matches_2); echo '</pre>';
-        $svg_title = $matches_2[1];
-
-        $return = [
-            0 => $fallback_width,
-            1 => $fallback_height,
-            'viewbox'    => 'viewBox="' . implode(' ', $values) . '"',
-            'dimensions' => 'width="' . $fallback_width . '" height="' . $fallback_height . '"',
-            'title'      => $svg_title
-        ];
-
-        return $return;
-    }
-}
-
 function get_team($team) {
 ?>
         <section class="person__team">
@@ -103,7 +69,7 @@ function get_projects($projects) {
 
                         $svg_path = $brand->logo_svg_path;
                         $png_path = $brand->logo_png_path;
-                        $svg_info = svg_info($svg_path);
+                        $svg_info = TplNPEU6Helper::svg_info($svg_path);
                         $colour    = $brand->primary_colour;
                     ?>
                     <span class="l-box  l-box--center" role="listitem">
