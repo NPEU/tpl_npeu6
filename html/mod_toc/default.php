@@ -17,6 +17,11 @@ $hx          = $params->get('header_tag', 'h2');
 $min_h_count = (int) $params->get('min_heading_count', '3');
 $doc         = Factory::getDocument();
 
+// If there's no article we won't be able to output anything:
+if (empty($doc->article)) {
+    return '';
+}
+
 $min_h_count = 3;
 
 // Since we're ignoring headings in intro text, we need to check there is BOTH intro text and fulltext.
