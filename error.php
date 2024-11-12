@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 
-ini_set('display_errors', 'On');
+#ini_set('display_errors', 0);
 
 if (!isset($this->error)) {
     #$this->error = JError::raiseWarning(404, Text::_('JERROR_ALERTNOAUTHOR'));
@@ -23,20 +23,37 @@ if (!isset($this->error)) {
 $is_error   = true;
 $error_code = $this->error->getCode();
 #echo '<pre>'; var_dump($is_error); echo '</pre>'; #exit;
+$display_errors = preg_match('/^(1|yes|on|true)$/i', ini_get('display_errors'));
+
+$error_code_id = $error_code . '-' . $error_code;
+$error_page_title = 'Error ' . $error_code;
+
+if (!$display_errors) {
+    $error_code_id = 'error';
+    $error_page_title = 'A server error occured';
+}
+
+if ($error_code == 404) {
+    $error_image_src = 'hero-image-404.jpg';
+    $error_hero_message = "Uh oh. We couldn't find that page.";
+    $error_page_title = 'Error ' . $error_code;
+} else {
+    $error_image_src = 'hero-image-error.jpg';
+    $error_hero_message = "Oops! Something isn't working";
+}
 ob_start();
 ?>
     <div class="l-box  l-box--expand">
 
-        <main id="main" aria-labelledby="error-<?php echo $error_code; ?>">
+        <main id="main" aria-labelledby="<?php echo $error_code_id; ?>">
 
-            <?php if ($error_code == 404) : ?>
             <div class="c-hero-wrap  c-hero__message--wide  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-fs-text="center">
 
                 <div class="c-hero  c-hero--message-right  c-info-overlay-wrapx" data-fs-text="center">
                     <div class="c-hero__image">
                         <div class="u-image-cover  js-image-cover  u-image-cover--min-33-33">
                             <div class="u-image-cover__inner">
-                                <img src="/assets/images/npeu/hero-image-404.jpg?s=300" sizes="100vw" srcset="/assets/images/npeu/hero-image-404.jpg?s=1600 1600w, /assets/images/npeu/hero-image-404.jpg?s=900 900w, /assets/images/npeu/hero-image-404.jpg?s=300 300w" alt="" class="u-image-cover__image" width="200">
+                                <img src="/assets/images/npeu/<?php echo $error_image_src; ?>?s=300" sizes="100vw" srcset="/assets/images/npeu/<?php echo $error_image_src; ?>?s=1600 1600w, /assets/images/npeu/<?php echo $error_image_src; ?>?s=900 900w, /assets/images/npeu/<?php echo $error_image_src; ?>?s=300 300w" alt="" class="u-image-cover__image" width="200">
                             </div>
                         </div>
                     </div>
@@ -48,7 +65,7 @@ ob_start();
                                 <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" width="344" height="150">
                             </a>
                         </p>
-                        <p class="c-hero__message--fluid_text">Uh oh. We couldn't find that page.</p>
+                        <p class="c-hero__message--fluid_text"><?php echo $error_hero_message; ?></p>
 
                     </div>
                 </div>
@@ -60,7 +77,7 @@ ob_start();
 
                         <div class="c-panel">
                             <header class="c-panel__header">
-                                <h1 id="error-<?php echo $error_code; ?>" tabindex="-1">Error <?php echo $error_code; ?></h1>
+                                <h1 id="<?php echo $error_code_id; ?>" tabindex="-1"><?php echo $error_page_title; ?></h1>
                             </header>
 
                         </div>
@@ -71,6 +88,7 @@ ob_start();
                         <div class="l-layout  l-row  l-gutter--l  l-flush-edge-gutter">
                             <div class="l-layout__inner">
                                 <div class="l-box  ff-width-100--40--50">
+                                    <?php if ($error_code == 404): ?>
                                     <p>You could try searching for what you're looking for:</p>
 
                                     <form action="/search" id="searchform" class="" method="GET">
@@ -81,11 +99,18 @@ ob_start();
                                             </button>
                                         </span>
                                     </form>
+                                    <?php else: ?>
+                                    <?php if ($display_errors): ?>
+                                    <p><?php echo $this->error->getMessage(); ?></p>
+                                    <p><?php echo str_replace("\n", "<br>\n", $this->error->getTraceAsString()); ?></p>
+                                    <?php endif; ?>
 
+                                    <p>Please email webmaster@npeu.ox.ac.uk</p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="l-box  ff-width-100--40--50">
 
-                                    <p>Or one of these links:</p>
+                                    <p>Or try one of these links:</p>
                                     <ul>
                                         <li><a href="https://www.npeu.ox.ac.uk"><span>Home</span></a></li>
                                         <li><a href="https://www.npeu.ox.ac.uk/ctu/trials"><span>CTU Trials Portfolio</span></a></li>
@@ -101,13 +126,6 @@ ob_start();
                     </div>
                 </div>
             </div>
-            <?php else : ?>
-
-            <h1 id="error-<?php echo $error_code; ?>">Error <?php echo $error_code; ?></h1>
-            <p><?php echo $this->error->getMessage(); ?></p>
-            <p><?php echo str_replace("\n", "<br>\n", $this->error->getTraceAsString()); ?></p>
-
-            <?php endif; ?>
 
         </main>
 
