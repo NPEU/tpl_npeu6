@@ -38,10 +38,12 @@ $date_format = 'd M Y';
 // Get the custom fields for the article:
 $fields = FieldsHelper::getFields('com_content.article', $this->item, true);
 $headline_image = [];
+
 foreach ($fields as $field) {
     switch ($field->name) {
         case 'headline-image':
-            $headline_image['headline-image'] = $field->rawvalue;
+            $data = TplNPEU6Helper::resolve_image_data($field->rawvalue);
+            $headline_image['headline-image'] = TplNPEU6Helper::resolve_image_path($data['imagefile']);
             break;
         case 'headline-image-alt-text':
             $headline_image['headline-image-alt-text'] = $field->rawvalue;
