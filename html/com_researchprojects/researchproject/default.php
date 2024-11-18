@@ -135,7 +135,7 @@ ob_end_clean();
 <div class="longform-content  user-content">
     <h2>Summary</h2>
     <?php echo $this->item->content; ?>
-    <?php if (!empty($this->item->publications)) : ?>
+    <?php if (!empty(trim($this->item->publications))) : ?>
     <h2>Publications</h2>
     <?php echo $this->item->publications; ?>
     <?php endif; ?>
