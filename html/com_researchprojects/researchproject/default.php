@@ -7,11 +7,14 @@
  * @license     MIT License; see LICENSE.md
  */
 
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
 use NPEU\Component\Researchprojects\Administrator\Helper\ResearchprojectsHelper;
+
+$user = Factory::getUser();
 
 defined('_JEXEC') or die;
 
@@ -19,8 +22,8 @@ $doc = Factory::getDocument();
 
 // Set page title
 #$page_title = $this->item->title;
-
-$skip = array(
+/*
+$skip = [
     'id',
     'alias',
     'title',
@@ -28,8 +31,8 @@ $skip = array(
     'content',
     'brand_id',
     'state'
-);
-
+];
+*/
 function format_person($p) {
     $pp = ResearchProjectsHelper::parseCollaborator($p);
     return $pp['first_name'] . ' ' . $pp['last_name'] . (empty($pp['institution']) ? '' : ' (' . $pp['institution'] .')');
@@ -140,6 +143,16 @@ ob_end_clean();
     <?php echo $this->item->publications; ?>
     <?php endif; ?>
 </div>
+<?php if ($user->authorise("core.edit", "com_researchprojects.researchproject." . $this->item->id)) : ?>
+<footer class="longform-content__companion">
+    <div class="l-layout  l-row  l-row--push-apart  l-gutter--s  t-neutral  d-background--light">
+        <p class="l-layout__inner  c-utilitext">
+            <span>Updated: <?php echo HTMLHelper::_('date', ($this->item->modified > $this->item->created ? $this->item->modified : $this->item->created), Text::_('DATE_FORMAT_LC2')); ?></span>
+            <a href="/administrator/index.php?option=com_researchprojects&view=researchproject&layout=edit&id=<?php echo $this->item->id; ?>" target="_blank" class="u-padding--right--s"><span>Edit content</span><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none" class="icon  u-space--left--xs"><use xlink:href="#icon-edit"></use></svg></a>
+        </p><!-- End layout-inner -->
+    </div>
+</footer>
+<?php endif; ?>
 <?php /*
 <p>
     <a href="<?php echo Route::_('index.php?option=com_researchprojects'); ?>">Back</a>
