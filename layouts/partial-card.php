@@ -13,7 +13,6 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
 
-/* <pre><?php var_dump($card_data); ?></pre> */
 /*
     Expects a $card_data array with the following keys:
     theme_classes
@@ -39,7 +38,7 @@ $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
     footer_image_padded
 
 */
-#echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
+
 if (!isset($wrapper_classes) || !is_array($wrapper_classes)) {
     $wrapper_classes = [];
 }
@@ -56,14 +55,11 @@ if (empty($card_data['hx'])) {
     $card_data['hx'] = '3';
 }
 
+$image_data = false;
 if (!empty($card_data['header_image'])) {
     $image_data = TplNPEU6Helper::resolve_image_data($card_data['header_image']);
 }
 
-
-
-#echo '<pre>'; var_dump($image_data); echo '</pre>'; #exit;
-#echo '<pre>'; var_dump(empty($card_data['header_image'])); echo '</pre>'; exit;
 if (!empty($image_data)) {
     $header_image_path = TplNPEU6Helper::resolve_image_path($image_data['imagefile']);
     if (empty($header_image_path)) {
