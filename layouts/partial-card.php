@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
 use \Michelf\Markdown;
 use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
