@@ -2,6 +2,7 @@
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
+use \Michelf\Markdown;
 use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $menu_item = TplNPEU6Helper::get_menu_item();
@@ -295,7 +296,7 @@ $menu_item_params = $menu_item->getParams();
                             <header class="c-panel__header">
                                 <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                 <div>
-                                    <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                                    <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
                                     <p>
                                         <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
                                         <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
@@ -309,7 +310,7 @@ $menu_item_params = $menu_item->getParams();
                                     </p>
                                 </div>
                                 <?php else : ?>
-                                <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                                <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
                                 <?php endif; ?>
                             </header>
                         </div>
@@ -339,7 +340,7 @@ $menu_item_params = $menu_item->getParams();
                                     <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                     <header class="c-panel__header">
                                         <div>
-                                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
                                             <p>
                                                 <?php if (isset($doc->header_cta)) : ?>
                                                 <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
@@ -355,7 +356,7 @@ $menu_item_params = $menu_item->getParams();
                                     </header>
                                     <?php else : ?>
                                     <header class="c-panel__header">
-                                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo $page_heading; ?></h1>
+                                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
                                     </header>
                                     <?php endif; ?>
                                     <?php echo TplNPEU6Helper::get_messages(); ?>
