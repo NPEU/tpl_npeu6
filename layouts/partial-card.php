@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use \Michelf\Markdown;
 use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
 $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
@@ -137,7 +138,7 @@ if (empty($card_data['header_span_attr'])) {
         <header class="c-card__header">
             <h<?php echo $card_data['hx']; ?> class="c-card__title">
                 <?php if (!empty($card_data['link'])) : ?><a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>><?php endif; ?>
-                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo $card_data['title']; ?></span>
+                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo Markdown::defaultTransform($card_data['title']); ?></span>
                 <?php if (!empty($card_data['link'])) : ?></a><?php endif; ?>
             </h<?php echo $card_data['hx']; ?>>
             <?php if (!empty($card_data['header_image'])) : ?>
