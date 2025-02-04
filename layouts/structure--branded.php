@@ -212,7 +212,7 @@ $menu_item_params = $menu_item->getParams();
                 <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" class="dX-background--dark<?php if ($is_blog && $page_has_article) :?>  is-blog-article<?php endif; ?>">
 
                     <?php if($page_has_hero) : ?>
-                    <?php if (!empty($page_heroes['hero_image0']->heading)) {
+                    <?php if (!empty($page_heroes[0]->heading)) {
                         $h_el = 'p';
                         if ($page_is_landing && $show_page_heading) {
                             $h_el = 'h1';
@@ -234,7 +234,7 @@ $menu_item_params = $menu_item->getParams();
                             <div tabindex="0" class="c-hero-carousel__scroll-area" role="list">
                     <?php else : ?>
 
-                    <div class="c-hero-wrap<?php echo ((!empty($page_heroes['hero_image0']->heading) && $h_el == 'h1') || strlen($page_heroes['hero_image0']->text) > 185) ? '  c-hero__message--wide' : ''; ?><?php echo !empty($page_heroes['hero_image0']->heading) ? '  c-hero--message-wide' : ''; ?>  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-fs-text="center">
+                    <div class="c-hero-wrap<?php echo ((!empty($page_heroes[0]->heading) && $h_el == 'h1') || strlen($page_heroes[0]->text) > 185) ? '  c-hero__message--wide' : ''; ?><?php echo !empty($page_heroes[0]->heading) ? '  c-hero--message-wide' : ''; ?>  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-fs-text="center">
                     <?php endif; /* @TODO - need to think about credit lines. */ ?>
                             <?php $i = 0; foreach ($page_heroes as $key => $page_hero) : $i++; ?>
                                 <?php if ($i > 1) { $h_el = 'p'; } ?>

@@ -498,16 +498,27 @@ $search_field_hint = !empty($page_template_params->search_hint) ? $page_template
 
 
 // Hero image / Carousel:
-$page_heroes         = (array) $menu_item_params->get('hero_image');
-#echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
+$all_page_heroes         = (array) $menu_item_params->get('hero_image');
+#echo '<pre>'; var_dump($all_page_heroes); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($user->authorise('core.create', 'com_media')); echo '</pre>'; exit;
 
-$page_has_hero     = !empty($page_heroes['hero_image0']->image);
-$page_has_carousel = $page_has_hero && count($page_heroes) > 1;
+// Page heroes can now be disabled individually so we need to process that:
+//$page_has_hero     = !empty($page_heroes['hero_image0']->image);
+//$page_has_carousel = $page_has_hero && count($page_heroes) > 1;
+$page_heroes   = [];
+$page_has_hero = false;
+$page_has_carousel = false;
 
-// Extract meta for ease of use:
-if ($page_has_hero) {
-    foreach ($page_heroes as $key => $image) {
+if (!empty($all_page_heroes)) {
+    foreach ($all_page_heroes as $image) {
+        if (empty($image->image) || (bool) $image->enabled == false) {
+            continue;
+        }
+
+        // Tidy Joomla image src fragment:
+        $image->image = preg_replace('/#.*$/', '', $image->image);
+
+        // Extract meta for ease of use:
         $image_meta = [];
         $image_meta_response = json_decode(file_get_contents(
             'https://' . $_SERVER['HTTP_HOST'] . '/plugins/system/imagemeta/ajax/image-meta.php?image=' . base64_encode($image->image)
@@ -523,10 +534,15 @@ if ($page_has_hero) {
         if (isset($image_meta['copyright'])) {
             $image->credit = trim(TplNPEU6Helper::tweak_markdown_output(
                 Markdown::defaultTransform($image_meta['copyright']),
-                array('trim_paragraph' => true, 'add_link_spans' => true)
+                ['trim_paragraph' => true, 'add_link_spans' => true]
             ));
         }
+
+        $page_heroes[] = $image;
     }
+
+    $page_has_hero     = (count($page_heroes) > 0);
+    $page_has_carousel = (count($page_heroes) > 1);
 }
 
 #echo '<pre>'; var_dump($page_heroes); echo '</pre>'; exit;
