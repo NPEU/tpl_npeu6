@@ -24,9 +24,9 @@ $full_link = $params->get('link_full', 0);
 
 <div class="p-cards-postcards  mod_cardlist  modlayout_postcards">
     <div class="l-layout  l-gutter  l-basis--<?php echo $basis; ?>  l-flush-edge-gutter  l-distribute  l-distribute--balance-top">
-        <ul class="l-layout__inner">
+        <div class="l-layout__inner">
         <?php foreach ($params->get('cards') as $card) : ?>
-            <li class="l-box">
+            <div class="l-box">
             <?php
             $card_data = (array) $card;
             //echo '<pre>'; var_dump($card_data); echo '</pre>'; exit;
@@ -49,10 +49,10 @@ $full_link = $params->get('link_full', 0);
             include($card_path);
 
             ?>
-            </li>
+            </div>
 
         <?php endforeach; ?>
-        </ul>
+        </div>
     </div>
 </div>
 <?php endif; ?>

@@ -83,13 +83,13 @@ if ($count >= 2 && $count < 5) {
 ?>
 <div class="<?php echo $wrap_class; ?>  mod_articles_latest">
     <div class="<?php echo $outer_class; ?>">
-        <ul class="<?php echo $inner_class; ?>">
+        <div class="<?php echo $inner_class; ?>">
             <?php foreach ($items as $item): ?>
-            <li class="<?php echo $item_class; ?>">
+            <div class="<?php echo $item_class; ?>">
                 <?php require ModuleHelper::getLayoutPath('mod_articles_latest', '_item'); ?>
-            </li>
+            </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
     </div>
 </div>
 <?php endif; ?>
