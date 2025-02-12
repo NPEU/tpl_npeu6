@@ -73,7 +73,7 @@ $theme = '';
                 }
             }
         ?>
-        <div class="<?php echo $sign_class; ?><?php echo $theme; ?>">
+        <div class="<?php echo $sign_class; ?><?php echo $theme; ?>" data-fs-block="border" data-fs-text="center">
             <a href="<?php echo $sign->url; ?>" class="c-sign__link  c-sign--padding--xs">
                 <span class="c-sign__centered-content<?php echo $padding_class; ?>">
                     <?php echo $svg; ?>
