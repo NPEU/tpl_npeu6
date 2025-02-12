@@ -38,20 +38,17 @@ if (count($matches) < $min_h_count) {
 ?>
 <div class="c-panel  c-panel--rounded  d-background--very-light  t-neutral  mod_toc">
     <nav class="c-panel__module" aria-label="table of contents">
-        <div class="">
+        <div class="n-menu">
             <?php if ($module->showtitle): ?>
             <<?php echo $hx; ?> class=""><?php echo $module->title; ?></<?php echo $hx; ?>>
             <?php endif; ?>
-            <ul class="n-section-menu__list  u-fill-width">
+            <ul class="n-menu__links">
                 <?php foreach ($matches as $match): ?>
                 <?php preg_match('#id="([^"]+)"#', $match[0], $id_match);
                 if(!isset($id_match[0])) {
                     $h2_id = TplNPEU6Helper::html_id($match[1]);
                     $new_h2 = str_replace('<h2', '<h2 id="' . $h2_id . '"', $match[0]);
 
-                    #$doc->article->text      = str_replace($match[0], $new_h2, $doc->article->text);
-                    #$doc->article->fulltext  = str_replace($match[0], $new_h2, $doc->article->fulltext);
-                    #$doc->article->introtext = str_replace($match[0], $new_h2, $doc->article->introtext);
                     if (empty($doc->article->fulltext)) {
                         $doc->article->introtext  = str_replace($match[0], $new_h2, $doc->article->introtext);
                     } else {
@@ -60,7 +57,7 @@ if (count($matches) < $min_h_count) {
                 } else {
                     $h2_id = $id_match[1];
                 } ?>
-                <li class="n-section-menu__item"><a href="#<?php echo $h2_id; ?>" class="n-section-menu__link"><?php echo $match[1]; ?></a></li>
+                <li><a href="#<?php echo $h2_id; ?>"><?php echo $match[1]; ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
