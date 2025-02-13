@@ -58,7 +58,7 @@ function get_projects($projects) {
         <section class="person__projects">
             <h2>Projects</h2>
             <?php /*<div class="l-layout  l-gutter  l-distribute  l-distribute--balance-top  l--basis-20">*/ ?>
-            <div class="l-layout  l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-15">
+            <div class="l-layout  l-gallery-grid  l-gallery-grid--gutter--s  l-gallery-grid--basis-15  l-gallery-grid--equal-rows">
                 <p class="l-layout__inner" role="list">
                     <?php foreach($projects as $brand_id):
                         $brand = TplNPEU6Helper::get_brand($brand_id);
