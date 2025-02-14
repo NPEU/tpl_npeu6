@@ -136,34 +136,6 @@ if (!empty($footer_image_data)) {
     }
 }
 
-/*
-
-if (!empty($card_data['footer_image'])) {
-    // Check for an SVG:
-    $pathinfo = pathinfo($card_data['footer_image']);
-    $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card_data['footer_image']);
-
-    if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
-        $card_data['footer_image_svg_file'] = $footer_image_svg_file;
-    }
-
-    $footer_image_path       = $public_root_path . $card_data['footer_image'];
-    $footer_image_info       = getimagesize(urldecode($footer_image_path));
-    $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
-    $card_data['footer_image_real_ratio'] = $footer_image_real_ratio;
-
-    if (empty($card_data['footer_image_ratio'])) {
-        $card_data['footer_image_ratio'] = '30';
-    }
-    if (empty($card_data['image_width'])) {
-        $card_data['footer_image_width'] = '200';
-    }
-
-    $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
-}
-
-*/
-
 
 if (empty($card_data['header_span_attr'])) {
     $card_data['header_span_attr'] = '';
