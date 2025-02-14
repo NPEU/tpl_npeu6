@@ -485,6 +485,11 @@ $menu_item_params = $menu_item->getParams();
                             <div class="l-primary-content__pull-out  l-primary-content__pull-out--bottom  page-sidebar">
 
                                 <?php if ($page_article_brand) : ?>
+                                <?php
+                                $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
+                                $image_path       = $public_root_path . $page_article_brand->logo_png_path;
+                                ?>
+                                <?php if (file_exists($image_path)): ?>
                                 <div class="c-panel  c-panel--rounded  d-background--very-light  t-neutral  u-space--below">
                                     <div class="c-panel__module">
                                         <header class="c-panel__header" aria-labelledby="in-this-section">
@@ -504,23 +509,22 @@ $menu_item_params = $menu_item->getParams();
                                         <p class="u-text-align--center">
                                             <a href="/<?php echo $page_article_brand->alias; ?>" class="c-badge  c-badge--limit-height--6">
                                                 <?php
-                                                    $public_root_path = realpath($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR;
-                                                    $image_path       = $public_root_path . $page_article_brand->logo_png_path;
-                                                    $image_info       = getimagesize(urldecode($image_path));
-                                                    $image_real_ratio = $image_info[0] / $image_info[1];
+                                                $image_info       = getimagesize(urldecode($image_path));
+                                                $image_real_ratio = $image_info[0] / $image_info[1];
 
-                                                    $height = 80;
-                                                    if ($image_info[0] > $image_info[1]) {
-                                                        $width = round($height * $image_real_ratio);
-                                                    } else {
-                                                        $width = round($height / $image_real_ratio);
-                                                    }
+                                                $height = 80;
+                                                if ($image_info[0] > $image_info[1]) {
+                                                    $width = round($height * $image_real_ratio);
+                                                } else {
+                                                    $width = round($height / $image_real_ratio);
+                                                }
                                                 ?>
                                                 <img alt="Logo: <?php echo $page_article_brand->name; ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" onerror="this.src='<?php echo $page_article_brand->logo_png_path; ?>'; this.onerror=null;" src="<?php echo $page_article_brand->logo_svg_path; ?>">
                                             </a>
                                         </p>
                                     </div>
                                 </div>
+                                <?php endif; ?>
                                 <?php endif; ?>
 
                                 <?php echo $component__sidebar_bottom; ?>
