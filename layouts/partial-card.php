@@ -76,7 +76,6 @@ if (!empty($image_data)) {
         } else {
             // Get image size is a PATH not a URL so any spaces (%20) for example mess things up:
             $header_image_info       = getimagesize($header_image_path);
-            #echo '<pre>'; var_dump($header_image_info); echo '</pre>'; exit;
             $header_image_real_ratio = $header_image_info[0] / $header_image_info[1];
             $card_data['header_image_real_ratio'] = $header_image_real_ratio;
 
@@ -88,16 +87,56 @@ if (!empty($image_data)) {
             }
 
             $card_data['header_image_height'] = round($card_data['header_image_width'] / $header_image_real_ratio);
-            //if ($header_image_info[0] > $header_image_info[1]) {
-            //    $card_data['header_image_height'] = $card_data['header_image_width'] / $header_image_real_ratio;
-            //} else {
-            //    $card_data['header_image_height'] = $card_data['header_image_width'] * $header_image_real_ratio;
-            //}
         }
     }
 }
 
 #echo '<pre>'; var_dump($card_data); echo '</pre>'; #exit;
+
+$footer_image_data = false;
+if (!empty($card_data['footer_image'])) {
+    $footer_image_data = TplNPEU6Helper::resolve_image_data($card_data['footer_image']);
+}
+
+if (!empty($footer_image_data)) {
+
+    // Check for an SVG:
+    $pathinfo = pathinfo($card_data['footer_image']);
+    $footer_image_svg_file = str_replace('.' . $pathinfo['extension'], '.svg', $card_data['footer_image']);
+
+    if (file_exists(JPATH_BASE . '/' . $footer_image_svg_file)) {
+        $card_data['footer_image_svg_file'] = $footer_image_svg_file;
+    }
+
+
+    $footer_image_path = TplNPEU6Helper::resolve_image_path($footer_image_data['imagefile']);
+    if (empty($footer_image_path)) {
+        $card_data['footer_image'] = false;
+    } else {
+        $card_data['footer_image'] = $footer_image_path;
+        $footer_image_path = urldecode($public_root_path . $footer_image_path);
+
+        if (!file_exists($footer_image_path)) {
+            $card_data['footer_image'] = false;
+        } else {
+            // Get image size is a PATH not a URL so any spaces (%20) for example mess things up:
+            $footer_image_info       = getimagesize($footer_image_path);
+            $footer_image_real_ratio = $footer_image_info[0] / $footer_image_info[1];
+            $card_data['footer_image_real_ratio'] = $footer_image_real_ratio;
+
+            if (empty($card_data['footer_image_ratio'])) {
+                $card_data['footer_image_ratio'] = '30';
+            }
+            if (empty($card_data['footer_image_width'])) {
+                $card_data['footer_image_width'] = '200';
+            }
+
+            $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
+        }
+    }
+}
+
+/*
 
 if (!empty($card_data['footer_image'])) {
     // Check for an SVG:
@@ -121,12 +160,10 @@ if (!empty($card_data['footer_image'])) {
     }
 
     $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
-    //if ($footer_image_info[0] > $footer_image_info[1]) {
-    //    $card_data['footer_image_height'] = $card_data['footer_image_width'] / $footer_image_real_ratio;
-    //} else {
-    //    $card_data['footer_image_height'] = $card_data['footer_image_width'] * $footer_image_real_ratio;
-    //}
 }
+
+*/
+
 
 if (empty($card_data['header_span_attr'])) {
     $card_data['header_span_attr'] = '';
