@@ -30,7 +30,7 @@ if ($has_image) {
     $img_path  = urldecode($img_src);
     $svg_src   = false;
 
-    if (!file_exists($img_path )) {
+    if (!file_exists($img_path)) {
         $has_image = false;
     } else {
         $img_info = getimagesize($img_path);
