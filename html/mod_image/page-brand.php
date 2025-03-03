@@ -41,10 +41,10 @@ $query = $db->getQuery(true);
 
 // Select all records from the user profile table where key begins with "custom.".
 // Order it by the ordering field.
-$query->select($db->qn('id'));
-$query->from($db->qn('#__menu'));
-$query->where($db->qn('path') . ' = '. $db->q($alias));
-$query->andWhere($db->qn('published') . ' = 1');
+$query->select($db->quoteName('id'));
+$query->from($db->quoteName('#__menu'));
+$query->where($db->quoteName('path') . ' = '. $db->quote($alias));
+$query->andWhere($db->quoteName('published') . ' = 1');
 
 // Reset the query using our newly populated query object.
 $db->setQuery($query);
