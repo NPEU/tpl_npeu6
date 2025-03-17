@@ -44,7 +44,7 @@ $block_css_files = false;
         /* IE needs SVG icons to NOT be auto height: */
         svg[height="1.25em"] {height: 1.25em;}
 
-        .c-map {
+        .js-map .c-map {
             height: 200px;
         }
 
