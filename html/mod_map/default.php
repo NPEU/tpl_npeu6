@@ -48,12 +48,14 @@ $static_map_src   = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/
 
 ?>
 
-<figure class="c-map  c-map--<?php echo $height; ?>  u-fill-height  mod_map">
+<figure class="c-map  c-map--<?php echo $height; ?>  u-fill-height  mod_map" tabindex="0">
     <div id="<?php echo $map_id; ?>">
         <p class="u-text-align--center">
             <img class="c-map__static" src="<?php echo $static_map_src; ?>" alt="<?php echo $static_map_alt; ?>">
         </p>
-        <?php echo $static_map_no_js; ?>
+        <p class="u-text-align--center">
+            <?php echo $static_map_no_js; ?>
+        </p>
     </div>
     <?php if (!empty(trim($legend))): ?>
     <figcaption class="l-box--space--block-start  user-content">
