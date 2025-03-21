@@ -65,8 +65,13 @@ if (!empty($markers)) {
     ];
 
     $marker_colors = [
-        'red'  => '#FD7567',
-        'blue' => '#6991FD'
+        'red'    => '#FD7567',
+        'blue'   => '#6991FD',
+        'green'  => '#00E64D',
+        'yellow' => '#FDF569',
+        'orange' => '#FF9900',
+        'pink'   => '#E661AC',
+        'purple' => '#8E67FD'
     ];
 
     $collection = [];
@@ -76,7 +81,8 @@ if (!empty($markers)) {
         if (!array_key_exists($color, $collection)) {
             $collection[$color] = [];
         }
-        $collection[$color][] = [(float) $marker['lng'], (float) $marker['lat']];
+
+        $collection[$color][] = [(float) ($marker['lng'] == 'true' ? $lng : $marker['lng']), (float) ($marker['lat'] == 'true' ? $lat : $marker['lat'])];
     }
 
     foreach ($collection as $color => $coords) {
