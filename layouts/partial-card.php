@@ -50,6 +50,10 @@ if (isset($card_data['state']) && $card_data['state'] != 1) {
     $wrapper_classes[] = 'c-card--unpublished';
 }
 
+if (strtotime($card_data['publish_date']) > time()) {
+    $wrapper_classes[] = 'c-card--pending';
+}
+
 if (!empty($card_data['wrapper_classes'])) {
     $wrapper_classes = array_merge($wrapper_classes, $card_data['wrapper_classes']);
 }
