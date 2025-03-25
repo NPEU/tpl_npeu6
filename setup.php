@@ -68,6 +68,9 @@ $user->set('is_staff', in_array(10, $user->getAuthorisedGroups()));
 if (!isset($is_error)) {
     $is_error = false;
 }
+if (!isset($is_offline)) {
+    $is_offline = false;
+}
 #echo '<pre>'; var_dump($is_error); echo '</pre>'; #exit;
 if (!isset($error_menu_id)) {
     $error_menu_id = false;
@@ -655,5 +658,13 @@ if ($is_error) {
     $inner_structure = 'structure--basic';
     $page_content    = $error_output;
 }
+
+// Override vars in case of site offline:
+if ($is_offline) {
+    $page_title      = $offline_page_title;
+    $inner_structure = 'structure--basic';
+    $page_content    = $offline_output;
+}
+
 
 include(__DIR__ . '/layouts/structure.php');
