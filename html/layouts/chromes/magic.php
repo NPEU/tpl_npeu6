@@ -179,8 +179,8 @@ if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform') {
 //if (!empty($module->content)):
 ?>
 
-<div class="u-fill-heightX  <?php echo implode('  ', $outer_wrapper_classes); ?>">
-    <div class="u-fill-heightX  <?php echo implode('  ', $wrapper_classes); ?>">
+<div class="<?php echo implode('  ', $outer_wrapper_classes); ?>">
+    <div class="<?php echo implode('  ', $wrapper_classes); ?>">
         <<?php echo $outer_el; ?> class="u-fill-height  <?php echo ($module_wrapper == 'panel_longform') ? 'longform-content  user-content' : 'c-panel__module'; ?>">
 
 

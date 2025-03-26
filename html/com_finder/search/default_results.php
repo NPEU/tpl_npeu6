@@ -69,7 +69,7 @@ $db = Factory::getDBO();
 <?php // Display the pagination FIX THIS!!!!
 /*
 <div class="l-layout  l-gutter">
-    <div class="l-layout__inner  dX-background--very-lightX  t-neutral  search-pagination"  data-fs-text="center">
+    <div class="l-layout__inner  t-neutral  search-pagination"  data-fs-text="center">
         <div class="l-box  n-pagination">
             <?php echo $this->pagination->getPagesLinks(); ?>
         </div>

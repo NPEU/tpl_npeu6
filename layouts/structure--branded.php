@@ -209,7 +209,7 @@ $menu_item_params = $menu_item->getParams();
             </div>
             <div class="l-box  l-box--expand">
 
-                <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" class="dX-background--dark<?php if ($is_blog && $page_has_article) :?>  is-blog-article<?php endif; ?>">
+                <main id="main" aria-labelledby="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" class="<?php if ($is_blog && $page_has_article) :?>  is-blog-article<?php endif; ?>">
 
                     <?php if($page_has_hero) : ?>
                     <?php if (!empty($page_heroes[0]->heading)) {
