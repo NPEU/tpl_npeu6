@@ -46,7 +46,7 @@ ob_start();
 ?>
 <header aria-label="Page" class="page-header" data-landmark-index="0">
     <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  npeu">
-        <p class="l-layout__inner js-cmr--wide" data-js="cmr" data-ie-safe-parent-level="1" data-js-breakpoint="270">
+        <p class="l-layout__inner" data-js="cmr" data-ie-safe-parent-level="1">
 
             <span class="l-box  primary-logo-wrap" data-min-width="229">
                 <a href="/" class="c-badge  c-badge--primary-logo"><svg role="img" focusable="false" aria-labelledby="npeu--title" viewBox="0 0 222.1 100" height="100" width="222" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -701,7 +701,7 @@ ob_start();
     </div>
 
     <div class="d-background" data-fs-block="inverted flush">
-        <div class="nav-bar js-cmr--wide" data-js="cmr" data-ie-safe-parent-level="1" data-js-breakpoint="923">
+        <div class="nav-bar" data-js="cmr" data-ie-safe-parent-level="1">
 
             <div class="nav-bar__start" data-area="navbar-controls">
                 <div class="nav-bar__item">
