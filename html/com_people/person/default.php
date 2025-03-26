@@ -193,7 +193,7 @@ function get_custom($custom_title, $custom) {
             <?php if(isset($person['publications_data'][0])): /* Publications as single list */?>
             <ul>
             <?php foreach($person['publications_data'] as $publication): ?>
-                <li class="u-word-wrap">
+                <li>
                 <?php echo $this->escape($publication['full_entry']); ?>
                 <?php if (!empty($publication['url'])) : ?><br><a href="<?php echo $publication['url']; ?>"><?php echo $publication['url']; ?></a><?php endif; ?>
                 </li>
@@ -206,7 +206,7 @@ function get_custom($custom_title, $custom) {
                 <h3><?php echo is_numeric($heading) ? $heading : $heading . 's'; ?></h3>
                 <ul>
                     <?php foreach($collection['publications'] as $publication): ?>
-                    <li class="u-word-wrap">
+                    <li>
                     <?php echo $this->escape($publication['full_entry']); ?>
                     <?php if (!empty($publication['url'])) : ?><br><a href="<?php echo $publication['url']; ?>"><?php echo $publication['url']; ?></a><?php endif; ?>
                     </li>
