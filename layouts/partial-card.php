@@ -50,7 +50,7 @@ if (isset($card_data['state']) && $card_data['state'] != 1) {
     $wrapper_classes[] = 'c-card--unpublished';
 }
 
-if (strtotime($card_data['publish_date']) > time()) {
+if (!empty($card_data['publish_date']) && strtotime($card_data['publish_date']) > time()) {
     $wrapper_classes[] = 'c-card--pending';
 }
 
