@@ -73,6 +73,7 @@ $block_css_files = false;
         */
     </style>
 
+    <?php if (!$block_css_files) : ?>
     <!--
         Accessible font loading. FOUT is a lesser evil than FOIT.
         (https://keithclark.co.uk/articles/loading-css-without-blocking-render/)
@@ -90,7 +91,7 @@ $block_css_files = false;
         only all and (color-gamut: srgb), only all and (color-gamut: p3), only all and (color-gamut: rec2020),
         only all and (min--moz-device-pixel-ratio:0) and (display-mode:browser), (min--moz-device-pixel-ratio:0) and (display-mode:fullscreen)
     ">*/?>
-    <?php if (!$block_css_files) : ?>
+
     <!--
         Print (Edge doesn't apply to print otherwise)
         Edge 79+, Chrome 74+, Firefox 63+, Opera 64+, Safari 10.1+, iOS 10.3+, Android 81+
