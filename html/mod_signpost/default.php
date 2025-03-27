@@ -74,12 +74,21 @@ $theme = '';
             }
         ?>
         <div class="<?php echo $sign_class; ?><?php echo $theme; ?>" data-fs-block="border" data-fs-text="center">
+            <?php if (!empty($sign->url)) : ?>
             <a href="<?php echo $sign->url; ?>" class="c-sign__link  c-sign--padding--xs">
+            <?php else : ?>
+            <span class="c-sign__link  c-sign--padding--xs">
+            <?php endif; ?>
                 <span class="c-sign__centered-content<?php echo $padding_class; ?>">
                     <?php echo $svg; ?>
                     <?php echo $sign_content; ?>
                 </span>
+            <?php if (!empty($sign->url)) : ?>
             </a>
+            <?php else : ?>
+            </span>
+            <?php endif; ?>
+
         </div>
         <?php endforeach; ?>
     </div>
