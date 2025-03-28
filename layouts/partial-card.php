@@ -202,7 +202,7 @@ if (empty($card_data['header_span_attr'])) {
             <div class="u-image-cover<?php if (!empty($card_data['footer_logo'])): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover  u-image-cover--min-<?php echo $card_data['footer_image_ratio']; ?>">
                 <div class="u-image-cover__inner<?php if (!empty($card_data['footer_logo'])): ?>  l-box--space--edge--s<?php endif; ?>">
                     <?php if (!empty($card_data['footer_image_svg_file'])): ?>
-                    <img src="<?php echo $card_data['footer_image_svg_file']; ?>" onerror="this.src='<?php $card_data['footer_image']; ?>'; this.onerror=null;" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="<?php echo $card_data['footer_image_height']; ?>">
+                    <img src="<?php echo $card_data['footer_image_svg_file']; ?>" onerror="this.src='<?php echo $card_data['footer_image']; ?>'; this.onerror=null;" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="<?php echo $card_data['footer_image_height']; ?>">
                     <?php else: ?>
                     <img src="<?php echo $card_data['footer_image']; ?>?s=900" sizes="100vw" srcset="<?php echo $card_data['footer_image']; ?>?s=1600 1600w, <?php echo $card_data['footer_image']; ?>?s=1200 900w, <?php echo $card_data['footer_image']; ?>?s=450 300w" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="<?php echo $card_data['footer_image_height']; ?>">
                     <?php endif; ?>
