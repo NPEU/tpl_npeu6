@@ -37,6 +37,7 @@ $block_css_files = false;
             There's a much long essay on this brewing and I'll add the link when it's done.
         */
         fieldset,hr{margin:1em 0}image,img,object,svg,video{max-width:100%;height:auto}pre,table{width:100%}fieldset,table{border:1px solid currentColor}html{background:<?php echo $page_brand->primary_colour__dark; ?>}body{font:1em/1.2 sans-serif;padding:2em;margin:0 auto;max-width:50em;background:#fff}details,dialog,main,summary{display:block}@supports (list-style-type:disclosure-closed){summary{display:list-item}}mark{background:#ff0;color:#000}[hidden],template{display:none}fieldset{padding:1em}image,img,object,svg{-ms-interpolation-mode:bicubic;vertical-align:middle;border:0}a[href]{color:inherit}a[href]:hover{text-decoration:none}a[href] img{padding:.3em;margin:.2em}figure{max-width:100%;overflow-x:auto}_:-o-prefocus,:root figure{max-width:initial;overflow-x:visible}hr{border-style:solid;border-width:0 0 1px;color:currentColor}pre{overflow-x:scroll;overflow-y:auto}button{background-color:<?php echo $page_brand->primary_colour; ?>;color:#fff}button,input,label,select,textarea{vertical-align:middle;min-height:2.2em;margin:.2em 0}button,input[type=checkbox],input[type=radio],label,select{cursor:pointer}button,input,textarea{padding:0 .5em;line-height:1.5}table{border-collapse:collapse}table[role=presentation]{border:0;table-layout:fixed}table[role=presentation] td{border:0}th{background:<?php echo $page_brand->primary_colour__very_light; ?>}caption,td,th{padding:.5em}[data-fs-text~=right]{text-align:right}[data-fs-text~=center]{text-align:center}[data-fs-text~=larger]{font-size:larger}[data-fs-text~=nowrap]{white-space:nowrap}
+        a[href] img:hover,a[href] svg:hover{outline: 2px solid;}
 
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
         .embed-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;} .embed-container iframe, .embed-container object, .embed-container embed{position:absolute;top:0;left:0;width:100%;height:100%;}
@@ -246,8 +247,8 @@ $block_css_files = false;
     .env_container button:focus {
         background-color: rgba(0,0,0,0.3);
     }
-
     </style>
+
     <?php endif; ?>
 
     <!--<![endif]-->

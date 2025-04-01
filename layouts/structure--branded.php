@@ -81,13 +81,56 @@ $menu_item_params = $menu_item->getParams();
                     <?php echo $modules__top; ?>
                     <?php endif; ?>
                     <?php
-                        $is_brc = ($menu_route == 'brc-cardiovascular-medicine');
+                    $is_brc = ($menu_route == 'brc-cardiovascular-medicine');
+
+                    // Ugh - this is getting very hacky. If possible, change template to allow for 'secondary logo'
+                    // to be specified as an 'overide'.
+                    if ($is_brc) {
+                        $second_brand_id = 146;
+                    } elseif ($page_brand->alias == 'npeu') {
+                        //$second_brand_id = 122;
+                        $second_brand_id = false;
+
+                    } elseif ($page_brand->alias == 'pru-mnhc') {
+                        $second_brand_id = 1;
+                    } elseif ($page_unit == 'npeu') {
+                        $second_brand_id = 1;
+                    } else {
+                        $parent_brand_alias_id = [
+                            'pru-mnhc' => 28,
+                            'npeu_ctu' => 14,
+                            'sheer'    => 16,
+                            'he'       => 106
+                        ];
+
+                        $second_brand_id = $parent_brand_alias_id[$page_unit];
+                    }
+
+                    $second_brand_width = 0;
+
+                    if ($second_brand_id) :
+                        $second_brand = TplNPEU6Helper::get_brand($second_brand_id);
+                        $second_brand_url = 'https://www.npeu.ox.ac.uk';
+                        if ($is_brc) {
+                            $second_brand_url = $second_brand->params->logo_url;
+                            $second_brand_width = $second_brand->svg_width_at_height_80;
+                        } elseif ($page_brand->alias == 'npeu') {
+                            $second_brand_width = $second_brand->svg_width_at_height_100;
+                        } elseif ($page_brand->alias == 'pru-mnhc') {
+                            $second_brand_url = $second_brand->params->logo_url;
+                            $second_brand_width = $second_brand->svg_width_at_height_80;
+                        } else {
+                            $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : ($page_unit == 'npeu' ? '' : $second_brand->alias));
+                            $second_brand_width = $second_brand->svg_width_at_height_80;
+                        }
+
                     ?>
+                    <?php endif; ?>
 
-                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  <?php echo $page_brand->alias; ?>">
-                        <p class="l-layout__inner"<?php if (!$page_display_cta) : ?> data-js="cmr" data-ie-safe-parent-level="1"<?php endif; ?>>
+                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  page-header__brand-banner--<?php echo ($page_display_cta) ? 'has': 'no'; ?>-cta  <?php echo $page_brand->alias; ?>"<?php if ($second_brand_id && !$page_display_cta) : ?> style="--min-width: <?php echo (($page_brand->svg_width_at_height_100 > 500) ? 500 : $page_brand->svg_width_at_height_100) + $second_brand_width; ?>px"<?php endif; ?>>
+                        <p class="l-layout__inner">
 
-                            <span class="l-box  primary-logo-wrap"<?php if (!$page_display_cta) : ?> data-min-width="229"<?php endif; ?>>
+                            <span class="l-box  l-box--center  primary-logo-wrap">
                                 <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo"><?php echo str_replace('height="80"', 'height="100" width="' . $page_brand->svg_width_at_height_100 . '"', str_replace('height="150"', 'height="100" width="' . $page_brand->svg_width_at_height_100 . '"', $page_brand->logo_svg_with_fallback)); ?></a>
                             </span>
 
@@ -96,49 +139,10 @@ $menu_item_params = $menu_item->getParams();
                                 <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  d-background  t-secondary"><?php echo $page_cta_text; ?></a>
                             </span>
                             <?php endif; ?>
-                            <?php
-                                // Ugh - this is getting very hacky. If possible, change template to allow for 'secondary logo'
-                                // to be specified as an 'overide'.
-                                if ($is_brc) {
-                                    $second_brand_id = 146;
-                                } elseif ($page_brand->alias == 'npeu') {
-                                    //$second_brand_id = 122;
-                                    $second_brand_id = false;
 
-                                } elseif ($page_brand->alias == 'pru-mnhc') {
-                                    $second_brand_id = 1;
-                                } elseif ($page_unit == 'npeu') {
-                                    $second_brand_id = 1;
-                                } else {
-                                    $parent_brand_alias_id = [
-                                        'pru-mnhc' => 28,
-                                        'npeu_ctu' => 14,
-                                        'sheer'    => 16,
-                                        'he'       => 106
-                                    ];
-
-                                    $second_brand_id = $parent_brand_alias_id[$page_unit];
-                                }
-
-                            ?>
-                            <?php if ($second_brand_id) :
-                            $second_brand = TplNPEU6Helper::get_brand($second_brand_id);
-                            $second_brand_url = 'https://www.npeu.ox.ac.uk';
-                            if ($is_brc) {
-                                $second_brand_url = $second_brand->params->logo_url;
-                                $second_brand_width = $second_brand->svg_width_at_height_80;
-                            } elseif ($page_brand->alias == 'npeu') {
-                                $second_brand_width = $second_brand->svg_width_at_height_100;
-                            } elseif ($page_brand->alias == 'pru-mnhc') {
-                                $second_brand_url = $second_brand->params->logo_url;
-                                $second_brand_width = $second_brand->svg_width_at_height_80;
-                            } else {
-                                $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : ($page_unit == 'npeu' ? '' : $second_brand->alias));
-                                $second_brand_width = $second_brand->svg_width_at_height_80;
-                            }
-                            ?>
-                            <span class="l-box  l-box  l-box--center"<?php if (!$page_display_cta) : ?> data-min-width="<?php echo $second_brand_width; ?>"<?php endif; ?>>
-                                <a href="<?php echo $second_brand_url; ?>" class="c-badge  c-badge--primary-logo"><?php if ($page_brand->alias == 'npeu') : ?>
+                            <?php if ($second_brand_id) : ?>
+                            <span class="l-box  l-box--center">
+                                <a href="<?php echo $second_brand_url; ?>" class="c-badge"><?php if ($page_brand->alias == 'npeu') : ?>
                                     <?php echo str_replace('height="80"', 'height="100" width="' . $second_brand_width . '"', $second_brand->logo_svg_with_fallback); ?>
                                     <?php else: ?>
                                     <img src="<?php echo $second_brand->logo_svg_path; ?>" onerror="this.src='<?php echo $second_brand->logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $second_brand->name; ?>" height="80" width="<?php echo $second_brand_width; ?>">
@@ -296,7 +300,7 @@ $menu_item_params = $menu_item->getParams();
                             <header class="c-panel__header">
                                 <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                 <div>
-                                    <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
+                                    <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($page_heading),  ['trim_paragraph' => true]); ?></h1>
                                     <p>
                                         <?php if (isset($doc->header_cta)) : /* E.g. User Profile (Edit CTA) */ ?>
                                         <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
@@ -310,7 +314,7 @@ $menu_item_params = $menu_item->getParams();
                                     </p>
                                 </div>
                                 <?php else : ?>
-                                <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
+                                <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($page_heading),  ['trim_paragraph' => true]); ?></h1>
                                 <?php endif; ?>
                             </header>
                         </div>
@@ -340,7 +344,7 @@ $menu_item_params = $menu_item->getParams();
                                     <?php if (isset($doc->header_cta) || $is_blog) : ?>
                                     <header class="c-panel__header">
                                         <div>
-                                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
+                                            <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($page_heading),  ['trim_paragraph' => true]); ?></h1>
                                             <p>
                                                 <?php if (isset($doc->header_cta)) : ?>
                                                 <a href="<?php echo $doc->header_cta['url']; ?>" class="c-cta"><?php echo $doc->header_cta['text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a>
@@ -356,7 +360,7 @@ $menu_item_params = $menu_item->getParams();
                                     </header>
                                     <?php else : ?>
                                     <header class="c-panel__header">
-                                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo Markdown::defaultTransform($page_heading); ?></h1>
+                                        <h1 id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" tabindex="-1"><?php echo TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($page_heading),  ['trim_paragraph' => true]); ?></h1>
                                     </header>
                                     <?php endif; ?>
                                     <?php echo TplNPEU6Helper::get_messages(); ?>
