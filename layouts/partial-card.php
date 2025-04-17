@@ -148,16 +148,16 @@ if (empty($card_data['header_span_attr'])) {
 }
 ?>
 
-<article class="c-card<?php if (!empty($card_data['full_link']) && !empty($card_data['link'])) : ?>  js-c-card<?php endif; ?><?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo '  ' . implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>">
-    <div data-fs-block="border  rounded  inverted">
-        <header class="c-card__header">
+<article class="c-card<?php if (!empty($card_data['full_link']) && !empty($card_data['link'])) : ?>  js-c-card<?php endif; ?><?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo '  ' . implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>"  data-fs-block="border  rounded  inverted">
+    <div>
+        <header class="c-card__header" data-fs-block="flex">
             <h<?php echo $card_data['hx']; ?> class="c-card__title">
                 <?php if (!empty($card_data['link'])) : ?><a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>><?php endif; ?>
-                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo Markdown::defaultTransform($card_data['title']); ?></span>
+                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo trim(TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($card_data['title']), ['trim_paragraph' => true])); ?></span>
                 <?php if (!empty($card_data['link'])) : ?></a><?php endif; ?>
             </h<?php echo $card_data['hx']; ?>>
             <?php if (!empty($card_data['header_image'])) : ?>
-            <div class="c-card__image  l-box">
+            <div class="c-card__image  l-box" data-fs-block="flex-first">
                 <div class="u-image-cover  js-image-cover  u-image-cover--min-<?php echo $card_data['header_image_ratio']; ?>">
                     <div class="u-image-cover__inner">
                         <img src="/<?php echo $card_data['header_image']; ?>?s=900" alt="<?php echo $card_data['header_image_alt']; ?>" class="u-image-cover__image" sizes="100vw" srcset="<?php echo $card_data['header_image']; ?>?s=1600 1600w, <?php echo $card_data['header_image']; ?>?s=900 900w, <?php echo $card_data['header_image']; ?>?s=300 300w" width="<?php echo $card_data['header_image_width']; ?>" height="<?php echo $card_data['header_image_height']; ?>">
@@ -191,7 +191,7 @@ if (empty($card_data['header_span_attr'])) {
                     <p class="l-box  l-box--center">
                         <b><a href="<?php echo $card_data['link']; ?>" class="c-cta" id="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>" tabindex="-1" aria-hidden="true"><?php echo $card_data['link_text']; ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></b>
                     </p>
-                     <?php endif; ?>
+                        <?php endif; ?>
                 </div>
             </div>
         </footer>
@@ -200,16 +200,15 @@ if (empty($card_data['header_span_attr'])) {
         <?php if (!empty($card_data['footer_image'])) : ?>
         <div class="c-card__footer-image<?php if (!empty($card_data['footer_image_padded'])) : ?>  c-card__footer-image--padded<?php endif; ?>">
             <div class="u-image-cover<?php if (!empty($card_data['footer_logo'])): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover  u-image-cover--min-<?php echo $card_data['footer_image_ratio']; ?>">
-                <div class="u-image-cover__inner<?php if (!empty($card_data['footer_logo'])): ?>  l-box--space--edge--s<?php endif; ?>">
+                <div class="u-image-cover__inner<?php if (!empty($card_data['footer_logo'])): ?>  l-box--space--edge--s<?php endif; ?>" data-fs-text="center">
                     <?php if (!empty($card_data['footer_image_svg_file'])): ?>
-                    <img src="<?php echo $card_data['footer_image_svg_file']; ?>" onerror="this.src='<?php echo $card_data['footer_image']; ?>'; this.onerror=null;" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="<?php echo $card_data['footer_image_height']; ?>">
+                    <img src="<?php echo $card_data['footer_image_svg_file']; ?>" onerror="this.src='<?php echo $card_data['footer_image']; ?>'; this.onerror=null;" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="80<?php //echo $card_data['footer_image_height']; ?>">
                     <?php else: ?>
-                    <img src="<?php echo $card_data['footer_image']; ?>?s=900" sizes="100vw" srcset="<?php echo $card_data['footer_image']; ?>?s=1600 1600w, <?php echo $card_data['footer_image']; ?>?s=1200 900w, <?php echo $card_data['footer_image']; ?>?s=450 300w" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="<?php echo $card_data['footer_image_height']; ?>">
+                    <img src="<?php echo $card_data['footer_image']; ?>?s=900" sizes="100vw" srcset="<?php echo $card_data['footer_image']; ?>?s=1600 1600w, <?php echo $card_data['footer_image']; ?>?s=1200 900w, <?php echo $card_data['footer_image']; ?>?s=450 300w" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="80<?php //echo $card_data['footer_image_height']; ?>">
                     <?php endif; ?>
                 </div>
             </div>
         </div>
         <?php endif; ?>
-
     </div>
 </article>
