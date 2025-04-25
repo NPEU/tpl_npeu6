@@ -192,7 +192,7 @@ if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform') {
                 </div>
             </header>
             <?php elseif ($module->showtitle): ?>
-            <header class="<?php if ($module_wrapper_align == 'center') {echo 'l-box  l-box--center  l-box--space--block-end  ';} ?>modstyle_magic--header">
+            <header class="<?php if ($module_wrapper_align == 'center') {echo 'l-box  l-box--center  l-box--space--block-end  ';} ?>modstyle_magic--header"<?php if ($module_wrapper_align == 'center') {echo ' data-fs-text="center"';} ?>>
                 <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
             </header>
             <?php endif; ?>

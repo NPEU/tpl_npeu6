@@ -36,9 +36,12 @@ if ($has_image) {
         $img_info = getimagesize($img_path);
 
         $img_ratio = $img_info[0] / $img_info[1];
-        $img_info['width'] = 200;
 
-        $img_info['height'] = round($img_info['width'] / $img_ratio);
+        #$img_info['width'] = 200;
+        #$img_info['height'] = round($img_info['width'] / $img_ratio);
+
+       $img_info['height'] = 200;
+        $img_info['width'] = round($img_info['height'] * $img_ratio);
 
         //if ($img_info[0] > $img_info[1]) {
         //    $img_info['height'] = $img_info['width'] / $img_ratio;

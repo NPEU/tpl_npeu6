@@ -73,7 +73,7 @@ $count--;
         /*}*/
         ?>
             <div class="<?php echo $outer_class; ?>">
-                <div class="<?php echo $inner_class; ?>">
+                <div class="<?php echo $inner_class; ?>" data-fs-block="flex  flex-row  flex-50  gutter  flush-gutter  min-15">
                     <?php foreach ($items as $item): $j++;
 
                     // Ditch hero images after first 2:

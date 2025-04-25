@@ -86,7 +86,7 @@ if (!file_exists($image_path)) {
     $image_info = getimagesize($image_path);
     $ratio = $image_info[0] / $image_info[1];
 
-    $fallback_width  = 600;
+    $fallback_width  = 200;
     $fallback_height = round($fallback_width / $ratio, 2);
 
 
