@@ -133,7 +133,7 @@ if (!(!$has_cta && !$has_content)):
     <div class="c-panel__banner">
         <div class="u-image-cover  js-image-cover  u-image-cover--min-50  u-image-cover--min-25--wide">
             <div class="u-image-cover__inner">
-                <img class="u-image-cover__image" src="<?php echo $params->get('headline_image'); ?>" alt="" width="600">
+                <img class="u-image-cover__image" src="<?php echo $params->get('headline_image'); ?>" alt=""width="200" data-fs-block="fill-width">
             </div>
         </div>
     </div>

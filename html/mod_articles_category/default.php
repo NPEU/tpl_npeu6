@@ -49,9 +49,9 @@ if ($count >= 2 && $count < 5) {
 ?>
 <div class="<?php echo $wrap_class; ?>  mod_articles_category">
     <div class="<?php echo $outer_class; ?>">
-        <ul class="<?php echo $inner_class; ?>">
+        <div class="<?php echo $inner_class; ?>" role="list">
             <?php foreach ($items as $item): ?>
-            <li class="l-box  <?php echo $item_class; ?>">
+            <div class="l-box  <?php echo $item_class; ?>" role="listitem">
                 <?php
                 $fields = FieldsHelper::getFields('com_content.article', $item, true);
 
@@ -68,8 +68,8 @@ if ($count >= 2 && $count < 5) {
                 include(dirname(dirname(__DIR__)) . '/layouts/partial-card.php');
 
                 ?>
-            </li>
+            </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
     </div>
 </div>

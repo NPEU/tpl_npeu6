@@ -131,7 +131,7 @@ foreach ($new_list as $i => &$item) {
     if ($level == $start_level) {
         $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<li'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
     } else {
-        $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<span role="listitem"'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2);
+        $nav_item .= "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 1) . '<span role="listitem"'.$class.'>' . "\n" . TplNPEU6Helper::tab($level * $tab_multiplier + 2) . '<span data-hidden="if-css">&nbsp;&nbsp;&nbsp;</span>';
     }
 
     $item->anchor_css = $item_link_class;

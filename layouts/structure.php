@@ -25,18 +25,221 @@ $block_css_files = false;
     <meta id="css_has_loaded">
     <style>
         /*
-            Tiny Fall-Back Styles (https://github.com/Fall-Back/Patterns/edit/master/Page/README.md)
-
             The following styles provide a better visual experience in cases where linked
             stylesheets aren't loaded for any reason. It's recommended that any styles that won't
-            be used by the elements on the page be removed to make this as lean as possible, and
-            the run through a minifier (e.g. https://cssminifier.com) to compress it as much a
-            possible, since this is sent on each request and not cached.
-            Note there's a section that uses attributes to apply styles to specific element. This
+            be used by the elements on the page be removed to make this as lean as possible.
+            Previously I recommended running this CSS through a minifier
+            (e.g. https://cssminifier.com) to compress it as much a possible, since this is sent on
+            each request and not cached. However the savings are very small and there's a chance a
+            minifier may break some CSS that's been crafted specially with hacks or moderng syntax
+            that's unsupported by the minfier.
+
+            Note there's a section that uses attributes to apply styles to specific elements. This
             is so as not to pollute the class space and help authors make distinctions.
             There's a much long essay on this brewing and I'll add the link when it's done.
+
+            Colour references for ease of search/replace:
+            colour-1: darkslategrey
+            colour-2: silver
         */
-        fieldset,hr{margin:1em 0}image,img,object,svg,video{max-width:100%;height:auto}pre,table{width:100%}fieldset,table{border:1px solid currentColor}html{background:<?php echo $page_brand->primary_colour__dark; ?>}body{font:1em/1.2 sans-serif;padding:2em;margin:0 auto;max-width:50em;background:#fff}details,dialog,main,summary{display:block}@supports (list-style-type:disclosure-closed){summary{display:list-item}}mark{background:#ff0;color:#000}[hidden],template{display:none}fieldset{padding:1em}image,img,object,svg{-ms-interpolation-mode:bicubic;vertical-align:middle;border:0}a[href]{color:inherit}a[href]:hover{text-decoration:none}a[href] img{padding:.3em;margin:.2em}figure{max-width:100%;overflow-x:auto}_:-o-prefocus,:root figure{max-width:initial;overflow-x:visible}hr{border-style:solid;border-width:0 0 1px;color:currentColor}pre{overflow-x:scroll;overflow-y:auto}button{background-color:<?php echo $page_brand->primary_colour; ?>;color:#fff}button,input,label,select,textarea{vertical-align:middle;min-height:2.2em;margin:.2em 0}button,input[type=checkbox],input[type=radio],label,select{cursor:pointer}button,input,textarea{padding:0 .5em;line-height:1.5}table{border-collapse:collapse}table[role=presentation]{border:0;table-layout:fixed}table[role=presentation] td{border:0}th{background:<?php echo $page_brand->primary_colour__very_light; ?>}caption,td,th{padding:.5em}[data-fs-text~=right]{text-align:right}[data-fs-text~=center]{text-align:center}[data-fs-text~=larger]{font-size:larger}[data-fs-text~=nowrap]{white-space:nowrap}
+
+        /* --| Core styles |--------------------------------------------------------------------- */
+        html {
+            background-color: <?php echo $page_brand->primary_colour__dark; ?>;
+        }
+
+        body {
+            font: 1em/1.2 sans-serif;
+            padding: 2em;
+            margin: 0 auto;
+            max-width: 50em;
+            background: #fff;
+        }
+
+        /* For older browsers:(see https://github.com/aFarkas/html5shiv) */
+        dialog,
+        details,
+        main,
+        summary {
+            display: block;
+        }
+
+        @supports (list-style-type: disclosure-closed) {
+            summary {
+                display: list-item;
+            }
+        }
+
+        mark {
+            background: #FF0;
+            color: #000;
+        }
+
+        template,
+        [hidden] {
+            display: none;
+        }
+
+        /* The "older browser" message makes use of a fieldset to add a border no matter what: */
+        fieldset {
+            border: 1px solid;
+            border-color: currentColor;
+            margin: 1em 0;
+            padding: 1em;
+        }
+
+        /* More responsive images: */
+        /* Note ancient image tag is actually for the SVG FalBack PNG method */
+        img,
+        image,
+        object,
+        svg {
+            max-width: 100%;
+            -ms-interpolation-mode: bicubic;
+            vertical-align: middle;
+            height: auto;
+            border: 0;
+        }
+
+        /* Links and image links */
+        a[href] {
+            color: inherit;
+        }
+
+        a[href]:hover {
+            text-decoration: none;
+        }
+
+        a[href] img {
+            padding: 0.3em;
+            margin: 0.2em;
+        }
+
+        /*
+            Putting things like tables in figures makes sense and allows them to become scrollable
+            if they're too wide.
+        */
+        figure {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        /*
+            BUT! Opera Mini doesn't support scrolling areas so hacking it out for that browser:
+        */
+        _:-o-prefocus, :root figure {
+            max-width: initial;
+            overflow-x: visible;
+        }
+
+        hr {
+            border-style: solid;
+            border-width: 0 0 1px 0;
+            margin: 1em 0;
+            color: currentColor;
+        }
+
+        pre {
+            width: 100%;
+            overflow-x: scroll;
+            overflow-y: auto;
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        /* --| Form styles |--------------------------------------------------------------------- */
+        /* If you're using forms, keep this: */
+
+        button {
+            background-color: <?php echo $page_brand->primary_colour; ?>;
+            color: #fff;
+        }
+
+        button,
+        input,
+        label,
+        select,
+        textarea {
+            vertical-align: middle;
+            vertical-align: middle;
+            min-height: 2.2em;
+            margin: 0.2em 0;
+        }
+
+        button,
+        input[type="checkbox"],
+        input[type="radio"],
+        label,
+        select {
+            cursor: pointer;
+        }
+
+        button,
+        input,
+        textarea {
+            padding: 0 0.5em;
+            line-height: 1.5;
+        }
+
+
+        /* --| Table styles |-------------------------------------------------------------------- */
+        /* If you're using tables, keep this: */
+
+        table {
+            width: 100%;
+            border: 1px solid currentColor;
+            border-collapse: collapse;
+        }
+
+        table[role="presentation"] {
+            border: 0;
+            table-layout: fixed;
+        }
+
+        table[role="presentation"] td {
+            border: 0;
+        }
+
+        th {
+            background-color: <?php echo $page_brand->primary_colour__very_light; ?>;
+        }
+
+        caption, td, th {
+            padding: 0.5em;
+        }
+
+        /*
+            What follows is a mix of markup patterns and attributes to help provide a more
+            reasonable fallback - it's unconventional, so leave it out if you like.
+        */
+
+        /* Attributes to replicate deprecated HTML styling: */
+
+        /* Would have been align="right": */
+        [data-fs-text~="right"] {
+            text-align: right;
+        }
+
+        /* Would have been align="center": */
+        [data-fs-text~="center"] {
+            text-align: center;
+        }
+
+        /* Would have been the 'big' element: */
+        [data-fs-text~="larger"] {
+            font-size: larger;
+        }
+
+        [data-fs-text~="nowrap"] {
+            white-space: nowrap;
+        }
+
+        /* EXTRA: */
+
         a[href] img:hover,a[href] svg:hover{outline: 2px solid;}
 
         /* For YouTube via http://embedresponsively.com. May or may not be needed. */
@@ -50,28 +253,215 @@ $block_css_files = false;
         }
 
         [data-fs-block=hidden]{display:none !important}
+
+        /* IE 9, 10 shows svg fallback images as broken images: */
+        _::selection, svg image { display:none\0; }
+
+        /*
+            IE 10's JS can break when tryignto load YouTube player, which in turn breaks the
+            `details` polyfill, making `details` content invisible, so fix that:
+        */
+        _:-ms-lang(x), .selector { details:not([open])>:not(summary){display:block\9 !important}; }
     </style>
 
     <!-- From here we're cutting off IE9- to stop all kinds of JS and CSS fails. -->
     <!--[if !IE]><!-->
 
     <style>
-        /* Tiny Fall-Back Styles continued ... */
-        [data-fs-block]{display:block}[data-fs-block~=background]{background:<?php echo $page_brand->primary_colour__light; ?>;padding:1em}[data-fs-block~=inverted]{background-color:<?php echo $page_brand->primary_colour; ?>;padding:1em}[data-fs-block~=inverted] *{color:#fff}[data-fs-block~=inverted] img{background:#fff;padding:.5em;border:0}[data-fs-block~=border]{border:1px solid <?php echo $page_brand->primary_colour; ?>;margin:1em 0;padding:1em}[data-fs-block~=rounded]{border-radius:1em}[data-fs-block~=padding]{padding:1em}[data-fs-block~=flush]{margin-left:-2em;margin-right:-2em}[data-fs-block~=flush]:last-child{margin-bottom:-2em}[data-fs-block~=table]{display:table;width:100%;table-layout:fixed}[data-fs-block~=table]>*{display:table-cell;padding:.5em}[data-fs-block~=flex]{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}[data-fs-block~=flex]>*{-webkit-box-flex:1;-webkit-flex:1 1 auto;-moz-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}[data-fs-block=video]{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%}[data-fs-block=video] embed,[data-fs-block=video] iframe,[data-fs-block=video] object{position:absolute;top:0;left:0;width:100%;height:100%}[data-fs-hr=larger]{border-top-width:10px}
-
         /*
-        .c-card {
-            border-color: hsl(var(--t-primary-color-h), var(--t-primary-color-s), var(--t-primary-color-l));
-            border-radius: 0.5em;
-            /*background-color: #5D4777;* /
-            background-color: hsl(var(--t-primary-color-h), var(--t-primary-color-s), var(--t-primary-color-l));
-            color: #ffffff;
+            Tiny Fall-Back Styles continued ...
+
+            What follows is a mix of markup patterns and attributes to help provide a more
+            reasonable fallback - it's unconventional, so leave it out if you like.
+        */
+
+        /* --| Block styles |-------------------------------------------------------------------- */
+        [data-fs-block] {
+            display: block;
+            margin-left: 0;
+            margin-right: 0;
         }
 
-        .c-card * {
-            color: inherit;
+        [data-fs-block~="fill-width"] {
+            width: 100%;
         }
+
+        [data-fs-block~="inline"] {
+            display: inline-block;
+        }
+
+        [data-fs-block~="background"] {
+            background-color: <?php echo $page_brand->primary_colour__light; ?>;
+            padding: 1em;
+        }
+
+        [data-fs-block~="inverted"] {
+            background-color: <?php echo $page_brand->primary_colour; ?>;
+            padding: 1em;
+        }
+
+        [data-fs-block~="inverted"] * {
+            color: #fff;
+        }
+
+        [data-fs-block~="inverted"] img {
+            background: #fff;
+            padding: 0.5em;
+            border: 0;
+            max-width: -webkit-calc(100% - 1em);
+            max-width: -moz-calc(100% - 1em);
+            max-width: calc(100% - 1em);
+        }
+
+        [data-fs-block~="border"] {
+            border: 1px solid <?php echo $page_brand->primary_colour; ?>;
+            margin: 1em 0;
+            padding: 1em;
+        }
+
+        [data-fs-block~="rounded"] {
+            border-radius: 1em;
+        }
+
+        [data-fs-block~="padding"] {
+            padding: 1em;
+        }
+
+        [data-fs-block~="margin"] {
+            margin: 1em;
+        }
+
+
+        [data-fs-block~="flush"]{
+            margin-left: -2em;
+            margin-right: -2em;
+        }
+
+        [data-fs-block~="flush"]:last-child{
+            margin-bottom: -2em;
+        }
+
+        /* --| Table Layout |-------------------------------------------------------------------- */
+        /*
+            Useful when you have a very small amount of items you want to display side-by-side.
+            Like, maybe 2, on the left and right. It doesn't wrap so the items should be small.
+            There's reasonable support. Better support would be:
+            `<table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation">`
+            But we're not supposed to use deprecated 'presentational' elements and attributes.
         */
+        [data-fs-block~="table"] {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        [data-fs-block~="table"] > * {
+            display: table-cell;
+            padding: 0.5em;
+        }
+
+
+        /* --| Flex Layout |--------------------------------------------------------------------- */
+        /*
+            More responsive and has wrapping, but less well supported than the table layout.
+        */
+        @supports (flex-wrap: wrap) {
+            [data-fs-block~="flex"] {
+                display: flex;
+            }
+
+            [data-fs-block~="flex-row"] {
+                flex-wrap: wrap;
+            }
+
+            [data-fs-block~="flex-spaced"] {
+                justify-content: space-around;
+            }
+
+            [data-fs-block~="flex-column"] {
+                flex-direction: column;
+            }
+
+            [data-fs-block~="flex"] > * {
+                flex: 1 1 auto;
+                margin: 1em;
+
+                display: flex;
+            }
+
+            [data-fs-block~="inline"] {
+                align-self: center;
+            }
+
+
+            [data-fs-block~="flex-spaced"] > * {
+                flex-grow: 0;
+            }
+
+
+            [data-fs-block~="flex"] * {
+                max-width: 100%;
+            }
+
+            [data-fs-block~="flex"] > * > [data-fs-block] {
+                margin: 0;
+            }
+
+            [data-fs-block~="flex-first"] {
+                order: -1;
+            }
+
+            [data-fs-block~="gutter"] {
+                padding: 0.5em;
+            }
+
+            [data-fs-block~="gutter"] > * {
+                padding: 0.5em;
+            }
+
+            [data-fs-block~="flush-gutter"] {
+                margin: -1em;
+            }
+
+
+            [data-fs-block~="flex-30"] > * {
+                flex-basis: calc(30% - 6em);
+            }
+
+            [data-fs-block~="flex-50"] > * {
+                flex-basis: calc(50% - 4em);
+            }
+
+            [data-fs-block~="min-15"] > * {
+                min-width: 15em;
+            }
+        }
+        /* --| Other stuff |--------------------------------------------------------------------- */
+
+        /* Responsive embeds (e.g. YouTube, maps) via http://embedresponsively.com. */
+        [data-fs-block="video"] {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        [data-fs-block="video"] iframe,
+        [data-fs-block="video"] object,
+        [data-fs-block="video"] embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* Horizontal rules: */
+        [data-fs-hr="larger"] {
+            border-top-width: 10px;
+        }
     </style>
 
     <?php if (!$block_css_files) : ?>
@@ -103,7 +493,7 @@ $block_css_files = false;
     ">
     <!-- Load styles for IE11, UC -->
     <script>
-    if (
+    /*if (
         (!!window.MSInputMethodContext && !!document.documentMode)
      || (navigator.userAgent.indexOf('UCBrowser') > -1)
     ) {
@@ -111,18 +501,18 @@ $block_css_files = false;
         link.rel  = 'stylesheet';
         link.href = '<?php echo TplNPEU6Helper::stamp_filename("/templates/npeu6/css/style.min.css"); ?>';
         document.getElementsByTagName('head')[0].appendChild(link);
-    }
+    }*/
     </script>
     <!-- Load IE11 fixes -->
     <script>
-    if (
+    /*if (
         (!!window.MSInputMethodContext && !!document.documentMode)
     ) {
         var script  = document.createElement('script');
         script.type  = 'text/javascript';
         script.src = '<?php echo TplNPEU6Helper::stamp_filename("/templates/npeu6/js/ie11.min.js"); ?>';
         document.getElementsByTagName('head')[0].appendChild(script);
-    }
+    }*/
     </script>
 
     <?php foreach($page_stylesheets as $stylesheet => $options): ?>
@@ -137,15 +527,14 @@ $block_css_files = false;
     ">
     <!-- Load styles for IE11, UC -->
     <script>
-    if (
+    /*if (
         (!!window.MSInputMethodContext && !!document.documentMode)
-     || (navigator.userAgent.indexOf('UCBrowser') > -1)
     ) {
         var link  = document.createElement('link');
         link.rel  = 'stylesheet';
         link.href = '<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>';
         document.getElementsByTagName('head')[0].appendChild(link);
-    }
+    }*/
     </script>
     <?php endforeach; ?>
 
@@ -162,7 +551,7 @@ $block_css_files = false;
     ">
     <!-- Load styles for IE11, UC -->
     <script>
-    if (
+    /*if (
         (!!window.MSInputMethodContext && !!document.documentMode)
      || (navigator.userAgent.indexOf('UCBrowser') > -1)
     ) {
@@ -170,7 +559,7 @@ $block_css_files = false;
         link.rel  = 'stylesheet';
         link.href = '<?php echo TplNPEU6Helper::stamp_filename($stylesheet); ?>';
         document.getElementsByTagName('head')[0].appendChild(link);
-    }
+    }*/
     </script>
     <?php endforeach; ?>
     <?php endif; ?>
@@ -354,7 +743,7 @@ $block_css_files = false;
     <div data-hidden="if-css" data-fs-text="center">
         <fieldset role="presentation">
             <p>
-                <strong>Notice:</strong> You are viewing an unstyled version of this page. Are you using a very old browser? If so, <a href="https://browsehappy.com/?locale=en">please consider upgrading</a>
+                <strong>Notice:</strong> You are viewing a basic version of this page. Are you using a very old browser? If so, <a href="https://browsehappy.com/?locale=en">please consider upgrading</a>
             </p>
         </fieldset>
     </div>

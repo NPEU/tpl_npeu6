@@ -36,9 +36,9 @@ $menu_item_params = $menu_item->getParams();
                         <div class="l-layout__inner">
                             <div class="l-box">
                                 <p role="list" class="c-utilitext  c-utilitext--skiplinks">
-                                    <span role="listitem"><a href="#main"><span>Skip to content</span></a></span>
-                                    <span role="listitem"><a href="#primary-nav"><span>Skip to navigation</span></a></span>
-                                    <span role="listitem"><a href="#page-footer"><span>Skip to footer</span></a></span>
+                                    <span role="listitem"><a href="#main"><span>Skip to content</span></a><span data-hidden="if-css">&nbsp;&nbsp;&nbsp;</span></span>
+                                    <span role="listitem"><a href="#primary-nav"><span>Skip to navigation</span></a><span data-hidden="if-css">&nbsp;&nbsp;&nbsp;</span></span>
+                                    <span role="listitem"><a href="#page-footer"><span>Skip to footer</span></a><span data-hidden="if-css">&nbsp;&nbsp;&nbsp;</span></span>
                                 </p>
                             </div>
                             <div class="l-box">
@@ -128,15 +128,17 @@ $menu_item_params = $menu_item->getParams();
                     <?php endif; ?>
 
                     <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  page-header__brand-banner--<?php echo ($page_display_cta) ? 'has': 'no'; ?>-cta  <?php echo $page_brand->alias; ?>"<?php if ($second_brand_id && !$page_display_cta) : ?> style="--min-width: <?php echo (($page_brand->svg_width_at_height_100 > 500) ? 500 : $page_brand->svg_width_at_height_100) + $second_brand_width; ?>px"<?php endif; ?>>
-                        <p class="l-layout__inner">
+                        <p class="l-layout__inner" data-fs-block="flex  flex-row  flex-spaced">
 
                             <span class="l-box  l-box--center  primary-logo-wrap">
                                 <a href="/<?php echo $page_brand->alias == 'npeu' ? '' : $page_brand->alias; ?>" class="c-badge  c-badge--primary-logo"><?php echo str_replace('height="80"', 'height="100" width="' . $page_brand->svg_width_at_height_100 . '"', str_replace('height="150"', 'height="100" width="' . $page_brand->svg_width_at_height_100 . '"', $page_brand->logo_svg_with_fallback)); ?></a>
                             </span>
 
                             <?php if ($page_display_cta) : ?>
-                            <span class="l-box  l-box--center  l-box--push-apart">
-                                <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  d-background  t-secondary"><?php echo $page_cta_text; ?></a>
+                            <span class="l-box  l-box--center  l-box--push-apart" data-fs-block="inline  rounded  inverted">
+                                <span>
+                                    <a href="<?php echo $page_cta_url; ?>" class="c-primary-cta  d-background  t-secondary"><span><?php echo $page_cta_text; ?></span></a>
+                                </span>
                             </span>
                             <?php endif; ?>
 
@@ -153,7 +155,7 @@ $menu_item_params = $menu_item->getParams();
                     </div>
 
                     <?php if($page_has_navbar) : ?>
-                    <div class="d-background" data-fs-block="inverted flush">
+                    <div class="d-background" data-fs-block="inverted  flush">
                         <div class="nav-bar" data-js="cmr" data-ie-safe-parent-level="1">
 
                             <div class="nav-bar__start" data-area="navbar-controls">
@@ -224,7 +226,7 @@ $menu_item_params = $menu_item->getParams();
                         }
                     } ?>
                     <?php if($page_has_carousel) : ?>
-                    <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel  c-hero--message-wide  js-c-carousel  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-slide-name="banner-slide">
+                    <fieldset role="region" aria-label="banner slides" class="c-hero-wrap  c-hero-carousel  c-hero--message-wide  js-c-carousel  d-border--top--thick  d-border--bottom--thick  d-background--dark" data-slide-name="banner-slide" data-fs-block="border  rounded  inverted">
                         <div>
                             <nav class="c-hero-carousel__nav" aria-label="banner slides">
                                 <p data-fs-text="center" role="list">
@@ -250,7 +252,7 @@ $menu_item_params = $menu_item->getParams();
                                     <div class="c-hero__image">
                                         <div class="u-image-cover  js-image-cover  <?php if ($is_blog && $page_has_article) :?>u-image-cover--min-50<?php else: ?>u-image-cover--min-33-33<?php endif; ?>">
                                             <div class="u-image-cover__inner">
-                                                <img src="<?php echo $page_hero->image; ?>?s=300" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200">
+                                                <img src="<?php echo $page_hero->image; ?>?s=900" sizes="100vw" srcset="<?php echo $page_hero->image; ?>?s=1600 1600w, <?php echo $page_hero->image; ?>?s=900 900w, <?php echo $page_hero->image; ?>?s=300 300w" alt="<?php echo $page_hero->alt; ?>" class="u-image-cover__image" width="200" data-fs-block="fill-width">
                                             </div>
                                         </div>
                                     </div>

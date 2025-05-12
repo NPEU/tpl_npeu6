@@ -131,11 +131,16 @@ if (!empty($footer_image_data)) {
             if (empty($card_data['footer_image_ratio'])) {
                 $card_data['footer_image_ratio'] = '30';
             }
-            if (empty($card_data['footer_image_width'])) {
+            // Missing clarity and options/settings here.
+            /*if (empty($card_data['footer_image_width'])) {
                 $card_data['footer_image_width'] = '200';
+            }*/
+            if (empty($card_data['footer_image_height'])) {
+                $card_data['footer_image_height'] = '80';
             }
 
-            $card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
+            #$card_data['footer_image_height'] = round($card_data['footer_image_width'] / $footer_image_real_ratio);
+            $card_data['footer_image_width'] = round($card_data['footer_image_height'] * $footer_image_real_ratio);
         }
     }
 }
@@ -153,14 +158,14 @@ if (empty($card_data['header_span_attr'])) {
         <header class="c-card__header" data-fs-block="flex  flex-column">
             <h<?php echo $card_data['hx']; ?> class="c-card__title">
                 <?php if (!empty($card_data['link'])) : ?><a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>><?php endif; ?>
-                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo trim(TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($card_data['title']), ['trim_paragraph' => true])); ?><?php if (!empty($card_data['link']) && !strpos($card_data['link'], 'npeu.ox.ac.uk')) : ?>&nbsp;<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-external-link"></use></svg><?php endif; ?></span>
+                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo trim(TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($card_data['title']), ['trim_paragraph' => true])); ?><?php if (!empty($card_data['link']) && (!strpos($card_data['link'], 'npeu.ox.ac.uk') && !(strpos($card_data['link'], '/') === 0))) : ?>&nbsp;<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-external-link"></use></svg><?php endif; ?></span>
                 <?php if (!empty($card_data['link'])) : ?></a><?php endif; ?>
             </h<?php echo $card_data['hx']; ?>>
             <?php if (!empty($card_data['header_image'])) : ?>
             <div class="c-card__image  l-box" data-fs-block="flex-first">
                 <div class="u-image-cover  js-image-cover  u-image-cover--min-<?php echo $card_data['header_image_ratio']; ?>">
                     <p class="u-image-cover__inner">
-                        <img src="/<?php echo $card_data['header_image']; ?>?s=900" alt="<?php echo $card_data['header_image_alt']; ?>" class="u-image-cover__image" sizes="100vw" srcset="<?php echo $card_data['header_image']; ?>?s=1600 1600w, <?php echo $card_data['header_image']; ?>?s=900 900w, <?php echo $card_data['header_image']; ?>?s=300 300w" width="<?php echo $card_data['header_image_width']; ?>" height="<?php echo $card_data['header_image_height']; ?>">
+                        <img src="/<?php echo $card_data['header_image']; ?>?s=900" alt="<?php echo $card_data['header_image_alt']; ?>" class="u-image-cover__image" sizes="100vw" srcset="<?php echo $card_data['header_image']; ?>?s=1600 1600w, <?php echo $card_data['header_image']; ?>?s=900 900w, <?php echo $card_data['header_image']; ?>?s=300 300w" width="<?php echo $card_data['header_image_width']; ?>" height="<?php echo $card_data['header_image_height']; ?>" data-fs-block="fill-width">
                     </p>
                 </div>
             </div>
@@ -202,9 +207,9 @@ if (empty($card_data['header_span_attr'])) {
             <div class="u-image-cover<?php if (!empty($card_data['footer_logo'])): ?>  u-image-cover--contain<?php endif; ?>  js-image-cover  u-image-cover--min-<?php echo $card_data['footer_image_ratio']; ?>">
                 <div class="u-image-cover__inner<?php if (!empty($card_data['footer_logo'])): ?>  l-box--space--edge--s<?php endif; ?>" data-fs-text="center">
                     <?php if (!empty($card_data['footer_image_svg_file'])): ?>
-                    <img src="<?php echo $card_data['footer_image_svg_file']; ?>" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="80<?php //echo $card_data['footer_image_height']; ?>">
+                    <img src="<?php echo $card_data['footer_image_svg_file']; ?>" onerror="this.src='<?php echo $card_data['footer_image']; ?>'; this.onerror=null;" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="<?php echo $card_data['footer_image_height']; ?>">
                     <?php else: ?>
-                    <img src="<?php echo $card_data['footer_image']; ?>?s=900" sizes="100vw" srcset="<?php echo $card_data['footer_image']; ?>?s=1600 1600w, <?php echo $card_data['footer_image']; ?>?s=1200 900w, <?php echo $card_data['footer_image']; ?>?s=450 300w" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="80<?php //echo $card_data['footer_image_height']; ?>">
+                    <img src="<?php echo $card_data['footer_image']; ?>?s=900" sizes="100vw" srcset="<?php echo $card_data['footer_image']; ?>?s=1600 1600w, <?php echo $card_data['footer_image']; ?>?s=1200 900w, <?php echo $card_data['footer_image']; ?>?s=450 300w" alt="" class="u-image-cover__image" width="<?php echo $card_data['footer_image_width']; ?>" height="<?php echo $card_data['footer_image_height']; ?>">
                     <?php endif; ?>
                 </div>
             </div>
