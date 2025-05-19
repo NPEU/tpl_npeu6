@@ -14,19 +14,29 @@ use Joomla\String\StringHelper;
 
 $doc = Factory::getDocument();
 $hx = StringHelper::increment($params->get('header_tag'));
+
+$basis = $params->get('card_basis', '25');
 ?>
 
 <?php if (!empty($params->get('cards'))) :
-$c = count((array) $params->get('cards'));
-$ff_widths = array(
-    1 => '100',
-    2 => '50',
-    3 => '33-333',
-    4 => '25',
-    5 => '20'
-);
 
-$ff_width = $ff_widths[$c];
+if (!empty($basis)) {
+    if ($basis = '33') {
+        $basis = '33-333';
+    }
+    $ff_width = $basis;
+} else {
+    $c = count((array) $params->get('cards'));
+    $ff_widths = [
+        1 => '100',
+        2 => '50',
+        3 => '33-333',
+        4 => '25',
+        5 => '20'
+    ];
+
+    $ff_width = $ff_widths[$c];
+}
 $full_link = $params->get('link_full', 0);
 //echo '<pre>'; var_dump($params->get('cards')); echo '</pre>'; exit;
 ?>
