@@ -14,13 +14,16 @@ use Joomla\CMS\Helper\ModuleHelper;
 
 use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
 
+$count = $params->get('count');
+$count = ($count > 1 ? $count - 1 : 1);
+
 // Don't show a news article if that's the one that's loaded on the page:
 $doc   = Factory::getDocument();
-$current_article_in_list = false;
+#$current_article_in_list = false;
 foreach($list as $k => $item) {
     if (isset($doc->article->id) && $item->id == $doc->article->id) {
         unset($list[$k]);
-        $current_article_in_list = true;
+        #$current_article_in_list = true;
     }
 }
 
@@ -29,7 +32,8 @@ if (empty($list)) {
 }
 
 // If we HAVEN'T removed an item, remove the last one so the number of items doesn't fluctuate:
-if (count($list) > 1 && !$current_article_in_list) {
+#if (count($list) > 1 && !$current_article_in_list) {
+if (count($list) > $count) {
     array_pop($list);
 }
 
@@ -48,7 +52,7 @@ $date_format = 'd M Y';
 
 // Note: may need to modify this list if it includes items it shouldn't:
 $items = $list;
-$count = $params->get('count');
+
 
 // Note this is a bit rigid. Maybe move to separate templates or allow layout ff_widths to respond
 // to $count in some way?
