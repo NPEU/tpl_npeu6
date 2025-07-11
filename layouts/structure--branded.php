@@ -267,7 +267,7 @@ $menu_item_params = $menu_item->getParams();
                                     <?php if (!empty($page_hero->heading) || !empty($page_hero->text) || (!empty($page_hero->cta_link) && !empty($page_hero->cta_text))) : ?>
                                     <div class="c-hero__message">
                                         <?php if (!empty($page_hero->heading)) : ?>
-                                        <<?php echo $h_el; ?> class="c-hero__message--fluid_heading" id="<?php echo TplNPEU6Helper::html_id($page_heading); ?>" <?php /* not 100% sure this is needed: tabindex="-1"*/ ?>><?php echo ($h_el == 'p' ? '<b>' : ''); ?><?php echo $page_hero->heading; ?><?php echo ($h_el == 'p' ? '</b>' : ''); ?></<?php echo $h_el; ?>>
+                                        <<?php echo $h_el; ?> class="c-hero__message--fluid_heading" id="hero--<?php echo TplNPEU6Helper::html_id($page_heading); ?>" <?php /* not 100% sure this is needed: tabindex="-1"*/ ?>><?php echo ($h_el == 'p' ? '<b>' : ''); ?><?php echo $page_hero->heading; ?><?php echo ($h_el == 'p' ? '</b>' : ''); ?></<?php echo $h_el; ?>>
                                         <?php endif; ?>
                                         <p class="c-hero__message--fluid_text"><?php echo $page_hero->text; ?></p>
                                         <?php if (!empty($page_hero->cta_link) && !empty($page_hero->cta_text)) : ?>
