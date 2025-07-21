@@ -173,4 +173,4 @@ if (!(!$has_cta && !$has_content)):
     </<?php echo $outer_el; ?>>
 </<?php echo $module_tag; ?>>
 <?php endif; ?>
-<?php endif;
+<?php endif; ?>
