@@ -37,6 +37,7 @@ $assocParam = (LanguageAssociations::isEnabled() && $params->get('show_associati
 
 // Get the custom fields for the article:
 $fields = $this->item->jcfields;
+#echo '<pre>'; var_dump($this->item->id); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($fields); echo '</pre>'; exit;
 $headline_image = [];
 $tweak_markdown_options = ['trim_paragraph' => true, 'add_link_spans' => true];
