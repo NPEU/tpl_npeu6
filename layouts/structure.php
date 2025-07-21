@@ -652,6 +652,7 @@ $block_css_files = false;
     <meta name="msapplication-config" content="/templates/npeu6/favicon/<?php echo $page_brand_folder; ?>browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
+    <?php if ($env == 'production') : ?>
     <!-- Matamo -->
     <script type="text/javascript">
         var user_font_size = window.getComputedStyle(document.documentElement).fontSize;
@@ -684,6 +685,7 @@ $block_css_files = false;
     <?php $piwik_url = '?url=' . base64_encode($_SERVER['REQUEST_URI']) . '&title=' . base64_encode($page_title); ?>
 
     <!-- End Matamo Code -->
+    <?php endif;?>
 
     <!-- Social Media -->
     <?php if (!empty($twitter)): ?>
@@ -727,6 +729,7 @@ $block_css_files = false;
 </head>
 <body  id="top" role="document" class="" data-layout="default"><?php /*<body role="document" class="{{ project_data.theme_class }}" data-layout="{{ page.layout_name }}"> */ ?>
 
+    <?php if ($env == 'production') : ?>
     <!-- Matamo no-js tracking: -->
     <noscript>
         <img src="/templates/npeu6/endpoints/matamo-no-js.php<?php echo $piwik_url; ?>" style="display:none;" alt="" />
@@ -739,6 +742,9 @@ $block_css_files = false;
         }
     }
     </style>
+    <!-- End Matamo Code -->
+    <?php endif;?>
+
     <?php echo $page_svg_icons; ?>
     <div data-hidden="if-css" data-fs-text="center">
         <fieldset role="presentation">
