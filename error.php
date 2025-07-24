@@ -147,10 +147,13 @@ ob_start();
                                             <p class="l-layout__inner">
 
                                                 <span class="l-box">
-                                                    <a class="c-badge  c-badge--limit-height--6  twitter" href="https://twitter.com/npeu_oxford" rel="external noopener noreferrer" target="_blank"><img alt="Twitter" height="60" onerror="this.src='/assets/images/brand-logos/social/twitter.png'; this.onerror=null;" src="/assets/images/brand-logos/social/twitter.svg"></a>
+                                                    <a class="c-badge  c-badge--limit-height--6  x" href="https://x.com/npeu_oxford" rel="external noopener noreferrer" target="_blank"><img alt="X" height="60" onerror="this.src='/assets/images/brand-logos/social/x.png'; this.onerror=null;" src="/assets/images/brand-logos/social/x.svg"></a>
                                                 </span>
                                                 <span class="l-box">
                                                     <a class="c-badge c-badge--limit-height--6 youtube" href="https://www.youtube.com/user/NPEUOxford" rel="external noopener noreferrer" target="_blank"><img alt="YouTube" height="60" onerror="this.src='/assets/images/brand-logos/social/youtube.png'; this.onerror=null;" src="/assets/images/brand-logos/social/youtube.svg"></a>
+                                                </span>
+                                                <span class="l-box">
+                                                    <a class="c-badge c-badge--limit-height--6  bluesky" href="https://bsky.app/profile/npeu-oxford.bsky.social" rel="external noopener noreferrer" target="_blank"><img alt="Bluesky" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/bluesky.png'; this.onerror=null;" src="/assets/images/brand-logos/social/bluesky.svg"></a>
                                                 </span>
 
                                             </p>

@@ -41,9 +41,9 @@ if (!empty($params->get('list_basis'))) {
 <div class="<?php echo implode("  ", $layout_classes); ?>  mod_social" data-fs-text="center">
     <p class="l-layout__inner">
 
-        <?php if ($show_twitter) : ?>
+        <?php if ($show_x) : ?>
         <span class="l-box">
-            <a class="c-badge  c-badge--limit-height--6  twitter" href="https://x.com/<?php echo $params->get('twitter'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="X" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/x.png'; this.onerror=null;" src="/assets/images/brand-logos/social/x.svg"></a>
+            <a class="c-badge  c-badge--limit-height--6  x" href="https://x.com/<?php echo $params->get('x'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="X" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/x.png'; this.onerror=null;" src="/assets/images/brand-logos/social/x.svg"></a>
         </span>
         <?php endif; ?>
         <?php if ($show_youtube) : ?>

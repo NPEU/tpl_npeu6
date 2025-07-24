@@ -688,10 +688,10 @@ $block_css_files = false;
     <?php endif;?>
 
     <!-- Social Media -->
-    <?php if (!empty($twitter)): ?>
-    <?php foreach ($twitter as $name => $value): ?>
+    <?php if (!empty($x)): ?>
+    <?php foreach ($x as $name => $value): ?>
 
-    <meta name="twitter:<?php echo $name; ?>" content="<?php echo $value; ?>">
+    <meta name="x:<?php echo $name; ?>" content="<?php echo $value; ?>">
     <?php endforeach; ?>
     <?php endif;?>
 
@@ -772,9 +772,9 @@ $block_css_files = false;
     <?php endif; ?>
 
     <script>
-        var need_twitter = !!document.querySelectorAll('.twitter-share-button').length > 0;
-        if (need_twitter) {
-            window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)?w:((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)},w)}(document,"script","twitter-wjs");
+        var need_x = !!document.querySelectorAll('.x-share-button').length > 0;
+        if (need_x) {
+            window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)?w:((n=t.createElement(e)).id=r,n.src="https://platform.x.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)},w)}(document,"script","x-wjs");
         }
     </script>
 </body>

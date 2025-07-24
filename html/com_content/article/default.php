@@ -99,23 +99,23 @@ $this->item->headline_image = $headline_image;
 
 // If it's a news item:
 if ($this->item->catid == 63) {
-    $twitter_url  = 'https://twitter.com/intent/tweet';
-    #$twitter_url .= '?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . trim($this->item->readmore_link, '/'));
-    $twitter_url .= '?text='. $this->escape($this->item->title);
-    $twitter_url .= '&url=' . 'https://www.npeu.ox.ac.uk/' . trim($this->item->readmore_link, '/');
-    $twitter_url .= '&via=NPEU_Oxford';
+    $x_url  = 'https://x.com/intent/tweet';
+    #$x_url .= '?text='. $this->escape($this->item->title . ' https://www.npeu.ox.ac.uk/' . trim($this->item->readmore_link, '/'));
+    $x_url .= '?text='. $this->escape($this->item->title);
+    $x_url .= '&url=' . 'https://www.npeu.ox.ac.uk/' . trim($this->item->readmore_link, '/');
+    $x_url .= '&via=NPEU_Oxford';
 
-    //$twitter  = '<p class="c-utilitext">';
-    ////$twitter .= '    <a href="' . $twitter_url  . '" class="c-cta  twitter-share-button" data-size="large"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-twitter"></use></svg> <span>Tweet</span></a>';
-    //$twitter .= '    <a href="' . $twitter_url  . '" class="c-cta" target="_blank"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-twitter--inverted"></use></svg> <span>Tweet</span></a>';
-    //$twitter .= '</p>';
+    //$x  = '<p class="c-utilitext">';
+    ////$x .= '    <a href="' . $x_url  . '" class="c-cta  x-share-button" data-size="large"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-x"></use></svg> <span>Tweet</span></a>';
+    //$x .= '    <a href="' . $x_url  . '" class="c-cta" target="_blank"><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-x--inverted"></use></svg> <span>Tweet</span></a>';
+    //$x .= '</p>';
 
-    $this->item->twitter_url = $twitter_url;
+    $this->item->x_url = $x_url;
 
     //if (!empty($this->item->fulltext)) {
-    //    $this->item->fulltext .= $twitter;
+    //    $this->item->fulltext .= $x;
     //} else {
-    //    $this->item->introtext .= $twitter;
+    //    $this->item->introtext .= $x;
     //}
 }
 

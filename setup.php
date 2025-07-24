@@ -598,8 +598,8 @@ if (!empty($doc->article->headline_image['headline-image'])) {
 }
 #echo 'H<pre>'; var_dump($doc->article->headline_image); echo '</pre>'; exit;
 
-// Put Twitter and Page badge in sidebar:
-//if (($is_blog && $page_is_subroute) && ($page_article_brand || !empty($doc->article->twitter_url))) {
+// Put X and Page badge in sidebar:
+//if (($is_blog && $page_is_subroute) && ($page_article_brand || !empty($doc->article->x_url))) {
 if (($is_blog && $page_is_subroute) && $page_article_brand) {
     $page_has_pull_outs = true;
     $page_has_sidebar_bottom;
@@ -630,17 +630,17 @@ if ($is_blog && $page_is_subroute) {
 
 // Social Media:
 
-// Twitter:
-$twitter = [];
+// X:
+$x = [];
 
-$twitter['site']        = '@NPEU_Oxford';
-$twitter['card']        = 'summary';
-$twitter['description'] = $page_description;
-$twitter['title']       = $page_title;
+$x['site']        = '@NPEU_Oxford';
+$x['card']        = 'summary';
+$x['description'] = $page_description;
+$x['title']       = $page_title;
 if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) {
 
-    $twitter['image'] = 'https://www.npeu.ox.ac.uk/' . $doc->article->headline_image['headline-image'];
-    $twitter['card']  = 'summary_large_image';
+    $x['image'] = 'https://www.npeu.ox.ac.uk/' . $doc->article->headline_image['headline-image'];
+    $x['card']  = 'summary_large_image';
 }
 /*<?php if (!empty($doc->article->headline_image['headline-image']) && $show_headline_image == 1) : ?>*/
 
