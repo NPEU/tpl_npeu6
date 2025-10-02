@@ -115,7 +115,7 @@ ob_start();
                                         <li><a href="https://www.npeu.ox.ac.uk"><span>Home</span></a></li>
                                         <li><a href="https://www.npeu.ox.ac.uk/ctu/trials"><span>CTU Trials Portfolio</span></a></li>
                                         <li><a href="https://www.npeu.ox.ac.uk/sheer"><span>SHEER Portfolio</span></a></li>
-                                        <li><a href="https://www.npeu.ox.ac.uk/prumnhc"><span>PRU-MNHC</span></a></li>
+                                        <li><a href="https://www.npeu.ox.ac.uk/pru-mnhc"><span>PRU-MNHC</span></a></li>
                                         <li><a href="https://www.npeu.ox.ac.uk/about"><span>About the NPEU</span></a></li>
                                     </ul>
 
