@@ -15,8 +15,8 @@ $block_css_files = false;
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <?php if ($is_blog && $page_is_subroute == false): ?>
 
+    <?php if ($is_blog && $page_is_subroute == false && $menu_item_params->get('show_feed_link', true) == true): ?>
     <link href="<?php echo $uri->getPath() ?>?format=feed&type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0">
     <link href="<?php echo $uri->getPath() ?>?format=feed&type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0">
     <?php endif; ?>
