@@ -33,7 +33,7 @@ if (!empty($block['block_classes'])) {
 
 ?>
 <?php if (!empty($block['leftpane'])): ?>
-<div class="com-bespoke">
+<div class="com-bespoke"<?php if (!empty($block['block_id'])) : ?> id="<?php echo $block['block_id']; ?>"<?php endif; ?>>
     <div<?php if ($block_classes) { echo ' class="' . $block_classes . '"'; } ?>>
         <?php if (!empty($block['rightpane'])): ?>
         <?php
