@@ -130,7 +130,7 @@ $return = $jinput->get('return', $return);
                             <h2>Randomisation</h2>
                             <p class="u-padding--s">
                                 <a href="https://rct.npeu.ox.ac.uk" rel="external" class="c-badge  c-badge--limit-height">
-                                    <img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80" width="245">
+                                    <img src="/assets/images/brand-logos/unit/ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80" width="245">
                                 </a>
                             </p>
                         </div>

@@ -559,8 +559,34 @@ if (!empty($all_page_heroes)) {
 $show_headline_image = $menu_item_params->get('show_headline_image', 1);
 
 // Meta (?):
-$page_unit        = $page_template_params->unit;
+$page_unit          = $page_template_params->unit;
 #echo '<pre>'; var_dump($page_unit); echo '</pre>'; exit;
+$affiliate_brand_id = $page_template_params->$affiliate_brand_id;
+$affiliate_brand    = false;
+#echo '<pre>'; var_dump($affiliate_brand_id); echo '</pre>'; exit;
+
+if ($affiliate_brand_id) {
+    /*$second_brand = TplNPEU6Helper::get_brand($second_brand_id);
+    $second_brand_url = 'https://www.npeu.ox.ac.uk';
+    if ($is_brc) {
+        $second_brand_url = $second_brand->params->logo_url;
+        $second_brand_width = $second_brand->svg_width_at_height_80;
+    } elseif ($page_brand->alias == 'npeu') {
+        $second_brand_width = $second_brand->svg_width_at_height_100;
+    } elseif ($page_brand->alias == 'pru-mnhc') {
+        $second_brand_url = $second_brand->params->logo_url;
+        $second_brand_width = $second_brand->svg_width_at_height_80;
+    } else {
+        $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : ($page_unit == 'npeu' ? '' : $second_brand->alias));
+        $second_brand_width = $second_brand->svg_width_at_height_80;
+    }*/
+    $affiliate_brand               = TplNPEU6Helper::get_brand($affiliate_brand_id);
+    $affiliate_brand_url           = $affiliate_brand->params->logo_url;
+    $affiliate_brand_logo_svg_path = $affiliate_brand->logo_svg_path;
+    $affiliate_brand_logo_png_path = $affiliate_brand->logo_png_path;
+    $affiliate_brand_name          = $affiliate_brand->name;
+    $affiliate_brand_width         = $affiliate_brand->svg_width_at_height_80;
+}
 
 // Footer:
 // Convert HTML entities, replace year placeholder with year, transform markdown.

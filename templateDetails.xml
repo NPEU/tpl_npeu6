@@ -63,7 +63,7 @@
     <config>
         <fields
             name="params"
-            addfieldpath="/templates/npeu6/admin/fields"
+            addfieldprefix="NPEU\Component\Siteareas\Administrator\Field"
             >
             <fieldset
                 name="main"
@@ -101,7 +101,7 @@
                     default="1"
                     label="TPL_NPEU6_MAIN_BRAND_LABEL"
                     description="TPL_NPEU6_MAIN_BRAND_DESC"
-                    query="SELECT id, name FROM #__brands WHERE catid = 171 ORDER BY name"
+                    query="SELECT id, name FROM #__brands WHERE catid = 171 AND state = 1 ORDER BY name"
                     key_field="id"
                     value_field="name"
                 />
@@ -132,6 +132,18 @@
                     hint="TPL_NPEU6_HEADER_LOGO_DESC"
                     readonly="true"
                 />
+                <field
+                    name="affiliate_brand_id"
+                    type="sql"
+                    default="0"
+                    label="TPL_NPEU6_AFFILATE_BRAND_LABEL"
+                    description="TPL_NPEU6_AFFILATE_BRAND_DESC"
+                    query="SELECT id, name FROM #__brands WHERE (catid = 171 OR catid = 172) AND state = 1 ORDER BY name"
+                    key_field="id"
+                    value_field="name"
+                >
+                    <option value="0">TPL_NPEU6_AFFILATE_BRAND_DEFAULT</option>
+                </field>
                 <field
                     name="cta_text"
                     type="text"

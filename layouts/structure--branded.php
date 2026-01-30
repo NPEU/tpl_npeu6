@@ -80,54 +80,8 @@ $menu_item_params = $menu_item->getParams();
                     <?php if ($modules__top != '') : ?>
                     <?php echo $modules__top; ?>
                     <?php endif; ?>
-                    <?php
-                    $is_brc = ($menu_route == 'brc-cardiovascular-medicine');
 
-                    // Ugh - this is getting very hacky. If possible, change template to allow for 'secondary logo'
-                    // to be specified as an 'overide'.
-                    if ($is_brc) {
-                        $second_brand_id = 146;
-                    } elseif ($page_brand->alias == 'npeu') {
-                        //$second_brand_id = 122;
-                        $second_brand_id = false;
-
-                    } elseif ($page_brand->alias == 'pru-mnhc') {
-                        $second_brand_id = 1;
-                    } elseif ($page_unit == 'npeu') {
-                        $second_brand_id = 1;
-                    } else {
-                        $parent_brand_alias_id = [
-                            'pru-mnhc' => 28,
-                            'npeu_ctu' => 14,
-                            'sheer'    => 16,
-                            'he'       => 106
-                        ];
-
-                        $second_brand_id = $parent_brand_alias_id[$page_unit];
-                    }
-
-                    $second_brand_width = 0;
-
-                    if ($second_brand_id) :
-                        $second_brand = TplNPEU6Helper::get_brand($second_brand_id);
-                        $second_brand_url = 'https://www.npeu.ox.ac.uk';
-                        if ($is_brc) {
-                            $second_brand_url = $second_brand->params->logo_url;
-                            $second_brand_width = $second_brand->svg_width_at_height_80;
-                        } elseif ($page_brand->alias == 'npeu') {
-                            $second_brand_width = $second_brand->svg_width_at_height_100;
-                        } elseif ($page_brand->alias == 'pru-mnhc') {
-                            $second_brand_url = $second_brand->params->logo_url;
-                            $second_brand_width = $second_brand->svg_width_at_height_80;
-                        } else {
-                            $second_brand_url .= '/' . (($page_unit == 'he') ? 'sheer' : ($page_unit == 'npeu' ? '' : $second_brand->alias));
-                            $second_brand_width = $second_brand->svg_width_at_height_80;
-                        }
-
-                    ?>
-                    <?php endif; ?>
-
-                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  page-header__brand-banner--<?php echo ($page_display_cta) ? 'has': 'no'; ?>-cta  <?php echo $page_brand->alias; ?>"<?php if ($second_brand_id && !$page_display_cta) : ?> style="--min-width: <?php echo (($page_brand->svg_width_at_height_100 > 500) ? 500 : $page_brand->svg_width_at_height_100) + $second_brand_width; ?>px"<?php endif; ?>>
+                    <div class="l-layout  l-distribute  l-gutter  page-header__brand-banner  page-header__brand-banner--<?php echo ($page_display_cta) ? 'has': 'no'; ?>-cta  <?php echo $page_brand->alias; ?>"<?php if ($affiliate_brand_id && !$page_display_cta) : ?> style="--min-width: <?php echo (($page_brand->svg_width_at_height_100 > 500) ? 500 : $page_brand->svg_width_at_height_100) + $affiliate_brand_width; ?>px"<?php endif; ?>>
                         <p class="l-layout__inner" data-fs-block="flex  flex-row  flex-spaced">
 
                             <span class="l-box  l-box--center  primary-logo-wrap">
@@ -142,13 +96,40 @@ $menu_item_params = $menu_item->getParams();
                             </span>
                             <?php endif; ?>
 
-                            <?php if ($second_brand_id) : ?>
+                            <?php if ($affiliate_brand) : ?>
                             <span class="l-box  l-box--center">
-                                <a href="<?php echo $second_brand_url; ?>" class="c-badge"><?php if ($page_brand->alias == 'npeu') : ?>
-                                    <?php echo str_replace('height="80"', 'height="100" width="' . $second_brand_width . '"', $second_brand->logo_svg_with_fallback); ?>
+                                <a href="<?php echo $affiliate_brand_url; ?>" class="c-badge">
+                                    <img src="<?php echo $affiliate_brand_logo_svg_path; ?>" onerror="this.src='<?php echo $affiliate_brand_logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $affiliate_brand_name; ?>" height="80" width="<?php echo $affiliate_brand_width; ?>">
+                                </a>
+                                <?php /*<a href="<?php echo $affiliate_brand_url; ?>" class="c-badge"><?php if ($page_brand->alias == 'npeu') : ?>
+                                    <?php echo str_replace('height="80"', 'height="100" width="' . $affiliate_brand_width . '"', $affiliate_brand->logo_svg_with_fallback); ?>
                                     <?php else: ?>
-                                    <img src="<?php echo $second_brand->logo_svg_path; ?>" onerror="this.src='<?php echo $second_brand->logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $second_brand->name; ?>" height="80" width="<?php echo $second_brand_width; ?>">
-                                    <?php endif; ?></a>
+                                    <img src="<?php echo $affiliate_brand->logo_svg_path; ?>" onerror="this.src='<?php echo $affiliate_brand->logo_png_path; ?>'; this.onerror=null;" alt="Logo: <?php echo $affiliate_brand->name; ?>" height="80" width="<?php echo $affiliate_brand_width; ?>">
+                                    <?php endif; ?></a>*/ ?>
+                            </span>
+                            <?php else: ?>
+                            <span class="l-box  l-box--center">
+                                <span class="l-layout  l-row  l-gutter  l-gutter--s  l-flush-edge-gutter">
+                                    <span class="l-layout__inner">
+                                        <?php if ($page_unit != $page_brand->alias) : ?>
+                                        <span class="l-box">
+                                            <a href="https://npeu.ox.ac.uk/<?php echo ($page_unit == 'npeu') ? '' : $page_unit; ?>" class="c-badge">
+                                                <img src="/assets/images/brand-logos/unit/<?php echo $page_unit; ?>-lockup-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/<?php echo $page_unit; ?>-lockup-logo.png'; this.onerror=null;" alt="Logo: <?php echo strtoupper($page_unit); /* this should be better */ ?>" height="100" width="100">
+                                            </a>
+                                        </span>
+                                        <?php endif; ?>
+                                        <span class="l-box">
+                                            <a href="https://wrh.ox.ac.uk/" class="c-badge">
+                                                <img src="/assets/images/brand-logos/affiliate/wrh-lockup-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/wrh-lockup-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Women’s and Reproductive Health" height="100" width="100">
+                                            </a>
+                                        </span>
+                                        <span class="l-box">
+                                            <a href="https://www.ox.ac.uk/" class="c-badge">
+                                                <img src="/assets/images/brand-logos/affiliate/university-of-oxford-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/university-of-oxford-logo.png'; this.onerror=null;" alt="Logo: University of Oxford" height="100" width="100">
+                                            </a>
+                                        </span>
+                                    </span>
+                                </span>
                             </span>
                             <?php endif; ?>
                         </p>
@@ -601,23 +582,23 @@ $menu_item_params = $menu_item->getParams();
 
                     <?php #if ($page_unit != 'npeu') : ?>
                     <?php #if ($page_unit != $page_brand->alias) : ?>
-                    <?php if (true) : ?>
+                    <?php /* if (true) : ?>
                     <div class="d-border--bottom--thick" data-fs-text="center">
                         <div class="l-layout  l-gutter  l-distribute  l-distribute--balance-top  l--basis-20">
                             <p class="l-layout__inner">
                                 <?php
-                                $page_units = array('pru-mnhc', 'npeu_ctu', 'sheer', 'he');
+                                $page_units = ['pru-mnhc', 'npeu_ctu', 'sheer', 'he'];
                                 if (in_array($page_unit, $page_units)) : ?>
                                 <span class="l-box  l-box--center">
-                                    <?php /* Note the following should be made DRYer using brands info */ ?>
+                                    <?php /* Note the following should be made DRYer using brands info * / ?>
                                     <?php /*if ($page_unit == 'npeu') : ?>
                                     <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center">
                                         <img src="/assets/images/brand-logos/unit/npeu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-logo.png'; this.onerror=null;" alt="Logo: NPEU" height="80">
                                     </a>
-                                    <?php else*/ if ($page_unit == 'pru-mnhc') : ?>
+                                    <?php else* / if ($page_unit == 'pru-mnhc') : ?>
                                     <a href="https://www.npeu.ox.ac.uk" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/pru-mnhc-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/pru-mnhc-logo.png'; this.onerror=null;" alt="Logo: PRU-MNHC" height="80" width="236"></a>
                                     <?php elseif ($page_unit == 'npeu_ctu') : ?>
-                                    <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/npeu-ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/npeu-ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80" width="236"></a>
+                                    <a href="https://www.npeu.ox.ac.uk/ctu" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/ctu-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/ctu-logo.png'; this.onerror=null;" alt="Logo: NPEU CTU" height="80" width="236"></a>
                                     <?php elseif ($page_unit == 'sheer') : ?>
                                     <a href="https://www.npeu.ox.ac.uk/sheer" class="c-badge  c-badge--limit-height  l-center"><img src="/assets/images/brand-logos/unit/sheer-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/sheer-logo.png'; this.onerror=null;" alt="Logo: SHEER" height="80" width="236"></a>
                                     <?php elseif ($page_unit == 'he') : ?>
@@ -640,7 +621,7 @@ $menu_item_params = $menu_item->getParams();
                             </p>
                         </div>
                     </div>
-                    <?php endif; ?>
+                    <?php endif; */ ?>
 
                     <?php echo $modules__footer_bottom; ?>
 
