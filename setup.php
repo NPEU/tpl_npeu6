@@ -561,7 +561,7 @@ $show_headline_image = $menu_item_params->get('show_headline_image', 1);
 // Meta (?):
 $page_unit          = $page_template_params->unit;
 #echo '<pre>'; var_dump($page_unit); echo '</pre>'; exit;
-$affiliate_brand_id = $page_template_params->$affiliate_brand_id;
+$affiliate_brand_id = $page_template_params->affiliate_brand_id;
 $affiliate_brand    = false;
 #echo '<pre>'; var_dump($affiliate_brand_id); echo '</pre>'; exit;
 

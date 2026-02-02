@@ -112,19 +112,20 @@ $menu_item_params = $menu_item->getParams();
                                 <span class="l-layout  l-row  l-gutter  l-gutter--s  l-flush-edge-gutter">
                                     <span class="l-layout__inner">
                                         <?php if ($page_unit != $page_brand->alias) : ?>
+                                        <?php if ($page_unit == 'he') {$page_unit = 'npeu';} # HE Never developed a Site Area ?>
                                         <span class="l-box">
-                                            <a href="https://npeu.ox.ac.uk/<?php echo ($page_unit == 'npeu') ? '' : $page_unit; ?>" class="c-badge">
+                                            <a href="https://www.npeu.ox.ac.uk/<?php echo ($page_unit == 'npeu') ? '' : $page_unit; ?>" class="c-badge">
                                                 <img src="/assets/images/brand-logos/unit/<?php echo $page_unit; ?>-lockup-logo.svg" onerror="this.src='/assets/images/brand-logos/unit/<?php echo $page_unit; ?>-lockup-logo.png'; this.onerror=null;" alt="Logo: <?php echo strtoupper($page_unit); /* this should be better */ ?>" height="100" width="100">
                                             </a>
                                         </span>
                                         <?php endif; ?>
                                         <span class="l-box">
-                                            <a href="https://wrh.ox.ac.uk/" class="c-badge">
+                                            <a href="https://www.wrh.ox.ac.uk/" class="c-badge" rel="external">
                                                 <img src="/assets/images/brand-logos/affiliate/wrh-lockup-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/wrh-lockup-logo.png'; this.onerror=null;" alt="Logo: Nuffield Department of Women’s and Reproductive Health" height="100" width="100">
                                             </a>
                                         </span>
                                         <span class="l-box">
-                                            <a href="https://www.ox.ac.uk/" class="c-badge">
+                                            <a href="https://www.ox.ac.uk/" class="c-badge" rel="external">
                                                 <img src="/assets/images/brand-logos/affiliate/university-of-oxford-logo.svg" onerror="this.src='/assets/images/brand-logos/affiliate/university-of-oxford-logo.png'; this.onerror=null;" alt="Logo: University of Oxford" height="100" width="100">
                                             </a>
                                         </span>
