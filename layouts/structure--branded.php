@@ -57,7 +57,7 @@ $menu_item_params = $menu_item->getParams();
                                                     <span class="l-box__separator">|</span>
 
                                                     <span role="listitem" class="l-box">
-                                                        <a href="http://api.qrserver.com/v1/create-qr-code/?data=<?php echo urlencode('http://qr.npeu.ox.ac.uk/' . $menu_item->id . '&amp;format=eps'); ?>"><span>QR code (eps)</span></a>
+                                                        <a href="https://api.qrserver.com/v1/create-qr-code/?format=eps&amp;data=<?php echo urlencode('http://qr.npeu.ox.ac.uk/' . $menu_item->id); ?>"><span>QR code (eps)</span></a>
                                                     </span>
                                                     <?php endif; ?>
                                                     <?php if ($user->authorise("core.edit", "com_menus.menu." . $menu_id)): ?>
