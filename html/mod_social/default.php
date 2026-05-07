@@ -40,10 +40,19 @@ if (!empty($params->get('list_basis'))) {
 ?>
 <div class="<?php echo implode("  ", $layout_classes); ?>  mod_social" data-fs-text="center">
     <p class="l-layout__inner">
-
-        <?php if ($show_x) : ?>
+        <?php if ($show_bluesky) : ?>
         <span class="l-box">
-            <a class="c-badge  c-badge--limit-height--6  x" href="https://x.com/<?php echo $params->get('x'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="X" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/x.png'; this.onerror=null;" src="/assets/images/brand-logos/social/x.svg"></a>
+            <a class="c-badge c-badge--limit-height--6  bluesky" href="https://bsky.app/profile/<?php echo $params->get('bluesky'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="Bluesky" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/bluesky.png'; this.onerror=null;" src="/assets/images/brand-logos/social/bluesky.svg"></a>
+        </span>
+        <?php endif; ?>
+        <?php if ($show_facebook) : ?>
+        <span class="l-box">
+            <a class="c-badge c-badge--limit-height--6  facebook" href="https://www.facebook.com/profile.php?id=<?php echo $params->get('facebook'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="Facebook" height="60" onerror="this.src='/assets/images/brand-logos/social/facebook.png'; this.onerror=null;" src="/assets/images/brand-logos/social/facebook.svg"></a>
+        </span>
+        <?php endif; ?>
+        <?php if ($show_instagram) : ?>
+        <span class="l-box">
+            <a class="c-badge c-badge--limit-height--6  instagram" href="https://www.instagram.com/<?php echo $params->get('instagram'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="Instagram" height="60" onerror="this.src='/assets/images/brand-logos/social/instagram.png'; this.onerror=null;" src="/assets/images/brand-logos/social/instagram.svg"></a>
         </span>
         <?php endif; ?>
         <?php if ($show_youtube) : ?>
@@ -51,9 +60,9 @@ if (!empty($params->get('list_basis'))) {
             <a class="c-badge c-badge--limit-height--6  youtube" href="https://www.youtube.com/user/<?php echo $params->get('youtube'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="YouTube" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/youtube.png'; this.onerror=null;" src="/assets/images/brand-logos/social/youtube.svg"></a>
         </span>
         <?php endif; ?>
-        <?php if ($show_bluesky) : ?>
+        <?php if ($show_x) : ?>
         <span class="l-box">
-            <a class="c-badge c-badge--limit-height--6  bluesky" href="https://bsky.app/profile/<?php echo $params->get('bluesky'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="Bluesky" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/bluesky.png'; this.onerror=null;" src="/assets/images/brand-logos/social/bluesky.svg"></a>
+            <a class="c-badge  c-badge--limit-height--6  x" href="https://x.com/<?php echo $params->get('x'); ?>" rel="external noopener noreferrer" target="_blank"><img alt="X" width="60" height="60" onerror="this.src='/assets/images/brand-logos/social/x.png'; this.onerror=null;" src="/assets/images/brand-logos/social/x.svg"></a>
         </span>
         <?php endif; ?>
 
