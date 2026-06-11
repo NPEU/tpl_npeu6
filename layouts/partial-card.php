@@ -151,15 +151,18 @@ if (empty($card_data['header_span_attr'])) {
 } else {
     $card_data['header_span_attr'] = ' ' . $card_data['header_span_attr'];
 }
+
+$card_data['full_link'] = (bool) $card_data['full_link'];
 ?>
 
-<article class="c-card<?php if (!empty($card_data['full_link']) && !empty($card_data['link'])) : ?>  js-c-card<?php endif; ?><?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo '  ' . implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>"  data-fs-block="border  rounded  inverted">
+
+<article class="c-card<?php if ($card_data['full_link'] && !empty($card_data['link'])) : ?>  js-c-card<?php endif; ?><?php if (!empty($card_data['theme_classes'])) : ?>  <?php echo $card_data['theme_classes']; ?><?php endif; ?><?php if (!empty($wrapper_classes)) : ?><?php echo '  ' . implode('  ', array_unique($wrapper_classes)); ?><?php endif; ?>"  data-fs-block="border  rounded  inverted">
     <div>
         <header class="c-card__header" data-fs-block="flex  flex-column">
             <h<?php echo $card_data['hx']; ?> class="c-card__title">
-                <?php if (!empty($card_data['link'])) : ?><a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>><?php endif; ?>
-                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo trim(TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($card_data['title']), ['trim_paragraph' => true])); ?><?php if (!empty($card_data['link']) && (!strpos($card_data['link'], 'npeu.ox.ac.uk') && !(strpos($card_data['link'], '/') === 0))) : ?>&nbsp;<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-external-link"></use></svg><?php endif; ?></span>
-                <?php if (!empty($card_data['link'])) : ?></a><?php endif; ?>
+                <?php if ($card_data['full_link'] && !empty($card_data['link'])) : ?><a href="<?php echo $card_data['link']; ?>"<?php if (!empty($card_data['link_text'])) : ?> aria-describedby="desc-<?php echo TplNPEU6Helper::html_id($card_data['title']); ?>"<?php endif; ?>><?php endif; ?>
+                    <span<?php echo $card_data['header_span_attr']; ?>><?php echo trim(TplNPEU6Helper::tweak_markdown_output(Markdown::defaultTransform($card_data['title']), ['trim_paragraph' => true])); ?><?php if (($card_data['full_link'] && !empty($card_data['link'])) && (!strpos($card_data['link'], 'npeu.ox.ac.uk') && !(strpos($card_data['link'], '/') === 0))) : ?>&nbsp;<svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-external-link"></use></svg><?php endif; ?></span>
+                <?php if ($card_data['full_link'] && !empty($card_data['link'])) : ?></a><?php endif; ?>
             </h<?php echo $card_data['hx']; ?>>
             <?php if (!empty($card_data['header_image'])) : ?>
             <div class="c-card__image  l-box" data-fs-block="flex-first">
