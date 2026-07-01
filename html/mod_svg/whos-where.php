@@ -14,6 +14,10 @@ use Joomla\CMS\MVC\View\GenericDataException;
 
 $doc = Factory::getDocument();
 
+$doc->addScript('/templates/npeu6/html/mod_svg/popper.min.js');
+$doc->addScript('/templates/npeu6/html/mod_svg/tippy-bundle.umd.min.js');
+
+
 $db    = Factory::getDbo();
 $query = $db->getQuery(true);
 
@@ -47,8 +51,13 @@ $staff_members = $db->loadAssocList();
 // It's friendlier to show first names, but there are sometimes conflicts (Jenny, Andy):
 $first_names    = [];
 $friendly_names = [];
+$unassigned     = [];
+$desks          = [];
 $rooms          = [];
 $room_to_names  = [];
+
+$desk_pattern   = "/[A-Z]\d{1,2}/";
+$room_pattern   = "/\d{3}\.\d{2}\.\d{2}/";
 
 foreach ($staff_members as $k => $staff) {
 
@@ -86,15 +95,70 @@ foreach ($staff_members as $k => $staff) {
         $staff_members[$k]['avatar'] = '/assets/images/avatars/_none.jpg';
     }
 
+    $r = $staff['room'];
 
-
-    $room = empty($staff['room']) ? 'unassigned' : $staff['room'];
-    if (!array_key_exists($room, $rooms)) {
-        $rooms[$room] = [];
+    if (empty($r)) {
+        $unassigned[] = $k;
+        continue;
     }
-    $rooms[$room][] = $k;
-    $room_to_names[$room][] = $staff['name'];
+
+    // Tidy desk / room entries:
+
+    // If someone has entered something in addition to the location (e.g. Ben Allin "(Mostly Works Remotely)")
+    // The we need to extract this and add it as a note. I'm nit sure if I'll use those notes yet but
+    // keep them just in case:
+    $location_type = false;
+    $r_id = false;
+
+    if (strstr($r, ' ') !== false) {
+        $a = explode(' ', $r, 2);
+        $r = $a[0];
+        $staff_members[$k]['room_note'] = $a[1];
+    } else {
+        $staff_members[$k]['room_note'] = '';
+    }
+
+    if (preg_match($room_pattern, $r)) {
+        $r_id = "R-" . $r;
+
+        $location_type = 'room';
+        $staff_members[$k]['room_id']   = $r_id;
+        $staff_members[$k]['room_type'] = $location_type;
+    } elseif (preg_match($desk_pattern, $r)) {
+        $location_type = 'desk';
+        $r = strtoupper($r);
+        $desks[$r] = $k;
+        $staff_members[$k]['room_id']   = $r;
+        $staff_members[$k]['room_type'] = $location_type;
+    } else {
+        $staff_members[$k]['room_id']   = false;
+        $staff_members[$k]['room_note'] = $staff['room'];
+        $staff_members[$k]['room_type'] = 'note';
+        $unassigned[] = $k;
+    }
+
+
+
+    $staff_members[$k]['room'] = $r;
+
+    if ($location_type == 'desk') {
+        continue;
+    }
+
+    if ($location_type == 'note') {
+        $unassigned[] = $k;
+        continue;
+    }
+
+    //$room = empty($r) ? 'unassigned' : $r;
+
+    if (!array_key_exists($r_id, $rooms)) {
+        $rooms[$r_id] = [];
+    }
+    $rooms[$r_id][] = $k;
+    $room_to_names[$r_id][] = $staff['name'];
 }
+#echo '<pre>'; var_dump($staff_members); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($staff_members); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($room_to_names); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($rooms); echo '</pre>'; exit;
@@ -116,11 +180,35 @@ foreach ($rooms as $room => $keys) {
             }
         }
 
-        $s .= '<a href="#' . $staff_member['alias'] . '"><tspan x="0" y="' . $y . '" class="st12 st5 st13">' . $name . '</tspan></a>';
+        $s .= '<tspan x="0" y="' . $y . '"><a href="#' . $staff_member['alias'] . '">' . $name . '</a></tspan>';
         $y += 7.8;
     }
 
-    $module->content = str_replace('{' . $room . '}', $s, $module->content);
+    $module->content = str_replace('>' . $room . '<', '>' . $s . '<', $module->content);
+}
+
+// Tidy any leftover placeholders:
+$module->content = preg_replace('/>R-.*?</', '><', $module->content);
+
+foreach ($desks as $n => $k) {
+
+
+    $staff_member = $staff_members[$k];
+    $name = trim($staff_member['first_name']);
+
+    if ($first_names[$name] > 1) {
+
+        $name = $staff_member['friendly_name'];
+        if ($friendly_names[$name] > 1) {
+            $name = trim($staff_member['name']);
+        }
+    }
+
+    #$s = '<a href="#' . $staff_member['alias'] . '">' . $name . '</a>';
+    $s = '<a href="#' . $staff_member['alias'] . '">' . $n . '</a>';
+
+    // Make sure we're replace text content and not the ID:
+    $module->content = str_replace('>' . $n . '<', '>' . $s . '<', $module->content);
 }
 
 // <tspan x="0" y="0" class="st13 st4 st14">DAVE M </tspan><tspan x="0" y="7.8" class="st13 st4 st14">AAA </tspan><tspan x="0" y="15.6" class="st13 st4 st14">BBB </tspan>
@@ -136,10 +224,10 @@ foreach ($rooms as $room => $keys) {
     <?php echo $module->content; ?>
 </figure>
 
-<?php if (!empty($rooms['unassigned'])) : ?>
-<h2>Staff members with no rooms entered in their profile</h2>
+<?php if (!empty($unassigned)) : ?>
+<h2>Staff members with no locations entered in their profile</h2>
 <ul>
-    <?php foreach ($rooms['unassigned'] as $k) : $m = $staff_members[$k]; ?>
+    <?php foreach ($unassigned as $k) : $m = $staff_members[$k]; ?>
     <li><a href="#<?php echo $m['alias']; ?>"><?php echo $m['name']; ?></a></li>
     <?php endforeach; ?>
 </ul>
@@ -160,7 +248,7 @@ foreach ($rooms as $room => $keys) {
                     <div class="c-glimpse__image  d-border">
                         <div class="u-image-cover  js-image-cover  u-image-cover--min-100">
                             <div class="u-image-cover__inner">
-                                <img src="<?php echo $staff['avatar']; ?>?s=300" sizes="100vw" srcset="<?php echo $staff['avatar']; ?>?s=1600 1600w, <?php echo $staff['avatar']; ?>?s=900 900w, <?php echo $staff['avatar']; ?>?s=300 300w" alt="" class="u-image-cover__image" width="120" height="120">
+                                <img loading="lazy" src="<?php echo $staff['avatar']; ?>?s=300" sizes="100vw" srcset="<?php echo $staff['avatar']; ?>?s=1600 1600w, <?php echo $staff['avatar']; ?>?s=900 900w, <?php echo $staff['avatar']; ?>?s=300 300w" alt="" class="u-image-cover__image" width="120" height="120">
                             </div>
                         </div>
                     </div>
@@ -174,9 +262,14 @@ foreach ($rooms as $room => $keys) {
                         <?php endif; ?>
                         <p class="c-utilitext  c-utilitext--no-font-reduction  l-box--space--block--xs  l-layout  l-row  l-row--start  l-gutter--xs  l-flush-edge-gutter">
                             <span class="l-layout__inner">
-                                <span class="l-box"><a href="/about/people/<?php echo $staff['alias']; ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a></span>&emsp;
-                                <span class="l-box"><a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?></span>&emsp;
-                                <span class="l-box"><a href="#<?php echo strtolower(str_replace('/', '-', $staff['room'])); ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span>Office</span></a><?php endif; ?></span>
+                                <span class="l-box"><a href="/about/people/<?php echo $staff['alias']; ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-person"></use></svg> <span>Profile</span></a>&emsp;</span>
+                                <span class="l-box"><a href="/staff-area/whatson#user-<?php echo $staff['id']; ?>?whatson_filter=<?php echo urlencode($staff['name']) ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg> <span>WhatsOn</span></a><?php if (!empty($staff['room'])) : ?>&emsp;</span>
+                                <span class="l-box">
+                                    <?php if ($staff['room_type'] == 'note' && !empty($staff['room_note'])) : ?>
+                                    <span><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span><?php echo $staff['room_note']; ?></span></span>
+                                    <?php else : ?>
+                                    <a href="#<?php echo $staff['room_id']; ?>"><svg height="20" width="20" focusable="false" aria-hidden="true"><use xlink:href="#icon-map-pin"></use></svg> <span><?php echo  ($staff['room_type'] == 'desk' ? 'Desk' : 'Room') . ' number: ' . $staff['room']; ?></span></a><?php if (!empty($staff['room_note'])) : ?> <?php echo $staff['room_note']; ?><?php endif; ?><?php endif; ?></span>
+                                    <?php endif; ?>
                             </span>
                         </p>
                     </div>
@@ -190,3 +283,21 @@ foreach ($rooms as $room => $keys) {
         <?php endforeach; ?>
     </ul>
 </div>
+<script>
+    <?php
+    foreach ($desks as $n => $k) {
+
+
+        $staff_member = $staff_members[$k];
+        $name = trim($staff_member['first_name']) . ' ' . trim($staff_member['last_name']);
+
+        echo "tippy('#" . $n . " + * > a', {content: '" . str_replace("'", "\'", $name) . "'});";
+    }
+    ?>
+
+</script>
+<style>
+    article.c-glimpse:target {
+        background-color: #ffcb84 !important;
+    }
+</style>
