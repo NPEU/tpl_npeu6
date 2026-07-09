@@ -54,6 +54,7 @@ $friendly_names = [];
 $unassigned     = [];
 $desks          = [];
 $rooms          = [];
+$desk_to_names  = [];
 $room_to_names  = [];
 
 $desk_pattern   = "/[A-Z]\d{1,2}/";
@@ -127,7 +128,7 @@ foreach ($staff_members as $k => $staff) {
     } elseif (preg_match($desk_pattern, $r)) {
         $location_type = 'desk';
         $r = strtoupper($r);
-        $desks[$r] = $k;
+        //$desks[$r] = $k;
         $staff_members[$k]['room_id']   = $r;
         $staff_members[$k]['room_type'] = $location_type;
     } else {
@@ -142,6 +143,12 @@ foreach ($staff_members as $k => $staff) {
     $staff_members[$k]['room'] = $r;
 
     if ($location_type == 'desk') {
+        if (!array_key_exists($r, $desks)) {
+            $desks[$r] = [];
+        }
+        $desks[$r][] = $k;
+        $desk_to_names[$r][] = $staff['name'];
+
         continue;
     }
 
@@ -161,6 +168,7 @@ foreach ($staff_members as $k => $staff) {
 #echo '<pre>'; var_dump($staff_members); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($staff_members); echo '</pre>'; exit;
 #echo '<pre>'; var_dump($room_to_names); echo '</pre>'; exit;
+#echo '<pre>'; var_dump($desks); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($rooms); echo '</pre>'; exit;
 // 2nd pass to add the <tspan> elements to the svg:
 
@@ -190,25 +198,22 @@ foreach ($rooms as $room => $keys) {
 // Tidy any leftover placeholders:
 $module->content = preg_replace('/>R-.*?</', '><', $module->content);
 
-foreach ($desks as $n => $k) {
+foreach ($desks as $desk => $keys) {
+
+    if (count($keys) > 1) {
+        // Handle multiple people with the same desk.
+    } else {
+        $k = $keys[0];
 
 
-    $staff_member = $staff_members[$k];
-    $name = trim($staff_member['first_name']);
+        $staff_member = $staff_members[$k];
 
-    if ($first_names[$name] > 1) {
+        #$s = '<a href="#' . $staff_member['alias'] . '">' . $name . '</a>';
+        $s = '<a href="#' . $staff_member['alias'] . '">' . $desk . '</a>';
 
-        $name = $staff_member['friendly_name'];
-        if ($friendly_names[$name] > 1) {
-            $name = trim($staff_member['name']);
-        }
+        // Make sure we're replace text content and not the ID:
+        $module->content = str_replace('>' . $desk . '<', '>' . $s . '<', $module->content);
     }
-
-    #$s = '<a href="#' . $staff_member['alias'] . '">' . $name . '</a>';
-    $s = '<a href="#' . $staff_member['alias'] . '">' . $n . '</a>';
-
-    // Make sure we're replace text content and not the ID:
-    $module->content = str_replace('>' . $n . '<', '>' . $s . '<', $module->content);
 }
 
 // <tspan x="0" y="0" class="st13 st4 st14">DAVE M </tspan><tspan x="0" y="7.8" class="st13 st4 st14">AAA </tspan><tspan x="0" y="15.6" class="st13 st4 st14">BBB </tspan>
@@ -285,13 +290,22 @@ foreach ($desks as $n => $k) {
 </div>
 <script>
     <?php
-    foreach ($desks as $n => $k) {
+    foreach ($desks as $desk => $keys) {
 
+        if (count($keys) > 1) {
+            // Handle multiple people with the same desk.
+            $selector = "#" . $desk . " + *";
+        } else {
+            $selector = "#" . $desk . " + * > a";
+        }
 
-        $staff_member = $staff_members[$k];
-        $name = trim($staff_member['first_name']) . ' ' . trim($staff_member['last_name']);
+        $names = [];
+        foreach ($keys as $k) {
 
-        echo "tippy('#" . $n . " + * > a', {content: '" . str_replace("'", "\'", $name) . "'});";
+            $staff_member = $staff_members[$k];
+            $names[] = trim($staff_member['first_name']) . ' ' . trim($staff_member['last_name']);
+        }
+        echo "tippy('". $selector . "', {content: '" . str_replace("'", "\'", implode('<br>', $names)) . "', allowHTML: true});";
     }
     ?>
 
