@@ -111,7 +111,7 @@ $menu_item_params = $menu_item->getParams();
                             <span class="l-box  l-box--center">
                                 <span class="l-layout  l-row  l-gutter  l-gutter--s  l-flush-edge-gutter">
                                     <span class="l-layout__inner">
-                                    <?php $page_unit_url = ($page_unit == 'npeu' ? '' : $page_unit); ?>
+                                        <?php $page_unit_url = ($page_unit == 'npeu' ? '' : $page_unit); ?>
                                         <?php if ($page_unit != $page_brand->alias) : ?>
                                         <?php if ($page_unit == 'he') {$page_unit = 'npeu';} # HE Never developed a Site Area ?>
                                         <?php if ($page_unit == 'npeu_ctu') {$page_unit_url = 'ctu';} # Fix the alias ?>
