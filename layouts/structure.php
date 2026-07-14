@@ -487,7 +487,7 @@ $block_css_files = false;
         Print (Edge doesn't apply to print otherwise)
         Edge 79+, Chrome 74+, Firefox 63+, Opera 64+, Safari 10.1+, iOS 10.3+, Android 81+
     -->
-    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/style.min.css'); ?>?sub=1" media="
+    <link rel="stylesheet" href="<?php echo TplNPEU6Helper::stamp_filename('/templates/npeu6/css/style.min.css'); ?>" media="
         only print,
         only all and (prefers-reduced-motion: no-preference), only all and (prefers-reduced-motion: reduce)
     ">
