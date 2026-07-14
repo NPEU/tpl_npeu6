@@ -76,7 +76,10 @@ $page_brand = TplNPEU6Helper::get_brand();
 
 $module_wrapper = $params->get('wrapper') ? $params->get('wrapper') : '';
 $module_wrapper_theme = $params->get('theme') ? $params->get('theme') : '';
-$module_wrapper_fill_height = $params->get('wrapper_fill_hieght') ? $params->get('wrapper_fill_hieght') : '';
+$module_wrapper_fill_height = (bool) ($params->get('wrapper_fill_hieght') ? $params->get('wrapper_fill_hieght') : false);
+// CTU Going Global needed 100% height forced. Too many occurances of u-fill-height to check them all,
+// and I'm certain I removed 100% height from the base class for good reasons, so adding a 2nd option for 100% height.
+$module_wrapper_force_height = (bool) ($params->get('wrapper_force_height') ? $params->get('wrapper_force_height') : false);
 
 //$wrapper_classname = '';
 $header_classname  = $params->get('header_class', '');
@@ -93,6 +96,7 @@ if ($module_wrapper_theme == 'white') {
     $theme_name = 'white';
     $module_wrapper_theme = '';
 }
+
 #echo '<pre>'; var_dump($module); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($module_wrapper); echo '</pre>'; #exit;
 #echo '<pre>'; var_dump($module_wrapper_theme); echo '</pre>'; #exit;
@@ -121,28 +125,30 @@ $cta_position = $params->get('cta_position');
 
 if (!empty($module->content)): ?>
 <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-<div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?><?php echo (!empty($module_wrapper_fill_height) ? '  u-fill-height': '');?>  modstyle_bespoke--wrapper">
+    <?php echo $module->title . ' module_wrapper_force_height<pre>'; var_dump($module_wrapper_force_height); echo '</pre>'; #exit;?>
+<div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?><?php echo ($module_wrapper_fill_height) ? '  u-fill-height' : '';?><?php echo ($module_wrapper_force_height) ? '  u-force-height' : ''; ?>  modstyle_bespoke--wrapper">
     <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
         <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
 <?php else: ?>
-<div class="c-panel__module  modstyle_bespoke--wrapper  u-fill-height">
+<div class="c-panel__module  modstyle_bespoke--wrapper  u-fill-height<?php echo ($module_wrapper_force_height) ? '  u-force-height' : ''; ?>">
 <?php endif; ?>
-            <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
-            <header class="c-panel__header  modstyle_bespoke--header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">
-                <div>
-                    <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
-                    <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
-                </div>
-            </header>
-            <?php elseif ($module->showtitle): ?>
-            <header class="c-panel__header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">
-                <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
-            </header>
-            <?php endif; ?>
-            <?php echo $module->content; ?>
-            <?php if ($has_cta && $cta_position == 'bottom'): ?>
-            <p<?php if ($module_wrapper == 'panel_longform') : ?> class="longform-content__companion"<?php endif; ?>><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
-            <?php endif; ?>
+    <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
+    <header class="c-panel__header  modstyle_bespoke--header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">
+        <div>
+            <<?php echo $hx; ?><?php echo $header_class; ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+            <p><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+        </div>
+    </header>
+    <?php elseif ($module->showtitle): ?>
+    <header class="c-panel__header<?php if ($module_wrapper == 'panel_longform') : ?>  longform-content__companion<?php endif; ?>">
+        <<?php echo $hx; ?><?php echo $header_class ?> id="<?php echo TplNPEU6Helper::html_id($module->title); ?>"><?php echo $module->title; ?></<?php echo $hx; ?>>
+    </header>
+    <?php endif; ?>
+    <?php echo $module->content;
+    ?>
+    <?php if ($has_cta && $cta_position == 'bottom'): ?>
+    <p<?php if ($module_wrapper == 'panel_longform') : ?> class="longform-content__companion"<?php endif; ?>><a href="<?php echo $params->get('cta_url'); ?>" class="c-cta  c-cta--has-icon"><?php echo $params->get('cta_text'); ?><svg focusable="false" aria-hidden="true" width="1.25em" height="1.25em" display="none"><use xlink:href="#icon-chevron-right"></use></svg></a></p>
+    <?php endif; ?>
 <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
         <?php /* </div> */ ?>
     </<?php echo $outer_el; ?>>

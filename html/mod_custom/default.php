@@ -17,9 +17,14 @@ if (strpos($module->content, 'mod_custom') !== false) {
     echo $module->content;
     return;
 }
+
+$module_wrapper_fill_height = (bool) ($params->get('wrapper_fill_hieght') ? $params->get('wrapper_fill_hieght') : false);
+// CTU Going Global needed 100% height forced. Too many occurances of u-fill-height to check them all,
+// and I'm certain I removed 100% height from the base class for good reasons, so adding a 2nd option for 100% height.
+$module_wrapper_force_height = (bool) ($params->get('wrapper_force_height') ? $params->get('wrapper_force_height') : false);
 ?>
 
-<div class="user-content  mod_custom" <?php if ($params->get('backgroundimage')) : ?> style="background-image:url(<?php echo $params->get('backgroundimage'); ?>)"<?php endif; ?> >
+<div class="user-content  mod_custom<?php echo ($module_wrapper_fill_height) ? '  u-fill-height' : '';?><?php echo ($module_wrapper_force_height) ? '  u-force-height' : ''; ?>" <?php if ($params->get('backgroundimage')) : ?> style="background-image:url(<?php echo $params->get('backgroundimage'); ?>)"<?php endif; ?> >
     <?php echo $module->content; ?>
 </div>
 
