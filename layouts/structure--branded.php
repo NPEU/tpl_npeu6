@@ -675,7 +675,7 @@ $menu_item_params = $menu_item->getParams();
                                             <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 
                                             <span role="listitem" class="l-box">
-                                                <a href="https://dev.npeu.ox.ac.uk/accessibility"><span>Accessibility</span></a>
+                                                <a href="/accessibility"><span>Accessibility</span></a>
                                             </span>
 
                                             <span class="l-box__separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
