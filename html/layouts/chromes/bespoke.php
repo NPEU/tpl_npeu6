@@ -125,11 +125,12 @@ $cta_position = $params->get('cta_position');
 
 if (!empty($module->content)): ?>
 <?php if ($module_wrapper == 'panel' || $module_wrapper == 'panel_longform'): ?>
-    <?php echo $module->title . ' module_wrapper_force_height<pre>'; var_dump($module_wrapper_force_height); echo '</pre>'; #exit;?>
+
 <div class="c-panel<?php echo $wrapper_theme_class; echo ($module_wrapper == 'panel_longform') ? '  u-padding--sides--l' : ''; ?>  t-<?php echo $theme_name; ?><?php echo ($module_wrapper_fill_height) ? '  u-fill-height' : '';?><?php echo ($module_wrapper_force_height) ? '  u-force-height' : ''; ?>  modstyle_bespoke--wrapper">
     <<?php echo $outer_el; ?> class="<?php echo ($module_wrapper == 'panel_longform') ? 'has-longform-content  user-content' : 'c-panel__module'; ?>">
         <?php /* <div<?php echo $wrapper_class; ?>> */ ?>
 <?php else: ?>
+
 <div class="c-panel__module  modstyle_bespoke--wrapper  u-fill-height<?php echo ($module_wrapper_force_height) ? '  u-force-height' : ''; ?>">
 <?php endif; ?>
     <?php if ($module->showtitle && $has_cta && $cta_position == 'header'): ?>
