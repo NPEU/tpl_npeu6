@@ -27,8 +27,8 @@ use NPEU\Template\Npeu6\Site\Helper\Npeu6Helper as TplNPEU6Helper;
             <?php if (count($fields)) : ?>
 
             <div id="fieldset<?php echo $i; ?>">
-                <?php if (isset($fieldset->label)):// If the fieldset has a label set, display it as the legend.?>
-                <p><?php echo Text::_($fieldset->label); ?></p>
+                <?php if (isset($fieldset->description)):// If the fieldset has a label set, display it as the legend.?>
+                <p><?php echo Text::_($fieldset->description); ?></p>
                 <?php endif; ?>
                 <div class="l-layout  l-row  l-row--start">
                     <div class="l-layout__inner">
